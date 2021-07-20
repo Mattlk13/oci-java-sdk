@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.internal.http;
 
@@ -16,15 +17,15 @@ public class ListSteeringPolicyAttachmentsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListSteeringPolicyAttachmentsRequest interceptRequest(
-            ListSteeringPolicyAttachmentsRequest request) {
+    public static com.oracle.bmc.dns.requests.ListSteeringPolicyAttachmentsRequest interceptRequest(
+            com.oracle.bmc.dns.requests.ListSteeringPolicyAttachmentsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ListSteeringPolicyAttachmentsRequest request) {
+            com.oracle.bmc.dns.requests.ListSteeringPolicyAttachmentsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
 
@@ -141,27 +142,46 @@ public class ListSteeringPolicyAttachmentsConverter {
                                     request.getSortOrder().getValue()));
         }
 
+        if (request.getScope() != null) {
+            target =
+                    target.queryParam(
+                            "scope",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getScope().getValue()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (request.getOpcRequestId() != null) {
+            ib.header("opc-request-id", request.getOpcRequestId());
+        }
+
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListSteeringPolicyAttachmentsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.dns.responses.ListSteeringPolicyAttachmentsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListSteeringPolicyAttachmentsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.dns.responses.ListSteeringPolicyAttachmentsResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ListSteeringPolicyAttachmentsResponse>() {
+                                com.oracle.bmc.dns.responses
+                                        .ListSteeringPolicyAttachmentsResponse>() {
                             @Override
-                            public ListSteeringPolicyAttachmentsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.dns.responses
+                                            .ListSteeringPolicyAttachmentsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListSteeringPolicyAttachmentsResponse");
+                                        "Transform function invoked for com.oracle.bmc.dns.responses.ListSteeringPolicyAttachmentsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -179,8 +199,14 @@ public class ListSteeringPolicyAttachmentsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListSteeringPolicyAttachmentsResponse.Builder builder =
-                                        ListSteeringPolicyAttachmentsResponse.builder();
+                                com.oracle.bmc.dns.responses.ListSteeringPolicyAttachmentsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.dns.responses
+                                                        .ListSteeringPolicyAttachmentsResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -220,8 +246,8 @@ public class ListSteeringPolicyAttachmentsConverter {
                                                     String.class));
                                 }
 
-                                ListSteeringPolicyAttachmentsResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.dns.responses.ListSteeringPolicyAttachmentsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

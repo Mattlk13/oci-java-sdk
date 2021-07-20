@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class TerminateInstanceConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static TerminateInstanceRequest interceptRequest(TerminateInstanceRequest request) {
+    public static com.oracle.bmc.core.requests.TerminateInstanceRequest interceptRequest(
+            com.oracle.bmc.core.requests.TerminateInstanceRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, TerminateInstanceRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.TerminateInstanceRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getInstanceId(), "instanceId must not be blank");
 
@@ -50,21 +53,28 @@ public class TerminateInstanceConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, TerminateInstanceResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.TerminateInstanceResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, TerminateInstanceResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.TerminateInstanceResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, TerminateInstanceResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.TerminateInstanceResponse>() {
                             @Override
-                            public TerminateInstanceResponse apply(
+                            public com.oracle.bmc.core.responses.TerminateInstanceResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for TerminateInstanceResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.TerminateInstanceResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -75,8 +85,12 @@ public class TerminateInstanceConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                TerminateInstanceResponse.Builder builder =
-                                        TerminateInstanceResponse.builder();
+                                com.oracle.bmc.core.responses.TerminateInstanceResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .TerminateInstanceResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -90,7 +104,8 @@ public class TerminateInstanceConverter {
                                                     String.class));
                                 }
 
-                                TerminateInstanceResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.TerminateInstanceResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

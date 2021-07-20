@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = AppCatalogListing.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AppCatalogListing {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -163,7 +165,7 @@ public class AppCatalogListing {
     String displayName;
 
     /**
-     * Date and time the listing was published, in RFC3339 format.
+     * Date and time the listing was published, in [RFC3339](https://tools.ietf.org/html/rfc3339) format.
      * Example: `2018-03-20T12:32:53.532Z`
      *
      **/

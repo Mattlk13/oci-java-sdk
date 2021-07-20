@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.resourcemanager.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = JobSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class JobSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -64,6 +66,15 @@ public class JobSummary {
         public Builder operation(Job.Operation operation) {
             this.operation = operation;
             this.__explicitlySet__.add("operation");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("jobOperationDetails")
+        private JobOperationDetailsSummary jobOperationDetails;
+
+        public Builder jobOperationDetails(JobOperationDetailsSummary jobOperationDetails) {
+            this.jobOperationDetails = jobOperationDetails;
+            this.__explicitlySet__.add("jobOperationDetails");
             return this;
         }
 
@@ -142,6 +153,7 @@ public class JobSummary {
                             compartmentId,
                             displayName,
                             operation,
+                            jobOperationDetails,
                             applyJobPlanResolution,
                             resolvedPlanJobId,
                             timeCreated,
@@ -161,6 +173,7 @@ public class JobSummary {
                             .compartmentId(o.getCompartmentId())
                             .displayName(o.getDisplayName())
                             .operation(o.getOperation())
+                            .jobOperationDetails(o.getJobOperationDetails())
                             .applyJobPlanResolution(o.getApplyJobPlanResolution())
                             .resolvedPlanJobId(o.getResolvedPlanJobId())
                             .timeCreated(o.getTimeCreated())
@@ -182,19 +195,19 @@ public class JobSummary {
     }
 
     /**
-     * The job's OCID.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
 
     /**
-     * OCID of the stack that is associated with the specified job.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack that is associated with the specified job.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("stackId")
     String stackId;
 
     /**
-     * OCID of the compartment where the stack of the associated job resides.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where the stack of the associated job resides.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -211,29 +224,44 @@ public class JobSummary {
     @com.fasterxml.jackson.annotation.JsonProperty("operation")
     Job.Operation operation;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("jobOperationDetails")
+    JobOperationDetailsSummary jobOperationDetails;
+
     @com.fasterxml.jackson.annotation.JsonProperty("applyJobPlanResolution")
     ApplyJobPlanResolution applyJobPlanResolution;
 
     /**
-     * The plan job OCID that was used (if this was an APPLY job and not auto approved).
+     * Deprecated. Use the property `executionPlanJobId` in `jobOperationDetails` instead.
+     * The plan job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that was used (if this was an apply job and was not auto-approved).
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("resolvedPlanJobId")
     String resolvedPlanJobId;
 
     /**
      * The date and time the job was created.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
 
     /**
      * The date and time the job succeeded or failed.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeFinished")
     java.util.Date timeFinished;
 
     /**
-     * Current state of the specified job. Allowed values are:
+     * Current state of the specified job.
+     * For more information about job lifecycle states in Resource Manager, see
+     * [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#JobStates).
+     * <p>
+     * Allowable values:
      * - ACCEPTED
      * - IN_PROGRESS
      * - FAILED

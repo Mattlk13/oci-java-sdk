@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,13 +17,15 @@ public class CreateGroupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CreateGroupRequest interceptRequest(CreateGroupRequest request) {
+    public static com.oracle.bmc.identity.requests.CreateGroupRequest interceptRequest(
+            com.oracle.bmc.identity.requests.CreateGroupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, CreateGroupRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.CreateGroupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCreateGroupDetails(), "createGroupDetails is required");
 
@@ -37,19 +40,28 @@ public class CreateGroupConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, CreateGroupResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.CreateGroupResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, CreateGroupResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.CreateGroupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, CreateGroupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses.CreateGroupResponse>() {
                             @Override
-                            public CreateGroupResponse apply(
+                            public com.oracle.bmc.identity.responses.CreateGroupResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for CreateGroupResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.CreateGroupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Group>>
@@ -61,7 +73,12 @@ public class CreateGroupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CreateGroupResponse.Builder builder = CreateGroupResponse.builder();
+                                com.oracle.bmc.identity.responses.CreateGroupResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .CreateGroupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.group(response.getItem());
 
@@ -86,7 +103,8 @@ public class CreateGroupConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                CreateGroupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.CreateGroupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

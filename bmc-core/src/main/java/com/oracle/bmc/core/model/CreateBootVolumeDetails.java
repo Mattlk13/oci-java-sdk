@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = CreateBootVolumeDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateBootVolumeDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -97,12 +99,40 @@ public class CreateBootVolumeDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+        private Long vpusPerGB;
+
+        public Builder vpusPerGB(Long vpusPerGB) {
+            this.vpusPerGB = vpusPerGB;
+            this.__explicitlySet__.add("vpusPerGB");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
         private BootVolumeSourceDetails sourceDetails;
 
         public Builder sourceDetails(BootVolumeSourceDetails sourceDetails) {
             this.sourceDetails = sourceDetails;
             this.__explicitlySet__.add("sourceDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+        private Boolean isAutoTuneEnabled;
+
+        public Builder isAutoTuneEnabled(Boolean isAutoTuneEnabled) {
+            this.isAutoTuneEnabled = isAutoTuneEnabled;
+            this.__explicitlySet__.add("isAutoTuneEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+        private java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas;
+
+        public Builder bootVolumeReplicas(
+                java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas) {
+            this.bootVolumeReplicas = bootVolumeReplicas;
+            this.__explicitlySet__.add("bootVolumeReplicas");
             return this;
         }
 
@@ -120,7 +150,10 @@ public class CreateBootVolumeDetails {
                             freeformTags,
                             kmsKeyId,
                             sizeInGBs,
-                            sourceDetails);
+                            vpusPerGB,
+                            sourceDetails,
+                            isAutoTuneEnabled,
+                            bootVolumeReplicas);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -136,7 +169,10 @@ public class CreateBootVolumeDetails {
                             .freeformTags(o.getFreeformTags())
                             .kmsKeyId(o.getKmsKeyId())
                             .sizeInGBs(o.getSizeInGBs())
-                            .sourceDetails(o.getSourceDetails());
+                            .vpusPerGB(o.getVpusPerGB())
+                            .sourceDetails(o.getSourceDetails())
+                            .isAutoTuneEnabled(o.getIsAutoTuneEnabled())
+                            .bootVolumeReplicas(o.getBootVolumeReplicas());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -151,7 +187,7 @@ public class CreateBootVolumeDetails {
     }
 
     /**
-     * The availability domain of the boot volume.
+     * The availability domain of the volume. Omissible for cloning a volume. The new volume will be created in the availability domain of the source volume.
      * <p>
      * Example: `Uocm:PHX-AD-1`
      *
@@ -175,7 +211,7 @@ public class CreateBootVolumeDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -193,7 +229,7 @@ public class CreateBootVolumeDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -202,7 +238,9 @@ public class CreateBootVolumeDetails {
     java.util.Map<String, String> freeformTags;
 
     /**
-     * The OCID of the KMS key to be used as the master encryption key for the boot volume.
+     * The OCID of the Key Management key to assign as the master encryption key
+     * for the boot volume.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
     String kmsKeyId;
@@ -214,12 +252,37 @@ public class CreateBootVolumeDetails {
     Long sizeInGBs;
 
     /**
-     * Specifies the boot volume source details for a new boot volume. The volume source is either another boot volume in the same availability domain or a boot volume backup.
-     * This is a mandatory field for a boot volume.
+     * The number of volume performance units (VPUs) that will be applied to this volume per GB,
+     * representing the Block Volume service's elastic performance options.
+     * See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+     * <p>
+     * Allowed values:
+     * <p>
+     * `10`: Represents Balanced option.
+     * <p>
+     * `20`: Represents Higher Performance option.
      *
      **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+    Long vpusPerGB;
+
     @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
     BootVolumeSourceDetails sourceDetails;
+
+    /**
+     * Specifies whether the auto-tune performance is enabled for this boot volume.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+    Boolean isAutoTuneEnabled;
+
+    /**
+     * The list of boot volume replicas to be enabled for this boot volume
+     * in the specified destination availability domains.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+    java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

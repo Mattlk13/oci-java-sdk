@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.loadbalancer.model;
     builder = UpdateListenerDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateListenerDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,6 +71,15 @@ public class UpdateListenerDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("routingPolicyName")
+        private String routingPolicyName;
+
+        public Builder routingPolicyName(String routingPolicyName) {
+            this.routingPolicyName = routingPolicyName;
+            this.__explicitlySet__.add("routingPolicyName");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sslConfiguration")
         private SSLConfigurationDetails sslConfiguration;
 
@@ -107,6 +118,7 @@ public class UpdateListenerDetails {
                             protocol,
                             hostnameNames,
                             pathRouteSetName,
+                            routingPolicyName,
                             sslConfiguration,
                             connectionConfiguration,
                             ruleSetNames);
@@ -122,6 +134,7 @@ public class UpdateListenerDetails {
                             .protocol(o.getProtocol())
                             .hostnameNames(o.getHostnameNames())
                             .pathRouteSetName(o.getPathRouteSetName())
+                            .routingPolicyName(o.getRoutingPolicyName())
                             .sslConfiguration(o.getSslConfiguration())
                             .connectionConfiguration(o.getConnectionConfiguration())
                             .ruleSetNames(o.getRuleSetNames());
@@ -174,6 +187,8 @@ public class UpdateListenerDetails {
     java.util.List<String> hostnameNames;
 
     /**
+     * Deprecated. Please use `routingPolicies` instead.
+     * <p>
      * The name of the set of path-based routing rules, {@link PathRouteSet},
      * applied to this listener's traffic.
      * <p>
@@ -182,6 +197,15 @@ public class UpdateListenerDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("pathRouteSetName")
     String pathRouteSetName;
+
+    /**
+     * The name of the routing policy applied to this listener's traffic.
+     * <p>
+     * Example: `example_routing_policy`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("routingPolicyName")
+    String routingPolicyName;
 
     @com.fasterxml.jackson.annotation.JsonProperty("sslConfiguration")
     SSLConfigurationDetails sslConfiguration;

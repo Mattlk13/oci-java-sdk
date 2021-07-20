@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,16 @@ public class ListFastConnectProviderServicesConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListFastConnectProviderServicesRequest interceptRequest(
-            ListFastConnectProviderServicesRequest request) {
+    public static com.oracle.bmc.core.requests.ListFastConnectProviderServicesRequest
+            interceptRequest(
+                    com.oracle.bmc.core.requests.ListFastConnectProviderServicesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ListFastConnectProviderServicesRequest request) {
+            com.oracle.bmc.core.requests.ListFastConnectProviderServicesRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
 
@@ -57,23 +59,30 @@ public class ListFastConnectProviderServicesConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListFastConnectProviderServicesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ListFastConnectProviderServicesResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListFastConnectProviderServicesResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ListFastConnectProviderServicesResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ListFastConnectProviderServicesResponse>() {
+                                com.oracle.bmc.core.responses
+                                        .ListFastConnectProviderServicesResponse>() {
                             @Override
-                            public ListFastConnectProviderServicesResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses
+                                            .ListFastConnectProviderServicesResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListFastConnectProviderServicesResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ListFastConnectProviderServicesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -90,8 +99,14 @@ public class ListFastConnectProviderServicesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListFastConnectProviderServicesResponse.Builder builder =
-                                        ListFastConnectProviderServicesResponse.builder();
+                                com.oracle.bmc.core.responses
+                                                .ListFastConnectProviderServicesResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ListFastConnectProviderServicesResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -119,8 +134,9 @@ public class ListFastConnectProviderServicesConverter {
                                                     String.class));
                                 }
 
-                                ListFastConnectProviderServicesResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.core.responses
+                                                .ListFastConnectProviderServicesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

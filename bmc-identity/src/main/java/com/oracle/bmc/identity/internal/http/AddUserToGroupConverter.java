@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,13 +17,15 @@ public class AddUserToGroupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static AddUserToGroupRequest interceptRequest(AddUserToGroupRequest request) {
+    public static com.oracle.bmc.identity.requests.AddUserToGroupRequest interceptRequest(
+            com.oracle.bmc.identity.requests.AddUserToGroupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, AddUserToGroupRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.AddUserToGroupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getAddUserToGroupDetails(), "addUserToGroupDetails is required");
 
@@ -37,19 +40,28 @@ public class AddUserToGroupConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, AddUserToGroupResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.AddUserToGroupResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, AddUserToGroupResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.AddUserToGroupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, AddUserToGroupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses.AddUserToGroupResponse>() {
                             @Override
-                            public AddUserToGroupResponse apply(
+                            public com.oracle.bmc.identity.responses.AddUserToGroupResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for AddUserToGroupResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.AddUserToGroupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -63,8 +75,12 @@ public class AddUserToGroupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                AddUserToGroupResponse.Builder builder =
-                                        AddUserToGroupResponse.builder();
+                                com.oracle.bmc.identity.responses.AddUserToGroupResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .AddUserToGroupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.userGroupMembership(response.getItem());
 
@@ -89,7 +105,8 @@ public class AddUserToGroupConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                AddUserToGroupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.AddUserToGroupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

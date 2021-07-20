@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,15 @@ public class GetNetworkSecurityGroupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetNetworkSecurityGroupRequest interceptRequest(
-            GetNetworkSecurityGroupRequest request) {
+    public static com.oracle.bmc.core.requests.GetNetworkSecurityGroupRequest interceptRequest(
+            com.oracle.bmc.core.requests.GetNetworkSecurityGroupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            GetNetworkSecurityGroupRequest request) {
+            com.oracle.bmc.core.requests.GetNetworkSecurityGroupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getNetworkSecurityGroupId(), "networkSecurityGroupId must not be blank");
@@ -41,22 +42,28 @@ public class GetNetworkSecurityGroupConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetNetworkSecurityGroupResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, GetNetworkSecurityGroupResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetNetworkSecurityGroupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse>() {
                             @Override
-                            public GetNetworkSecurityGroupResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetNetworkSecurityGroupResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -70,8 +77,13 @@ public class GetNetworkSecurityGroupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetNetworkSecurityGroupResponse.Builder builder =
-                                        GetNetworkSecurityGroupResponse.builder();
+                                com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .GetNetworkSecurityGroupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.networkSecurityGroup(response.getItem());
 
@@ -96,7 +108,8 @@ public class GetNetworkSecurityGroupConverter {
                                                     String.class));
                                 }
 
-                                GetNetworkSecurityGroupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetNetworkSecurityGroupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

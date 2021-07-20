@@ -1,11 +1,15 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity;
 
 import com.oracle.bmc.identity.requests.*;
 import com.oracle.bmc.identity.responses.*;
 
+/**
+ * APIs for managing users, groups, compartments, and policies.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
 public interface Identity extends AutoCloseable {
 
@@ -14,6 +18,11 @@ public interface Identity extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -42,6 +51,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ActivateMfaTotpDeviceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ActivateMfaTotpDevice API.
      */
     ActivateMfaTotpDeviceResponse activateMfaTotpDevice(ActivateMfaTotpDeviceRequest request);
 
@@ -54,8 +65,139 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/AddUserToGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use AddUserToGroup API.
      */
     AddUserToGroupResponse addUserToGroup(AddUserToGroupRequest request);
+
+    /**
+     * Assembles tag defaults in the specified compartment and any parent compartments to determine
+     * the tags to apply. Tag defaults from parent compartments do not override tag defaults
+     * referencing the same tag in a compartment lower down the hierarchy. This set of tag defaults
+     * includes all tag defaults from the current compartment back to the root compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/AssembleEffectiveTagSetExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use AssembleEffectiveTagSet API.
+     */
+    AssembleEffectiveTagSetResponse assembleEffectiveTagSet(AssembleEffectiveTagSetRequest request);
+
+    /**
+     * Deletes multiple resources in the compartment. All resources must be in the same compartment. You must have the appropriate
+     * permissions to delete the resources in the request. This API can only be invoked from the tenancy's
+     * [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home). This operation creates a
+     * {@link WorkRequest}. Use the {@link #getWorkRequest(GetWorkRequestRequest) getWorkRequest}
+     * API to monitor the status of the bulk action.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/BulkDeleteResourcesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkDeleteResources API.
+     */
+    BulkDeleteResourcesResponse bulkDeleteResources(BulkDeleteResourcesRequest request);
+
+    /**
+     * Deletes the specified tag key definitions. This operation triggers a process that removes the
+     * tags from all resources in your tenancy. The tag key definitions must be within the same tag namespace.
+     * <p>
+     * The following actions happen immediately:
+     * \u00A0
+     *   * If the tag is a cost-tracking tag, the tag no longer counts against your
+     *   10 cost-tracking tags limit, even if you do not disable the tag before running this operation.
+     *   * If the tag is used with dynamic groups, the rules that contain the tag are no longer
+     *   evaluated against the tag.
+     * <p>
+     * After you start this operation, the state of the tag changes to DELETING, and tag removal
+     * from resources begins. This process can take up to 48 hours depending on the number of resources that
+     * are tagged and the regions in which those resources reside.
+     * <p>
+     * When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. After the tag state
+     * changes to DELETED, you can use the same tag name again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #deleteTag(DeleteTagRequest) deleteTag} or the {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest) cascadeDeleteTagNamespace} operation until this process completes.
+     * <p>
+     * In order to delete tags, you must first retire the tags. Use {@link #updateTag(UpdateTagRequest) updateTag}
+     * to retire a tag.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/BulkDeleteTagsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkDeleteTags API.
+     */
+    BulkDeleteTagsResponse bulkDeleteTags(BulkDeleteTagsRequest request);
+
+    /**
+     * Edits the specified list of tag key definitions for the selected resources.
+     * This operation triggers a process that edits the tags on all selected resources. The possible actions are:
+     * <p>
+     * Add a defined tag when the tag does not already exist on the resource.
+     *   * Update the value for a defined tag when the tag is present on the resource.
+     *   * Add a defined tag when it does not already exist on the resource or update the value for a defined tag when the tag is present on the resource.
+     *   * Remove a defined tag from a resource. The tag is removed from the resource regardless of the tag value.
+     * <p>
+     * See {@link #bulkEditOperationDetails(BulkEditOperationDetailsRequest) bulkEditOperationDetails} for more information.
+     * <p>
+     * The edits can include a combination of operations and tag sets.
+     * However, multiple operations cannot apply to one key definition in the same request.
+     * For example, if one request adds `tag set-1` to a resource and sets a tag value to `tag set-2`,
+     * `tag set-1` and `tag set-2` cannot have any common tag definitions.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/BulkEditTagsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkEditTags API.
+     */
+    BulkEditTagsResponse bulkEditTags(BulkEditTagsRequest request);
+
+    /**
+     * Moves multiple resources from one compartment to another. All resources must be in the same compartment.
+     * This API can only be invoked from the tenancy's [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home).
+     * To move resources, you must have the appropriate permissions to move the resource in both the source and target
+     * compartments. This operation creates a {@link WorkRequest}.
+     * Use the {@link #getWorkRequest(GetWorkRequestRequest) getWorkRequest} API to monitor the status of the bulk action.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/BulkMoveResourcesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkMoveResources API.
+     */
+    BulkMoveResourcesResponse bulkMoveResources(BulkMoveResourcesRequest request);
+
+    /**
+     * Deletes the specified tag namespace. This operation triggers a process that removes all of the tags
+     * defined in the specified tag namespace from all resources in your tenancy and then deletes the tag namespace.
+     * <p>
+     * After you start the delete operation:
+     * <p>
+     * New tag key definitions cannot be created under the namespace.
+     *   * The state of the tag namespace changes to DELETING.
+     *   * Tag removal from the resources begins.
+     * <p>
+     * This process can take up to 48 hours depending on the number of tag definitions in the namespace, the number of resources
+     * that are tagged, and the locations of the regions in which those resources reside.
+     * <p>
+     * After all tags are removed, the state changes to DELETED. You cannot restore a deleted tag namespace. After the deleted tag namespace
+     * changes its state to DELETED, you can use the name of the deleted tag namespace again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #deleteTag(DeleteTagRequest) deleteTag} or the {@link #bulkDeleteTags(BulkDeleteTagsRequest) bulkDeleteTags} operation until this process completes.
+     * <p>
+     * To delete a tag namespace, you must first retire it. Use {@link #updateTagNamespace(UpdateTagNamespaceRequest) updateTagNamespace}
+     * to retire a tag namespace.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CascadeDeleteTagNamespaceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CascadeDeleteTagNamespace API.
+     */
+    CascadeDeleteTagNamespaceResponse cascadeDeleteTagNamespace(
+            CascadeDeleteTagNamespaceRequest request);
 
     /**
      * Moves the specified tag namespace to the specified compartment within the same tenancy.
@@ -68,6 +210,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ChangeTagNamespaceCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeTagNamespaceCompartment API.
      */
     ChangeTagNamespaceCompartmentResponse changeTagNamespaceCompartment(
             ChangeTagNamespaceCompartmentRequest request);
@@ -87,6 +231,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateAuthTokenExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateAuthToken API.
      */
     CreateAuthTokenResponse createAuthToken(CreateAuthTokenRequest request);
 
@@ -114,12 +260,14 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateCompartment API.
      */
     CreateCompartmentResponse createCompartment(CreateCompartmentRequest request);
 
     /**
      * Creates a new secret key for the specified user. Secret keys are used for authentication with the Object Storage Service's Amazon S3
-     * compatible API. For information, see
+     * compatible API. The secret key consists of an Access Key/Secret Key pair. For information, see
      * [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
      * <p>
      * You must specify a *description* for the secret key (although it can be an empty string). It does not
@@ -133,6 +281,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateCustomerSecretKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateCustomerSecretKey API.
      */
     CreateCustomerSecretKeyResponse createCustomerSecretKey(CreateCustomerSecretKeyRequest request);
 
@@ -159,6 +309,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateDynamicGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateDynamicGroup API.
      */
     CreateDynamicGroupResponse createDynamicGroup(CreateDynamicGroupRequest request);
 
@@ -188,6 +340,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateGroup API.
      */
     CreateGroupResponse createGroup(CreateGroupRequest request);
 
@@ -214,6 +368,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateIdentityProviderExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateIdentityProvider API.
      */
     CreateIdentityProviderResponse createIdentityProvider(CreateIdentityProviderRequest request);
 
@@ -224,6 +380,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateIdpGroupMappingExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateIdpGroupMapping API.
      */
     CreateIdpGroupMappingResponse createIdpGroupMapping(CreateIdpGroupMappingRequest request);
 
@@ -233,8 +391,53 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateMfaTotpDeviceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateMfaTotpDevice API.
      */
     CreateMfaTotpDeviceResponse createMfaTotpDevice(CreateMfaTotpDeviceRequest request);
+
+    /**
+     * Creates a new network source in your tenancy.
+     * <p>
+     * You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy
+     * is simply the root compartment). Notice that IAM resources (users, groups, compartments, and some policies)
+     * reside within the tenancy itself, unlike cloud resources such as compute instances, which typically
+     * reside within compartments inside the tenancy. For information about OCIDs, see
+     * [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+     * <p>
+     * You must also specify a *name* for the network source, which must be unique across all network sources in your
+     * tenancy, and cannot be changed.
+     * You can use this name or the OCID when writing policies that apply to the network source. For more information
+     * about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+     * <p>
+     * You must also specify a *description* for the network source (although it can be an empty string). It does not
+     * have to be unique, and you can change it anytime with {@link #updateNetworkSource(UpdateNetworkSourceRequest) updateNetworkSource}.
+     * <p>
+     * After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
+     * object, first make sure its `lifecycleState` has changed to ACTIVE.
+     * <p>
+     * After your network resource is created, you can use it in policy to restrict access to only requests made from an allowed
+     * IP address specified in your network source. For more information, see [Managing Network Sources](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingnetworksources.htm).
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateNetworkSourceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateNetworkSource API.
+     */
+    CreateNetworkSourceResponse createNetworkSource(CreateNetworkSourceRequest request);
+
+    /**
+     * Creates Oauth token for the user
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateOAuthClientCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateOAuthClientCredential API.
+     */
+    CreateOAuthClientCredentialResponse createOAuthClientCredential(
+            CreateOAuthClientCredentialRequest request);
 
     /**
      * Creates a new Console one-time password for the specified user. For more information about user
@@ -252,6 +455,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateOrResetUIPasswordExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateOrResetUIPassword API.
      */
     CreateOrResetUIPasswordResponse createOrResetUIPassword(CreateOrResetUIPasswordRequest request);
 
@@ -277,6 +482,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreatePolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreatePolicy API.
      */
     CreatePolicyResponse createPolicy(CreatePolicyRequest request);
 
@@ -286,6 +493,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateRegionSubscriptionExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateRegionSubscription API.
      */
     CreateRegionSubscriptionResponse createRegionSubscription(
             CreateRegionSubscriptionRequest request);
@@ -299,6 +508,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateSmtpCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateSmtpCredential API.
      */
     CreateSmtpCredentialResponse createSmtpCredential(CreateSmtpCredentialRequest request);
 
@@ -319,35 +530,58 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateSwiftPasswordExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateSwiftPassword API.
      */
     CreateSwiftPasswordResponse createSwiftPassword(CreateSwiftPasswordRequest request);
 
     /**
      * Creates a new tag in the specified tag namespace.
      * <p>
-     * You must specify either the OCID or the name of the tag namespace that will contain this tag definition.
+     * The tag requires either the OCID or the name of the tag namespace that will contain this
+     * tag definition.
      * <p>
-     * You must also specify a *name* for the tag, which must be unique across all tags in the tag namespace
+     * You must specify a *name* for the tag, which must be unique across all tags in the tag namespace
      * and cannot be changed. The name can contain any ASCII character except the space (_) or period (.) characters.
      * Names are case insensitive. That means, for example, \"myTag\" and \"mytag\" are not allowed in the same namespace.
      * If you specify a name that's already in use in the tag namespace, a 409 error is returned.
      * <p>
-     * You must also specify a *description* for the tag.
-     * It does not have to be unique, and you can change it with
+     * The tag must have a *description*. It does not have to be unique, and you can change it with
      * {@link #updateTag(UpdateTagRequest) updateTag}.
+     * <p>
+     * The tag must have a value type, which is specified with a validator. Tags can use either a
+     * static value or a list of possible values. Static values are entered by a user applying the tag
+     * to a resource. Lists are created by you and the user must apply a value from the list. Lists
+     * are validiated.
+     * <p>
+     * If no `validator` is set, the user applying the tag to a resource can type in a static
+     * value or leave the tag value empty.
+     * * If a `validator` is set, the user applying the tag to a resource must select from a list
+     * of values that you supply with {@link #enumTagDefinitionValidator(EnumTagDefinitionValidatorRequest) enumTagDefinitionValidator}.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateTagExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateTag API.
      */
     CreateTagResponse createTag(CreateTagRequest request);
 
     /**
      * Creates a new tag default in the specified compartment for the specified tag definition.
+     * <p>
+     * If you specify that a value is required, a value is set during resource creation (either by
+     * the user creating the resource or another tag defualt). If no value is set, resource creation
+     * is blocked.
+     * <p>
+     * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+     * * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateTagDefaultExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateTagDefault API.
      */
     CreateTagDefaultResponse createTagDefault(CreateTagDefaultRequest request);
 
@@ -366,13 +600,12 @@ public interface Identity extends AutoCloseable {
      * You must also specify a *description* for the namespace.
      * It does not have to be unique, and you can change it with
      * {@link #updateTagNamespace(UpdateTagNamespaceRequest) updateTagNamespace}.
-     * <p>
-     * Tag namespaces cannot be deleted, but they can be retired.
-     * See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring) for more information.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateTagNamespaceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateTagNamespace API.
      */
     CreateTagNamespaceResponse createTagNamespace(CreateTagNamespaceRequest request);
 
@@ -416,6 +649,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/CreateUserExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateUser API.
      */
     CreateUserResponse createUser(CreateUserRequest request);
 
@@ -430,6 +665,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteApiKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteApiKey API.
      */
     DeleteApiKeyResponse deleteApiKey(DeleteApiKeyRequest request);
 
@@ -439,6 +676,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteAuthTokenExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteAuthToken API.
      */
     DeleteAuthTokenResponse deleteAuthToken(DeleteAuthTokenRequest request);
 
@@ -448,6 +687,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteCompartment API.
      */
     DeleteCompartmentResponse deleteCompartment(DeleteCompartmentRequest request);
 
@@ -457,6 +698,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteCustomerSecretKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteCustomerSecretKey API.
      */
     DeleteCustomerSecretKeyResponse deleteCustomerSecretKey(DeleteCustomerSecretKeyRequest request);
 
@@ -466,6 +709,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteDynamicGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteDynamicGroup API.
      */
     DeleteDynamicGroupResponse deleteDynamicGroup(DeleteDynamicGroupRequest request);
 
@@ -475,6 +720,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteGroup API.
      */
     DeleteGroupResponse deleteGroup(DeleteGroupRequest request);
 
@@ -485,6 +732,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteIdentityProviderExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteIdentityProvider API.
      */
     DeleteIdentityProviderResponse deleteIdentityProvider(DeleteIdentityProviderRequest request);
 
@@ -493,6 +742,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteIdpGroupMappingExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteIdpGroupMapping API.
      */
     DeleteIdpGroupMappingResponse deleteIdpGroupMapping(DeleteIdpGroupMappingRequest request);
 
@@ -502,14 +753,41 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteMfaTotpDeviceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteMfaTotpDevice API.
      */
     DeleteMfaTotpDeviceResponse deleteMfaTotpDevice(DeleteMfaTotpDeviceRequest request);
+
+    /**
+     * Deletes the specified network source
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteNetworkSourceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteNetworkSource API.
+     */
+    DeleteNetworkSourceResponse deleteNetworkSource(DeleteNetworkSourceRequest request);
+
+    /**
+     * Delete Oauth token for the user
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteOAuthClientCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteOAuthClientCredential API.
+     */
+    DeleteOAuthClientCredentialResponse deleteOAuthClientCredential(
+            DeleteOAuthClientCredentialRequest request);
 
     /**
      * Deletes the specified policy. The deletion takes effect typically within 10 seconds.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeletePolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeletePolicy API.
      */
     DeletePolicyResponse deletePolicy(DeletePolicyRequest request);
 
@@ -519,6 +797,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteSmtpCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteSmtpCredential API.
      */
     DeleteSmtpCredentialResponse deleteSmtpCredential(DeleteSmtpCredentialRequest request);
 
@@ -530,15 +810,39 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteSwiftPasswordExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteSwiftPassword API.
      */
     DeleteSwiftPasswordResponse deleteSwiftPassword(DeleteSwiftPasswordRequest request);
 
     /**
-     * Deletes the the specified tag definition.
+     * Deletes the specified tag definition. This operation triggers a process that removes the
+     * tag from all resources in your tenancy.
+     * <p>
+     * These things happen immediately:
+     * \u00A0
+     *   * If the tag was a cost-tracking tag, it no longer counts against your 10 cost-tracking
+     *   tags limit, whether you first disabled it or not.
+     *   * If the tag was used with dynamic groups, none of the rules that contain the tag will
+     *   be evaluated against the tag.
+     * <p>
+     * When you start the delete operation, the state of the tag changes to DELETING and tag removal
+     * from resources begins. This can take up to 48 hours depending on the number of resources that
+     * were tagged as well as the regions in which those resources reside.
+     * <p>
+     * When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. Once the deleted tag
+     * changes its state to DELETED, you can use the same tag name again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #bulkDeleteTags(BulkDeleteTagsRequest) bulkDeleteTags} or the {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest) cascadeDeleteTagNamespace} operation until this process completes.
+     * <p>
+     * To delete a tag, you must first retire it. Use {@link #updateTag(UpdateTagRequest) updateTag}
+     * to retire a tag.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteTagExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteTag API.
      */
     DeleteTagResponse deleteTag(DeleteTagRequest request);
 
@@ -548,16 +852,25 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteTagDefaultExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteTagDefault API.
      */
     DeleteTagDefaultResponse deleteTagDefault(DeleteTagDefaultRequest request);
 
     /**
-     * Delete the specified tag namespace. Only an empty tagnamespace can be deleted.
-     * If the tag namespace you are trying to delete is not empty, please remove tag definitions from it first.
+     * Deletes the specified tag namespace. Only an empty tag namespace can be deleted with this operation. To use this operation
+     * to delete a tag namespace that contains tag definitions, first delete all of its tag definitions.
+     * <p>
+     * Use {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest) cascadeDeleteTagNamespace} to delete a tag namespace along with all of
+     * the tag definitions contained within that namespace.
+     * <p>
+     * Use {@link #deleteTag(DeleteTagRequest) deleteTag} to delete a tag definition.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteTagNamespaceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteTagNamespace API.
      */
     DeleteTagNamespaceResponse deleteTagNamespace(DeleteTagNamespaceRequest request);
 
@@ -566,6 +879,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/DeleteUserExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteUser API.
      */
     DeleteUserResponse deleteUser(DeleteUserRequest request);
 
@@ -575,6 +890,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GenerateTotpSeedExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GenerateTotpSeed API.
      */
     GenerateTotpSeedResponse generateTotpSeed(GenerateTotpSeedRequest request);
 
@@ -585,6 +902,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetAuthenticationPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetAuthenticationPolicy API.
      */
     GetAuthenticationPolicyResponse getAuthenticationPolicy(GetAuthenticationPolicyRequest request);
 
@@ -601,6 +920,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetCompartment API.
      */
     GetCompartmentResponse getCompartment(GetCompartmentRequest request);
 
@@ -610,6 +931,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetDynamicGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetDynamicGroup API.
      */
     GetDynamicGroupResponse getDynamicGroup(GetDynamicGroupRequest request);
 
@@ -623,6 +946,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetGroup API.
      */
     GetGroupResponse getGroup(GetGroupRequest request);
 
@@ -631,6 +956,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetIdentityProviderExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetIdentityProvider API.
      */
     GetIdentityProviderResponse getIdentityProvider(GetIdentityProviderRequest request);
 
@@ -639,6 +966,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetIdpGroupMappingExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetIdpGroupMapping API.
      */
     GetIdpGroupMappingResponse getIdpGroupMapping(GetIdpGroupMappingRequest request);
 
@@ -648,14 +977,29 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetMfaTotpDeviceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetMfaTotpDevice API.
      */
     GetMfaTotpDeviceResponse getMfaTotpDevice(GetMfaTotpDeviceRequest request);
+
+    /**
+     * Gets the specified network source's information.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetNetworkSourceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetNetworkSource API.
+     */
+    GetNetworkSourceResponse getNetworkSource(GetNetworkSourceRequest request);
 
     /**
      * Gets the specified policy's information.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetPolicy API.
      */
     GetPolicyResponse getPolicy(GetPolicyRequest request);
 
@@ -664,6 +1008,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetTagExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTag API.
      */
     GetTagResponse getTag(GetTagRequest request);
 
@@ -673,6 +1019,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetTagDefaultExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTagDefault API.
      */
     GetTagDefaultResponse getTagDefault(GetTagDefaultRequest request);
 
@@ -682,14 +1030,30 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetTagNamespaceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTagNamespace API.
      */
     GetTagNamespaceResponse getTagNamespace(GetTagNamespaceRequest request);
+
+    /**
+     * Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
+     * for any asynchronous operation in the Identity and Access Management service.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetTaggingWorkRequestExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTaggingWorkRequest API.
+     */
+    GetTaggingWorkRequestResponse getTaggingWorkRequest(GetTaggingWorkRequestRequest request);
 
     /**
      * Get the specified tenancy's information.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetTenancyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTenancy API.
      */
     GetTenancyResponse getTenancy(GetTenancyRequest request);
 
@@ -698,6 +1062,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetUserExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetUser API.
      */
     GetUserResponse getUser(GetUserRequest request);
 
@@ -706,6 +1072,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetUserGroupMembershipExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetUserGroupMembership API.
      */
     GetUserGroupMembershipResponse getUserGroupMembership(GetUserGroupMembershipRequest request);
 
@@ -716,6 +1084,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetUserUIPasswordInformationExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetUserUIPasswordInformation API.
      */
     GetUserUIPasswordInformationResponse getUserUIPasswordInformation(
             GetUserUIPasswordInformationRequest request);
@@ -727,6 +1097,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/GetWorkRequestExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetWorkRequest API.
      */
     GetWorkRequestResponse getWorkRequest(GetWorkRequestRequest request);
 
@@ -739,6 +1111,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListApiKeysExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListApiKeys API.
      */
     ListApiKeysResponse listApiKeys(ListApiKeysRequest request);
 
@@ -749,6 +1123,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListAuthTokensExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAuthTokens API.
      */
     ListAuthTokensResponse listAuthTokens(ListAuthTokensRequest request);
 
@@ -762,8 +1138,40 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListAvailabilityDomainsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAvailabilityDomains API.
      */
     ListAvailabilityDomainsResponse listAvailabilityDomains(ListAvailabilityDomainsRequest request);
+
+    /**
+     * Lists the resource-types supported by compartment bulk actions. Use this API to help you provide the correct
+     * resource-type information to the {@link #bulkDeleteResources(BulkDeleteResourcesRequest) bulkDeleteResources}
+     * and {@link #bulkMoveResources(BulkMoveResourcesRequest) bulkMoveResources} operations. The returned list of
+     * resource-types provides the appropriate resource-type names to use with the bulk action operations along with
+     * the type of identifying information you'll need to provide for each resource-type. Most resource-types just
+     * require an [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) to identify a specific resource, but some resource-types,
+     * such as buckets, require you to provide other identifying information.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListBulkActionResourceTypesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListBulkActionResourceTypes API.
+     */
+    ListBulkActionResourceTypesResponse listBulkActionResourceTypes(
+            ListBulkActionResourceTypesRequest request);
+
+    /**
+     * Lists the resource types that support bulk tag editing.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListBulkEditTagsResourceTypesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListBulkEditTagsResourceTypes API.
+     */
+    ListBulkEditTagsResourceTypesResponse listBulkEditTagsResourceTypes(
+            ListBulkEditTagsResourceTypesRequest request);
 
     /**
      * Lists the compartments in a specified compartment. The members of the list
@@ -788,6 +1196,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListCompartmentsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListCompartments API.
      */
     ListCompartmentsResponse listCompartments(ListCompartmentsRequest request);
 
@@ -798,6 +1208,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListCostTrackingTagsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListCostTrackingTags API.
      */
     ListCostTrackingTagsResponse listCostTrackingTags(ListCostTrackingTagsRequest request);
 
@@ -808,6 +1220,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListCustomerSecretKeysExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListCustomerSecretKeys API.
      */
     ListCustomerSecretKeysResponse listCustomerSecretKeys(ListCustomerSecretKeysRequest request);
 
@@ -819,6 +1233,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListDynamicGroupsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListDynamicGroups API.
      */
     ListDynamicGroupsResponse listDynamicGroups(ListDynamicGroupsRequest request);
 
@@ -830,6 +1246,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListFaultDomainsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListFaultDomains API.
      */
     ListFaultDomainsResponse listFaultDomains(ListFaultDomainsRequest request);
 
@@ -841,6 +1259,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListGroupsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListGroups API.
      */
     ListGroupsResponse listGroups(ListGroupsRequest request);
 
@@ -849,6 +1269,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListIdentityProviderGroupsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListIdentityProviderGroups API.
      */
     ListIdentityProviderGroupsResponse listIdentityProviderGroups(
             ListIdentityProviderGroupsRequest request);
@@ -862,6 +1284,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListIdentityProvidersExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListIdentityProviders API.
      */
     ListIdentityProvidersResponse listIdentityProviders(ListIdentityProvidersRequest request);
 
@@ -871,6 +1295,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListIdpGroupMappingsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListIdpGroupMappings API.
      */
     ListIdpGroupMappingsResponse listIdpGroupMappings(ListIdpGroupMappingsRequest request);
 
@@ -881,8 +1307,35 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListMfaTotpDevicesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListMfaTotpDevices API.
      */
     ListMfaTotpDevicesResponse listMfaTotpDevices(ListMfaTotpDevicesRequest request);
+
+    /**
+     * Lists the network sources in your tenancy. You must specify your tenancy's OCID as the value for
+     * the compartment ID (remember that the tenancy is simply the root compartment).
+     * See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListNetworkSourcesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListNetworkSources API.
+     */
+    ListNetworkSourcesResponse listNetworkSources(ListNetworkSourcesRequest request);
+
+    /**
+     * List of Oauth tokens for the user
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListOAuthClientCredentialsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListOAuthClientCredentials API.
+     */
+    ListOAuthClientCredentialsResponse listOAuthClientCredentials(
+            ListOAuthClientCredentialsRequest request);
 
     /**
      * Lists the policies in the specified compartment (either the tenancy or another of your compartments).
@@ -894,6 +1347,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListPoliciesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListPolicies API.
      */
     ListPoliciesResponse listPolicies(ListPoliciesRequest request);
 
@@ -902,6 +1357,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListRegionSubscriptionsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListRegionSubscriptions API.
      */
     ListRegionSubscriptionsResponse listRegionSubscriptions(ListRegionSubscriptionsRequest request);
 
@@ -910,6 +1367,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListRegionsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListRegions API.
      */
     ListRegionsResponse listRegions(ListRegionsRequest request);
 
@@ -920,6 +1379,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListSmtpCredentialsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListSmtpCredentials API.
      */
     ListSmtpCredentialsResponse listSmtpCredentials(ListSmtpCredentialsRequest request);
 
@@ -932,6 +1393,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListSwiftPasswordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListSwiftPasswords API.
      */
     ListSwiftPasswordsResponse listSwiftPasswords(ListSwiftPasswordsRequest request);
 
@@ -941,6 +1404,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTagDefaultsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTagDefaults API.
      */
     ListTagDefaultsResponse listTagDefaults(ListTagDefaultsRequest request);
 
@@ -950,8 +1415,45 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTagNamespacesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTagNamespaces API.
      */
     ListTagNamespacesResponse listTagNamespaces(ListTagNamespacesRequest request);
+
+    /**
+     * Gets the errors for a work request.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTaggingWorkRequestErrorsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTaggingWorkRequestErrors API.
+     */
+    ListTaggingWorkRequestErrorsResponse listTaggingWorkRequestErrors(
+            ListTaggingWorkRequestErrorsRequest request);
+
+    /**
+     * Gets the logs for a work request.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTaggingWorkRequestLogsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTaggingWorkRequestLogs API.
+     */
+    ListTaggingWorkRequestLogsResponse listTaggingWorkRequestLogs(
+            ListTaggingWorkRequestLogsRequest request);
+
+    /**
+     * Lists the tagging work requests in compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTaggingWorkRequestsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTaggingWorkRequests API.
+     */
+    ListTaggingWorkRequestsResponse listTaggingWorkRequests(ListTaggingWorkRequestsRequest request);
 
     /**
      * Lists the tag definitions in the specified tag namespace.
@@ -959,6 +1461,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListTagsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTags API.
      */
     ListTagsResponse listTags(ListTagsRequest request);
 
@@ -972,11 +1476,13 @@ public interface Identity extends AutoCloseable {
      * - Similarly, you can limit the results to just the memberships for a given group by specifying a `groupId`.
      * - You can set both the `userId` and `groupId` to determine if the specified user is in the specified group.
      * If the answer is no, the response is an empty list.
-     * - Although`userId` and `groupId` are not indvidually required, you must set one of them.
+     * - Although`userId` and `groupId` are not individually required, you must set one of them.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListUserGroupMembershipsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListUserGroupMemberships API.
      */
     ListUserGroupMembershipsResponse listUserGroupMemberships(
             ListUserGroupMembershipsRequest request);
@@ -989,6 +1495,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListUsersExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListUsers API.
      */
     ListUsersResponse listUsers(ListUsersRequest request);
 
@@ -998,23 +1506,47 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ListWorkRequestsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListWorkRequests API.
      */
     ListWorkRequestsResponse listWorkRequests(ListWorkRequestsRequest request);
 
     /**
-     * Move the compartment tree to a different parent compartment.
+     * Move the compartment to a different parent compartment in the same tenancy. When you move a
+     * compartment, all its contents (subcompartments and resources) are moved with it. Note that
+     * the `CompartmentId` that you specify in the path is the compartment that you want to move.
+     * <p>
+     **IMPORTANT**: After you move a compartment to a new parent compartment, the access policies of
+     * the new parent take effect and the policies of the previous parent no longer apply. Ensure that you
+     * are aware of the implications for the compartment contents before you move it. For more
+     * information, see [Moving a Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#MoveCompartment).
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/MoveCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use MoveCompartment API.
      */
     MoveCompartmentResponse moveCompartment(MoveCompartmentRequest request);
+
+    /**
+     * Recover the compartment from DELETED state to ACTIVE state.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/RecoverCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use RecoverCompartment API.
+     */
+    RecoverCompartmentResponse recoverCompartment(RecoverCompartmentRequest request);
 
     /**
      * Removes a user from a group by deleting the corresponding `UserGroupMembership`.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/RemoveUserFromGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use RemoveUserFromGroup API.
      */
     RemoveUserFromGroupResponse removeUserFromGroup(RemoveUserFromGroupRequest request);
 
@@ -1024,6 +1556,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/ResetIdpScimClientExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ResetIdpScimClient API.
      */
     ResetIdpScimClientResponse resetIdpScimClient(ResetIdpScimClientRequest request);
 
@@ -1033,6 +1567,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateAuthTokenExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateAuthToken API.
      */
     UpdateAuthTokenResponse updateAuthToken(UpdateAuthTokenRequest request);
 
@@ -1042,6 +1578,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateAuthenticationPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateAuthenticationPolicy API.
      */
     UpdateAuthenticationPolicyResponse updateAuthenticationPolicy(
             UpdateAuthenticationPolicyRequest request);
@@ -1051,6 +1589,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateCompartment API.
      */
     UpdateCompartmentResponse updateCompartment(UpdateCompartmentRequest request);
 
@@ -1060,6 +1600,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateCustomerSecretKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateCustomerSecretKey API.
      */
     UpdateCustomerSecretKeyResponse updateCustomerSecretKey(UpdateCustomerSecretKeyRequest request);
 
@@ -1068,6 +1610,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateDynamicGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateDynamicGroup API.
      */
     UpdateDynamicGroupResponse updateDynamicGroup(UpdateDynamicGroupRequest request);
 
@@ -1076,6 +1620,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateGroup API.
      */
     UpdateGroupResponse updateGroup(UpdateGroupRequest request);
 
@@ -1084,6 +1630,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateIdentityProviderExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateIdentityProvider API.
      */
     UpdateIdentityProviderResponse updateIdentityProvider(UpdateIdentityProviderRequest request);
 
@@ -1092,8 +1640,32 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateIdpGroupMappingExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateIdpGroupMapping API.
      */
     UpdateIdpGroupMappingResponse updateIdpGroupMapping(UpdateIdpGroupMappingRequest request);
+
+    /**
+     * Updates the specified network source.
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateNetworkSourceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateNetworkSource API.
+     */
+    UpdateNetworkSourceResponse updateNetworkSource(UpdateNetworkSourceRequest request);
+
+    /**
+     * Updates Oauth token for the user
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateOAuthClientCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateOAuthClientCredential API.
+     */
+    UpdateOAuthClientCredentialResponse updateOAuthClientCredential(
+            UpdateOAuthClientCredentialRequest request);
 
     /**
      * Updates the specified policy. You can update the description or the policy statements themselves.
@@ -1103,6 +1675,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdatePolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdatePolicy API.
      */
     UpdatePolicyResponse updatePolicy(UpdatePolicyRequest request);
 
@@ -1112,6 +1686,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateSmtpCredentialExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateSmtpCredential API.
      */
     UpdateSmtpCredentialResponse updateSmtpCredential(UpdateSmtpCredentialRequest request);
 
@@ -1123,24 +1699,44 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateSwiftPasswordExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateSwiftPassword API.
      */
     UpdateSwiftPasswordResponse updateSwiftPassword(UpdateSwiftPasswordRequest request);
 
     /**
-     * Updates the the specified tag definition. You can update `description`, and `isRetired`.
+     * Updates the specified tag definition.
+     * <p>
+     * Setting `validator` determines the value type. Tags can use either a static value or a
+     * list of possible values. Static values are entered by a user applying the tag to a resource.
+     * Lists are created by you and the user must apply a value from the list. On update, any values
+     * in a list that were previously set do not change, but new values must pass validation. Values
+     * already applied to a resource do not change.
+     * <p>
+     * You cannot remove list values that appear in a TagDefault. To remove a list value that
+     * appears in a TagDefault, first update the TagDefault to use a different value.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateTagExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateTag API.
      */
     UpdateTagResponse updateTag(UpdateTagRequest request);
 
     /**
-     * Updates the specified tag default. You can update the following field: `value`.
+     * Updates the specified tag default. If you specify that a value is required, a value is set
+     * during resource creation (either by the user creating the resource or another tag defualt).
+     * If no value is set, resource creation is blocked.
+     * <p>
+     * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+     * * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateTagDefaultExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateTagDefault API.
      */
     UpdateTagDefaultResponse updateTagDefault(UpdateTagDefaultRequest request);
 
@@ -1149,7 +1745,7 @@ public interface Identity extends AutoCloseable {
      * <p>
      * Updating `isRetired` to 'true' retires the namespace and all the tag definitions in the namespace. Reactivating a
      * namespace (changing `isRetired` from 'true' to 'false') does not reactivate tag definitions.
-     * To reactivate the tag definitions, you must reactivate each one indvidually *after* you reactivate the namespace,
+     * To reactivate the tag definitions, you must reactivate each one individually *after* you reactivate the namespace,
      * using {@link #updateTag(UpdateTagRequest) updateTag}. For more information about retiring tag namespaces, see
      * [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
      * <p>
@@ -1158,6 +1754,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateTagNamespaceExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateTagNamespace API.
      */
     UpdateTagNamespaceResponse updateTagNamespace(UpdateTagNamespaceRequest request);
 
@@ -1166,6 +1764,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateUserExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateUser API.
      */
     UpdateUserResponse updateUser(UpdateUserRequest request);
 
@@ -1175,6 +1775,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateUserCapabilitiesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateUserCapabilities API.
      */
     UpdateUserCapabilitiesResponse updateUserCapabilities(UpdateUserCapabilitiesRequest request);
 
@@ -1184,6 +1786,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UpdateUserStateExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateUserState API.
      */
     UpdateUserStateResponse updateUserState(UpdateUserStateRequest request);
 
@@ -1207,6 +1811,8 @@ public interface Identity extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/identity/UploadApiKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UploadApiKey API.
      */
     UploadApiKeyResponse uploadApiKey(UploadApiKeyRequest request);
 

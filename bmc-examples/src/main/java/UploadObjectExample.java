@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
@@ -40,8 +42,14 @@ public class UploadObjectExample {
         String contentLanguage = null;
         File body = null;
 
-        AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
+        final ConfigFileAuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
         client.setRegion(Region.US_PHOENIX_1);
@@ -82,6 +90,9 @@ public class UploadObjectExample {
                                 .bucketName(bucketName)
                                 .objectName(objectName)
                                 .build());
+
+        // use the response's function to print the fetched object's metadata
+        System.out.println(getResponse.getOpcMeta());
 
         // stream contents should match the file uploaded
         try (final InputStream fileStream = getResponse.getInputStream()) {

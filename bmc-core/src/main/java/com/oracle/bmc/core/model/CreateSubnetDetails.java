@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = CreateSubnetDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateSubnetDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -106,6 +108,15 @@ public class CreateSubnetDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("prohibitInternetIngress")
+        private Boolean prohibitInternetIngress;
+
+        public Builder prohibitInternetIngress(Boolean prohibitInternetIngress) {
+            this.prohibitInternetIngress = prohibitInternetIngress;
+            this.__explicitlySet__.add("prohibitInternetIngress");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("prohibitPublicIpOnVnic")
         private Boolean prohibitPublicIpOnVnic;
 
@@ -157,6 +168,7 @@ public class CreateSubnetDetails {
                             dnsLabel,
                             freeformTags,
                             ipv6CidrBlock,
+                            prohibitInternetIngress,
                             prohibitPublicIpOnVnic,
                             routeTableId,
                             securityListIds,
@@ -177,6 +189,7 @@ public class CreateSubnetDetails {
                             .dnsLabel(o.getDnsLabel())
                             .freeformTags(o.getFreeformTags())
                             .ipv6CidrBlock(o.getIpv6CidrBlock())
+                            .prohibitInternetIngress(o.getProhibitInternetIngress())
                             .prohibitPublicIpOnVnic(o.getProhibitPublicIpOnVnic())
                             .routeTableId(o.getRouteTableId())
                             .securityListIds(o.getSecurityListIds())
@@ -214,9 +227,12 @@ public class CreateSubnetDetails {
     String availabilityDomain;
 
     /**
-     * The CIDR IP address range of the subnet.
+     * The CIDR IP address range of the subnet. The CIDR must maintain the following rules -
      * <p>
-     * Example: `172.16.1.0/24`
+     * a. The CIDR block is valid and correctly formatted.
+     * b. The new range is within one of the parent VCN ranges.
+     * <p>
+     * Example: `10.0.1.0/24`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("cidrBlock")
@@ -230,7 +246,7 @@ public class CreateSubnetDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -247,7 +263,9 @@ public class CreateSubnetDetails {
     String dhcpOptionsId;
 
     /**
-     * A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+     * A user-friendly name. Does not have to be unique, and it's changeable.
+     * Avoid entering confidential information.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
@@ -264,7 +282,7 @@ public class CreateSubnetDetails {
      * was created with a DNS label.
      * <p>
      * For more information, see
-     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
      * <p>
      * Example: `subnet123`
      *
@@ -274,7 +292,7 @@ public class CreateSubnetDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -287,13 +305,28 @@ public class CreateSubnetDetails {
      * You can't change this subnet characteristic later. All subnets are /64 in size. The subnet
      * portion of the IPv6 address is the fourth hextet from the left (1111 in the following example).
      * <p>
-     * For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+     * For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * Example: `2001:0db8:0123:1111::/64`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("ipv6CidrBlock")
     String ipv6CidrBlock;
+
+    /**
+     * Whether to disallow ingress internet traffic to VNICs within this subnet. Defaults to false.
+     * <p>
+     * For IPv6, if `prohibitInternetIngress` is set to `true`, internet access is not allowed for any
+     * IPv6s assigned to VNICs in the subnet. Otherwise, ingress internet traffic is allowed by default.
+     * <p>
+     * `prohibitPublicIpOnVnic` will be set to the value of `prohibitInternetIngress` to dictate IPv4
+     * behavior in this subnet. Only one or the other flag should be specified.
+     * <p>
+     * Example: `true`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("prohibitInternetIngress")
+    Boolean prohibitInternetIngress;
 
     /**
      * Whether VNICs within this subnet can have public IP addresses.
@@ -305,8 +338,8 @@ public class CreateSubnetDetails {
      * subnet cannot have public IP addresses (that is, it's a private
      * subnet).
      * <p>
-     * For IPv6, if `prohibitPublicIpOnVnic` is set to `true`, internet access is not allowed for any
-     * IPv6s assigned to VNICs in the subnet.
+     * If you intend to use an IPv6 CIDR block, you should use the flag `prohibitInternetIngress` to
+     * specify ingress internet traffic behavior of the subnet.
      * <p>
      * Example: `true`
      *

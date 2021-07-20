@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.internal.http;
 
@@ -16,13 +17,15 @@ public class GetMaintenanceRunConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetMaintenanceRunRequest interceptRequest(GetMaintenanceRunRequest request) {
+    public static com.oracle.bmc.database.requests.GetMaintenanceRunRequest interceptRequest(
+            com.oracle.bmc.database.requests.GetMaintenanceRunRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetMaintenanceRunRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.database.requests.GetMaintenanceRunRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getMaintenanceRunId(), "maintenanceRunId must not be blank");
 
@@ -38,21 +41,28 @@ public class GetMaintenanceRunConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetMaintenanceRunResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.database.responses.GetMaintenanceRunResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetMaintenanceRunResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.database.responses.GetMaintenanceRunResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetMaintenanceRunResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.database.responses.GetMaintenanceRunResponse>() {
                             @Override
-                            public GetMaintenanceRunResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.database.responses.GetMaintenanceRunResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetMaintenanceRunResponse");
+                                        "Transform function invoked for com.oracle.bmc.database.responses.GetMaintenanceRunResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -66,8 +76,12 @@ public class GetMaintenanceRunConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetMaintenanceRunResponse.Builder builder =
-                                        GetMaintenanceRunResponse.builder();
+                                com.oracle.bmc.database.responses.GetMaintenanceRunResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.database.responses
+                                                        .GetMaintenanceRunResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.maintenanceRun(response.getItem());
 
@@ -92,7 +106,8 @@ public class GetMaintenanceRunConverter {
                                                     String.class));
                                 }
 
-                                GetMaintenanceRunResponse responseWrapper = builder.build();
+                                com.oracle.bmc.database.responses.GetMaintenanceRunResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

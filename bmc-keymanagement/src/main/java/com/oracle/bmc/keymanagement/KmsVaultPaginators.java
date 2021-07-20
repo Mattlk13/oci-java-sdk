@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement;
 
@@ -28,6 +29,119 @@ import com.oracle.bmc.keymanagement.responses.*;
 @lombok.RequiredArgsConstructor
 public class KmsVaultPaginators {
     private final KmsVault client;
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVaultReplicas operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVaultReplicasResponse> listVaultReplicasResponseIterator(
+            final ListVaultReplicasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVaultReplicasRequest.Builder, ListVaultReplicasRequest,
+                ListVaultReplicasResponse>(
+                new com.google.common.base.Supplier<ListVaultReplicasRequest.Builder>() {
+                    @Override
+                    public ListVaultReplicasRequest.Builder get() {
+                        return ListVaultReplicasRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVaultReplicasResponse, String>() {
+                    @Override
+                    public String apply(ListVaultReplicasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVaultReplicasRequest.Builder>,
+                        ListVaultReplicasRequest>() {
+                    @Override
+                    public ListVaultReplicasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVaultReplicasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVaultReplicasRequest, ListVaultReplicasResponse>() {
+                    @Override
+                    public ListVaultReplicasResponse apply(ListVaultReplicasRequest request) {
+                        return client.listVaultReplicas(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.keymanagement.model.VaultReplicaSummary} objects
+     * contained in responses from the listVaultReplicas operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.keymanagement.model.VaultReplicaSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.keymanagement.model.VaultReplicaSummary>
+            listVaultReplicasRecordIterator(final ListVaultReplicasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVaultReplicasRequest.Builder, ListVaultReplicasRequest,
+                ListVaultReplicasResponse, com.oracle.bmc.keymanagement.model.VaultReplicaSummary>(
+                new com.google.common.base.Supplier<ListVaultReplicasRequest.Builder>() {
+                    @Override
+                    public ListVaultReplicasRequest.Builder get() {
+                        return ListVaultReplicasRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVaultReplicasResponse, String>() {
+                    @Override
+                    public String apply(ListVaultReplicasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVaultReplicasRequest.Builder>,
+                        ListVaultReplicasRequest>() {
+                    @Override
+                    public ListVaultReplicasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVaultReplicasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVaultReplicasRequest, ListVaultReplicasResponse>() {
+                    @Override
+                    public ListVaultReplicasResponse apply(ListVaultReplicasRequest request) {
+                        return client.listVaultReplicas(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVaultReplicasResponse,
+                        java.util.List<com.oracle.bmc.keymanagement.model.VaultReplicaSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.keymanagement.model.VaultReplicaSummary>
+                            apply(ListVaultReplicasResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
 
     /**
      * Creates a new iterable which will iterate over the responses received from the listVaults operation. This iterable

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -19,6 +20,7 @@ package com.oracle.bmc.identity.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = TagSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class TagSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -173,7 +175,8 @@ public class TagSummary {
     String id;
 
     /**
-     * The name of the tag. The name must be unique across all tags in the tag namespace and can't be changed.
+     * The name assigned to the tag during creation. This is the tag key definition.
+     * The name must be unique within the tag namespace and cannot be changed.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("name")
@@ -212,7 +215,7 @@ public class TagSummary {
     Boolean isRetired;
 
     /**
-     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it.
+     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it. If you delete a tag, you cannot delete another tag until the deleted tag's `lifecycleState` changes from DELETING to DELETED.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     Tag.LifecycleState lifecycleState;

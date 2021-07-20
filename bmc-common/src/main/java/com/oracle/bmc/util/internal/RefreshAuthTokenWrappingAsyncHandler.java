@@ -1,13 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.util.internal;
 
 import com.oracle.bmc.auth.RefreshableOnNotAuthenticatedProvider;
 import com.oracle.bmc.model.BmcException;
 import com.oracle.bmc.responses.AsyncHandler;
-
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Callbacks for asynchronous requests intended to work with some authenticated calls, like instance principals.
@@ -23,8 +23,10 @@ import lombok.RequiredArgsConstructor;
  *            The request type.
  * @param <RESPONSE>
  *            The response type.
+ *
+ * @deprecated in favor of RefreshAuthTokenWrapper -- versions after 1.25.1 do not use RefreshAuthTokenWrappingAsyncHandler anymore
  */
-@RequiredArgsConstructor
+@Slf4j
 public abstract class RefreshAuthTokenWrappingAsyncHandler<REQUEST, RESPONSE>
         implements AsyncHandler<REQUEST, RESPONSE> {
     private static final int NUM_TRIES_ALLOWED = 2;
@@ -32,6 +34,18 @@ public abstract class RefreshAuthTokenWrappingAsyncHandler<REQUEST, RESPONSE>
     private final RefreshableOnNotAuthenticatedProvider<?> authDetailsProvider;
     private final AsyncHandler<REQUEST, RESPONSE> innerHandler;
     private int currentAttempt = 0;
+
+    public RefreshAuthTokenWrappingAsyncHandler(
+            RefreshableOnNotAuthenticatedProvider<?> authDetailsProvider,
+            AsyncHandler<REQUEST, RESPONSE> innerHandler) {
+        this.authDetailsProvider = authDetailsProvider;
+        this.innerHandler = innerHandler;
+        LOG.warn(
+                "The class {} should not be used after version 1.25.1. You are using an oci-java-sdk-common "
+                        + "version newer than 1.25.1 with a service client of version 1.25.1 or older. Upgrade your "
+                        + "service client version to match your oci-java-sdk-common version.",
+                this.getClass().getName());
+    }
 
     @Override
     public void onSuccess(REQUEST request, RESPONSE response) {

@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.events.model;
 
 /**
  * The summary details of rules for Events. For more information, see
- * [Managing Rules for Events](https://docs.cloud.oracle.com/iaas/Content/Events/Task/managingrulesactions.htm)
+ * [Managing Rules for Events](https://docs.cloud.oracle.com/iaas/Content/Events/Task/managingrules.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -20,6 +21,7 @@ package com.oracle.bmc.events.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = RuleSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class RuleSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -198,7 +200,7 @@ public class RuleSummary {
      * <p>
      * For more examples, see
      * [Matching Events with Filters](https://docs.cloud.oracle.com/iaas/Content/Events/Concepts/filterevents.htm).
-     * * For a condition with fileds to match an event, the event must contain all the field names
+     * * For a condition with fields to match an event, the event must contain all the field names
      * listed in the condition. Field names must appear in the condition with the same nesting
      * structure used in the event.
      * <p>
@@ -207,11 +209,6 @@ public class RuleSummary {
      * * Rules apply to events in the compartment in which you create them and any child compartments.
      * This means that a condition specified by a rule only matches events emitted from resources in
      * the compartment or any of its child compartments.
-     * * The condition is a string value in a JSON object, but numbers in conditions are converted
-     * from strings to numbers before they are evaluated for matches. This means that 100, 100.0 or
-     * 1.0e2 are all considered equal.
-     * * Boolean values are converted to numbers and then evaluated. This means true and True are
-     * considered equal, as are False and false.
      * * Wildcard matching is supported with the asterisk (*) character.
      * <p>
      * For examples of wildcard matching, see

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -25,6 +26,7 @@ package com.oracle.bmc.objectstorage.model;
     builder = CopyObjectDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CopyObjectDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -44,6 +46,15 @@ public class CopyObjectDetails {
         public Builder sourceObjectIfMatchETag(String sourceObjectIfMatchETag) {
             this.sourceObjectIfMatchETag = sourceObjectIfMatchETag;
             this.__explicitlySet__.add("sourceObjectIfMatchETag");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceVersionId")
+        private String sourceVersionId;
+
+        public Builder sourceVersionId(String sourceVersionId) {
+            this.sourceVersionId = sourceVersionId;
+            this.__explicitlySet__.add("sourceVersionId");
             return this;
         }
 
@@ -111,6 +122,15 @@ public class CopyObjectDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("destinationObjectStorageTier")
+        private StorageTier destinationObjectStorageTier;
+
+        public Builder destinationObjectStorageTier(StorageTier destinationObjectStorageTier) {
+            this.destinationObjectStorageTier = destinationObjectStorageTier;
+            this.__explicitlySet__.add("destinationObjectStorageTier");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -119,13 +139,15 @@ public class CopyObjectDetails {
                     new CopyObjectDetails(
                             sourceObjectName,
                             sourceObjectIfMatchETag,
+                            sourceVersionId,
                             destinationRegion,
                             destinationNamespace,
                             destinationBucket,
                             destinationObjectName,
                             destinationObjectIfMatchETag,
                             destinationObjectIfNoneMatchETag,
-                            destinationObjectMetadata);
+                            destinationObjectMetadata,
+                            destinationObjectStorageTier);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -135,6 +157,7 @@ public class CopyObjectDetails {
             Builder copiedBuilder =
                     sourceObjectName(o.getSourceObjectName())
                             .sourceObjectIfMatchETag(o.getSourceObjectIfMatchETag())
+                            .sourceVersionId(o.getSourceVersionId())
                             .destinationRegion(o.getDestinationRegion())
                             .destinationNamespace(o.getDestinationNamespace())
                             .destinationBucket(o.getDestinationBucket())
@@ -142,7 +165,8 @@ public class CopyObjectDetails {
                             .destinationObjectIfMatchETag(o.getDestinationObjectIfMatchETag())
                             .destinationObjectIfNoneMatchETag(
                                     o.getDestinationObjectIfNoneMatchETag())
-                            .destinationObjectMetadata(o.getDestinationObjectMetadata());
+                            .destinationObjectMetadata(o.getDestinationObjectMetadata())
+                            .destinationObjectStorageTier(o.getDestinationObjectStorageTier());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -171,6 +195,12 @@ public class CopyObjectDetails {
     String sourceObjectIfMatchETag;
 
     /**
+     * VersionId of the object to copy. If not provided then current version is copied by default.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceVersionId")
+    String sourceVersionId;
+
+    /**
      * The destination region the object will be copied to, for example \"us-ashburn-1\".
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("destinationRegion")
@@ -189,7 +219,7 @@ public class CopyObjectDetails {
     String destinationBucket;
 
     /**
-     * The name of the destination object resulting from the copy operation.
+     * The name of the destination object resulting from the copy operation. Avoid entering confidential information.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("destinationObjectName")
     String destinationObjectName;
@@ -220,6 +250,14 @@ public class CopyObjectDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("destinationObjectMetadata")
     java.util.Map<String, String> destinationObjectMetadata;
+
+    /**
+     * The storage tier that the object should be stored in. If not specified, the object will be stored in
+     * the same storage tier as the bucket.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("destinationObjectStorageTier")
+    StorageTier destinationObjectStorageTier;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

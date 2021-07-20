@@ -1,11 +1,15 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.streaming;
 
 import com.oracle.bmc.streaming.requests.*;
 import com.oracle.bmc.streaming.responses.*;
 
+/**
+ * The API for the Streaming Service.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180418")
 public interface Stream extends AutoCloseable {
 
@@ -16,25 +20,9 @@ public interface Stream extends AutoCloseable {
     void setEndpoint(String endpoint);
 
     /**
-     * Sets the region to call (ex, Region.US_PHOENIX_1).
-     * <p>
-     * Note, this will call {@link #setEndpoint(String) setEndpoint} after resolving the endpoint.  If the service is not available in this Region, however, an IllegalArgumentException will be raised.
-     * @param region The region of the service.
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
      */
-    void setRegion(com.oracle.bmc.Region region);
-
-    /**
-     * Sets the region to call (ex, 'us-phoenix-1').
-     * <p>
-     * Note, this will first try to map the region ID to a known Region and call
-     * {@link #setRegion(Region) setRegion}.
-     * <p>
-     * If no known Region could be determined, it will create an endpoint based on the
-     * default endpoint format ({@link com.oracle.bmc.Region#formatDefaultRegionEndpoint(Service, String)}
-     * and then call {@link #setEndpoint(String) setEndpoint}.
-     * @param regionId The public region ID.
-     */
-    void setRegion(String regionId);
+    String getEndpoint();
 
     /**
      * Provides a mechanism to manually commit offsets, if not using commit-on-get consumer semantics.
@@ -43,6 +31,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/ConsumerCommitExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ConsumerCommit API.
      */
     ConsumerCommitResponse consumerCommit(ConsumerCommitRequest request);
 
@@ -52,6 +42,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/ConsumerHeartbeatExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ConsumerHeartbeat API.
      */
     ConsumerHeartbeatResponse consumerHeartbeat(ConsumerHeartbeatRequest request);
 
@@ -65,6 +57,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/CreateCursorExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateCursor API.
      */
     CreateCursorResponse createCursor(CreateCursorRequest request);
 
@@ -74,6 +68,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/CreateGroupCursorExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateGroupCursor API.
      */
     CreateGroupCursorResponse createGroupCursor(CreateGroupCursorRequest request);
 
@@ -83,6 +79,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/GetGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetGroup API.
      */
     GetGroupResponse getGroup(GetGroupRequest request);
 
@@ -94,6 +92,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/GetMessagesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetMessages API.
      */
     GetMessagesResponse getMessages(GetMessagesRequest request);
 
@@ -106,6 +106,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/PutMessagesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use PutMessages API.
      */
     PutMessagesResponse putMessages(PutMessagesRequest request);
 
@@ -115,6 +117,8 @@ public interface Stream extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/streaming/UpdateGroupExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateGroup API.
      */
     UpdateGroupResponse updateGroup(UpdateGroupRequest request);
 }

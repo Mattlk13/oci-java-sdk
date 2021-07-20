@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.internal.http;
 
@@ -15,13 +16,15 @@ public class GetObjectConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetObjectRequest interceptRequest(GetObjectRequest request) {
+    public static com.oracle.bmc.objectstorage.requests.GetObjectRequest interceptRequest(
+            com.oracle.bmc.objectstorage.requests.GetObjectRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetObjectRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.objectstorage.requests.GetObjectRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNamespaceName(), "namespaceName must not be blank");
         Validate.notBlank(request.getBucketName(), "bucketName must not be blank");
@@ -43,6 +46,62 @@ public class GetObjectConverter {
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
                                         request.getObjectName()));
 
+        if (request.getVersionId() != null) {
+            target =
+                    target.queryParam(
+                            "versionId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getVersionId()));
+        }
+
+        if (request.getHttpResponseContentDisposition() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseContentDisposition",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseContentDisposition()));
+        }
+
+        if (request.getHttpResponseCacheControl() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseCacheControl",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseCacheControl()));
+        }
+
+        if (request.getHttpResponseContentType() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseContentType",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseContentType()));
+        }
+
+        if (request.getHttpResponseContentLanguage() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseContentLanguage",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseContentLanguage()));
+        }
+
+        if (request.getHttpResponseContentEncoding() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseContentEncoding",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseContentEncoding()));
+        }
+
+        if (request.getHttpResponseExpires() != null) {
+            target =
+                    target.queryParam(
+                            "httpResponseExpires",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getHttpResponseExpires()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
@@ -63,18 +122,40 @@ public class GetObjectConverter {
             ib.header("range", request.getRange());
         }
 
+        if (request.getOpcSseCustomerAlgorithm() != null) {
+            ib.header("opc-sse-customer-algorithm", request.getOpcSseCustomerAlgorithm());
+        }
+
+        if (request.getOpcSseCustomerKey() != null) {
+            ib.header("opc-sse-customer-key", request.getOpcSseCustomerKey());
+        }
+
+        if (request.getOpcSseCustomerKeySha256() != null) {
+            ib.header("opc-sse-customer-key-sha256", request.getOpcSseCustomerKeySha256());
+        }
+
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetObjectResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.objectstorage.responses.GetObjectResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetObjectResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.objectstorage.responses.GetObjectResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetObjectResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.objectstorage.responses.GetObjectResponse>() {
                             @Override
-                            public GetObjectResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetObjectResponse");
+                            public com.oracle.bmc.objectstorage.responses.GetObjectResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.objectstorage.responses.GetObjectResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -88,7 +169,12 @@ public class GetObjectConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetObjectResponse.Builder builder = GetObjectResponse.builder();
+                                com.oracle.bmc.objectstorage.responses.GetObjectResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.objectstorage.responses
+                                                        .GetObjectResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 if (response.getStatusCode() != 304) {
                                     builder.inputStream(response.getItem());
@@ -141,7 +227,9 @@ public class GetObjectConverter {
                                         opcMeta.put(header.getKey(), header.getValue().get(0));
                                     }
                                 }
-                                builder.opcMeta(opcMeta);
+                                if (opcMeta.size() > 0) {
+                                    builder.opcMeta(opcMeta);
+                                }
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         contentLengthHeader =
@@ -228,6 +316,30 @@ public class GetObjectConverter {
                                 }
 
                                 com.google.common.base.Optional<java.util.List<String>>
+                                        cacheControlHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "cache-control");
+                                if (cacheControlHeader.isPresent()) {
+                                    builder.cacheControl(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "cache-control",
+                                                    cacheControlHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        contentDispositionHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "content-disposition");
+                                if (contentDispositionHeader.isPresent()) {
+                                    builder.contentDisposition(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "content-disposition",
+                                                    contentDispositionHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.google.common.base.Optional<java.util.List<String>>
                                         lastModifiedHeader =
                                                 com.oracle.bmc.http.internal.HeaderUtils.get(
                                                         headers, "last-modified");
@@ -240,6 +352,18 @@ public class GetObjectConverter {
                                 }
 
                                 com.google.common.base.Optional<java.util.List<String>>
+                                        storageTierHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "storage-tier");
+                                if (storageTierHeader.isPresent()) {
+                                    builder.storageTier(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "storage-tier",
+                                                    storageTierHeader.get().get(0),
+                                                    StorageTier.class));
+                                }
+
+                                com.google.common.base.Optional<java.util.List<String>>
                                         archivalStateHeader =
                                                 com.oracle.bmc.http.internal.HeaderUtils.get(
                                                         headers, "archival-state");
@@ -248,7 +372,7 @@ public class GetObjectConverter {
                                             com.oracle.bmc.http.internal.HeaderUtils.toValue(
                                                     "archival-state",
                                                     archivalStateHeader.get().get(0),
-                                                    String.class));
+                                                    ArchivalState.class));
                                 }
 
                                 com.google.common.base.Optional<java.util.List<String>>
@@ -263,7 +387,32 @@ public class GetObjectConverter {
                                                     java.util.Date.class));
                                 }
 
-                                GetObjectResponse responseWrapper = builder.build();
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        versionIdHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "version-id");
+                                if (versionIdHeader.isPresent()) {
+                                    builder.versionId(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "version-id",
+                                                    versionIdHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        expiresHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "expires");
+                                if (expiresHeader.isPresent()) {
+                                    builder.expires(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "expires",
+                                                    expiresHeader.get().get(0),
+                                                    java.util.Date.class));
+                                }
+
+                                com.oracle.bmc.objectstorage.responses.GetObjectResponse
+                                        responseWrapper = builder.build();
                                 responseWrapper =
                                         ObjectMetadataInterceptor.intercept(responseWrapper);
                                 return responseWrapper;

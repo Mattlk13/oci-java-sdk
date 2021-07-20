@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
@@ -8,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MultivaluedMap;
 
 /**
  * A client request filter to remove content-length.
@@ -15,19 +18,48 @@ import javax.ws.rs.client.ClientRequestFilter;
  */
 @Slf4j
 public class ContentLengthFilter implements ClientRequestFilter {
+    private final boolean removeZeroLengthHeader;
+
+    public ContentLengthFilter() {
+        // by default we remove the header regardless of value
+        this(true);
+    }
+
+    public ContentLengthFilter(boolean removeZeroLengthHeader) {
+        this.removeZeroLengthHeader = removeZeroLengthHeader;
+    }
+
     @Override
     public void filter(ClientRequestContext requestContext) {
+        final MultivaluedMap<String, Object> headers = requestContext.getHeaders();
+        final String method = requestContext.getMethod();
+        final String uri = requestContext.getUri().toString();
+
+        if (headers == null) {
+            LOG.debug(
+                    "Headers from request context is null for Method [{}], URI [{}]", method, uri);
+            return;
+        }
+
         String contentLengthHeader = null;
-        for (String key : requestContext.getHeaders().keySet()) {
-            if (StringUtils.equalsIgnoreCase("content-length", key)) {
+        for (String key : headers.keySet()) {
+            if (StringUtils.equalsIgnoreCase(HttpHeaders.CONTENT_LENGTH, key)) {
                 contentLengthHeader = key;
             }
         }
 
-        final String method = requestContext.getMethod();
-        final String uri = requestContext.getUri().toString();
-        final Object existingContentLengthValue =
-                requestContext.getHeaders().remove(contentLengthHeader);
+        if (contentLengthHeader == null) {
+            LOG.debug("content-length not found for Method [{}], URI [{}]", method, uri);
+            return;
+        }
+
+        Object contentLengthValue = headers.getFirst(contentLengthHeader);
+        if (!removeZeroLengthHeader && "0".equals(contentLengthValue)) {
+            LOG.debug("Not removing zero content-length for Mehtod [{}], URI [{}]", method, uri);
+            return;
+        }
+
+        final Object existingContentLengthValue = headers.remove(contentLengthHeader);
         if (existingContentLengthValue != null) {
             LOG.debug(
                     "Removed existing content-length header for Method [{}], URI [{}], Existing Value [{}]",

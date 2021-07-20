@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.keymanagement.model;
     builder = EncryptDataDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class EncryptDataDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -60,12 +62,36 @@ public class EncryptDataDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("keyVersionId")
+        private String keyVersionId;
+
+        public Builder keyVersionId(String keyVersionId) {
+            this.keyVersionId = keyVersionId;
+            this.__explicitlySet__.add("keyVersionId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionAlgorithm")
+        private EncryptionAlgorithm encryptionAlgorithm;
+
+        public Builder encryptionAlgorithm(EncryptionAlgorithm encryptionAlgorithm) {
+            this.encryptionAlgorithm = encryptionAlgorithm;
+            this.__explicitlySet__.add("encryptionAlgorithm");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public EncryptDataDetails build() {
             EncryptDataDetails __instance__ =
-                    new EncryptDataDetails(associatedData, keyId, loggingContext, plaintext);
+                    new EncryptDataDetails(
+                            associatedData,
+                            keyId,
+                            loggingContext,
+                            plaintext,
+                            keyVersionId,
+                            encryptionAlgorithm);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -76,7 +102,9 @@ public class EncryptDataDetails {
                     associatedData(o.getAssociatedData())
                             .keyId(o.getKeyId())
                             .loggingContext(o.getLoggingContext())
-                            .plaintext(o.getPlaintext());
+                            .plaintext(o.getPlaintext())
+                            .keyVersionId(o.getKeyVersionId())
+                            .encryptionAlgorithm(o.getEncryptionAlgorithm());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -92,7 +120,7 @@ public class EncryptDataDetails {
 
     /**
      * Information that can be used to provide an encryption context for the
-     * encrypted data. The length of the string representation of the associatedData
+     * encrypted data. The length of the string representation of the associated data
      * must be fewer than 4096 characters.
      *
      **/
@@ -106,8 +134,8 @@ public class EncryptDataDetails {
     String keyId;
 
     /**
-     * Information that can be used to provide context for audit logging. It is a map that contains any addtional
-     * data the users may have and will be added to the audit logs (if audit logging is enabled)
+     * Information that provides context for audit logging. You can provide this additional
+     * data as key-value pairs to include in the audit logs when audit logging is enabled.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("loggingContext")
@@ -118,6 +146,65 @@ public class EncryptDataDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("plaintext")
     String plaintext;
+
+    /**
+     * The OCID of the key version used to encrypt the ciphertext.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("keyVersionId")
+    String keyVersionId;
+    /**
+     * The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+     * `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+     * that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+     * key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+     * `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+     * and uses OAEP.
+     *
+     **/
+    public enum EncryptionAlgorithm {
+        Aes256Gcm("AES_256_GCM"),
+        RsaOaepSha1("RSA_OAEP_SHA_1"),
+        RsaOaepSha256("RSA_OAEP_SHA_256"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, EncryptionAlgorithm> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (EncryptionAlgorithm v : EncryptionAlgorithm.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        EncryptionAlgorithm(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static EncryptionAlgorithm create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid EncryptionAlgorithm: " + key);
+        }
+    };
+    /**
+     * The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+     * `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+     * that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+     * key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+     * `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+     * and uses OAEP.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionAlgorithm")
+    EncryptionAlgorithm encryptionAlgorithm;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

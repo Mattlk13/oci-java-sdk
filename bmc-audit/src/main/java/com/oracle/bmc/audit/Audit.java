@@ -1,12 +1,20 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.audit;
 
 import com.oracle.bmc.audit.requests.*;
 import com.oracle.bmc.audit.responses.*;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
+/**
+ * API for the Audit Service. Use this API for compliance monitoring in your tenancy.
+ * For more information, see [Overview of Audit](https://docs.cloud.oracle.com/iaas/Content/Audit/Concepts/auditoverview.htm).
+ *
+ **Tip**: This API is good for queries, but not bulk-export operations.
+ *
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20190901")
 public interface Audit extends AutoCloseable {
 
     /**
@@ -14,6 +22,11 @@ public interface Audit extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -41,14 +54,20 @@ public interface Audit extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/audit/GetConfigurationExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetConfiguration API.
      */
     GetConfigurationResponse getConfiguration(GetConfigurationRequest request);
 
     /**
-     * Returns all audit events for the specified compartment that were processed within the specified time range.
+     * Returns all the audit events processed for the specified compartment within the specified
+     * time range.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/audit/ListEventsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListEvents API.
      */
     ListEventsResponse listEvents(ListEventsRequest request);
 
@@ -57,6 +76,8 @@ public interface Audit extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/audit/UpdateConfigurationExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateConfiguration API.
      */
     UpdateConfigurationResponse updateConfiguration(UpdateConfigurationRequest request);
 

@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.google.common.collect.ImmutableList;
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.OCID;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
@@ -22,7 +24,7 @@ import com.oracle.bmc.events.responses.CreateRuleResponse;
 import com.oracle.bmc.events.responses.GetRuleResponse;
 import com.oracle.bmc.events.responses.UpdateRuleResponse;
 import com.oracle.bmc.model.BmcException;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -39,7 +41,6 @@ import java.util.Map;
  * - deleting a rule
  * - listing all rules in a given compartment
  */
-@Slf4j
 public class EventsServiceExample implements Closeable {
 
     final static String configurationFilePath = "~/.oci/config";
@@ -48,8 +49,14 @@ public class EventsServiceExample implements Closeable {
     private final EventsClient eventsClient;
 
     public EventsServiceExample() throws Exception {
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(configurationFilePath, profile);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         this.eventsClient = new EventsClient(provider);
     }
@@ -80,7 +87,8 @@ public class EventsServiceExample implements Closeable {
 
         // We now list all the rules in our compartment
         final List<RuleSummary> rulesList = eventsServiceExample.listRules(compartmentId);
-        LOG.info("Number of rules in compartment {} is {}", compartmentId, rulesList.size());
+        System.out.println(
+                "Number of rules in compartment " + compartmentId + " is " + rulesList.size());
 
         // We delete our Rule
         eventsServiceExample.deleteRule(updatedRule.getId());
@@ -132,19 +140,21 @@ public class EventsServiceExample implements Closeable {
                     this.eventsClient.createRule(createRuleRequest);
 
             final Rule rule = createRuleResponse.getRule();
-            LOG.info(
-                    "Rule {} with displayName {} created in compartment {}",
-                    rule.getId(),
-                    rule.getDisplayName(),
-                    compartmentId);
+            System.out.println(
+                    "Rule "
+                            + rule.getId()
+                            + " with displayName "
+                            + rule.getDisplayName()
+                            + " created in compartment "
+                            + compartmentId);
 
             return rule;
         } catch (final BmcException e) {
-            LOG.error(
-                    "Failed to create Rule in compartment {}. StreamId = {}",
-                    compartmentId,
-                    streamId,
-                    e);
+            System.out.println(
+                    "Failed to create Rule in compartment "
+                            + compartmentId
+                            + "StreamId = "
+                            + streamId);
             throw e;
         }
     }
@@ -161,7 +171,7 @@ public class EventsServiceExample implements Closeable {
             GetRuleResponse ruleResponse = this.eventsClient.getRule(getRuleRequest);
             return ruleResponse.getRule();
         } catch (final BmcException e) {
-            LOG.error("Failed to retrieve the Rule {}", ruleId, e);
+            System.out.println("Failed to retrieve the Rule " + ruleId);
             throw e;
         }
     }
@@ -185,11 +195,12 @@ public class EventsServiceExample implements Closeable {
         try {
             final UpdateRuleResponse updateRuleResponse =
                     eventsClient.updateRule(updateRuleRequest);
-            LOG.info("Rule {} was updated", ruleId);
+            System.out.println("Rule " + ruleId + " was updated");
 
             return updateRuleResponse.getRule();
         } catch (final BmcException e) {
-            LOG.error("Failed to update rule {} with displayName {}", ruleId, newDisplayName, e);
+            System.out.println(
+                    "Failed to update rule " + ruleId + " with displayName " + newDisplayName);
             throw e;
         }
     }
@@ -214,7 +225,7 @@ public class EventsServiceExample implements Closeable {
 
             return allRulesInCompartment;
         } catch (final BmcException e) {
-            LOG.error("Failed to list rules in compartment {}", compartmentId, e);
+            System.out.println("Failed to list rules in compartment " + compartmentId);
             throw e;
         }
     }
@@ -229,9 +240,9 @@ public class EventsServiceExample implements Closeable {
 
         try {
             eventsClient.deleteRule(deleteRuleRequest);
-            LOG.info("Rule {} was deleted", ruleId);
+            System.out.println("Rule " + ruleId + "was deleted");
         } catch (final BmcException e) {
-            LOG.error("Failed to delete rule {}", ruleId, e);
+            System.out.println("Failed to delete rule " + ruleId);
             throw e;
         }
     }
@@ -247,11 +258,19 @@ public class EventsServiceExample implements Closeable {
         }
 
         if (!OCID.isValid(args[0])) {
-            throw new IllegalArgumentException("Compartment Id must be passed in");
+            if (StringUtils.isBlank(args[0])) {
+                throw new IllegalArgumentException("Compartment Id must be passed in");
+            }
+            throw new IllegalArgumentException(
+                    String.format("Compartment Id %s does not match expected pattern", args[0]));
         }
 
         if (!OCID.isValid(args[1])) {
-            throw new IllegalArgumentException("OSS stream Id must be passed in");
+            if (StringUtils.isBlank(args[1])) {
+                throw new IllegalArgumentException("OSS stream Id must be passed in");
+            }
+            throw new IllegalArgumentException(
+                    String.format("OSS stream Id %s does not match expected pattern", args[1]));
         }
     }
 

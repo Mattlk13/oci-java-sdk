@@ -1,18 +1,8 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc;
-
-import com.google.common.base.Optional;
-import com.oracle.bmc.util.internal.NameUtils;
-import org.junit.Test;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,16 +14,93 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import com.google.common.base.Optional;
+import com.oracle.bmc.model.RegionSchema;
+import com.oracle.bmc.util.internal.FileUtils;
+import com.oracle.bmc.util.internal.NameUtils;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import static com.oracle.bmc.Region.register;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RegionTest {
+
     private static final Service TEST_SERVICE =
             Services.serviceBuilder()
                     .serviceEndpointPrefix("foobar")
                     .serviceName("RegionTest")
                     .build();
+
+    private static void setEnvironmentVariable(Map<String, String> newEnvMap) throws Exception {
+        try {
+            Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+            Field theEnvironmentField = processEnvironmentClass.getDeclaredField("theEnvironment");
+            theEnvironmentField.setAccessible(true);
+            Map<String, String> env = (Map<String, String>) theEnvironmentField.get(null);
+            env.putAll(newEnvMap);
+            Field theCaseInsensitiveEnvironmentField =
+                    processEnvironmentClass.getDeclaredField("theCaseInsensitiveEnvironment");
+            theCaseInsensitiveEnvironmentField.setAccessible(true);
+            Map<String, String> caseSensitiveEnvMap =
+                    (Map<String, String>) theCaseInsensitiveEnvironmentField.get(null);
+            caseSensitiveEnvMap.putAll(newEnvMap);
+        } catch (NoSuchFieldException e) {
+            Class[] classes = Collections.class.getDeclaredClasses();
+            Map<String, String> env = System.getenv();
+            for (Class cl : classes) {
+                if ("java.util.Collections$UnmodifiableMap".equals(cl.getName())) {
+                    Field field = cl.getDeclaredField("m");
+                    field.setAccessible(true);
+                    Object obj = field.get(env);
+                    Map<String, String> map = (Map<String, String>) obj;
+                    map.clear();
+                    map.putAll(newEnvMap);
+                }
+            }
+        }
+    }
+
+    @BeforeClass
+    public static void init() throws Exception {
+        String regionBlob =
+                "{ \"realmKey\" : \"UCX\",\"realmDomainComponent\" : \"oracle-foobar.com\",\"regionKey\" : \"ABV\",\"regionIdentifier\" : \"us-abv-1\"}";
+        Map<String, String> newEnvMap = new HashMap<>();
+        newEnvMap.put("OCI_REGION_METADATA", regionBlob);
+        setEnvironmentVariable(newEnvMap);
+    }
+
+    @Before
+    public void reset() {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 10000)
+                        .property(ClientProperties.READ_TIMEOUT, 60000));
+        Region.hasUsedInstanceMetadataService = false;
+        Region.skipInstanceMetadataService();
+    }
 
     @Test
     public void validRegion() {
@@ -97,6 +164,10 @@ public class RegionTest {
 
     @Test
     public void regionalEndpoint_withUnknownRegionString_defaultsToOc1() {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
         assertEquals(
                 "https://foobar.us-foobar-1.oraclecloud.com",
                 Region.formatDefaultRegionEndpoint(TEST_SERVICE, "us-foobar-1"));
@@ -120,8 +191,13 @@ public class RegionTest {
         }
     }
 
-    @Test
+    @Test(timeout = 10000)
     public void invalidRegion() {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+
         final String regionId = "baz";
         try {
             assertNotNull(Region.fromRegionCodeOrId(regionId));
@@ -141,8 +217,13 @@ public class RegionTest {
         assertSame(Region.US_PHOENIX_1, Region.valueOf("US_PHOENIX_1"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(timeout = 10000, expected = IllegalArgumentException.class)
     public void invalidRegionName() {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+
         Region.valueOf("foobar");
     }
 
@@ -230,6 +311,9 @@ public class RegionTest {
                     && Modifier.isStatic(field.getModifiers())
                     && Modifier.isPublic(field.getModifiers())) {
                 final Region region = (Region) field.get(null);
+                if (field.getName() == "regionFromImds") {
+                    continue;
+                }
                 assertEquals(
                         field.getName(), NameUtils.canonicalizeForEnumTypes(region.getRegionId()));
             }
@@ -252,5 +336,279 @@ public class RegionTest {
         // register region zzz
         regionList.add(Region.register("zzz", Realm.OC3));
         assertEquals(regionList, Arrays.asList(Region.values()));
+    }
+
+    @Test
+    public void checkIfValidRegionSchema() {
+        RegionSchema regionSchema =
+                new RegionSchema("RTC", "foobar-oraclecloud.com", "YTE", "us-yte-1");
+        Assert.assertTrue(RegionSchema.isValid(regionSchema));
+    }
+
+    @Test
+    public void checkIfInValidRealm() {
+        RegionSchema regionSchema =
+                new RegionSchema(null, "foobar-oraclecloud.com", "YTE", "us-yte-1");
+        Assert.assertFalse(RegionSchema.isValid(regionSchema));
+    }
+
+    @Test
+    public void checkIfEmptyRealm() {
+        RegionSchema regionSchema =
+                new RegionSchema("", "foobar-oraclecloud.com", "YTE", "us-yte-1");
+        Assert.assertFalse(RegionSchema.isValid(regionSchema));
+    }
+
+    @Test
+    public void testExistingRegionFromSDK() {
+
+        Region region = Region.fromRegionCodeOrId("phx");
+        assertSame(Region.US_PHOENIX_1, region);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEnvEmptyDomain() throws Exception {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+
+        String regionBlob =
+                "{ \"realmKey\" : \"YCX\",\"realmDomainComponent\" : \"\",\"regionKey\" : \"MSW\",\"regionIdentifier\" : \"us-moscow-1\"}";
+        Map<String, String> newEnvMap = new HashMap<>();
+        newEnvMap.put("OCI_REGION_METADATA", regionBlob);
+        setEnvironmentVariable(newEnvMap);
+        Region.fromRegionCodeOrId("MSW");
+    }
+
+    @Test
+    public void testExistingEnvRegion() {
+
+        Region region = Region.fromRegionCodeOrId("ABV");
+        Region US_SAN_DIEGO_TST =
+                Region.register("us-abv-1", Realm.register("UCX", "oracle-foobar.com"), "ABV");
+        assertSame(US_SAN_DIEGO_TST, region);
+    }
+
+    @Test
+    public void testExistingDuplicateEnv() throws Exception {
+        String regionBlob =
+                "{ \"realmKey\" : \"UCX\",\"realmDomainComponent\" : \"oracle-foobar.com\",\"regionKey\" : \"ABV\",\"regionIdentifier\" : \"us-abv-1\"}";
+        Map<String, String> newEnvMap = new HashMap<>();
+        newEnvMap.put("OCI_REGION_METADATA", regionBlob);
+        setEnvironmentVariable(newEnvMap);
+        int count = Region.values().length;
+        Region.fromRegionCodeOrId("ABV");
+        int afterCheckEnvCount = Region.values().length;
+        assertSame(count, afterCheckEnvCount);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNewEnvRegion() throws Exception {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+
+        String regionBlob =
+                "{ \"realmKey\" : \"RTC\",\"realmDomainComponent\" : \"oracle-cloudfoobar.com\",\"regionKey\" : \"HHH\",\"regionIdentifier\" : \"us-hhh-1\"}";
+        Map<String, String> newEnvMap = new HashMap<>();
+        newEnvMap.put("OCI_REGION_METADATA", regionBlob);
+        setEnvironmentVariable(newEnvMap);
+        Region.fromRegionCodeOrId("HHH");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEnvEmptyRealm() throws Exception {
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+
+        String regionBlob =
+                "{ \"realmKey\" : \"\",\"realmDomainComponent\" : \"foobar-oraclecloud.com\",\"regionKey\" : \"BRN\",\"regionIdentifier\" : \"us-berlin-1\"}";
+        Map<String, String> newEnvMap = new HashMap<>();
+        newEnvMap.put("OCI_REGION_METADATA", regionBlob);
+        setEnvironmentVariable(newEnvMap);
+        Region.fromRegionCodeOrId("BRN");
+    }
+
+    @Test
+    public void testValidConfigFile() {
+
+        File file = new File(FileUtils.expandUserHome("~/.oci/regions-config.json"));
+        if (file.exists()) {
+            Region region = Region.fromRegionCodeOrId("ATL");
+            Region US_ATLANTA_TST =
+                    register("ap-atl-1", Realm.register("RTC", "foobar-oraclecloud.com"), "atl");
+            assertSame(US_ATLANTA_TST, region);
+        }
+    }
+
+    // tests that the all-region lookup is fast as long as it's not querying IMDS
+
+    @Test(timeout = 5000L)
+    public void testValues() {
+        Region.values();
+    }
+
+    // individual region lookups still contact IMDS and are slow if IMDS can't be reached
+
+    @Test(timeout = 10000, expected = IllegalArgumentException.class)
+    public void testValueOf() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Region.valueOf("unknown");
+    }
+
+    @Ignore
+    @Test(timeout = 10000, expected = IllegalArgumentException.class)
+    public void testFromRegionCode() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Region.fromRegionCode("unknown");
+    }
+
+    @Ignore
+    @Test(timeout = 10000, expected = IllegalArgumentException.class)
+    public void testFromRegionCodeOrId() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Region.fromRegionCodeOrId("unknown");
+    }
+
+    @Ignore
+    @Test(timeout = 10000, expected = IllegalArgumentException.class)
+    public void testFromRegionId() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Region.fromRegionId("unknown");
+    }
+
+    @Ignore
+    @Test(timeout = 10000)
+    public void testFormatDefaultRegionEndpoint() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Service svc =
+                Services.serviceBuilder()
+                        .serviceName("test")
+                        .serviceEndpointPrefix("test")
+                        .serviceEndpointTemplate("https://test.{region}.{secondLevelDomain}")
+                        .build();
+        Region.formatDefaultRegionEndpoint(svc, "unknown");
+    }
+
+    // tests that the region lookups don't fail, even when IMDS is not available
+
+    @Test(timeout = 10000)
+    public void testValues_Imds() {
+        // if IMDS can't be reached, this test takes >15 seconds
+        Region.setInstanceMetadataServiceClientConfig(
+                new ClientConfig()
+                        .property(ClientProperties.CONNECT_TIMEOUT, 1000)
+                        .property(ClientProperties.READ_TIMEOUT, 5000));
+        Region.registerFromInstanceMetadataService();
+        Region.values();
+    }
+
+    @Test
+    @Ignore("This test can be run when METADATA_SERVICE_BASE_URL is reachable")
+    public void testMultithreaded_Imds() {
+        try {
+            Region.setInstanceMetadataServiceClientConfig(
+                    new ClientConfig()
+                            .property(ClientProperties.CONNECT_TIMEOUT, 100)
+                            .property(ClientProperties.READ_TIMEOUT, 500));
+            Region.hasUsedInstanceMetadataService = false;
+            final ConcurrentMap<String, Boolean> resultMap = new ConcurrentHashMap<>();
+            Thread t1 =
+                    new Thread(
+                            () -> {
+                                boolean flag = Region.registerFromInstanceMetadataService();
+                                resultMap.put("t1", flag);
+                                System.out.println(
+                                        "Flag: "
+                                                + flag
+                                                + "\nThread1: "
+                                                + Arrays.toString(Region.values()));
+                            });
+            t1.setName("first-thread");
+            Thread t2 =
+                    new Thread(
+                            () -> {
+                                boolean flag = Region.registerFromInstanceMetadataService();
+                                resultMap.put("t2", flag);
+                                System.out.println(
+                                        "Flag: "
+                                                + flag
+                                                + "\nThread2: "
+                                                + Arrays.toString(Region.values()));
+                            });
+            t2.setName("second-thread");
+            t1.start();
+            t2.start();
+            t1.join();
+            t2.join();
+            Set<Boolean> set = new HashSet<>(resultMap.values());
+            Assert.assertFalse(set.isEmpty());
+            Assert.assertEquals(1, set.size());
+            Assert.assertEquals(true, set.iterator().next());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // individual region lookups are fast if told to skip IMDS
+
+    @Test(timeout = 5000L, expected = IllegalArgumentException.class)
+    public void testValueOf_SkipImds() {
+        Region.skipInstanceMetadataService();
+        Region.valueOf("unknown");
+    }
+
+    @Test(timeout = 5000L, expected = IllegalArgumentException.class)
+    public void testFromRegionCode_SkipImds() {
+        Region.skipInstanceMetadataService();
+        Region.fromRegionCode("unknown");
+    }
+
+    @Test(timeout = 5000L, expected = IllegalArgumentException.class)
+    public void testFromRegionCodeOrId_SkipImds() {
+        Region.skipInstanceMetadataService();
+        Region.fromRegionCodeOrId("unknown");
+    }
+
+    @Test(timeout = 5000L, expected = IllegalArgumentException.class)
+    public void testFromRegionId_SkipImds() {
+        Region.skipInstanceMetadataService();
+        Region.fromRegionId("unknown");
+    }
+
+    @Test(timeout = 5000L)
+    public void testFormatDefaultRegionEndpoint_SkipImds() {
+        Region.skipInstanceMetadataService();
+        Service svc =
+                Services.serviceBuilder()
+                        .serviceName("test")
+                        .serviceEndpointPrefix("test")
+                        .serviceEndpointTemplate("https://test.{region}.{secondLevelDomain}")
+                        .build();
+        Region.formatDefaultRegionEndpoint(svc, "unknown");
     }
 }

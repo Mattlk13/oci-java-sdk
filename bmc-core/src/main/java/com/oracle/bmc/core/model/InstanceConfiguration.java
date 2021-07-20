@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * An instance configuration is a template that defines the settings to use when creating Compute instances
- * as part of an instance pool. For more information about instance pools and instance configurations, see
- * [Managing Compute Instances](https://docs.cloud.oracle.com/Content/Compute/Concepts/instancemanagement.htm).
+ * An instance configuration is a template that defines the settings to use when creating Compute instances.
+ * For more information about instance configurations, see
+ * [Managing Compute Instances](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/instancemanagement.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -23,6 +24,7 @@ package com.oracle.bmc.core.model;
     builder = InstanceConfiguration.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class InstanceConfiguration {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -143,7 +145,8 @@ public class InstanceConfiguration {
     }
 
     /**
-     * The OCID of the compartment containing the instance configuration.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
+     * containing the instance configuration.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
@@ -151,7 +154,7 @@ public class InstanceConfiguration {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -160,7 +163,7 @@ public class InstanceConfiguration {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * A user-friendly name for the instance configuration
+     * A user-friendly name for the instance configuration.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
@@ -168,7 +171,7 @@ public class InstanceConfiguration {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -177,7 +180,7 @@ public class InstanceConfiguration {
     java.util.Map<String, String> freeformTags;
 
     /**
-     * The OCID of the instance configuration
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance configuration.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -186,15 +189,17 @@ public class InstanceConfiguration {
     InstanceConfigurationInstanceDetails instanceDetails;
 
     /**
-     * The required details when using the {@link #launchInstanceConfiguration(LaunchInstanceConfigurationRequest) launchInstanceConfiguration} operation.
-     * These attributes are optional when using the {@link #createInstanceConfiguration(CreateInstanceConfigurationRequest) createInstanceConfiguration} operation.
+     * Parameters that were not specified when the instance configuration was created, but that
+     * are required to launch an instance from the instance configuration. See the
+     * {@link #launchInstanceConfiguration(LaunchInstanceConfigurationRequest) launchInstanceConfiguration} operation.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("deferredFields")
     java.util.List<String> deferredFields;
 
     /**
-     * The date and time the instance configuration was created, in the format defined by RFC3339.
+     * The date and time the instance configuration was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+     * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
      **/

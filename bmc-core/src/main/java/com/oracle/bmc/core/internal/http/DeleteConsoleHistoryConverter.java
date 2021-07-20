@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,14 +17,15 @@ public class DeleteConsoleHistoryConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeleteConsoleHistoryRequest interceptRequest(
-            DeleteConsoleHistoryRequest request) {
+    public static com.oracle.bmc.core.requests.DeleteConsoleHistoryRequest interceptRequest(
+            com.oracle.bmc.core.requests.DeleteConsoleHistoryRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, DeleteConsoleHistoryRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.DeleteConsoleHistoryRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getInstanceConsoleHistoryId(),
@@ -45,22 +47,28 @@ public class DeleteConsoleHistoryConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, DeleteConsoleHistoryResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, DeleteConsoleHistoryResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, DeleteConsoleHistoryResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse>() {
                             @Override
-                            public DeleteConsoleHistoryResponse apply(
+                            public com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for DeleteConsoleHistoryResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -71,8 +79,12 @@ public class DeleteConsoleHistoryConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeleteConsoleHistoryResponse.Builder builder =
-                                        DeleteConsoleHistoryResponse.builder();
+                                com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .DeleteConsoleHistoryResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -86,7 +98,8 @@ public class DeleteConsoleHistoryConverter {
                                                     String.class));
                                 }
 
-                                DeleteConsoleHistoryResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.DeleteConsoleHistoryResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

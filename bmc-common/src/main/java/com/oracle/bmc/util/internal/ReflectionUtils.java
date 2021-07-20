@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.util.internal;
 
@@ -32,5 +33,21 @@ public class ReflectionUtils {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * Checks if a class is present on the classpath
+     *
+     * @param className The name of the class to check the presence of
+     * @param context The method name, if it exists.
+     * @return The boolean value indicating the presence of the class
+     */
+    public static boolean isClassPresent(String className, Class context) {
+        try {
+            Class.forName(className, false, context.getClassLoader());
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 }

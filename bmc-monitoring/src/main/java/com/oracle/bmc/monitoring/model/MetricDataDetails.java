@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.monitoring.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.monitoring.model;
     builder = MetricDataDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class MetricDataDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,6 +33,15 @@ public class MetricDataDetails {
         public Builder namespace(String namespace) {
             this.namespace = namespace;
             this.__explicitlySet__.add("namespace");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+        private String resourceGroup;
+
+        public Builder resourceGroup(String resourceGroup) {
+            this.resourceGroup = resourceGroup;
+            this.__explicitlySet__.add("resourceGroup");
             return this;
         }
 
@@ -85,7 +96,13 @@ public class MetricDataDetails {
         public MetricDataDetails build() {
             MetricDataDetails __instance__ =
                     new MetricDataDetails(
-                            namespace, compartmentId, name, dimensions, metadata, datapoints);
+                            namespace,
+                            resourceGroup,
+                            compartmentId,
+                            name,
+                            dimensions,
+                            metadata,
+                            datapoints);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -94,6 +111,7 @@ public class MetricDataDetails {
         public Builder copy(MetricDataDetails o) {
             Builder copiedBuilder =
                     namespace(o.getNamespace())
+                            .resourceGroup(o.getResourceGroup())
                             .compartmentId(o.getCompartmentId())
                             .name(o.getName())
                             .dimensions(o.getDimensions())
@@ -123,6 +141,17 @@ public class MetricDataDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("namespace")
     String namespace;
+
+    /**
+     * Resource group to assign to the metric. A resource group is a custom string that can be used as a filter. Only one resource group can be applied per metric.
+     * A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+     * Avoid entering confidential information.
+     * <p>
+     * Example: `frontend-fleet`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+    String resourceGroup;
 
     /**
      * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to use for metrics.

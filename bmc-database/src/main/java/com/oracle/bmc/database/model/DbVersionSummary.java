@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DbVersionSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbVersionSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -52,12 +54,35 @@ public class DbVersionSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isPreviewDbVersion")
+        private Boolean isPreviewDbVersion;
+
+        public Builder isPreviewDbVersion(Boolean isPreviewDbVersion) {
+            this.isPreviewDbVersion = isPreviewDbVersion;
+            this.__explicitlySet__.add("isPreviewDbVersion");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isUpgradeSupported")
+        private Boolean isUpgradeSupported;
+
+        public Builder isUpgradeSupported(Boolean isUpgradeSupported) {
+            this.isUpgradeSupported = isUpgradeSupported;
+            this.__explicitlySet__.add("isUpgradeSupported");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public DbVersionSummary build() {
             DbVersionSummary __instance__ =
-                    new DbVersionSummary(version, isLatestForMajorVersion, supportsPdb);
+                    new DbVersionSummary(
+                            version,
+                            isLatestForMajorVersion,
+                            supportsPdb,
+                            isPreviewDbVersion,
+                            isUpgradeSupported);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -67,7 +92,9 @@ public class DbVersionSummary {
             Builder copiedBuilder =
                     version(o.getVersion())
                             .isLatestForMajorVersion(o.getIsLatestForMajorVersion())
-                            .supportsPdb(o.getSupportsPdb());
+                            .supportsPdb(o.getSupportsPdb())
+                            .isPreviewDbVersion(o.getIsPreviewDbVersion())
+                            .isUpgradeSupported(o.getIsUpgradeSupported());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -98,6 +125,18 @@ public class DbVersionSummary {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("supportsPdb")
     Boolean supportsPdb;
+
+    /**
+     * True if this version of the Oracle Database software is the preview version.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isPreviewDbVersion")
+    Boolean isPreviewDbVersion;
+
+    /**
+     * True if this version of the Oracle Database software is supported for Upgrade.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isUpgradeSupported")
+    Boolean isUpgradeSupported;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

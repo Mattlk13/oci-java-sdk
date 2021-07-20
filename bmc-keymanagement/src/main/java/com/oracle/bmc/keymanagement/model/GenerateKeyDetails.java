@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.keymanagement.model;
     builder = GenerateKeyDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class GenerateKeyDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -102,9 +104,9 @@ public class GenerateKeyDetails {
     }
 
     /**
-     * Information that can be used to provide an encryption context for the
-     * encrypted data. The length of the string representation of the associatedData
-     * must be fewer than 4096 characters.
+     * Information that can be used to provide an encryption context for the encrypted data.
+     * The length of the string representation of the associated data must be fewer than 4096
+     * characters.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("associatedData")
@@ -126,8 +128,8 @@ public class GenerateKeyDetails {
     KeyShape keyShape;
 
     /**
-     * Information that can be used to provide context for audit logging. It is a map that contains any addtional
-     * data the users may have and will be added to the audit logs (if audit logging is enabled)
+     * Information that provides context for audit logging. You can provide this additional
+     * data by formatting it as key-value pairs to include in audit logs when audit logging is enabled.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("loggingContext")

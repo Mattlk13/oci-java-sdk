@@ -1,16 +1,20 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Optional object to specify a particular ICMP type and code. If you specify ICMP as the protocol
- * but do not provide this object, then all ICMP types and codes are allowed. If you do provide
- * this object, the type is required and the code is optional.
- * See [ICMP Parameters](http://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
- * for allowed values. To enable MTU negotiation for ingress internet traffic, make sure to allow
- * type 3 (\"Destination Unreachable\") code 4 (\"Fragmentation Needed and Don't Fragment was Set\").
- * If you need to specify multiple codes for a single type, create a separate security list rule for each.
+ * Optional and valid only for ICMP and ICMPv6. Use to specify a particular ICMP type and code
+ * as defined in:
+ * - [ICMP Parameters](http://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
+ * - [ICMPv6 Parameters](https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml)
+ * <p>
+ * If you specify ICMP or ICMPv6 as the protocol but omit this object, then all ICMP types and
+ * codes are allowed. If you do provide this object, the type is required and the code is optional.
+ * To enable MTU negotiation for ingress internet traffic via IPv4, make sure to allow type 3 (\"Destination
+ * Unreachable\") code 4 (\"Fragmentation Needed and Don't Fragment was Set\"). If you need to specify
+ * multiple codes for a single type, create a separate security list rule for each.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -25,6 +29,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = IcmpOptions.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class IcmpOptions {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)

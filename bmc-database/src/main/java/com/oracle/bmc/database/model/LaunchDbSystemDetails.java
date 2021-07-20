@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -27,6 +28,7 @@ package com.oracle.bmc.database.model;
     property = "source"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class LaunchDbSystemDetails extends LaunchDbSystemBase {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -121,6 +123,15 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("dbSystemOptions")
+        private DbSystemOptions dbSystemOptions;
+
+        public Builder dbSystemOptions(DbSystemOptions dbSystemOptions) {
+            this.dbSystemOptions = dbSystemOptions;
+            this.__explicitlySet__.add("dbSystemOptions");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sparseDiskgroup")
         private Boolean sparseDiskgroup;
 
@@ -193,6 +204,24 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyVersionId")
+        private String kmsKeyVersionId;
+
+        public Builder kmsKeyVersionId(String kmsKeyVersionId) {
+            this.kmsKeyVersionId = kmsKeyVersionId;
+            this.__explicitlySet__.add("kmsKeyVersionId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("nodeCount")
         private Integer nodeCount;
 
@@ -218,6 +247,15 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                 java.util.Map<String, java.util.Map<String, Object>> definedTags) {
             this.definedTags = definedTags;
             this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
+        private String privateIp;
+
+        public Builder privateIp(String privateIp) {
+            this.privateIp = privateIp;
+            this.__explicitlySet__.add("privateIp");
             return this;
         }
 
@@ -257,6 +295,15 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+        private MaintenanceWindow maintenanceWindowDetails;
+
+        public Builder maintenanceWindowDetails(MaintenanceWindow maintenanceWindowDetails) {
+            this.maintenanceWindowDetails = maintenanceWindowDetails;
+            this.__explicitlySet__.add("maintenanceWindowDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -273,6 +320,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                             backupNetworkNsgIds,
                             shape,
                             timeZone,
+                            dbSystemOptions,
                             sparseDiskgroup,
                             sshPublicKeys,
                             hostname,
@@ -281,13 +329,17 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                             clusterName,
                             dataStoragePercentage,
                             initialDataStorageSizeInGB,
+                            kmsKeyId,
+                            kmsKeyVersionId,
                             nodeCount,
                             freeformTags,
                             definedTags,
+                            privateIp,
                             dbHome,
                             databaseEdition,
                             diskRedundancy,
-                            licenseModel);
+                            licenseModel,
+                            maintenanceWindowDetails);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -305,6 +357,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                             .backupNetworkNsgIds(o.getBackupNetworkNsgIds())
                             .shape(o.getShape())
                             .timeZone(o.getTimeZone())
+                            .dbSystemOptions(o.getDbSystemOptions())
                             .sparseDiskgroup(o.getSparseDiskgroup())
                             .sshPublicKeys(o.getSshPublicKeys())
                             .hostname(o.getHostname())
@@ -313,13 +366,17 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                             .clusterName(o.getClusterName())
                             .dataStoragePercentage(o.getDataStoragePercentage())
                             .initialDataStorageSizeInGB(o.getInitialDataStorageSizeInGB())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .kmsKeyVersionId(o.getKmsKeyVersionId())
                             .nodeCount(o.getNodeCount())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
+                            .privateIp(o.getPrivateIp())
                             .dbHome(o.getDbHome())
                             .databaseEdition(o.getDatabaseEdition())
                             .diskRedundancy(o.getDiskRedundancy())
-                            .licenseModel(o.getLicenseModel());
+                            .licenseModel(o.getLicenseModel())
+                            .maintenanceWindowDetails(o.getMaintenanceWindowDetails());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -345,6 +402,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             java.util.List<String> backupNetworkNsgIds,
             String shape,
             String timeZone,
+            DbSystemOptions dbSystemOptions,
             Boolean sparseDiskgroup,
             java.util.List<String> sshPublicKeys,
             String hostname,
@@ -353,13 +411,17 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             String clusterName,
             Integer dataStoragePercentage,
             Integer initialDataStorageSizeInGB,
+            String kmsKeyId,
+            String kmsKeyVersionId,
             Integer nodeCount,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            String privateIp,
             CreateDbHomeDetails dbHome,
             DatabaseEdition databaseEdition,
             DiskRedundancy diskRedundancy,
-            LicenseModel licenseModel) {
+            LicenseModel licenseModel,
+            MaintenanceWindow maintenanceWindowDetails) {
         super(
                 compartmentId,
                 faultDomains,
@@ -371,6 +433,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                 backupNetworkNsgIds,
                 shape,
                 timeZone,
+                dbSystemOptions,
                 sparseDiskgroup,
                 sshPublicKeys,
                 hostname,
@@ -379,13 +442,17 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
                 clusterName,
                 dataStoragePercentage,
                 initialDataStorageSizeInGB,
+                kmsKeyId,
+                kmsKeyVersionId,
                 nodeCount,
                 freeformTags,
-                definedTags);
+                definedTags,
+                privateIp);
         this.dbHome = dbHome;
         this.databaseEdition = databaseEdition;
         this.diskRedundancy = diskRedundancy;
         this.licenseModel = licenseModel;
+        this.maintenanceWindowDetails = maintenanceWindowDetails;
     }
 
     @com.fasterxml.jackson.annotation.JsonProperty("dbHome")
@@ -426,7 +493,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid DatabaseEdition: " + key);
+            throw new IllegalArgumentException("Invalid DatabaseEdition: " + key);
         }
     };
     /**
@@ -471,7 +538,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid DiskRedundancy: " + key);
+            throw new IllegalArgumentException("Invalid DiskRedundancy: " + key);
         }
     };
     /**
@@ -515,7 +582,7 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid LicenseModel: " + key);
+            throw new IllegalArgumentException("Invalid LicenseModel: " + key);
         }
     };
     /**
@@ -524,6 +591,9 @@ public class LaunchDbSystemDetails extends LaunchDbSystemBase {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("licenseModel")
     LicenseModel licenseModel;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+    MaintenanceWindow maintenanceWindowDetails;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.internal.http;
 
@@ -16,15 +17,16 @@ public class FailoverDataGuardAssociationConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static FailoverDataGuardAssociationRequest interceptRequest(
-            FailoverDataGuardAssociationRequest request) {
+    public static com.oracle.bmc.database.requests.FailoverDataGuardAssociationRequest
+            interceptRequest(
+                    com.oracle.bmc.database.requests.FailoverDataGuardAssociationRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            FailoverDataGuardAssociationRequest request) {
+            com.oracle.bmc.database.requests.FailoverDataGuardAssociationRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getDatabaseId(), "databaseId must not be blank");
         Validate.notBlank(
@@ -55,22 +57,30 @@ public class FailoverDataGuardAssociationConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, FailoverDataGuardAssociationResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.database.responses.FailoverDataGuardAssociationResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, FailoverDataGuardAssociationResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.database.responses.FailoverDataGuardAssociationResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, FailoverDataGuardAssociationResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.database.responses
+                                        .FailoverDataGuardAssociationResponse>() {
                             @Override
-                            public FailoverDataGuardAssociationResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.database.responses
+                                            .FailoverDataGuardAssociationResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for FailoverDataGuardAssociationResponse");
+                                        "Transform function invoked for com.oracle.bmc.database.responses.FailoverDataGuardAssociationResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -84,10 +94,28 @@ public class FailoverDataGuardAssociationConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                FailoverDataGuardAssociationResponse.Builder builder =
-                                        FailoverDataGuardAssociationResponse.builder();
+                                com.oracle.bmc.database.responses
+                                                .FailoverDataGuardAssociationResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.database.responses
+                                                        .FailoverDataGuardAssociationResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.dataGuardAssociation(response.getItem());
+
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        opcWorkRequestIdHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "opc-work-request-id");
+                                if (opcWorkRequestIdHeader.isPresent()) {
+                                    builder.opcWorkRequestId(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "opc-work-request-id",
+                                                    opcWorkRequestIdHeader.get().get(0),
+                                                    String.class));
+                                }
 
                                 com.google.common.base.Optional<java.util.List<String>> etagHeader =
                                         com.oracle.bmc.http.internal.HeaderUtils.get(
@@ -110,8 +138,9 @@ public class FailoverDataGuardAssociationConverter {
                                                     String.class));
                                 }
 
-                                FailoverDataGuardAssociationResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.database.responses
+                                                .FailoverDataGuardAssociationResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

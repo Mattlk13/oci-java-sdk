@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.healthchecks.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.healthchecks.model;
     builder = HttpMonitorSummary.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class HttpMonitorSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,6 +42,24 @@ public class HttpMonitorSummary {
         public Builder resultsUrl(String resultsUrl) {
             this.resultsUrl = resultsUrl;
             this.__explicitlySet__.add("resultsUrl");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("homeRegion")
+        private String homeRegion;
+
+        public Builder homeRegion(String homeRegion) {
+            this.homeRegion = homeRegion;
+            this.__explicitlySet__.add("homeRegion");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
+        private java.util.Date timeCreated;
+
+        public Builder timeCreated(java.util.Date timeCreated) {
+            this.timeCreated = timeCreated;
+            this.__explicitlySet__.add("timeCreated");
             return this;
         }
 
@@ -115,6 +135,8 @@ public class HttpMonitorSummary {
                     new HttpMonitorSummary(
                             id,
                             resultsUrl,
+                            homeRegion,
+                            timeCreated,
                             compartmentId,
                             displayName,
                             intervalInSeconds,
@@ -131,6 +153,8 @@ public class HttpMonitorSummary {
             Builder copiedBuilder =
                     id(o.getId())
                             .resultsUrl(o.getResultsUrl())
+                            .homeRegion(o.getHomeRegion())
+                            .timeCreated(o.getTimeCreated())
                             .compartmentId(o.getCompartmentId())
                             .displayName(o.getDisplayName())
                             .intervalInSeconds(o.getIntervalInSeconds())
@@ -162,6 +186,20 @@ public class HttpMonitorSummary {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("resultsUrl")
     String resultsUrl;
+
+    /**
+     * The region where updates must be made and where results must be fetched from.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("homeRegion")
+    String homeRegion;
+
+    /**
+     * The RFC 3339-formatted creation date and time of the probe.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
+    java.util.Date timeCreated;
 
     /**
      * The OCID of the compartment.

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.containerengine.model;
     builder = CreateClusterKubeconfigContentDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateClusterKubeconfigContentDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -42,19 +44,31 @@ public class CreateClusterKubeconfigContentDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("endpoint")
+        private Endpoint endpoint;
+
+        public Builder endpoint(Endpoint endpoint) {
+            this.endpoint = endpoint;
+            this.__explicitlySet__.add("endpoint");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public CreateClusterKubeconfigContentDetails build() {
             CreateClusterKubeconfigContentDetails __instance__ =
-                    new CreateClusterKubeconfigContentDetails(tokenVersion, expiration);
+                    new CreateClusterKubeconfigContentDetails(tokenVersion, expiration, endpoint);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(CreateClusterKubeconfigContentDetails o) {
-            Builder copiedBuilder = tokenVersion(o.getTokenVersion()).expiration(o.getExpiration());
+            Builder copiedBuilder =
+                    tokenVersion(o.getTokenVersion())
+                            .expiration(o.getExpiration())
+                            .endpoint(o.getEndpoint());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -69,16 +83,59 @@ public class CreateClusterKubeconfigContentDetails {
     }
 
     /**
-     * The version of the kubeconfig token.
+     * The version of the kubeconfig token. Supported value 2.0.0
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("tokenVersion")
     String tokenVersion;
 
     /**
-     * The desired expiration, in seconds, to use for the kubeconfig token.
+     * Deprecated. This field is no longer used.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("expiration")
     Integer expiration;
+    /**
+     * The endpoint to target. A cluster may have multiple endpoints exposed but the kubeconfig can only target one at a time.
+     **/
+    public enum Endpoint {
+        LegacyKubernetes("LEGACY_KUBERNETES"),
+        PublicEndpoint("PUBLIC_ENDPOINT"),
+        PrivateEndpoint("PRIVATE_ENDPOINT"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, Endpoint> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Endpoint v : Endpoint.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        Endpoint(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Endpoint create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid Endpoint: " + key);
+        }
+    };
+    /**
+     * The endpoint to target. A cluster may have multiple endpoints exposed but the kubeconfig can only target one at a time.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("endpoint")
+    Endpoint endpoint;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

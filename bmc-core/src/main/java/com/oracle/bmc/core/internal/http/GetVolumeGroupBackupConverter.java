@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,14 +17,15 @@ public class GetVolumeGroupBackupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetVolumeGroupBackupRequest interceptRequest(
-            GetVolumeGroupBackupRequest request) {
+    public static com.oracle.bmc.core.requests.GetVolumeGroupBackupRequest interceptRequest(
+            com.oracle.bmc.core.requests.GetVolumeGroupBackupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetVolumeGroupBackupRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.GetVolumeGroupBackupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getVolumeGroupBackupId(), "volumeGroupBackupId must not be blank");
@@ -40,22 +42,28 @@ public class GetVolumeGroupBackupConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetVolumeGroupBackupResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, GetVolumeGroupBackupResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetVolumeGroupBackupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse>() {
                             @Override
-                            public GetVolumeGroupBackupResponse apply(
+                            public com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetVolumeGroupBackupResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -69,8 +77,12 @@ public class GetVolumeGroupBackupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetVolumeGroupBackupResponse.Builder builder =
-                                        GetVolumeGroupBackupResponse.builder();
+                                com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .GetVolumeGroupBackupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.volumeGroupBackup(response.getItem());
 
@@ -95,7 +107,8 @@ public class GetVolumeGroupBackupConverter {
                                                     String.class));
                                 }
 
-                                GetVolumeGroupBackupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetVolumeGroupBackupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

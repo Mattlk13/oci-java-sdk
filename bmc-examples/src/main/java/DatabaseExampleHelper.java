@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.core.VirtualNetwork;
 import com.oracle.bmc.core.model.AddNetworkSecurityGroupSecurityRulesDetails;
@@ -31,11 +32,9 @@ import com.oracle.bmc.core.responses.CreateSubnetResponse;
 import com.oracle.bmc.core.responses.CreateVcnResponse;
 import com.oracle.bmc.core.responses.GetSecurityListResponse;
 import com.oracle.bmc.core.responses.UpdateSecurityListResponse;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -52,7 +51,11 @@ public class DatabaseExampleHelper {
         Tcp(6),
         Udp(17);
 
-        @Getter private final Integer protocolNumber;
+        private final Integer protocolNumber;
+
+        public Integer getProtocolNumber() {
+            return protocolNumber;
+        }
 
         NetworkProtocol(Integer protocol) {
             this.protocolNumber = protocol;

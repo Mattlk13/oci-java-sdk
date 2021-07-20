@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -26,10 +27,20 @@ package com.oracle.bmc.core.model;
     property = "destinationType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ExportImageViaObjectStorageTupleDetails extends ExportImageDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("exportFormat")
+        private ExportFormat exportFormat;
+
+        public Builder exportFormat(ExportFormat exportFormat) {
+            this.exportFormat = exportFormat;
+            this.__explicitlySet__.add("exportFormat");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("bucketName")
         private String bucketName;
 
@@ -63,7 +74,7 @@ public class ExportImageViaObjectStorageTupleDetails extends ExportImageDetails 
         public ExportImageViaObjectStorageTupleDetails build() {
             ExportImageViaObjectStorageTupleDetails __instance__ =
                     new ExportImageViaObjectStorageTupleDetails(
-                            bucketName, namespaceName, objectName);
+                            exportFormat, bucketName, namespaceName, objectName);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -71,7 +82,8 @@ public class ExportImageViaObjectStorageTupleDetails extends ExportImageDetails 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(ExportImageViaObjectStorageTupleDetails o) {
             Builder copiedBuilder =
-                    bucketName(o.getBucketName())
+                    exportFormat(o.getExportFormat())
+                            .bucketName(o.getBucketName())
                             .namespaceName(o.getNamespaceName())
                             .objectName(o.getObjectName());
 
@@ -89,8 +101,8 @@ public class ExportImageViaObjectStorageTupleDetails extends ExportImageDetails 
 
     @Deprecated
     public ExportImageViaObjectStorageTupleDetails(
-            String bucketName, String namespaceName, String objectName) {
-        super();
+            ExportFormat exportFormat, String bucketName, String namespaceName, String objectName) {
+        super(exportFormat);
         this.bucketName = bucketName;
         this.namespaceName = namespaceName;
         this.objectName = objectName;

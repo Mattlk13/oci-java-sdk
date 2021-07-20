@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
@@ -28,6 +29,7 @@ package com.oracle.bmc.loadbalancer.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = LoadBalancer.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class LoadBalancer {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -95,6 +97,15 @@ public class LoadBalancer {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("shapeDetails")
+        private ShapeDetails shapeDetails;
+
+        public Builder shapeDetails(ShapeDetails shapeDetails) {
+            this.shapeDetails = shapeDetails;
+            this.__explicitlySet__.add("shapeDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("isPrivate")
         private Boolean isPrivate;
 
@@ -137,6 +148,15 @@ public class LoadBalancer {
         public Builder hostnames(java.util.Map<String, Hostname> hostnames) {
             this.hostnames = hostnames;
             this.__explicitlySet__.add("hostnames");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sslCipherSuites")
+        private java.util.Map<String, SSLCipherSuite> sslCipherSuites;
+
+        public Builder sslCipherSuites(java.util.Map<String, SSLCipherSuite> sslCipherSuites) {
+            this.sslCipherSuites = sslCipherSuites;
+            this.__explicitlySet__.add("sslCipherSuites");
             return this;
         }
 
@@ -186,12 +206,30 @@ public class LoadBalancer {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+        private java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+        public Builder systemTags(java.util.Map<String, java.util.Map<String, Object>> systemTags) {
+            this.systemTags = systemTags;
+            this.__explicitlySet__.add("systemTags");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("ruleSets")
         private java.util.Map<String, RuleSet> ruleSets;
 
         public Builder ruleSets(java.util.Map<String, RuleSet> ruleSets) {
             this.ruleSets = ruleSets;
             this.__explicitlySet__.add("ruleSets");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("routingPolicies")
+        private java.util.Map<String, RoutingPolicy> routingPolicies;
+
+        public Builder routingPolicies(java.util.Map<String, RoutingPolicy> routingPolicies) {
+            this.routingPolicies = routingPolicies;
+            this.__explicitlySet__.add("routingPolicies");
             return this;
         }
 
@@ -208,17 +246,21 @@ public class LoadBalancer {
                             timeCreated,
                             ipAddresses,
                             shapeName,
+                            shapeDetails,
                             isPrivate,
                             subnetIds,
                             networkSecurityGroupIds,
                             listeners,
                             hostnames,
+                            sslCipherSuites,
                             certificates,
                             backendSets,
                             pathRouteSets,
                             freeformTags,
                             definedTags,
-                            ruleSets);
+                            systemTags,
+                            ruleSets,
+                            routingPolicies);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -233,17 +275,21 @@ public class LoadBalancer {
                             .timeCreated(o.getTimeCreated())
                             .ipAddresses(o.getIpAddresses())
                             .shapeName(o.getShapeName())
+                            .shapeDetails(o.getShapeDetails())
                             .isPrivate(o.getIsPrivate())
                             .subnetIds(o.getSubnetIds())
                             .networkSecurityGroupIds(o.getNetworkSecurityGroupIds())
                             .listeners(o.getListeners())
                             .hostnames(o.getHostnames())
+                            .sslCipherSuites(o.getSslCipherSuites())
                             .certificates(o.getCertificates())
                             .backendSets(o.getBackendSets())
                             .pathRouteSets(o.getPathRouteSets())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
-                            .ruleSets(o.getRuleSets());
+                            .systemTags(o.getSystemTags())
+                            .ruleSets(o.getRuleSets())
+                            .routingPolicies(o.getRoutingPolicies());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -361,6 +407,9 @@ public class LoadBalancer {
     @com.fasterxml.jackson.annotation.JsonProperty("shapeName")
     String shapeName;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("shapeDetails")
+    ShapeDetails shapeDetails;
+
     /**
      * Whether the load balancer has a VCN-local (private) IP address.
      * <p>
@@ -385,7 +434,19 @@ public class LoadBalancer {
     java.util.List<String> subnetIds;
 
     /**
-     * The array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) in use by this Load Balancer.
+     * An array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the load
+     * balancer.
+     * <p>
+     * During the load balancer's creation, the service adds the new load balancer to the specified NSGs.
+     * <p>
+     * The benefits of associating the load balancer with NSGs include:
+     * <p>
+     *  NSGs define network security rules to govern ingress and egress traffic for the load balancer.
+     * <p>
+     *  The network security rules of other resources can reference the NSGs associated with the load balancer
+     *    to ensure access.
+     * <p>
+     * Example: [\"ocid1.nsg.oc1.phx.unique_ID\"]
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("networkSecurityGroupIds")
@@ -396,6 +457,9 @@ public class LoadBalancer {
 
     @com.fasterxml.jackson.annotation.JsonProperty("hostnames")
     java.util.Map<String, Hostname> hostnames;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("sslCipherSuites")
+    java.util.Map<String, SSLCipherSuite> sslCipherSuites;
 
     @com.fasterxml.jackson.annotation.JsonProperty("certificates")
     java.util.Map<String, Certificate> certificates;
@@ -426,8 +490,22 @@ public class LoadBalancer {
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
+    /**
+     * System tags for this resource. Each key is predefined and scoped to a namespace.
+     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * System tags can be viewed by users, but can only be created by the system.
+     * <p>
+     * Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+    java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
     @com.fasterxml.jackson.annotation.JsonProperty("ruleSets")
     java.util.Map<String, RuleSet> ruleSets;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("routingPolicies")
+    java.util.Map<String, RoutingPolicy> routingPolicies;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

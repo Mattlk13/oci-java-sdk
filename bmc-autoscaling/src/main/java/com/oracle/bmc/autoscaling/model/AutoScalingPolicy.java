@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.autoscaling.model;
 
@@ -8,6 +9,11 @@ package com.oracle.bmc.autoscaling.model;
  * <p>
  * An autoscaling policy is part of an autoscaling configuration. For more information, see
  * [Autoscaling](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/autoscalinginstancepools.htm).
+ * <p>
+ * You can create the following types of autoscaling policies:
+ *
+ *   - **Schedule-based:** Autoscaling events take place at the specific times that you schedule.
+ *   - **Threshold-based:** An autoscaling action is triggered when a performance metric meets or exceeds a threshold.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -31,6 +37,10 @@ package com.oracle.bmc.autoscaling.model;
     defaultImpl = AutoScalingPolicy.class
 )
 @com.fasterxml.jackson.annotation.JsonSubTypes({
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = ScheduledPolicy.class,
+        name = "scheduled"
+    ),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = ThresholdPolicy.class,
         name = "threshold"
@@ -66,4 +76,10 @@ public class AutoScalingPolicy {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * Whether the autoscaling policy is enabled.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
+    Boolean isEnabled;
 }

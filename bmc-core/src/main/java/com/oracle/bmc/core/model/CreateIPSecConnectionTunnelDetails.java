@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = CreateIPSecConnectionTunnelDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateIPSecConnectionTunnelDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -42,6 +44,15 @@ public class CreateIPSecConnectionTunnelDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("ikeVersion")
+        private IkeVersion ikeVersion;
+
+        public Builder ikeVersion(IkeVersion ikeVersion) {
+            this.ikeVersion = ikeVersion;
+            this.__explicitlySet__.add("ikeVersion");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sharedSecret")
         private String sharedSecret;
 
@@ -60,13 +71,28 @@ public class CreateIPSecConnectionTunnelDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionDomainConfig")
+        private CreateIPSecTunnelEncryptionDomainDetails encryptionDomainConfig;
+
+        public Builder encryptionDomainConfig(
+                CreateIPSecTunnelEncryptionDomainDetails encryptionDomainConfig) {
+            this.encryptionDomainConfig = encryptionDomainConfig;
+            this.__explicitlySet__.add("encryptionDomainConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public CreateIPSecConnectionTunnelDetails build() {
             CreateIPSecConnectionTunnelDetails __instance__ =
                     new CreateIPSecConnectionTunnelDetails(
-                            displayName, routing, sharedSecret, bgpSessionConfig);
+                            displayName,
+                            routing,
+                            ikeVersion,
+                            sharedSecret,
+                            bgpSessionConfig,
+                            encryptionDomainConfig);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -76,8 +102,10 @@ public class CreateIPSecConnectionTunnelDetails {
             Builder copiedBuilder =
                     displayName(o.getDisplayName())
                             .routing(o.getRouting())
+                            .ikeVersion(o.getIkeVersion())
                             .sharedSecret(o.getSharedSecret())
-                            .bgpSessionConfig(o.getBgpSessionConfig());
+                            .bgpSessionConfig(o.getBgpSessionConfig())
+                            .encryptionDomainConfig(o.getEncryptionDomainConfig());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -105,6 +133,7 @@ public class CreateIPSecConnectionTunnelDetails {
     public enum Routing {
         Bgp("BGP"),
         Static("STATIC"),
+        Policy("POLICY"),
         ;
 
         private final String value;
@@ -131,7 +160,7 @@ public class CreateIPSecConnectionTunnelDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid Routing: " + key);
+            throw new IllegalArgumentException("Invalid Routing: " + key);
         }
     };
     /**
@@ -140,30 +169,64 @@ public class CreateIPSecConnectionTunnelDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("routing")
     Routing routing;
+    /**
+     * Internet Key Exchange protocol version.
+     *
+     **/
+    public enum IkeVersion {
+        V1("V1"),
+        V2("V2"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, IkeVersion> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (IkeVersion v : IkeVersion.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        IkeVersion(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static IkeVersion create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid IkeVersion: " + key);
+        }
+    };
+    /**
+     * Internet Key Exchange protocol version.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("ikeVersion")
+    IkeVersion ikeVersion;
 
     /**
      * The shared secret (pre-shared key) to use for the IPSec tunnel. Only numbers, letters, and
      * spaces are allowed. If you don't provide a value,
      * Oracle generates a value for you. You can specify your own shared secret later if
      * you like with {@link #updateIPSecConnectionTunnelSharedSecret(UpdateIPSecConnectionTunnelSharedSecretRequest) updateIPSecConnectionTunnelSharedSecret}.
-     * <p>
-     * Example: `EXAMPLEToUis6j1cp8GdVQxcmdfMO0yXMLilZTbYCMDGu4V8o`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sharedSecret")
     String sharedSecret;
 
-    /**
-     * Information for establishing a BGP session for the IPSec tunnel. Required if the tunnel uses
-     * BGP dynamic routing.
-     * <p>
-     * If the tunnel instead uses static routing, you may optionally provide
-     * this object and set an IP address for one or both ends of the IPSec tunnel for the purposes
-     * of troubleshooting or monitoring the tunnel.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("bgpSessionConfig")
     CreateIPSecTunnelBgpSessionDetails bgpSessionConfig;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionDomainConfig")
+    CreateIPSecTunnelEncryptionDomainDetails encryptionDomainConfig;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

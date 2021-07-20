@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.retrier;
 
@@ -7,8 +8,11 @@ import com.google.common.base.Optional;
 import com.google.common.base.Suppliers;
 import com.oracle.bmc.model.BmcException;
 import com.oracle.bmc.waiter.GenericWaiter;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -17,9 +21,10 @@ import java.util.function.Function;
  * A generic retrier that can be used to implement custom retry behavior for specific
  * types of calls.
  */
+@Slf4j
 public class BmcGenericRetrier {
     private final GenericWaiter waiter;
-    private final RetryCondition retryCondition;
+    @Getter private final RetryCondition retryCondition;
 
     /**
      * Creates a new retrier with the given configuration.
@@ -46,10 +51,16 @@ public class BmcGenericRetrier {
                 waiter.execute(
                         Suppliers.ofInstance(requestToUse),
                         (request) -> {
+                            if (lastKnownException.getValue() != null) {
+                                // we know there was a previous exception, so this must be a retry
+                                LOG.debug(
+                                        "Retrying: {}", lastKnownException.getValue().getMessage());
+                            }
                             try {
-                                return functionCall.apply(request);
+                                return doFunctionCall(request, functionCall);
                             } catch (BmcException e) {
                                 if (!retryCondition.shouldBeRetried(e)) {
+                                    LOG.debug("Not retrying, not retriable: {}", e.getMessage());
                                     throw e;
                                 }
                                 lastKnownException.setValue(e);
@@ -63,5 +74,18 @@ public class BmcGenericRetrier {
         }
 
         throw lastKnownException.getValue();
+    }
+
+    /**
+     * Executes the actual function call. Can be overridden, e.g. for debugging.
+     * @param functionCall Function that will be invoked to send out the request.
+     * @param request request data for the function call
+     * @param <REQUEST> Request object class
+     * @param <RESPONSE> Response object class
+     * @return The successful response
+     */
+    protected <REQUEST, RESPONSE> RESPONSE doFunctionCall(
+            @Nullable @NonNull REQUEST request, @NonNull Function<REQUEST, RESPONSE> functionCall) {
+        return functionCall.apply(request);
     }
 }

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc;
 
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Simple implementation to read OCI configuration files.
@@ -42,6 +44,11 @@ public final class ConfigFileReader {
     public static final String FALLBACK_DEFAULT_FILE_PATH = "~/.oraclebmc/config";
 
     private static final String DEFAULT_PROFILE_NAME = "DEFAULT";
+
+    /**
+     * Environment variable name for the config file location
+     */
+    public static final String OCI_CONFIG_FILE_PATH_ENV_VAR_NAME = "OCI_CONFIG_FILE";
 
     /**
      * Creates a new ConfigFile instance using the configuration at the default location,
@@ -67,7 +74,12 @@ public final class ConfigFileReader {
         File effectiveFile = null;
 
         File defaultFile = new File(expandUserHome(DEFAULT_FILE_PATH));
-        File fallbackDefaultFile = new File(expandUserHome(FALLBACK_DEFAULT_FILE_PATH));
+        String fallbackConfigFilePath = System.getenv(OCI_CONFIG_FILE_PATH_ENV_VAR_NAME);
+
+        if (StringUtils.isBlank(fallbackConfigFilePath)) {
+            fallbackConfigFilePath = FALLBACK_DEFAULT_FILE_PATH;
+        }
+        File fallbackDefaultFile = new File(expandUserHome(fallbackConfigFilePath));
 
         if (defaultFile.exists() && defaultFile.isFile()) {
             effectiveFile = defaultFile;

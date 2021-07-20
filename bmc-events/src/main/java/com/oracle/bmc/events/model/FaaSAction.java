@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.events.model;
 
@@ -24,6 +25,7 @@ package com.oracle.bmc.events.model;
     property = "actionType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class FaaSAction extends Action {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -55,6 +57,15 @@ public class FaaSAction extends Action {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
+        private Boolean isEnabled;
+
+        public Builder isEnabled(Boolean isEnabled) {
+            this.isEnabled = isEnabled;
+            this.__explicitlySet__.add("isEnabled");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("description")
         private String description;
 
@@ -78,7 +89,13 @@ public class FaaSAction extends Action {
 
         public FaaSAction build() {
             FaaSAction __instance__ =
-                    new FaaSAction(id, lifecycleMessage, lifecycleState, description, functionId);
+                    new FaaSAction(
+                            id,
+                            lifecycleMessage,
+                            lifecycleState,
+                            isEnabled,
+                            description,
+                            functionId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -89,6 +106,7 @@ public class FaaSAction extends Action {
                     id(o.getId())
                             .lifecycleMessage(o.getLifecycleMessage())
                             .lifecycleState(o.getLifecycleState())
+                            .isEnabled(o.getIsEnabled())
                             .description(o.getDescription())
                             .functionId(o.getFunctionId());
 
@@ -109,9 +127,10 @@ public class FaaSAction extends Action {
             String id,
             String lifecycleMessage,
             LifecycleState lifecycleState,
+            Boolean isEnabled,
             String description,
             String functionId) {
-        super(id, lifecycleMessage, lifecycleState, description);
+        super(id, lifecycleMessage, lifecycleState, isEnabled, description);
         this.functionId = functionId;
     }
 

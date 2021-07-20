@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.containerengine.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = NodePool.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class NodePool {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -94,6 +96,33 @@ public class NodePool {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeShapeConfig")
+        private NodeShapeConfig nodeShapeConfig;
+
+        public Builder nodeShapeConfig(NodeShapeConfig nodeShapeConfig) {
+            this.nodeShapeConfig = nodeShapeConfig;
+            this.__explicitlySet__.add("nodeShapeConfig");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeSource")
+        private NodeSourceOption nodeSource;
+
+        public Builder nodeSource(NodeSourceOption nodeSource) {
+            this.nodeSource = nodeSource;
+            this.__explicitlySet__.add("nodeSource");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeSourceDetails")
+        private NodeSourceDetails nodeSourceDetails;
+
+        public Builder nodeSourceDetails(NodeSourceDetails nodeSourceDetails) {
+            this.nodeSourceDetails = nodeSourceDetails;
+            this.__explicitlySet__.add("nodeSourceDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("nodeShape")
         private String nodeShape;
 
@@ -148,6 +177,15 @@ public class NodePool {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeConfigDetails")
+        private NodePoolNodeConfigDetails nodeConfigDetails;
+
+        public Builder nodeConfigDetails(NodePoolNodeConfigDetails nodeConfigDetails) {
+            this.nodeConfigDetails = nodeConfigDetails;
+            this.__explicitlySet__.add("nodeConfigDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -162,12 +200,16 @@ public class NodePool {
                             nodeMetadata,
                             nodeImageId,
                             nodeImageName,
+                            nodeShapeConfig,
+                            nodeSource,
+                            nodeSourceDetails,
                             nodeShape,
                             initialNodeLabels,
                             sshPublicKey,
                             quantityPerSubnet,
                             subnetIds,
-                            nodes);
+                            nodes,
+                            nodeConfigDetails);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -183,12 +225,16 @@ public class NodePool {
                             .nodeMetadata(o.getNodeMetadata())
                             .nodeImageId(o.getNodeImageId())
                             .nodeImageName(o.getNodeImageName())
+                            .nodeShapeConfig(o.getNodeShapeConfig())
+                            .nodeSource(o.getNodeSource())
+                            .nodeSourceDetails(o.getNodeSourceDetails())
                             .nodeShape(o.getNodeShape())
                             .initialNodeLabels(o.getInitialNodeLabels())
                             .sshPublicKey(o.getSshPublicKey())
                             .quantityPerSubnet(o.getQuantityPerSubnet())
                             .subnetIds(o.getSubnetIds())
-                            .nodes(o.getNodes());
+                            .nodes(o.getNodes())
+                            .nodeConfigDetails(o.getNodeConfigDetails());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -233,22 +279,42 @@ public class NodePool {
     String kubernetesVersion;
 
     /**
-     * A list of key/value pairs to add to each underlying OCI instance in the node pool.
+     * A list of key/value pairs to add to each underlying OCI instance in the node pool on launch.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeMetadata")
     java.util.Map<String, String> nodeMetadata;
 
     /**
-     * The OCID of the image running on the nodes in the node pool.
+     * Deprecated. see `nodeSource`. The OCID of the image running on the nodes in the node pool.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeImageId")
     String nodeImageId;
 
     /**
-     * The name of the image running on the nodes in the node pool.
+     * Deprecated. see `nodeSource`. The name of the image running on the nodes in the node pool.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeImageName")
     String nodeImageName;
+
+    /**
+     * The shape configuration of the nodes.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeShapeConfig")
+    NodeShapeConfig nodeShapeConfig;
+
+    /**
+     * Deprecated. see `nodeSourceDetails`. Source running on the nodes in the node pool.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeSource")
+    NodeSourceOption nodeSource;
+
+    /**
+     * Source running on the nodes in the node pool.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeSourceDetails")
+    NodeSourceDetails nodeSourceDetails;
 
     /**
      * The name of the node shape of the nodes in the node pool.
@@ -263,7 +329,7 @@ public class NodePool {
     java.util.List<KeyValue> initialNodeLabels;
 
     /**
-     * The SSH public key on each node in the node pool.
+     * The SSH public key on each node in the node pool on launch.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sshPublicKey")
     String sshPublicKey;
@@ -285,6 +351,12 @@ public class NodePool {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodes")
     java.util.List<Node> nodes;
+
+    /**
+     * The configuration of nodes in the node pool.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeConfigDetails")
+    NodePoolNodeConfigDetails nodeConfigDetails;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

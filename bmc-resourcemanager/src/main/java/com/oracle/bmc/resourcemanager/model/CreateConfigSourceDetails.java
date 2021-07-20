@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
 /**
- * Property details for the configuration source.
+ * Property details for the configuration source used for the stack.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -31,6 +32,22 @@ package com.oracle.bmc.resourcemanager.model;
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = CreateZipUploadConfigSourceDetails.class,
         name = "ZIP_UPLOAD"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CreateGitConfigSourceDetails.class,
+        name = "GIT_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CreateObjectStorageConfigSourceDetails.class,
+        name = "OBJECT_STORAGE_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CreateCompartmentConfigSourceDetails.class,
+        name = "COMPARTMENT_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CreateStackTemplateConfigSourceDetails.class,
+        name = "TEMPLATE_CONFIG_SOURCE"
     )
 })
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
@@ -39,6 +56,7 @@ public class CreateConfigSourceDetails {
     /**
      * File path to the directory from which Terraform runs.
      * If not specified, the root directory is used.
+     * This parameter is ignored for the `configSourceType` value of `COMPARTMENT_CONFIG_SOURCE`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("workingDirectory")

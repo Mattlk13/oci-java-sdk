@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.database.model;
     builder = CreateDatabaseDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateDatabaseDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -33,6 +35,24 @@ public class CreateDatabaseDetails {
         public Builder dbName(String dbName) {
             this.dbName = dbName;
             this.__explicitlySet__.add("dbName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dbUniqueName")
+        private String dbUniqueName;
+
+        public Builder dbUniqueName(String dbUniqueName) {
+            this.dbUniqueName = dbUniqueName;
+            this.__explicitlySet__.add("dbUniqueName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
             return this;
         }
 
@@ -51,6 +71,15 @@ public class CreateDatabaseDetails {
         public Builder adminPassword(String adminPassword) {
             this.adminPassword = adminPassword;
             this.__explicitlySet__.add("adminPassword");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("tdeWalletPassword")
+        private String tdeWalletPassword;
+
+        public Builder tdeWalletPassword(String tdeWalletPassword) {
+            this.tdeWalletPassword = tdeWalletPassword;
+            this.__explicitlySet__.add("tdeWalletPassword");
             return this;
         }
 
@@ -116,8 +145,11 @@ public class CreateDatabaseDetails {
             CreateDatabaseDetails __instance__ =
                     new CreateDatabaseDetails(
                             dbName,
+                            dbUniqueName,
+                            databaseSoftwareImageId,
                             pdbName,
                             adminPassword,
+                            tdeWalletPassword,
                             characterSet,
                             ncharacterSet,
                             dbWorkload,
@@ -132,8 +164,11 @@ public class CreateDatabaseDetails {
         public Builder copy(CreateDatabaseDetails o) {
             Builder copiedBuilder =
                     dbName(o.getDbName())
+                            .dbUniqueName(o.getDbUniqueName())
+                            .databaseSoftwareImageId(o.getDatabaseSoftwareImageId())
                             .pdbName(o.getPdbName())
                             .adminPassword(o.getAdminPassword())
+                            .tdeWalletPassword(o.getTdeWalletPassword())
                             .characterSet(o.getCharacterSet())
                             .ncharacterSet(o.getNcharacterSet())
                             .dbWorkload(o.getDbWorkload())
@@ -160,7 +195,19 @@ public class CreateDatabaseDetails {
     String dbName;
 
     /**
-     * The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
+     * The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dbUniqueName")
+    String dbUniqueName;
+
+    /**
+     * The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+    String databaseSoftwareImageId;
+
+    /**
+     * The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of thirty alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("pdbName")
     String pdbName;
@@ -170,6 +217,12 @@ public class CreateDatabaseDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("adminPassword")
     String adminPassword;
+
+    /**
+     * The optional password to open the TDE wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("tdeWalletPassword")
+    String tdeWalletPassword;
 
     /**
      * The character set for the database.  The default is AL32UTF8. Allowed values are:
@@ -219,7 +272,7 @@ public class CreateDatabaseDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid DbWorkload: " + key);
+            throw new IllegalArgumentException("Invalid DbWorkload: " + key);
         }
     };
     /**
@@ -244,8 +297,6 @@ public class CreateDatabaseDetails {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")

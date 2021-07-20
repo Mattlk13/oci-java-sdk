@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package shared;
 
@@ -7,6 +8,8 @@ import com.oracle.bmc.identity.Identity;
 import com.oracle.bmc.identity.model.Compartment;
 import com.oracle.bmc.identity.model.CreateCompartmentDetails;
 import com.oracle.bmc.identity.requests.CreateCompartmentRequest;
+import com.oracle.bmc.identity.requests.DeleteCompartmentRequest;
+import com.oracle.bmc.identity.requests.GetCompartmentRequest;
 import com.oracle.bmc.identity.requests.ListCompartmentsRequest;
 import com.oracle.bmc.identity.IdentityPaginators;
 
@@ -73,5 +76,17 @@ public class ExampleCompartmentHelper {
         System.out.println(
                 "Compartment " + compartmentName + " does not exist. Please check the name.");
         throw new RuntimeException("Compartment does not exist");
+    }
+
+    public static void deleteCompartment(Identity client, Compartment compartment)
+            throws Exception {
+        DeleteCompartmentRequest deleteCompartmentRequest =
+                DeleteCompartmentRequest.builder().compartmentId(compartment.getId()).build();
+        client.deleteCompartment(deleteCompartmentRequest);
+        client.getWaiters()
+                .forCompartment(
+                        GetCompartmentRequest.builder().compartmentId(compartment.getId()).build(),
+                        Compartment.LifecycleState.Deleted)
+                .execute();
     }
 }

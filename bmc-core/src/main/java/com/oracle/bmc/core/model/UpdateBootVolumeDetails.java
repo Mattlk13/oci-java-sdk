@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = UpdateBootVolumeDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateBootVolumeDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -61,12 +63,47 @@ public class UpdateBootVolumeDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+        private Long vpusPerGB;
+
+        public Builder vpusPerGB(Long vpusPerGB) {
+            this.vpusPerGB = vpusPerGB;
+            this.__explicitlySet__.add("vpusPerGB");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+        private Boolean isAutoTuneEnabled;
+
+        public Builder isAutoTuneEnabled(Boolean isAutoTuneEnabled) {
+            this.isAutoTuneEnabled = isAutoTuneEnabled;
+            this.__explicitlySet__.add("isAutoTuneEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+        private java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas;
+
+        public Builder bootVolumeReplicas(
+                java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas) {
+            this.bootVolumeReplicas = bootVolumeReplicas;
+            this.__explicitlySet__.add("bootVolumeReplicas");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateBootVolumeDetails build() {
             UpdateBootVolumeDetails __instance__ =
-                    new UpdateBootVolumeDetails(definedTags, displayName, freeformTags, sizeInGBs);
+                    new UpdateBootVolumeDetails(
+                            definedTags,
+                            displayName,
+                            freeformTags,
+                            sizeInGBs,
+                            vpusPerGB,
+                            isAutoTuneEnabled,
+                            bootVolumeReplicas);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -77,7 +114,10 @@ public class UpdateBootVolumeDetails {
                     definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
-                            .sizeInGBs(o.getSizeInGBs());
+                            .sizeInGBs(o.getSizeInGBs())
+                            .vpusPerGB(o.getVpusPerGB())
+                            .isAutoTuneEnabled(o.getIsAutoTuneEnabled())
+                            .bootVolumeReplicas(o.getBootVolumeReplicas());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -93,7 +133,7 @@ public class UpdateBootVolumeDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -111,7 +151,7 @@ public class UpdateBootVolumeDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -124,6 +164,36 @@ public class UpdateBootVolumeDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInGBs")
     Long sizeInGBs;
+
+    /**
+     * The number of volume performance units (VPUs) that will be applied to this volume per GB,
+     * representing the Block Volume service's elastic performance options.
+     * See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+     * <p>
+     * Allowed values:
+     * <p>
+     * `10`: Represents Balanced option.
+     * <p>
+     * `20`: Represents Higher Performance option.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+    Long vpusPerGB;
+
+    /**
+     * Specifies whether the auto-tune performance is enabled for this boot volume.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+    Boolean isAutoTuneEnabled;
+
+    /**
+     * The list of boot volume replicas that this boot volume will be updated to have
+     * in the specified destination availability domains.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+    java.util.List<BootVolumeReplicaDetails> bootVolumeReplicas;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

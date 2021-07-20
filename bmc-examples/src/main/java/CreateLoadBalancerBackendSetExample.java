@@ -1,6 +1,8 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.loadbalancer.LoadBalancerClient;
@@ -49,8 +51,14 @@ public class CreateLoadBalancerBackendSetExample {
         String backendSetName = "BackendSetExample";
         String policy = "ROUND_ROBIN";
 
-        AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(configurationFilePath, profile);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
+        final AuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         LoadBalancerClient loadBalancerClient = new LoadBalancerClient(provider);
 
@@ -109,7 +117,8 @@ public class CreateLoadBalancerBackendSetExample {
             String backendSetName,
             String policy,
             HealthCheckerDetails healthChecker,
-            LBCookieSessionPersistenceConfigurationDetails lbcspDetails) {
+            LBCookieSessionPersistenceConfigurationDetails lbcspDetails)
+            throws Exception {
 
         CreateBackendSetResponse response =
                 loadBalancerClient.createBackendSet(
@@ -129,7 +138,8 @@ public class CreateLoadBalancerBackendSetExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
     }
 
     /**
@@ -146,7 +156,8 @@ public class CreateLoadBalancerBackendSetExample {
             String loadBalancerId,
             String backendSetName,
             String policy,
-            HealthCheckerDetails healthChecker) {
+            HealthCheckerDetails healthChecker)
+            throws Exception {
 
         List<BackendDetails> backends = new ArrayList<BackendDetails>();
         backends.add(BackendDetails.builder().ipAddress("10.0.0.5").port(80).build());
@@ -170,7 +181,8 @@ public class CreateLoadBalancerBackendSetExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
     }
 
     /**
@@ -181,7 +193,8 @@ public class CreateLoadBalancerBackendSetExample {
      * @param backendSetName the name of the backend set to delete
      */
     private static void deleteBackendSet(
-            LoadBalancerClient loadBalancerClient, String backendSetName, String loadBalancerId) {
+            LoadBalancerClient loadBalancerClient, String loadBalancerId, String backendSetName)
+            throws Exception {
         DeleteBackendSetResponse response =
                 loadBalancerClient.deleteBackendSet(
                         DeleteBackendSetRequest.builder()
@@ -193,6 +206,7 @@ public class CreateLoadBalancerBackendSetExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
     }
 }

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.internal.http;
 
@@ -16,15 +17,17 @@ public class DeletePreauthenticatedRequestConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeletePreauthenticatedRequestRequest interceptRequest(
-            DeletePreauthenticatedRequestRequest request) {
+    public static com.oracle.bmc.objectstorage.requests.DeletePreauthenticatedRequestRequest
+            interceptRequest(
+                    com.oracle.bmc.objectstorage.requests.DeletePreauthenticatedRequestRequest
+                            request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            DeletePreauthenticatedRequestRequest request) {
+            com.oracle.bmc.objectstorage.requests.DeletePreauthenticatedRequestRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNamespaceName(), "namespaceName must not be blank");
         Validate.notBlank(request.getBucketName(), "bucketName must not be blank");
@@ -54,23 +57,31 @@ public class DeletePreauthenticatedRequestConverter {
             ib.header("opc-client-request-id", request.getOpcClientRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, DeletePreauthenticatedRequestResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.objectstorage.responses.DeletePreauthenticatedRequestResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, DeletePreauthenticatedRequestResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.objectstorage.responses
+                                .DeletePreauthenticatedRequestResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                DeletePreauthenticatedRequestResponse>() {
+                                com.oracle.bmc.objectstorage.responses
+                                        .DeletePreauthenticatedRequestResponse>() {
                             @Override
-                            public DeletePreauthenticatedRequestResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.objectstorage.responses
+                                            .DeletePreauthenticatedRequestResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for DeletePreauthenticatedRequestResponse");
+                                        "Transform function invoked for com.oracle.bmc.objectstorage.responses.DeletePreauthenticatedRequestResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -81,8 +92,14 @@ public class DeletePreauthenticatedRequestConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeletePreauthenticatedRequestResponse.Builder builder =
-                                        DeletePreauthenticatedRequestResponse.builder();
+                                com.oracle.bmc.objectstorage.responses
+                                                .DeletePreauthenticatedRequestResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.objectstorage.responses
+                                                        .DeletePreauthenticatedRequestResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcClientRequestIdHeader =
@@ -108,8 +125,9 @@ public class DeletePreauthenticatedRequestConverter {
                                                     String.class));
                                 }
 
-                                DeletePreauthenticatedRequestResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.objectstorage.responses
+                                                .DeletePreauthenticatedRequestResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

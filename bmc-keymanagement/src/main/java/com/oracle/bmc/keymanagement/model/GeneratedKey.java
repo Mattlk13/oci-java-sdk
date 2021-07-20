@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.keymanagement.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = GeneratedKey.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class GeneratedKey {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -78,25 +80,24 @@ public class GeneratedKey {
     }
 
     /**
-     * The encrypted generated data encryption key.
+     * The encrypted data encryption key generated from a master encryption key.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("ciphertext")
     String ciphertext;
 
     /**
-     * The plaintext generated data encryption key, a base64-encoded
-     * sequence of random bytes, which is included if the
-     * GenerateDataEncryptionKey request includes the \"includePlaintextKey\"
-     * parameter and sets its value to 'true'.
+     * The plaintext data encryption key, a base64-encoded sequence of random bytes, which is
+     * included if the [GenerateDataEncryptionKey](https://docs.cloud.oracle.com/api/#/en/key/latest/GeneratedKey/GenerateDataEncryptionKey)
+     * request includes the `includePlaintextKey` parameter and sets its value to \"true\".
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("plaintext")
     String plaintext;
 
     /**
-     * The checksum of the plaintext generated data encryption key, which
-     * is included if the GenerateDataEncryptionKey request includes the
-     * \"includePlaintextKey parameter and sets its value to 'true'.
+     * The checksum of the plaintext data encryption key, which is included if the
+     * [GenerateDataEncryptionKey](https://docs.cloud.oracle.com/api/#/en/key/latest/GeneratedKey/GenerateDataEncryptionKey)
+     * request includes the `includePlaintextKey` parameter and sets its value to \"true\".
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("plaintextChecksum")

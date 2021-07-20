@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.internal.http;
 
@@ -16,15 +17,17 @@ public class UpdateAutonomousExadataInfrastructureConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateAutonomousExadataInfrastructureRequest interceptRequest(
-            UpdateAutonomousExadataInfrastructureRequest request) {
+    public static com.oracle.bmc.database.requests.UpdateAutonomousExadataInfrastructureRequest
+            interceptRequest(
+                    com.oracle.bmc.database.requests.UpdateAutonomousExadataInfrastructureRequest
+                            request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            UpdateAutonomousExadataInfrastructureRequest request) {
+            com.oracle.bmc.database.requests.UpdateAutonomousExadataInfrastructureRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getAutonomousExadataInfrastructureId(),
@@ -49,23 +52,31 @@ public class UpdateAutonomousExadataInfrastructureConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdateAutonomousExadataInfrastructureResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.database.responses.UpdateAutonomousExadataInfrastructureResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, UpdateAutonomousExadataInfrastructureResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.database.responses
+                                .UpdateAutonomousExadataInfrastructureResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                UpdateAutonomousExadataInfrastructureResponse>() {
+                                com.oracle.bmc.database.responses
+                                        .UpdateAutonomousExadataInfrastructureResponse>() {
                             @Override
-                            public UpdateAutonomousExadataInfrastructureResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.database.responses
+                                            .UpdateAutonomousExadataInfrastructureResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdateAutonomousExadataInfrastructureResponse");
+                                        "Transform function invoked for com.oracle.bmc.database.responses.UpdateAutonomousExadataInfrastructureResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -80,8 +91,15 @@ public class UpdateAutonomousExadataInfrastructureConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateAutonomousExadataInfrastructureResponse.Builder builder =
-                                        UpdateAutonomousExadataInfrastructureResponse.builder();
+                                com.oracle.bmc.database.responses
+                                                .UpdateAutonomousExadataInfrastructureResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.database.responses
+                                                        .UpdateAutonomousExadataInfrastructureResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.autonomousExadataInfrastructure(response.getItem());
 
@@ -106,8 +124,21 @@ public class UpdateAutonomousExadataInfrastructureConverter {
                                                     String.class));
                                 }
 
-                                UpdateAutonomousExadataInfrastructureResponse responseWrapper =
-                                        builder.build();
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        opcWorkRequestIdHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "opc-work-request-id");
+                                if (opcWorkRequestIdHeader.isPresent()) {
+                                    builder.opcWorkRequestId(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "opc-work-request-id",
+                                                    opcWorkRequestIdHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.oracle.bmc.database.responses
+                                                .UpdateAutonomousExadataInfrastructureResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

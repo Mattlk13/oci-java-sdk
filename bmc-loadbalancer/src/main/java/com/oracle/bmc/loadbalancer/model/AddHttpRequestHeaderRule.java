@@ -1,13 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
 /**
  * An object that represents the action of adding a header to a request.
  * This rule applies only to HTTP listeners.
- * <p>
- **NOTES:**
+ * **NOTES:**
  * <p>
  *  If a matching header already exists in the request, the system removes all of its occurrences, and then adds the
  *    new header.
@@ -37,6 +37,7 @@ package com.oracle.bmc.loadbalancer.model;
     property = "action"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AddHttpRequestHeaderRule extends Rule {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -101,7 +102,9 @@ public class AddHttpRequestHeaderRule extends Rule {
     String header;
 
     /**
-     * A header value that conforms to RFC 7230.
+     * A header value that conforms to RFC 7230. With the following exceptions:
+     * *  value cannot contain `$`
+     * *  value cannot contain patterns like `{variable_name}`. They are reserved for future extensions. Currently, such values are invalid.
      * <p>
      * Example: `example_value`
      *

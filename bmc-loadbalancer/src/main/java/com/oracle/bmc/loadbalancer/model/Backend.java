@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.loadbalancer.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Backend.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Backend {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -173,6 +175,8 @@ public class Backend {
     /**
      * Whether the load balancer should treat this server as a backup unit. If `true`, the load balancer forwards no ingress
      * traffic to this backend server unless all other backend servers not marked as \"backup\" fail the health check policy.
+     * <p>
+     **Note:** You cannot add a backend server marked as `backup` to a backend set that uses the IP Hash policy.
      * <p>
      * Example: `false`
      *

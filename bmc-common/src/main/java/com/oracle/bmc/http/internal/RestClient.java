@@ -1,13 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Throwables;
+import com.oracle.bmc.ClientConfiguration;
+import com.oracle.bmc.circuitbreaker.CallNotAllowedException;
+import com.oracle.bmc.circuitbreaker.JaxRsCircuitBreaker;
+import com.oracle.bmc.http.ApacheUtils;
+import com.oracle.bmc.http.ClientConfigurator;
+import com.oracle.bmc.io.DuplicatableInputStream;
 import com.oracle.bmc.model.BmcException;
 import com.oracle.bmc.requests.BmcRequest;
+import com.oracle.bmc.responses.AsyncHandler;
 import com.oracle.bmc.util.internal.Consumer;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -22,15 +32,19 @@ import javax.ws.rs.client.CompletionStageRxInvoker;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.InvocationCallback;
+import javax.ws.rs.client.ResponseProcessingException;
 import javax.ws.rs.client.RxInvoker;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.util.UUID;
 import java.util.concurrent.Future;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A REST client that can make synchronous and asynchronous calls.<br/>
@@ -44,6 +58,14 @@ public class RestClient implements AutoCloseable {
     private final EntityFactory entityFactory;
     private final Client client;
 
+    @VisibleForTesting final JaxRsCircuitBreaker circuitBreaker;
+    private final boolean isApacheNonBufferingClient;
+
+    /**
+     * The client configurator used for configuring the client. May be null.
+     */
+    @Getter private final ClientConfigurator clientConfigurator;
+
     private WrappedWebTarget baseTarget;
 
     /**
@@ -52,10 +74,53 @@ public class RestClient implements AutoCloseable {
      *
      * @param client        A HTTP client to make all requests with.
      * @param entityFactory An entity factory to create entities for POST/PUT operations.
+     * @param circuitBreaker A circuit breaker instance to decorate http client
      */
-    public RestClient(@NonNull Client client, @NonNull EntityFactory entityFactory) {
+    public RestClient(
+            @NonNull Client client,
+            @NonNull EntityFactory entityFactory,
+            JaxRsCircuitBreaker circuitBreaker) {
+        this(client, entityFactory, circuitBreaker, false);
+    }
+
+    /**
+     * Create a new client that uses a provided client to make all its requests.
+     * It's up to the caller to properly configure the client.
+     *
+     * @param client        A HTTP client to make all requests with.
+     * @param entityFactory An entity factory to create entities for POST/PUT operations.
+     * @param circuitBreaker A circuit breaker instance to decorate http client
+     * @param isApacheNonBufferingClient A boolean value to disable buffering of entities in memory for Apache client
+     */
+    public RestClient(
+            @NonNull Client client,
+            @NonNull EntityFactory entityFactory,
+            JaxRsCircuitBreaker circuitBreaker,
+            boolean isApacheNonBufferingClient) {
+        this(client, entityFactory, circuitBreaker, isApacheNonBufferingClient, null);
+    }
+
+    /**
+     * Create a new client that uses a provided client to make all its requests.
+     * It's up to the caller to properly configure the client.
+     *
+     * @param client        A HTTP client to make all requests with.
+     * @param entityFactory An entity factory to create entities for POST/PUT operations.
+     * @param circuitBreaker A circuit breaker instance to decorate http client
+     * @param isApacheNonBufferingClient A boolean value to disable buffering of entities in memory for Apache client
+     * @param clientConfigurator The client configurator used when creating the client
+     */
+    public RestClient(
+            @NonNull Client client,
+            @NonNull EntityFactory entityFactory,
+            JaxRsCircuitBreaker circuitBreaker,
+            boolean isApacheNonBufferingClient,
+            ClientConfigurator clientConfigurator) {
         this.client = client;
         this.entityFactory = entityFactory;
+        this.circuitBreaker = circuitBreaker;
+        this.isApacheNonBufferingClient = isApacheNonBufferingClient;
+        this.clientConfigurator = clientConfigurator;
     }
 
     /**
@@ -84,6 +149,59 @@ public class RestClient implements AutoCloseable {
         return this.baseTarget;
     }
 
+    /**
+     * Gets the underlying circuitBreaker implementation for this client
+     * @return CircuitBreaker
+     */
+    public JaxRsCircuitBreaker getCircuitBreaker() {
+        if (this.circuitBreaker == null) {
+            throw new NullPointerException("CircuitBreaker has been configured");
+        }
+        return this.circuitBreaker;
+    }
+
+    /**
+     * Ideal name for this method is decorateSupplierWithCircuitBreaker. However, I shortened it due to it's being private
+     * It takes a Supplier<Response> and returns a Supplier<Response>, this pattern allows users to chain different
+     * functionalities.
+     * @param supplier a supplier of Response
+     * @return a supplier of Response
+     */
+    private Supplier<Response> decorateSupplier(Supplier<Response> supplier) {
+        if (circuitBreaker == null) {
+            return supplier;
+        } else {
+            return () -> {
+                try {
+                    return circuitBreaker.decorateSupplier(supplier).get();
+                } catch (CallNotAllowedException e) {
+                    throw new BmcException(false, "CircuitBreaker is OPEN!", e, null);
+                }
+            };
+        }
+    }
+
+    /**
+     * Ideal name for this method is decorateFutureSupplierWithCircuitBreaker. However, I shortened it due to it's being private
+     * It takes a Supplier<Future<Response>> and returns a Supplier<Future<Response>>, this pattern allows users to chain
+     * different functionalities.
+     * @param supplier a Supplier of Future<Response>
+     * @return a Supplier of Future<Response>
+     */
+    private Supplier<Future<Response>> decorateFuture(Supplier<Future<Response>> supplier) {
+        if (circuitBreaker == null) {
+            return supplier;
+        } else {
+            return () -> {
+                try {
+                    return circuitBreaker.decorateFuture(supplier).get();
+                } catch (CallNotPermittedException e) {
+                    throw new BmcException(false, "CircuitBreaker is OPEN!", e, null);
+                }
+            };
+        }
+    }
+
     // Rest APIs
 
     /**
@@ -99,8 +217,7 @@ public class RestClient implements AutoCloseable {
             @NonNull WrappedInvocationBuilder ib, @NonNull T request) throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Response response = ib.get();
-            return response;
+            return decorateSupplier(ib::get).get();
         } catch (ProcessingException ex) {
             throw convertToBmcException(baseTarget, ex, info);
         }
@@ -127,10 +244,44 @@ public class RestClient implements AutoCloseable {
         InvocationInformation info = preprocessRequest(ib, request);
 
         if (onSuccess == null && onError == null) {
-            return ib.async().get();
+            return decorateFuture(ib.async()::get).get();
         } else {
-            return ib.async().get(new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .get(
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the get request and returns the future.
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the get request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> getFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture = get(ib, interceptedRequest, onSuccess, onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -149,28 +300,11 @@ public class RestClient implements AutoCloseable {
             throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Entity<?> requestBody = this.entityFactory.forPost(request, attemptToSerialize(body));
-            final Response response = ib.post(requestBody);
-            return response;
+            Entity<?> requestBody =
+                    this.entityFactory.forPost(request, attemptToSerialize(request, body));
+            return decorateSupplier(() -> ib.post(requestBody)).get();
         } catch (ProcessingException e) {
             throw convertToBmcException(baseTarget, e, info);
-        }
-    }
-
-    /**
-     * Convert the body to a JSON string, unless it is already a string, or if it is an InputStream
-     * @param body body
-     * @return body as string, or unchanged if String or InputStream
-     */
-    private Object attemptToSerialize(@Nullable Object body) {
-        try {
-            return (body instanceof String || body instanceof InputStream)
-                    ? body
-                    : (body != null)
-                            ? RestClientFactory.getObjectMapper().writeValueAsString(body)
-                            : StringUtils.EMPTY;
-        } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException("Unable to process JSON body", e);
         }
     }
 
@@ -196,13 +330,50 @@ public class RestClient implements AutoCloseable {
             @Nullable Consumer<Response> onSuccess,
             @Nullable Consumer<Throwable> onError) {
         InvocationInformation info = preprocessRequest(ib, request);
-        Entity<?> requestBody = this.entityFactory.forPost(request, attemptToSerialize(body));
+        Entity<?> requestBody =
+                this.entityFactory.forPost(request, attemptToSerialize(request, body));
 
         if (onSuccess == null && onError == null) {
-            return ib.async().post(requestBody);
+            return decorateFuture(() -> ib.async().post(requestBody)).get();
         } else {
-            return ib.async().post(requestBody, new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .post(
+                                                    requestBody,
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the post request and returns the future
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the post request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> postFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture =
+                    post(ib, interceptedRequest.getBody$(), interceptedRequest, onSuccess, onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -273,9 +444,9 @@ public class RestClient implements AutoCloseable {
             throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Entity<?> requestBody = this.entityFactory.forPatch(request, attemptToSerialize(body));
-            final Response response = ib.method(PATCH_VERB, requestBody);
-            return response;
+            Entity<?> requestBody =
+                    this.entityFactory.forPatch(request, attemptToSerialize(request, body));
+            return decorateSupplier(() -> ib.method(PATCH_VERB, requestBody)).get();
         } catch (ProcessingException e) {
             throw convertToBmcException(baseTarget, e, info);
         }
@@ -325,17 +496,56 @@ public class RestClient implements AutoCloseable {
             @Nullable Consumer<Response> onSuccess,
             @Nullable Consumer<Throwable> onError) {
         InvocationInformation info = preprocessRequest(ib, request);
-        Entity<?> requestBody = this.entityFactory.forPatch(request, attemptToSerialize(body));
+        Entity<?> requestBody =
+                this.entityFactory.forPatch(request, attemptToSerialize(request, body));
 
         if (onSuccess == null && onError == null) {
-            return ib.async().method(PATCH_VERB, requestBody);
+            return decorateFuture(() -> ib.async().method(PATCH_VERB, requestBody)).get();
         } else {
-            return ib.async()
-                    .method(
-                            PATCH_VERB,
-                            requestBody,
-                            new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .method(
+                                                    PATCH_VERB,
+                                                    requestBody,
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the patch request and returns the future
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the patch request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> patchFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture =
+                    patch(
+                            ib,
+                            interceptedRequest.getBody$(),
+                            interceptedRequest,
+                            onSuccess,
+                            onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -373,9 +583,9 @@ public class RestClient implements AutoCloseable {
             throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Entity<?> requestBody = this.entityFactory.forPut(request, attemptToSerialize(body));
-            final Response response = ib.put(requestBody);
-            return response;
+            Entity<?> requestBody =
+                    this.entityFactory.forPut(request, attemptToSerialize(request, body));
+            return decorateSupplier(() -> ib.put(requestBody)).get();
         } catch (ProcessingException e) {
             throw convertToBmcException(baseTarget, e, info);
         }
@@ -434,13 +644,50 @@ public class RestClient implements AutoCloseable {
             @Nullable Consumer<Response> onSuccess,
             @Nullable Consumer<Throwable> onError) {
         InvocationInformation info = preprocessRequest(ib, request);
-        Entity<?> requestBody = this.entityFactory.forPut(request, attemptToSerialize(body));
+        Entity<?> requestBody =
+                this.entityFactory.forPut(request, attemptToSerialize(request, body));
 
         if (onSuccess == null && onError == null) {
-            return ib.async().put(requestBody);
+            return decorateFuture(() -> ib.async().put(requestBody)).get();
         } else {
-            return ib.async().put(requestBody, new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .put(
+                                                    requestBody,
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the put request and returns the future
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the put request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> putFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture =
+                    put(ib, interceptedRequest.getBody$(), interceptedRequest, onSuccess, onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -459,8 +706,7 @@ public class RestClient implements AutoCloseable {
             @NonNull WrappedInvocationBuilder ib, @NonNull T request) throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Response response = ib.delete(Response.class);
-            return response;
+            return decorateSupplier(() -> ib.delete(Response.class)).get();
         } catch (ProcessingException e) {
             throw convertToBmcException(baseTarget, e, info);
         }
@@ -491,10 +737,44 @@ public class RestClient implements AutoCloseable {
         InvocationInformation info = preprocessRequest(ib, request);
 
         if (onSuccess == null && onError == null) {
-            return ib.async().delete();
+            return decorateFuture(() -> ib.async().delete()).get();
         } else {
-            return ib.async().delete(new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .delete(
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the delete request and returns the future.
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the post request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> deleteFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture = delete(ib, interceptedRequest, onSuccess, onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -513,8 +793,7 @@ public class RestClient implements AutoCloseable {
             @NonNull WrappedInvocationBuilder ib, @NonNull T request) throws BmcException {
         InvocationInformation info = preprocessRequest(ib, request);
         try {
-            Response response = ib.head();
-            return response;
+            return decorateSupplier(ib::head).get();
         } catch (ProcessingException ex) {
             throw convertToBmcException(baseTarget, ex, info);
         }
@@ -546,10 +825,44 @@ public class RestClient implements AutoCloseable {
         InvocationInformation info = preprocessRequest(ib, request);
 
         if (onSuccess == null && onError == null) {
-            return ib.async().head();
+            return decorateFuture(ib.async()::head).get();
         } else {
-            return ib.async().head(new Callback(baseTarget, info, onSuccess, onError));
+            return decorateFuture(
+                            () ->
+                                    ib.async()
+                                            .head(
+                                                    new Callback(
+                                                            baseTarget, info, onSuccess, onError)))
+                    .get();
         }
+    }
+
+    /**
+     * Return the function that, given an {@link AsyncHandler}, makes the head request and returns the future.
+     * @param interceptedRequest intercepted request
+     * @param ib invocation builder
+     * @param transformer transformer from JAX-RS response to model response
+     * @param <B> type of the body
+     * @param <REQUEST> type of the request
+     * @param <RESPONSE> type of the response
+     * @return future for the head request
+     */
+    public <B, REQUEST extends BmcRequest<B>, RESPONSE>
+            Function<AsyncHandler<REQUEST, RESPONSE>, Future<RESPONSE>> headFutureSupplier(
+                    REQUEST interceptedRequest,
+                    WrappedInvocationBuilder ib,
+                    com.google.common.base.Function<Response, RESPONSE> transformer) {
+        return h -> {
+            final com.oracle.bmc.util.internal.Consumer<Response> onSuccess =
+                    new com.oracle.bmc.http.internal.SuccessConsumer<>(
+                            h, transformer, interceptedRequest);
+            final com.oracle.bmc.util.internal.Consumer<Throwable> onError =
+                    new com.oracle.bmc.http.internal.ErrorConsumer<>(h, interceptedRequest);
+
+            Future<Response> responseFuture = head(ib, interceptedRequest, onSuccess, onError);
+            return new com.oracle.bmc.util.internal.TransformingFuture<>(
+                    responseFuture, transformer);
+        };
     }
 
     /**
@@ -563,6 +876,25 @@ public class RestClient implements AutoCloseable {
      */
     private static BmcException convertToBmcException(
             WebTarget target, ProcessingException e, InvocationInformation info) {
+
+        if (e instanceof ResponseProcessingException) {
+            final ResponseProcessingException responseProcessingException =
+                    (ResponseProcessingException) e;
+            final Response response = responseProcessingException.getResponse();
+            if (response != null) {
+                final String statusMessage =
+                        response.getStatusInfo() != null
+                                ? response.getStatusInfo().getReasonPhrase()
+                                : "";
+                return new BmcException(
+                        response.getStatus(),
+                        statusMessage,
+                        e.getMessage(),
+                        info.getRequestId(),
+                        e);
+            }
+        }
+
         Throwable t = Throwables.getRootCause(e);
         if (t instanceof InterruptedIOException) {
             return new BmcException(
@@ -571,6 +903,7 @@ public class RestClient implements AutoCloseable {
                     e,
                     info.getRequestId());
         }
+
         return new BmcException(
                 false,
                 "Processing exception while communicating to: " + target.getUri().toString(),
@@ -592,7 +925,7 @@ public class RestClient implements AutoCloseable {
         if (first == null) {
             // only add if the customer has not added it themselves.
             requestId = generateRequestId();
-            LOG.debug("Generated request ID: {}", requestId);
+            LOG.debug("Generated request ID: {} for URI {}", requestId, ib.getRequestUri());
             ib.header(BmcException.OPC_REQUEST_ID_HEADER, requestId);
         } else {
             requestId = first.toString();
@@ -816,7 +1149,7 @@ public class RestClient implements AutoCloseable {
             try {
                 onSuccess.accept(response);
             } catch (Exception e) {
-                LOG.debug("Failure during success handling");
+                LOG.debug("Failure during success handling", e);
                 failed(e);
             }
         }
@@ -843,5 +1176,53 @@ public class RestClient implements AutoCloseable {
     static class InvocationInformation {
         private final String requestId;
         private final MultivaluedMap<String, Object> headersSetInCallback;
+    }
+    /**
+     * Convert the body to a JSON string, unless it is already a string, or if it is an InputStream
+     * @param request The original client request object given to the service
+     *      *                client.
+     * @param body body
+     * @return body as string, or unchanged if String or InputStream
+     */
+    private <T extends BmcRequest> Object attemptToSerialize(T request, @Nullable Object body) {
+        try {
+            if (body instanceof String) {
+                return body;
+            } else if (body instanceof InputStream) {
+                final Long contentLength = tryGetContentLength(request);
+                if (this.isApacheNonBufferingClient && contentLength != null && contentLength > 0) {
+                    // Customization for providing Apache HTTP Entity instead of InputStream. This is required to avoid
+                    // buffering all the data in memory by Jersey Apache Connector. Create the HTTP entity only when a
+                    // content length value can be retrieved from the request.
+                    if (body instanceof DuplicatableInputStream) {
+                        return new ApacheDuplicatableInputStreamEntity(
+                                (DuplicatableInputStream) body, contentLength);
+                    }
+                    return new ApacheInputStreamEntity((InputStream) body, contentLength);
+                }
+                return body;
+            } else if (body != null) {
+                return RestClientFactory.getObjectMapper().writeValueAsString(body);
+            } else {
+                return StringUtils.EMPTY;
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Unable to process JSON body", e);
+        }
+    }
+
+    /**
+     * Try to retrieve the content length set in the request.
+     *
+     * @param request The original client request object given to the service
+     *                client.
+     * @return content length or null.
+     */
+    private <T extends BmcRequest> Long tryGetContentLength(T request) {
+        if (request instanceof com.oracle.bmc.requests.HasContentLength) {
+            return ((com.oracle.bmc.requests.HasContentLength) request).getContentLength();
+        } else {
+            return null;
+        }
     }
 }

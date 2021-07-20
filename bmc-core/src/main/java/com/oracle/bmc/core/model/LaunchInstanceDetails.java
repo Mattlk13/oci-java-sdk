@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -22,6 +23,7 @@ package com.oracle.bmc.core.model;
     builder = LaunchInstanceDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class LaunchInstanceDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -32,6 +34,15 @@ public class LaunchInstanceDetails {
         public Builder availabilityDomain(String availabilityDomain) {
             this.availabilityDomain = availabilityDomain;
             this.__explicitlySet__.add("availabilityDomain");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("capacityReservationId")
+        private String capacityReservationId;
+
+        public Builder capacityReservationId(String capacityReservationId) {
+            this.capacityReservationId = capacityReservationId;
+            this.__explicitlySet__.add("capacityReservationId");
             return this;
         }
 
@@ -50,6 +61,15 @@ public class LaunchInstanceDetails {
         public Builder createVnicDetails(CreateVnicDetails createVnicDetails) {
             this.createVnicDetails = createVnicDetails;
             this.__explicitlySet__.add("createVnicDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dedicatedVmHostId")
+        private String dedicatedVmHostId;
+
+        public Builder dedicatedVmHostId(String dedicatedVmHostId) {
+            this.dedicatedVmHostId = dedicatedVmHostId;
+            this.__explicitlySet__.add("dedicatedVmHostId");
             return this;
         }
 
@@ -126,6 +146,44 @@ public class LaunchInstanceDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("launchOptions")
+        private LaunchOptions launchOptions;
+
+        public Builder launchOptions(LaunchOptions launchOptions) {
+            this.launchOptions = launchOptions;
+            this.__explicitlySet__.add("launchOptions");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("instanceOptions")
+        private InstanceOptions instanceOptions;
+
+        public Builder instanceOptions(InstanceOptions instanceOptions) {
+            this.instanceOptions = instanceOptions;
+            this.__explicitlySet__.add("instanceOptions");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("availabilityConfig")
+        private LaunchInstanceAvailabilityConfigDetails availabilityConfig;
+
+        public Builder availabilityConfig(
+                LaunchInstanceAvailabilityConfigDetails availabilityConfig) {
+            this.availabilityConfig = availabilityConfig;
+            this.__explicitlySet__.add("availabilityConfig");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("preemptibleInstanceConfig")
+        private PreemptibleInstanceConfigDetails preemptibleInstanceConfig;
+
+        public Builder preemptibleInstanceConfig(
+                PreemptibleInstanceConfigDetails preemptibleInstanceConfig) {
+            this.preemptibleInstanceConfig = preemptibleInstanceConfig;
+            this.__explicitlySet__.add("preemptibleInstanceConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("metadata")
         private java.util.Map<String, String> metadata;
 
@@ -150,6 +208,15 @@ public class LaunchInstanceDetails {
         public Builder shape(String shape) {
             this.shape = shape;
             this.__explicitlySet__.add("shape");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("shapeConfig")
+        private LaunchInstanceShapeConfigDetails shapeConfig;
+
+        public Builder shapeConfig(LaunchInstanceShapeConfigDetails shapeConfig) {
+            this.shapeConfig = shapeConfig;
+            this.__explicitlySet__.add("shapeConfig");
             return this;
         }
 
@@ -180,6 +247,15 @@ public class LaunchInstanceDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("platformConfig")
+        private LaunchInstancePlatformConfig platformConfig;
+
+        public Builder platformConfig(LaunchInstancePlatformConfig platformConfig) {
+            this.platformConfig = platformConfig;
+            this.__explicitlySet__.add("platformConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -187,8 +263,10 @@ public class LaunchInstanceDetails {
             LaunchInstanceDetails __instance__ =
                     new LaunchInstanceDetails(
                             availabilityDomain,
+                            capacityReservationId,
                             compartmentId,
                             createVnicDetails,
+                            dedicatedVmHostId,
                             definedTags,
                             displayName,
                             extendedMetadata,
@@ -197,12 +275,18 @@ public class LaunchInstanceDetails {
                             hostnameLabel,
                             imageId,
                             ipxeScript,
+                            launchOptions,
+                            instanceOptions,
+                            availabilityConfig,
+                            preemptibleInstanceConfig,
                             metadata,
                             agentConfig,
                             shape,
+                            shapeConfig,
                             sourceDetails,
                             subnetId,
-                            isPvEncryptionInTransitEnabled);
+                            isPvEncryptionInTransitEnabled,
+                            platformConfig);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -211,8 +295,10 @@ public class LaunchInstanceDetails {
         public Builder copy(LaunchInstanceDetails o) {
             Builder copiedBuilder =
                     availabilityDomain(o.getAvailabilityDomain())
+                            .capacityReservationId(o.getCapacityReservationId())
                             .compartmentId(o.getCompartmentId())
                             .createVnicDetails(o.getCreateVnicDetails())
+                            .dedicatedVmHostId(o.getDedicatedVmHostId())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .extendedMetadata(o.getExtendedMetadata())
@@ -221,12 +307,18 @@ public class LaunchInstanceDetails {
                             .hostnameLabel(o.getHostnameLabel())
                             .imageId(o.getImageId())
                             .ipxeScript(o.getIpxeScript())
+                            .launchOptions(o.getLaunchOptions())
+                            .instanceOptions(o.getInstanceOptions())
+                            .availabilityConfig(o.getAvailabilityConfig())
+                            .preemptibleInstanceConfig(o.getPreemptibleInstanceConfig())
                             .metadata(o.getMetadata())
                             .agentConfig(o.getAgentConfig())
                             .shape(o.getShape())
+                            .shapeConfig(o.getShapeConfig())
                             .sourceDetails(o.getSourceDetails())
                             .subnetId(o.getSubnetId())
-                            .isPvEncryptionInTransitEnabled(o.getIsPvEncryptionInTransitEnabled());
+                            .isPvEncryptionInTransitEnabled(o.getIsPvEncryptionInTransitEnabled())
+                            .platformConfig(o.getPlatformConfig());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -250,22 +342,33 @@ public class LaunchInstanceDetails {
     String availabilityDomain;
 
     /**
+     * The OCID of the compute capacity reservation this instance is launched under.
+     * You can opt out of all default reservations by specifying an empty string as input for this field.
+     * For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("capacityReservationId")
+    String capacityReservationId;
+
+    /**
      * The OCID of the compartment.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
-    /**
-     * Details for the primary VNIC, which is automatically created and attached when
-     * the instance is launched.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("createVnicDetails")
     CreateVnicDetails createVnicDetails;
 
     /**
+     * The OCID of the dedicated VM host.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dedicatedVmHostId")
+    String dedicatedVmHostId;
+
+    /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -284,9 +387,14 @@ public class LaunchInstanceDetails {
     String displayName;
 
     /**
-     * Additional metadata key/value pairs that you provide. They serve the same purpose and functionality as fields in the 'metadata' object.
+     * Additional metadata key/value pairs that you provide. They serve the same purpose and
+     * functionality as fields in the `metadata` object.
      * <p>
-     * They are distinguished from 'metadata' fields in that these can be nested JSON objects (whereas 'metadata' fields are string/string maps only).
+     * They are distinguished from `metadata` fields in that these can be nested JSON objects
+     * (whereas `metadata` fields are string/string maps only).
+     * <p>
+     * The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of
+     * 32,000 bytes.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("extendedMetadata")
@@ -299,9 +407,9 @@ public class LaunchInstanceDetails {
      * A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
      * instances in other fault domains.
      * <p>
-     * If you do not specify the fault domain, the system selects one for you. To change the fault
-     * domain for an instance, terminate it and launch a new instance in the preferred fault domain.
+     * If you do not specify the fault domain, the system selects one for you.
      * <p>
+     *
      * To get a list of fault domains, use the
      * {@link #listFaultDomains(ListFaultDomainsRequest) listFaultDomains} operation in the
      * Identity and Access Management Service API.
@@ -314,7 +422,7 @@ public class LaunchInstanceDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -361,13 +469,25 @@ public class LaunchInstanceDetails {
      * <p>
      * For more information about the Bring Your Own Image feature of
      * Oracle Cloud Infrastructure, see
-     * [Bring Your Own Image](https://docs.cloud.oracle.com/Content/Compute/References/bringyourownimage.htm).
+     * [Bring Your Own Image](https://docs.cloud.oracle.com/iaas/Content/Compute/References/bringyourownimage.htm).
      * <p>
      * For more information about iPXE, see http://ipxe.org.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("ipxeScript")
     String ipxeScript;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("launchOptions")
+    LaunchOptions launchOptions;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("instanceOptions")
+    InstanceOptions instanceOptions;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("availabilityConfig")
+    LaunchInstanceAvailabilityConfigDetails availabilityConfig;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("preemptibleInstanceConfig")
+    PreemptibleInstanceConfigDetails preemptibleInstanceConfig;
 
     /**
      * Custom metadata key/value pairs that you provide, such as the SSH public key
@@ -398,36 +518,26 @@ public class LaunchInstanceDetails {
      *  information about how to take advantage of user data, see the
      *  [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
      * <p>
-     **Note:** Cloud-Init does not pull this data from the `http://169.254.169.254/opc/v1/instance/metadata/`
-     *  path. When the instance launches and either of these keys are provided, the key values are formatted as
-     *  OpenStack metadata and copied to the following locations, which are recognized by Cloud-Init:
-     * <p>
-     * `http://169.254.169.254/openstack/latest/meta_data.json` - This JSON blob
-     *  contains, among other things, the SSH keys that you provided for
-     *   **\"ssh_authorized_keys\"**.
-     * <p>
-     * `http://169.254.169.254/openstack/latest/user_data` - Contains the
-     *  base64-decoded data that you provided for **\"user_data\"**.
-     * <p>
      **Metadata Example**
      * <p>
      * \"metadata\" : {
      *          \"quake_bot_level\" : \"Severe\",
-     *          \"ssh_authorized_keys\" : \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCZ06fccNTQfq+xubFlJ5ZR3kt+uzspdH9tXL+lAejSM1NXM+CFZev7MIxfEjas06y80ZBZ7DUTQO0GxJPeD8NCOb1VorF8M4xuLwrmzRtkoZzU16umt4y1W0Q4ifdp3IiiU0U8/WxczSXcUVZOLqkz5dc6oMHdMVpkimietWzGZ4LBBsH/LjEVY7E0V+a0sNchlVDIZcm7ErReBLcdTGDq0uLBiuChyl6RUkX1PNhusquTGwK7zc8OBXkRuubn5UKXhI3Ul9Nyk4XESkVWIGNKmw8mSpoJSjR8P9ZjRmcZVo8S+x4KVPMZKQEor== ryan.smith@company.com
-     *          ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAzJSAtwEPoB3Jmr58IXrDGzLuDYkWAYg8AsLYlo6JZvKpjY1xednIcfEVQJm4T2DhVmdWhRrwQ8DmayVZvBkLt+zs2LdoAJEVimKwXcJFD/7wtH8Lnk17HiglbbbNXsemjDY0hea4JUE5CfvkIdZBITuMrfqSmA4n3VNoorXYdvtTMoGG8fxMub46RPtuxtqi9bG9Zqenordkg5FJt2mVNfQRqf83CWojcOkklUWq4CjyxaeLf5i9gv1fRoBo4QhiA8I6NCSppO8GnoV/6Ox6TNoh9BiifqGKC9VGYuC89RvUajRBTZSK2TK4DPfaT+2R+slPsFrwiT/oPEhhEK1S5Q== rsa-key-20160227\",
-     *          \"user_data\" : \"SWYgeW91IGNhbiBzZWUgdGhpcywgdGhlbiBpdCB3b3JrZWQgbWF5YmUuCg==\"
+     *          \"ssh_authorized_keys\" : \"ssh-rsa <your_public_SSH_key>== rsa-key-20160227\",
+     *          \"user_data\" : \"<your_public_SSH_key>==\"
      *       }
      *  **Getting Metadata on the Instance**
      * <p>
      * To get information about your instance, connect to the instance using SSH and issue any of the
      *  following GET requests:
      * <p>
-     * curl http://169.254.169.254/opc/v1/instance/
-     *      curl http://169.254.169.254/opc/v1/instance/metadata/
-     *      curl http://169.254.169.254/opc/v1/instance/metadata/<any-key-name>
+     * curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/
+     *      curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/metadata/
+     *      curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/metadata/<any-key-name>
      * <p>
      * You'll get back a response that includes all the instance information; only the metadata information; or
      *  the metadata information for the specified key name, respectively.
+     * <p>
+     * The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of 32,000 bytes.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("metadata")
@@ -446,11 +556,9 @@ public class LaunchInstanceDetails {
     @com.fasterxml.jackson.annotation.JsonProperty("shape")
     String shape;
 
-    /**
-     * Details for creating an instance.
-     * Use this parameter to specify whether a boot volume or an image should be used to launch a new instance.
-     *
-     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shapeConfig")
+    LaunchInstanceShapeConfigDetails shapeConfig;
+
     @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
     InstanceSourceDetails sourceDetails;
 
@@ -464,10 +572,13 @@ public class LaunchInstanceDetails {
     String subnetId;
 
     /**
-     * Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
+     * Whether to enable in-transit encryption for the data volume's paravirtualized attachment. This field applies to both block volumes and boot volumes. The default value is false.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isPvEncryptionInTransitEnabled")
     Boolean isPvEncryptionInTransitEnabled;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("platformConfig")
+    LaunchInstancePlatformConfig platformConfig;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

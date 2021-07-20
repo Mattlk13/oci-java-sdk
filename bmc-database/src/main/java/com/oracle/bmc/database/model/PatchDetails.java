@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
  * The details about what actions to perform and using what patch to the specified target.
  * This is part of an update request that is applied to a version field on the target such
- * as DB system, database home, etc.
+ * as DB system, Database Home, etc.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = PatchDetails.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class PatchDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,6 +33,15 @@ public class PatchDetails {
         public Builder patchId(String patchId) {
             this.patchId = patchId;
             this.__explicitlySet__.add("patchId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
             return this;
         }
 
@@ -47,14 +58,17 @@ public class PatchDetails {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public PatchDetails build() {
-            PatchDetails __instance__ = new PatchDetails(patchId, action);
+            PatchDetails __instance__ = new PatchDetails(patchId, databaseSoftwareImageId, action);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(PatchDetails o) {
-            Builder copiedBuilder = patchId(o.getPatchId()).action(o.getAction());
+            Builder copiedBuilder =
+                    patchId(o.getPatchId())
+                            .databaseSoftwareImageId(o.getDatabaseSoftwareImageId())
+                            .action(o.getAction());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -73,6 +87,12 @@ public class PatchDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("patchId")
     String patchId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database software image.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+    String databaseSoftwareImageId;
     /**
      * The action to perform on the patch.
      **/
@@ -105,7 +125,7 @@ public class PatchDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid Action: " + key);
+            throw new IllegalArgumentException("Invalid Action: " + key);
         }
     };
     /**

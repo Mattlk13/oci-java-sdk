@@ -1,16 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * A detachable block volume device that allows you to dynamically expand
  * the storage capacity of an instance. For more information, see
- * [Overview of Cloud Volume Storage](https://docs.cloud.oracle.com/Content/Block/Concepts/overview.htm).
+ * [Overview of Cloud Volume Storage](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -28,6 +29,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Volume.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Volume {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -78,6 +80,15 @@ public class Volume {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+        private java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+        public Builder systemTags(java.util.Map<String, java.util.Map<String, Object>> systemTags) {
+            this.systemTags = systemTags;
+            this.__explicitlySet__.add("systemTags");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("id")
         private String id;
 
@@ -111,6 +122,15 @@ public class Volume {
         public Builder lifecycleState(LifecycleState lifecycleState) {
             this.lifecycleState = lifecycleState;
             this.__explicitlySet__.add("lifecycleState");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+        private Long vpusPerGB;
+
+        public Builder vpusPerGB(Long vpusPerGB) {
+            this.vpusPerGB = vpusPerGB;
+            this.__explicitlySet__.add("vpusPerGB");
             return this;
         }
 
@@ -159,6 +179,34 @@ public class Volume {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+        private Boolean isAutoTuneEnabled;
+
+        public Builder isAutoTuneEnabled(Boolean isAutoTuneEnabled) {
+            this.isAutoTuneEnabled = isAutoTuneEnabled;
+            this.__explicitlySet__.add("isAutoTuneEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("autoTunedVpusPerGB")
+        private Long autoTunedVpusPerGB;
+
+        public Builder autoTunedVpusPerGB(Long autoTunedVpusPerGB) {
+            this.autoTunedVpusPerGB = autoTunedVpusPerGB;
+            this.__explicitlySet__.add("autoTunedVpusPerGB");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("blockVolumeReplicas")
+        private java.util.List<BlockVolumeReplicaInfo> blockVolumeReplicas;
+
+        public Builder blockVolumeReplicas(
+                java.util.List<BlockVolumeReplicaInfo> blockVolumeReplicas) {
+            this.blockVolumeReplicas = blockVolumeReplicas;
+            this.__explicitlySet__.add("blockVolumeReplicas");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -170,15 +218,20 @@ public class Volume {
                             definedTags,
                             displayName,
                             freeformTags,
+                            systemTags,
                             id,
                             isHydrated,
                             kmsKeyId,
                             lifecycleState,
+                            vpusPerGB,
                             sizeInGBs,
                             sizeInMBs,
                             sourceDetails,
                             timeCreated,
-                            volumeGroupId);
+                            volumeGroupId,
+                            isAutoTuneEnabled,
+                            autoTunedVpusPerGB,
+                            blockVolumeReplicas);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -191,15 +244,20 @@ public class Volume {
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
+                            .systemTags(o.getSystemTags())
                             .id(o.getId())
                             .isHydrated(o.getIsHydrated())
                             .kmsKeyId(o.getKmsKeyId())
                             .lifecycleState(o.getLifecycleState())
+                            .vpusPerGB(o.getVpusPerGB())
                             .sizeInGBs(o.getSizeInGBs())
                             .sizeInMBs(o.getSizeInMBs())
                             .sourceDetails(o.getSourceDetails())
                             .timeCreated(o.getTimeCreated())
-                            .volumeGroupId(o.getVolumeGroupId());
+                            .volumeGroupId(o.getVolumeGroupId())
+                            .isAutoTuneEnabled(o.getIsAutoTuneEnabled())
+                            .autoTunedVpusPerGB(o.getAutoTunedVpusPerGB())
+                            .blockVolumeReplicas(o.getBlockVolumeReplicas());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -230,7 +288,7 @@ public class Volume {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -248,13 +306,21 @@ public class Volume {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
     java.util.Map<String, String> freeformTags;
+
+    /**
+     * System tags for this resource. Each key is predefined and scoped to a namespace.
+     * Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+    java.util.Map<String, java.util.Map<String, Object>> systemTags;
 
     /**
      * The OCID of the volume.
@@ -264,12 +330,14 @@ public class Volume {
 
     /**
      * Specifies whether the cloned volume's data has finished copying from the source volume or backup.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isHydrated")
     Boolean isHydrated;
 
     /**
-     * The OCID of the KMS key which is the master encryption key for the volume.
+     * The OCID of the Key Management key which is the master encryption key for the volume.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
     String kmsKeyId;
@@ -330,27 +398,41 @@ public class Volume {
     LifecycleState lifecycleState;
 
     /**
+     * The number of volume performance units (VPUs) that will be applied to this volume per GB,
+     * representing the Block Volume service's elastic performance options.
+     * See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+     * <p>
+     * Allowed values:
+     * <p>
+     * `0`: Represents Lower Cost option.
+     * <p>
+     * `10`: Represents Balanced option.
+     * <p>
+     * `20`: Represents Higher Performance option.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+    Long vpusPerGB;
+
+    /**
      * The size of the volume in GBs.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInGBs")
     Long sizeInGBs;
 
     /**
-     * The size of the volume in MBs. This field is deprecated. Use sizeInGBs instead.
+     * The size of the volume in MBs. This field is deprecated. Use
+     * sizeInGBs instead.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInMBs")
     Long sizeInMBs;
 
-    /**
-     * The volume source, either an existing volume in the same availability domain or a volume backup.
-     * If null, an empty volume is created.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
     VolumeSourceDetails sourceDetails;
 
     /**
-     * The date and time the volume was created. Format defined by RFC3339.
+     * The date and time the volume was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
@@ -360,6 +442,26 @@ public class Volume {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("volumeGroupId")
     String volumeGroupId;
+
+    /**
+     * Specifies whether the auto-tune performance is enabled for this volume.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+    Boolean isAutoTuneEnabled;
+
+    /**
+     * The number of Volume Performance Units per GB that this volume is effectively tuned to when it's idle.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autoTunedVpusPerGB")
+    Long autoTunedVpusPerGB;
+
+    /**
+     * The list of block volume replicas of this volume.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("blockVolumeReplicas")
+    java.util.List<BlockVolumeReplicaInfo> blockVolumeReplicas;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

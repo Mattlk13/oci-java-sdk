@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.auth.InstancePrincipalsAuthenticationDetailsProvider;
 import com.oracle.bmc.http.ResteasyClientConfigurator;
@@ -23,10 +24,10 @@ import java.net.SocketTimeoutException;
  */
 public class InstancePrincipalsAuthenticationDetailsProviderWithResteasyClientExample {
 
-    public static void main(String[] args) throws Exception {
-        // The following line is only necessary for this example because we the configuration in
-        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder. If you are using Resteasy by default, this line
-        // is not necessary
+    public static void main(String[] args) {
+        // The following line is only necessary for this example because of our configuration in
+        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder
+        // which enables Jersey by default. If you are using Resteasy by default, this line is not necessary
         System.setProperty(
                 ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY,
                 "org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder");
@@ -42,7 +43,7 @@ public class InstancePrincipalsAuthenticationDetailsProviderWithResteasyClientEx
             if (e.getCause() instanceof SocketTimeoutException
                     || e.getCause() instanceof ConnectException) {
                 System.out.println(
-                        "This sample only works when running on an OCI instance. Are you sure you’re running on an OCI instance? For more info see: https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/callingservicesfrominstances.htm");
+                        "This sample only works when running on an OCI instance. Are you sure you’re running on an OCI instance? For more info see: https://docs.cloud.oracle.com/Content/Identity/Tasks/callingservicesfrominstances.htm");
                 return;
             }
             throw e;

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -27,6 +28,7 @@ package com.oracle.bmc.database.model;
     property = "source"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBase {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -58,6 +60,15 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("ocpuCount")
+        private Float ocpuCount;
+
+        public Builder ocpuCount(Float ocpuCount) {
+            this.ocpuCount = ocpuCount;
+            this.__explicitlySet__.add("ocpuCount");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("dbWorkload")
         private DbWorkload dbWorkload;
 
@@ -73,6 +84,42 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
         public Builder dataStorageSizeInTBs(Integer dataStorageSizeInTBs) {
             this.dataStorageSizeInTBs = dataStorageSizeInTBs;
             this.__explicitlySet__.add("dataStorageSizeInTBs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dataStorageSizeInGBs")
+        private Integer dataStorageSizeInGBs;
+
+        public Builder dataStorageSizeInGBs(Integer dataStorageSizeInGBs) {
+            this.dataStorageSizeInGBs = dataStorageSizeInGBs;
+            this.__explicitlySet__.add("dataStorageSizeInGBs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isFreeTier")
+        private Boolean isFreeTier;
+
+        public Builder isFreeTier(Boolean isFreeTier) {
+            this.isFreeTier = isFreeTier;
+            this.__explicitlySet__.add("isFreeTier");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("vaultId")
+        private String vaultId;
+
+        public Builder vaultId(String vaultId) {
+            this.vaultId = vaultId;
+            this.__explicitlySet__.add("vaultId");
             return this;
         }
 
@@ -141,6 +188,78 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isAccessControlEnabled")
+        private Boolean isAccessControlEnabled;
+
+        public Builder isAccessControlEnabled(Boolean isAccessControlEnabled) {
+            this.isAccessControlEnabled = isAccessControlEnabled;
+            this.__explicitlySet__.add("isAccessControlEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("whitelistedIps")
+        private java.util.List<String> whitelistedIps;
+
+        public Builder whitelistedIps(java.util.List<String> whitelistedIps) {
+            this.whitelistedIps = whitelistedIps;
+            this.__explicitlySet__.add("whitelistedIps");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("arePrimaryWhitelistedIpsUsed")
+        private Boolean arePrimaryWhitelistedIpsUsed;
+
+        public Builder arePrimaryWhitelistedIpsUsed(Boolean arePrimaryWhitelistedIpsUsed) {
+            this.arePrimaryWhitelistedIpsUsed = arePrimaryWhitelistedIpsUsed;
+            this.__explicitlySet__.add("arePrimaryWhitelistedIpsUsed");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("standbyWhitelistedIps")
+        private java.util.List<String> standbyWhitelistedIps;
+
+        public Builder standbyWhitelistedIps(java.util.List<String> standbyWhitelistedIps) {
+            this.standbyWhitelistedIps = standbyWhitelistedIps;
+            this.__explicitlySet__.add("standbyWhitelistedIps");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isDataGuardEnabled")
+        private Boolean isDataGuardEnabled;
+
+        public Builder isDataGuardEnabled(Boolean isDataGuardEnabled) {
+            this.isDataGuardEnabled = isDataGuardEnabled;
+            this.__explicitlySet__.add("isDataGuardEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
+        private String subnetId;
+
+        public Builder subnetId(String subnetId) {
+            this.subnetId = subnetId;
+            this.__explicitlySet__.add("subnetId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+        private java.util.List<String> nsgIds;
+
+        public Builder nsgIds(java.util.List<String> nsgIds) {
+            this.nsgIds = nsgIds;
+            this.__explicitlySet__.add("nsgIds");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("privateEndpointLabel")
+        private String privateEndpointLabel;
+
+        public Builder privateEndpointLabel(String privateEndpointLabel) {
+            this.privateEndpointLabel = privateEndpointLabel;
+            this.__explicitlySet__.add("privateEndpointLabel");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -160,6 +279,24 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("dbVersion")
+        private String dbVersion;
+
+        public Builder dbVersion(String dbVersion) {
+            this.dbVersion = dbVersion;
+            this.__explicitlySet__.add("dbVersion");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("customerContacts")
+        private java.util.List<CustomerContact> customerContacts;
+
+        public Builder customerContacts(java.util.List<CustomerContact> customerContacts) {
+            this.customerContacts = customerContacts;
+            this.__explicitlySet__.add("customerContacts");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -169,8 +306,13 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
                             compartmentId,
                             dbName,
                             cpuCoreCount,
+                            ocpuCount,
                             dbWorkload,
                             dataStorageSizeInTBs,
+                            dataStorageSizeInGBs,
+                            isFreeTier,
+                            kmsKeyId,
+                            vaultId,
                             adminPassword,
                             displayName,
                             licenseModel,
@@ -178,8 +320,18 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
                             isAutoScalingEnabled,
                             isDedicated,
                             autonomousContainerDatabaseId,
+                            isAccessControlEnabled,
+                            whitelistedIps,
+                            arePrimaryWhitelistedIpsUsed,
+                            standbyWhitelistedIps,
+                            isDataGuardEnabled,
+                            subnetId,
+                            nsgIds,
+                            privateEndpointLabel,
                             freeformTags,
-                            definedTags);
+                            definedTags,
+                            dbVersion,
+                            customerContacts);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -190,8 +342,13 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
                     compartmentId(o.getCompartmentId())
                             .dbName(o.getDbName())
                             .cpuCoreCount(o.getCpuCoreCount())
+                            .ocpuCount(o.getOcpuCount())
                             .dbWorkload(o.getDbWorkload())
                             .dataStorageSizeInTBs(o.getDataStorageSizeInTBs())
+                            .dataStorageSizeInGBs(o.getDataStorageSizeInGBs())
+                            .isFreeTier(o.getIsFreeTier())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .vaultId(o.getVaultId())
                             .adminPassword(o.getAdminPassword())
                             .displayName(o.getDisplayName())
                             .licenseModel(o.getLicenseModel())
@@ -200,8 +357,18 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
                             .isAutoScalingEnabled(o.getIsAutoScalingEnabled())
                             .isDedicated(o.getIsDedicated())
                             .autonomousContainerDatabaseId(o.getAutonomousContainerDatabaseId())
+                            .isAccessControlEnabled(o.getIsAccessControlEnabled())
+                            .whitelistedIps(o.getWhitelistedIps())
+                            .arePrimaryWhitelistedIpsUsed(o.getArePrimaryWhitelistedIpsUsed())
+                            .standbyWhitelistedIps(o.getStandbyWhitelistedIps())
+                            .isDataGuardEnabled(o.getIsDataGuardEnabled())
+                            .subnetId(o.getSubnetId())
+                            .nsgIds(o.getNsgIds())
+                            .privateEndpointLabel(o.getPrivateEndpointLabel())
                             .freeformTags(o.getFreeformTags())
-                            .definedTags(o.getDefinedTags());
+                            .definedTags(o.getDefinedTags())
+                            .dbVersion(o.getDbVersion())
+                            .customerContacts(o.getCustomerContacts());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -220,8 +387,13 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
             String compartmentId,
             String dbName,
             Integer cpuCoreCount,
+            Float ocpuCount,
             DbWorkload dbWorkload,
             Integer dataStorageSizeInTBs,
+            Integer dataStorageSizeInGBs,
+            Boolean isFreeTier,
+            String kmsKeyId,
+            String vaultId,
             String adminPassword,
             String displayName,
             LicenseModel licenseModel,
@@ -229,14 +401,29 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
             Boolean isAutoScalingEnabled,
             Boolean isDedicated,
             String autonomousContainerDatabaseId,
+            Boolean isAccessControlEnabled,
+            java.util.List<String> whitelistedIps,
+            Boolean arePrimaryWhitelistedIpsUsed,
+            java.util.List<String> standbyWhitelistedIps,
+            Boolean isDataGuardEnabled,
+            String subnetId,
+            java.util.List<String> nsgIds,
+            String privateEndpointLabel,
             java.util.Map<String, String> freeformTags,
-            java.util.Map<String, java.util.Map<String, Object>> definedTags) {
+            java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            String dbVersion,
+            java.util.List<CustomerContact> customerContacts) {
         super(
                 compartmentId,
                 dbName,
                 cpuCoreCount,
+                ocpuCount,
                 dbWorkload,
                 dataStorageSizeInTBs,
+                dataStorageSizeInGBs,
+                isFreeTier,
+                kmsKeyId,
+                vaultId,
                 adminPassword,
                 displayName,
                 licenseModel,
@@ -244,8 +431,18 @@ public class CreateAutonomousDatabaseDetails extends CreateAutonomousDatabaseBas
                 isAutoScalingEnabled,
                 isDedicated,
                 autonomousContainerDatabaseId,
+                isAccessControlEnabled,
+                whitelistedIps,
+                arePrimaryWhitelistedIpsUsed,
+                standbyWhitelistedIps,
+                isDataGuardEnabled,
+                subnetId,
+                nsgIds,
+                privateEndpointLabel,
                 freeformTags,
-                definedTags);
+                definedTags,
+                dbVersion,
+                customerContacts);
     }
 
     @com.fasterxml.jackson.annotation.JsonIgnore

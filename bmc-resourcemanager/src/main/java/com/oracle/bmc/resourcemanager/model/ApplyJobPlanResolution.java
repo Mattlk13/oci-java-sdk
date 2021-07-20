@@ -1,11 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
 /**
- * Specifies which plan job provides an execution plan for input to the apply or destroy job.
- * You can set only one of the three job properties. For destroy jobs, only `isAutoApproved` is permitted.
+ * Deprecated. Use the property `executionPlanStrategy` in `jobOperationDetails` instead.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -22,6 +22,7 @@ package com.oracle.bmc.resourcemanager.model;
     builder = ApplyJobPlanResolution.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ApplyJobPlanResolution {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -83,15 +84,15 @@ public class ApplyJobPlanResolution {
     }
 
     /**
-     * OCID that specifies the most recently executed plan job.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that specifies the most recently executed plan job.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("planJobId")
     String planJobId;
 
     /**
-     * Specifies whether to use the OCID of the most recently run plan job.
-     * `True` if using the latest job OCID. Must be a plan job that completed successfully.
+     * Specifies whether to use the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the most recently run plan job.
+     * `True` if using the latest job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be a plan job that completed successfully.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isUseLatestJobId")

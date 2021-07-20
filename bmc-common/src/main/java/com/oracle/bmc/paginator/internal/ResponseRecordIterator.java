@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.paginator.internal;
 
@@ -104,12 +105,19 @@ public class ResponseRecordIterator<REQUESTBUILDER, REQUEST, RESPONSE, ITEMTYPE>
         } else if (nextPageToken == null) {
             return false;
         } else {
-            fetchNextPage();
-            currentItems = retrieveItemsFromResponseFunction.apply(currentResponse);
-            currentIterator = currentItems.iterator();
+            getNextPage();
 
+            while (currentItems.isEmpty() && nextPageToken != null) {
+                getNextPage();
+            }
             return currentIterator.hasNext();
         }
+    }
+
+    private void getNextPage() {
+        fetchNextPage();
+        currentItems = retrieveItemsFromResponseFunction.apply(currentResponse);
+        currentIterator = currentItems.iterator();
     }
 
     @Override

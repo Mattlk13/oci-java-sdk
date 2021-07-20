@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Create an instance configuration from an existing instance.
+ * Details for creating an instance configuration using an existing instance as a template.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -27,6 +28,7 @@ package com.oracle.bmc.core.model;
     property = "source"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateInstanceConfigurationFromInstanceDetails
         extends CreateInstanceConfigurationBase {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -122,7 +124,8 @@ public class CreateInstanceConfigurationFromInstanceDetails
     }
 
     /**
-     * The ID of the instance that will be used to create instance configuration.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance to use to create the
+     * instance configuration.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("instanceId")

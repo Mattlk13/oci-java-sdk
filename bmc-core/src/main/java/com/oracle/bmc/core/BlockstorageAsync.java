@@ -1,11 +1,20 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core;
 
 import com.oracle.bmc.core.requests.*;
 import com.oracle.bmc.core.responses.*;
 
+/**
+ * API covering the [Networking](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm),
+ * [Compute](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm), and
+ * [Block Volume](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm) services. Use this API
+ * to manage resources such as virtual cloud networks (VCNs), compute instances, and
+ * block storage volumes.
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
 public interface BlockstorageAsync extends AutoCloseable {
 
@@ -14,6 +23,11 @@ public interface BlockstorageAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -39,7 +53,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a boot volume backup into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -60,7 +74,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a boot volume into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -79,7 +93,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a volume backup into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -100,7 +114,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a volume into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -119,7 +133,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a volume group backup into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -140,7 +154,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Moves a volume group into a different compartment within the same tenancy.
      * For information about moving resources between compartments,
-     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+     * see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
      *
      *
      * @param request The request object containing the details to send
@@ -158,8 +172,26 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Creates a boot volume backup copy in specified region. For general information about volume backups,
+     * see [Overview of Boot Volume Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumebackups.htm)
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CopyBootVolumeBackupResponse> copyBootVolumeBackup(
+            CopyBootVolumeBackupRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CopyBootVolumeBackupRequest, CopyBootVolumeBackupResponse>
+                    handler);
+
+    /**
      * Creates a volume backup copy in specified region. For general information about volume backups,
-     * see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
+     * see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumebackups.htm)
      *
      *
      * @param request The request object containing the details to send
@@ -176,7 +208,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Creates a new boot volume in the specified compartment from an existing boot volume or a boot volume backup.
-     * For general information about boot volumes, see [Boot Volumes](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumes.htm).
+     * For general information about boot volumes, see [Boot Volumes](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumes.htm).
      * You may optionally specify a *display name* for the volume, which is simply a friendly name or
      * description. It does not have to be unique, and you can change it. Avoid entering confidential information.
      *
@@ -195,7 +227,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Creates a new boot volume backup of the specified boot volume. For general information about boot volume backups,
-     * see [Overview of Boot Volume Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumebackups.htm)
+     * see [Overview of Boot Volume Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumebackups.htm)
      * <p>
      * When the request is received, the backup object is in a REQUEST_RECEIVED state.
      * When the data is imaged, it goes into a CREATING state.
@@ -219,12 +251,12 @@ public interface BlockstorageAsync extends AutoCloseable {
      * Creates a new volume in the specified compartment. Volumes can be created in sizes ranging from
      * 50 GB (51200 MB) to 32 TB (33554432 MB), in 1 GB (1024 MB) increments. By default, volumes are 1 TB (1048576 MB).
      * For general information about block volumes, see
-     * [Overview of Block Volume Service](https://docs.cloud.oracle.com/Content/Block/Concepts/overview.htm).
+     * [Overview of Block Volume Service](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm).
      * <p>
      * A volume and instance can be in separate compartments but must be in the same availability domain.
      * For information about access control and compartments, see
-     * [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about
-     * availability domains, see [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
+     * [Overview of the IAM Service](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/overview.htm). For information about
+     * availability domains, see [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm).
      * To get a list of availability domains, use the `ListAvailabilityDomains` operation
      * in the Identity and Access Management Service API.
      * <p>
@@ -246,7 +278,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Creates a new backup of the specified volume. For general information about volume backups,
-     * see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
+     * see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumebackups.htm)
      * <p>
      * When the request is received, the backup object is in a REQUEST_RECEIVED state.
      * When the data is imaged, it goes into a CREATING state.
@@ -267,9 +299,29 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Assigns a policy to the specified asset, such as a volume. Note that a given asset can
-     * only have one policy assigned to it; if this method is called for an asset that previously
-     * has a different policy assigned, the prior assignment will be silently deleted.
+     * Creates a new user defined backup policy.
+     * <p>
+     * For more information about Oracle defined backup policies and user defined backup policies,
+     * see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateVolumeBackupPolicyResponse> createVolumeBackupPolicy(
+            CreateVolumeBackupPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateVolumeBackupPolicyRequest, CreateVolumeBackupPolicyResponse>
+                    handler);
+
+    /**
+     * Assigns a volume backup policy to the specified volume. Note that a given volume can
+     * only have one backup policy assigned to it. If this operation is used for a volume that already
+     * has a different backup policy assigned, the prior backup policy will be silently unassigned.
      *
      *
      * @param request The request object containing the details to send
@@ -290,11 +342,11 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Creates a new volume group in the specified compartment.
      * A volume group is a collection of volumes and may be created from a list of volumes, cloning an existing
-     * volume group, or by restoring a volume group backup. A volume group can contain up to 64 volumes.
+     * volume group, or by restoring a volume group backup.
      * You may optionally specify a *display name* for the volume group, which is simply a friendly name or
      * description. It does not have to be unique, and you can change it. Avoid entering confidential information.
      * <p>
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -312,7 +364,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Creates a new backup volume group of the specified volume group.
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -331,7 +383,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Deletes the specified boot volume. The volume cannot have an active connection to an instance.
      * To disconnect the boot volume from a connected instance, see
-     * [Disconnecting From a Boot Volume](https://docs.cloud.oracle.com/Content/Block/Tasks/deletingbootvolume.htm).
+     * [Disconnecting From a Boot Volume](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/deletingbootvolume.htm).
      * **Warning:** All data on the boot volume will be permanently lost when the boot volume is deleted.
      *
      *
@@ -364,7 +416,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Removes the KMS key for the specified boot volume.
+     * Removes the specified boot volume's assigned Key Management encryption key.
      *
      *
      * @param request The request object containing the details to send
@@ -383,7 +435,7 @@ public interface BlockstorageAsync extends AutoCloseable {
     /**
      * Deletes the specified volume. The volume cannot have an active connection to an instance.
      * To disconnect the volume from a connected instance, see
-     * [Disconnecting From a Volume](https://docs.cloud.oracle.com/Content/Block/Tasks/disconnectingfromavolume.htm).
+     * [Disconnecting From a Volume](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/disconnectingfromavolume.htm).
      * **Warning:** All data on the volume will be permanently lost when the volume is deleted.
      *
      *
@@ -416,7 +468,28 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Deletes a volume backup policy assignment (i.e. unassigns the policy from an asset).
+     * Deletes a user defined backup policy.
+     *  For more information about user defined backup policies,
+     *  see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies).
+     * <p>
+     * Avoid entering confidential information.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteVolumeBackupPolicyResponse> deleteVolumeBackupPolicy(
+            DeleteVolumeBackupPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteVolumeBackupPolicyRequest, DeleteVolumeBackupPolicyResponse>
+                    handler);
+
+    /**
+     * Deletes a volume backup policy assignment.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -435,7 +508,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Deletes the specified volume group. Individual volumes are not deleted, only the volume group is deleted.
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -452,7 +525,9 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * Deletes a volume group backup. This operation deletes all the backups in
+     * the volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -468,7 +543,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Removes the KMS key for the specified volume.
+     * Removes the specified volume's assigned Key Management encryption key.
      *
      *
      * @param request The request object containing the details to send
@@ -482,6 +557,22 @@ public interface BlockstorageAsync extends AutoCloseable {
             DeleteVolumeKmsKeyRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             DeleteVolumeKmsKeyRequest, DeleteVolumeKmsKeyResponse>
+                    handler);
+
+    /**
+     * Gets information for the specified block volume replica.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetBlockVolumeReplicaResponse> getBlockVolumeReplica(
+            GetBlockVolumeReplicaRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetBlockVolumeReplicaRequest, GetBlockVolumeReplicaResponse>
                     handler);
 
     /**
@@ -516,7 +607,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets the KMS key ID for the specified boot volume.
+     * Gets the Key Management encryption key assigned to the specified boot volume.
      *
      *
      * @param request The request object containing the details to send
@@ -530,6 +621,22 @@ public interface BlockstorageAsync extends AutoCloseable {
             GetBootVolumeKmsKeyRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             GetBootVolumeKmsKeyRequest, GetBootVolumeKmsKeyResponse>
+                    handler);
+
+    /**
+     * Gets information for the specified boot volume replica.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetBootVolumeReplicaResponse> getBootVolumeReplica(
+            GetBootVolumeReplicaRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetBootVolumeReplicaRequest, GetBootVolumeReplicaResponse>
                     handler);
 
     /**
@@ -578,9 +685,9 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets the volume backup policy assignment for the specified asset. Note that the
-     * assetId query parameter is required, and that the returned list will contain at most
-     * one item (since any given asset can only have one policy assigned to it).
+     * Gets the volume backup policy assignment for the specified volume. The
+     * `assetId` query parameter is required, and the returned list will contain at most
+     * one item, since volume can only have one volume backup policy assigned at a time.
      *
      *
      * @param request The request object containing the details to send
@@ -617,7 +724,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Gets information for the specified volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * Gets information for the specified volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -632,7 +739,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets information for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * Gets information for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -648,7 +755,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets the KMS key ID for the specified volume.
+     * Gets the Key Management encryption key assigned to the specified volume.
      *
      *
      * @param request The request object containing the details to send
@@ -661,6 +768,23 @@ public interface BlockstorageAsync extends AutoCloseable {
     java.util.concurrent.Future<GetVolumeKmsKeyResponse> getVolumeKmsKey(
             GetVolumeKmsKeyRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetVolumeKmsKeyRequest, GetVolumeKmsKeyResponse>
+                    handler);
+
+    /**
+     * Lists the block volume replicas in the specified compartment and availability domain.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListBlockVolumeReplicasResponse> listBlockVolumeReplicas(
+            ListBlockVolumeReplicasRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListBlockVolumeReplicasRequest, ListBlockVolumeReplicasResponse>
                     handler);
 
     /**
@@ -681,6 +805,23 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Lists the boot volume replicas in the specified compartment and availability domain.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListBootVolumeReplicasResponse> listBootVolumeReplicas(
+            ListBootVolumeReplicasRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListBootVolumeReplicasRequest, ListBootVolumeReplicasResponse>
+                    handler);
+
+    /**
      * Lists the boot volumes in the specified compartment and availability domain.
      *
      *
@@ -697,7 +838,11 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Lists all volume backup policies available to the caller.
+     * Lists all the volume backup policies available in the specified compartment.
+     * <p>
+     * For more information about Oracle defined backup policies and user defined backup policies,
+     * see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -731,7 +876,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Lists the volume group backups in the specified compartment. You can filter the results by volume group.
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -749,7 +894,7 @@ public interface BlockstorageAsync extends AutoCloseable {
 
     /**
      * Lists the volume groups in the specified compartment and availability domain.
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -813,7 +958,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the KMS key ID for the specified volume.
+     * Updates the specified volume with a new Key Management master encryption key.
      *
      *
      * @param request The request object containing the details to send
@@ -865,12 +1010,33 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Updates a user defined backup policy.
+     *  For more information about user defined backup policies,
+     *  see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies).
+     * <p>
+     * Avoid entering confidential information.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateVolumeBackupPolicyResponse> updateVolumeBackupPolicy(
+            UpdateVolumeBackupPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateVolumeBackupPolicyRequest, UpdateVolumeBackupPolicyResponse>
+                    handler);
+
+    /**
      * Updates the set of volumes in a volume group along with the display name. Use this operation
      * to add or remove volumes in a volume group. Specify the full list of volume IDs to include in the
      * volume group. If the volume ID is not specified in the call, it will be removed from the volume group.
      * Avoid entering confidential information.
      * <p>
-     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      *
      * @param request The request object containing the details to send
@@ -887,7 +1053,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the display name for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+     * Updates the display name for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -903,7 +1069,7 @@ public interface BlockstorageAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the KMS key ID for the specified volume.
+     * Updates the specified volume with a new Key Management master encryption key.
      *
      *
      * @param request The request object containing the details to send

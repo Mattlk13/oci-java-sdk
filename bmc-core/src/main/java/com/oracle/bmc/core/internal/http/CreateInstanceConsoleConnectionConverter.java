@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,16 @@ public class CreateInstanceConsoleConnectionConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CreateInstanceConsoleConnectionRequest interceptRequest(
-            CreateInstanceConsoleConnectionRequest request) {
+    public static com.oracle.bmc.core.requests.CreateInstanceConsoleConnectionRequest
+            interceptRequest(
+                    com.oracle.bmc.core.requests.CreateInstanceConsoleConnectionRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            CreateInstanceConsoleConnectionRequest request) {
+            com.oracle.bmc.core.requests.CreateInstanceConsoleConnectionRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(
                 request.getCreateInstanceConsoleConnectionDetails(),
@@ -41,23 +43,30 @@ public class CreateInstanceConsoleConnectionConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, CreateInstanceConsoleConnectionResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.CreateInstanceConsoleConnectionResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, CreateInstanceConsoleConnectionResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.CreateInstanceConsoleConnectionResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                CreateInstanceConsoleConnectionResponse>() {
+                                com.oracle.bmc.core.responses
+                                        .CreateInstanceConsoleConnectionResponse>() {
                             @Override
-                            public CreateInstanceConsoleConnectionResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses
+                                            .CreateInstanceConsoleConnectionResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for CreateInstanceConsoleConnectionResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.CreateInstanceConsoleConnectionResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -71,8 +80,14 @@ public class CreateInstanceConsoleConnectionConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CreateInstanceConsoleConnectionResponse.Builder builder =
-                                        CreateInstanceConsoleConnectionResponse.builder();
+                                com.oracle.bmc.core.responses
+                                                .CreateInstanceConsoleConnectionResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .CreateInstanceConsoleConnectionResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.instanceConsoleConnection(response.getItem());
 
@@ -97,8 +112,9 @@ public class CreateInstanceConsoleConnectionConverter {
                                                     String.class));
                                 }
 
-                                CreateInstanceConsoleConnectionResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.core.responses
+                                                .CreateInstanceConsoleConnectionResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

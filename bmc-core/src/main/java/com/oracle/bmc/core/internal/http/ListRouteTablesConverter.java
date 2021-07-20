@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,16 +17,17 @@ public class ListRouteTablesConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListRouteTablesRequest interceptRequest(ListRouteTablesRequest request) {
+    public static com.oracle.bmc.core.requests.ListRouteTablesRequest interceptRequest(
+            com.oracle.bmc.core.requests.ListRouteTablesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListRouteTablesRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.ListRouteTablesRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
-        Validate.notNull(request.getVcnId(), "vcnId is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
                 client.getBaseTarget().path("/20160918").path("routeTables");
@@ -52,11 +54,13 @@ public class ListRouteTablesConverter {
                                     request.getPage()));
         }
 
-        target =
-                target.queryParam(
-                        "vcnId",
-                        com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
-                                request.getVcnId()));
+        if (request.getVcnId() != null) {
+            target =
+                    target.queryParam(
+                            "vcnId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getVcnId()));
+        }
 
         if (request.getDisplayName() != null) {
             target =
@@ -94,20 +98,28 @@ public class ListRouteTablesConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListRouteTablesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ListRouteTablesResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListRouteTablesResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ListRouteTablesResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListRouteTablesResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.ListRouteTablesResponse>() {
                             @Override
-                            public ListRouteTablesResponse apply(
+                            public com.oracle.bmc.core.responses.ListRouteTablesResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for ListRouteTablesResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ListRouteTablesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -122,8 +134,12 @@ public class ListRouteTablesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListRouteTablesResponse.Builder builder =
-                                        ListRouteTablesResponse.builder();
+                                com.oracle.bmc.core.responses.ListRouteTablesResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ListRouteTablesResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -151,7 +167,8 @@ public class ListRouteTablesConverter {
                                                     String.class));
                                 }
 
-                                ListRouteTablesResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.ListRouteTablesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

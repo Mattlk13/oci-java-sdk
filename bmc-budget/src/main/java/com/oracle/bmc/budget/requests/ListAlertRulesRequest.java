@@ -1,14 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.budget.requests;
 
 import com.oracle.bmc.budget.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/budget/ListAlertRulesExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListAlertRulesRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20190111")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListAlertRulesRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListAlertRulesRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The unique Budget OCID
@@ -28,43 +37,7 @@ public class ListAlertRulesRequest extends com.oracle.bmc.requests.BmcRequest {
     /**
      * The sort order to use, either 'asc' or 'desc'.
      */
-    private SortOrder sortOrder;
-
-    /**
-     * The sort order to use, either 'asc' or 'desc'.
-     **/
-    public enum SortOrder {
-        Asc("ASC"),
-        Desc("DESC"),
-        ;
-
-        private final String value;
-        private static java.util.Map<String, SortOrder> map;
-
-        static {
-            map = new java.util.HashMap<>();
-            for (SortOrder v : SortOrder.values()) {
-                map.put(v.getValue(), v);
-            }
-        }
-
-        SortOrder(String value) {
-            this.value = value;
-        }
-
-        @com.fasterxml.jackson.annotation.JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @com.fasterxml.jackson.annotation.JsonCreator
-        public static SortOrder create(String key) {
-            if (map.containsKey(key)) {
-                return map.get(key);
-            }
-            throw new RuntimeException("Invalid SortOrder: " + key);
-        }
-    };
+    private com.oracle.bmc.budget.model.SortOrder sortOrder;
 
     /**
      * The field to sort by. If not specified, the default is timeCreated.
@@ -72,12 +45,12 @@ public class ListAlertRulesRequest extends com.oracle.bmc.requests.BmcRequest {
      * The default sort order for displayName is ASC in alphanumeric order.
      *
      */
-    private String sortBy;
+    private com.oracle.bmc.budget.model.SortBy sortBy;
 
     /**
      * The current state of the resource to filter by.
      */
-    private String lifecycleState;
+    private com.oracle.bmc.budget.model.LifecycleState lifecycleState;
 
     /**
      * A user-friendly name. Does not have to be unique, and it's changeable.
@@ -92,7 +65,9 @@ public class ListAlertRulesRequest extends com.oracle.bmc.requests.BmcRequest {
      */
     private String opcRequestId;
 
-    public static class Builder {
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListAlertRulesRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;

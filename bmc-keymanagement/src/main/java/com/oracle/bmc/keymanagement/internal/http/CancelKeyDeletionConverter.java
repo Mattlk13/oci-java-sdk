@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.internal.http;
 
@@ -16,13 +17,15 @@ public class CancelKeyDeletionConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CancelKeyDeletionRequest interceptRequest(CancelKeyDeletionRequest request) {
+    public static com.oracle.bmc.keymanagement.requests.CancelKeyDeletionRequest interceptRequest(
+            com.oracle.bmc.keymanagement.requests.CancelKeyDeletionRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, CancelKeyDeletionRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.keymanagement.requests.CancelKeyDeletionRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getKeyId(), "keyId must not be blank");
 
@@ -53,21 +56,29 @@ public class CancelKeyDeletionConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, CancelKeyDeletionResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, CancelKeyDeletionResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, CancelKeyDeletionResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.keymanagement.responses
+                                        .CancelKeyDeletionResponse>() {
                             @Override
-                            public CancelKeyDeletionResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for CancelKeyDeletionResponse");
+                                        "Transform function invoked for com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Key>>
@@ -78,8 +89,13 @@ public class CancelKeyDeletionConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CancelKeyDeletionResponse.Builder builder =
-                                        CancelKeyDeletionResponse.builder();
+                                com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.keymanagement.responses
+                                                        .CancelKeyDeletionResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.key(response.getItem());
 
@@ -104,7 +120,8 @@ public class CancelKeyDeletionConverter {
                                                     String.class));
                                 }
 
-                                CancelKeyDeletionResponse responseWrapper = builder.build();
+                                com.oracle.bmc.keymanagement.responses.CancelKeyDeletionResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

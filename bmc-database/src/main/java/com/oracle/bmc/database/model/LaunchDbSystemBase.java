@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -33,6 +34,14 @@ package com.oracle.bmc.database.model;
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = LaunchDbSystemDetails.class,
         name = "NONE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = LaunchDbSystemFromDbSystemDetails.class,
+        name = "DB_SYSTEM"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = LaunchDbSystemFromDatabaseDetails.class,
+        name = "DATABASE"
     ),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = LaunchDbSystemFromBackupDetails.class,
@@ -108,14 +117,16 @@ public class LaunchDbSystemBase {
     String backupSubnetId;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * **NsgIds restrictions:**
+     * - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
     java.util.List<String> nsgIds;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata systems.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("backupNetworkNsgIds")
@@ -137,6 +148,9 @@ public class LaunchDbSystemBase {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeZone")
     String timeZone;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("dbSystemOptions")
+    DbSystemOptions dbSystemOptions;
 
     /**
      * If true, Sparse Diskgroup is configured for Exadata dbsystem. If False, Sparse diskgroup is not configured.
@@ -194,7 +208,7 @@ public class LaunchDbSystemBase {
     Integer cpuCoreCount;
 
     /**
-     * The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+     * The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("clusterName")
@@ -217,7 +231,20 @@ public class LaunchDbSystemBase {
     Integer initialDataStorageSizeInGB;
 
     /**
-     * The number of nodes to launch for a 2-node RAC virtual machine DB system.
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    /**
+     * The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyVersionId")
+    String kmsKeyVersionId;
+
+    /**
+     * The number of nodes to launch for a 2-node RAC virtual machine DB system. Specify either 1 or 2.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeCount")
@@ -236,10 +263,57 @@ public class LaunchDbSystemBase {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * A private IP address of your choice. Must be an available IP address within the subnet's CIDR.
+     * If you don't specify a value, Oracle automatically assigns a private IP address from the subnet.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
+    String privateIp;
+
+    /**
+     * The source of the database:
+     * Use `NONE` for creating a new database. Use `DB_BACKUP` for creating a new database by restoring from a backup. Use `DATABASE` for creating
+     * a new database from an existing database, including archive redo log data. The default is `NONE`.
+     *
+     **/
+    public enum Source {
+        None("NONE"),
+        DbBackup("DB_BACKUP"),
+        Database("DATABASE"),
+        DbSystem("DB_SYSTEM"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, Source> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Source v : Source.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        Source(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Source create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid Source: " + key);
+        }
+    };
 }

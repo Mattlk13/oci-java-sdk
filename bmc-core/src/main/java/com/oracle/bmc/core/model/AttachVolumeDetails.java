@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -71,6 +72,16 @@ public class AttachVolumeDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isReadOnly")
     Boolean isReadOnly;
+
+    /**
+     * Whether the attachment should be created in shareable mode. If an attachment
+     * is created in shareable mode, then other instances can attach the same volume, provided
+     * that they also create their attachments in shareable mode. Only certain volume types can
+     * be attached in shareable mode. Defaults to false if not specified.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isShareable")
+    Boolean isShareable;
 
     /**
      * The OCID of the volume.

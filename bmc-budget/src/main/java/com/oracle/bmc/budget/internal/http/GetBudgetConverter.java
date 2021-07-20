@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.budget.internal.http;
 
@@ -16,13 +17,15 @@ public class GetBudgetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetBudgetRequest interceptRequest(GetBudgetRequest request) {
+    public static com.oracle.bmc.budget.requests.GetBudgetRequest interceptRequest(
+            com.oracle.bmc.budget.requests.GetBudgetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetBudgetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.budget.requests.GetBudgetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getBudgetId(), "budgetId must not be blank");
 
@@ -42,18 +45,27 @@ public class GetBudgetConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetBudgetResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.budget.responses.GetBudgetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetBudgetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.budget.responses.GetBudgetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetBudgetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.budget.responses.GetBudgetResponse>() {
                             @Override
-                            public GetBudgetResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetBudgetResponse");
+                            public com.oracle.bmc.budget.responses.GetBudgetResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.budget.responses.GetBudgetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Budget>>
@@ -65,7 +77,9 @@ public class GetBudgetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetBudgetResponse.Builder builder = GetBudgetResponse.builder();
+                                com.oracle.bmc.budget.responses.GetBudgetResponse.Builder builder =
+                                        com.oracle.bmc.budget.responses.GetBudgetResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.budget(response.getItem());
 
@@ -90,7 +104,8 @@ public class GetBudgetConverter {
                                                     String.class));
                                 }
 
-                                GetBudgetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.budget.responses.GetBudgetResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

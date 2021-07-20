@@ -1,11 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage;
 
 import com.oracle.bmc.filestorage.requests.*;
 import com.oracle.bmc.filestorage.responses.*;
 
+/**
+ * API for the File Storage service. Use this API to manage file systems, mount targets, and snapshots. For more information, see [Overview of File Storage](https://docs.cloud.oracle.com/iaas/Content/File/Concepts/filestorageoverview.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20171215")
 public interface FileStorageAsync extends AutoCloseable {
 
@@ -14,6 +19,11 @@ public interface FileStorageAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -103,6 +113,9 @@ public interface FileStorageAsync extends AutoCloseable {
      * For information about access control and compartments, see
      * [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
      * <p>
+     * For information about Network Security Groups access control, see
+     * [Network Security Groups](https://docs.cloud.oracle.com/Content/Network/Concepts/networksecuritygroups.htm).
+     * <p>
      * For information about availability domains, see [Regions and
      * Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
      * To get a list of availability domains, use the
@@ -111,9 +124,9 @@ public interface FileStorageAsync extends AutoCloseable {
      * <p>
      * All Oracle Cloud Infrastructure resources, including
      * file systems, get an Oracle-assigned, unique ID called an Oracle
-     * Cloud Identifier (OCID).  When you create a resource, you can
-     * find its OCID in the response. You can also retrieve a
-     * resource's OCID by using a List API operation on that resource
+     * Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
+     * When you create a resource, you can find its OCID in the response.
+     * You can also retrieve a resource's OCID by using a List API operation on that resource
      * type or by viewing the resource in the Console.
      *
      *
@@ -158,9 +171,9 @@ public interface FileStorageAsync extends AutoCloseable {
      * <p>
      * All Oracle Cloud Infrastructure Services resources, including
      * mount targets, get an Oracle-assigned, unique ID called an
-     * Oracle Cloud Identifier (OCID).  When you create a resource,
-     * you can find its OCID in the response. You can also retrieve a
-     * resource's OCID by using a List API operation on that resource
+     * Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
+     * When you create a resource, you can find its OCID in the response.
+     * You can also retrieve a resource's OCID by using a List API operation on that resource
      * type, or by viewing the resource in the Console.
      *
      *

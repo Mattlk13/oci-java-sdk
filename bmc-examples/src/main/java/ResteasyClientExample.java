@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
@@ -21,7 +22,6 @@ import com.oracle.bmc.identity.responses.GetUserResponse;
 import com.oracle.bmc.identity.responses.ListAvailabilityDomainsResponse;
 import com.oracle.bmc.identity.responses.UpdateUserResponse;
 import com.oracle.bmc.responses.AsyncHandler;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.client.ClientBuilder;
 import java.util.concurrent.CountDownLatch;
@@ -29,7 +29,6 @@ import java.util.concurrent.CountDownLatch;
 /**
  * An example to demonstrate how to use resteasy client with JavaSDK.
  */
-@Slf4j
 public class ResteasyClientExample {
     private static final String CONFIG_LOCATION = "~/.oci/config";
     private static final String CONFIG_PROFILE = "DEFAULT";
@@ -38,14 +37,18 @@ public class ResteasyClientExample {
 
         final String compartmentId = args[0];
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
 
-        // The following line is only necessary for this example because we the configuration in
-        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder. If you are using Resteasy by default, this line
-        // is not necessary
+        // The following line is only necessary for this example because of our configuration in
+        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder
+        // which enables Jersey by default. If you are using Resteasy by default, this line is not necessary
         System.setProperty(
                 ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY,
                 "org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder");

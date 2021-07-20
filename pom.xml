@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.oracle.oci.sdk</groupId>
   <artifactId>oci-java-sdk</artifactId>
-  <version>1.6.0</version>
+  <version>2.3.0</version>
   <packaging>pom</packaging>
   <name>Oracle Cloud Infrastructure SDK</name>
   <description>This project contains the SDK used for Oracle Cloud Infrastructure</description>
@@ -34,55 +34,32 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jackson.version>2.9.9</jackson.version>
-    <jersey.version>2.27</jersey.version>
-    <guava.version>27.1-jre</guava.version>
-    <junit.version>4.12</junit.version>
-    <lombok.version>1.18.4</lombok.version>
-    <lombok.maven.version>1.18.4.0</lombok.maven.version>
+    <jackson.version>2.12.0</jackson.version>
+    <jersey.version>2.34</jersey.version>
+    <apache-httpcomponents.version>4.5.13</apache-httpcomponents.version>
+    <guava.version>30.1-jre</guava.version>
+    <junit.version>4.13.1</junit.version>
+    <lombok.version>1.18.18</lombok.version>
+    <lombok.maven.version>1.18.18.0</lombok.maven.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <slf4j.version>1.7.26</slf4j.version>
-    <validation-api.version>1.1.0.Final</validation-api.version>
-    <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
-    <commons-codec.version>1.12</commons-codec.version>
+    <slf4j.version>1.7.29</slf4j.version>
+    <jakarta.ws.rs-api.version>2.1.6</jakarta.ws.rs-api.version>
+    <commons-codec.version>1.15</commons-codec.version>
     <commons-lang3.version>3.8.1</commons-lang3.version>
-    <commons-io.version>2.6</commons-io.version>
+    <commons-io.version>2.8.0</commons-io.version>
+    <!-- Update resilience4jVersion and io.vavr.version together -->
+    <resilience4jVersion>1.2.0</resilience4jVersion>
+    <io.vavr.version>0.10.2</io.vavr.version>
     <maven-shade-plugin.version>3.1.1</maven-shade-plugin.version>
-    <bouncycastle.version>1.60</bouncycastle.version>
+    <bouncycastle.version>1.68</bouncycastle.version>
     <mockito.version>1.10.19</mockito.version>
     <powermock.version>1.7.4</powermock.version>
     <excluded.testcases>**/*IntegrationAutoTest.java</excluded.testcases>
     <dev.profile.skip.javadoc>true</dev.profile.skip.javadoc>
+    <exec.skip>true</exec.skip>
+    <exec.mainClass>com.acme.Undefined</exec.mainClass>
   </properties>
   <profiles>
-    <profile>
-      <id>sign</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.commonjava.maven.plugins</groupId>
-            <artifactId>directory-maven-plugin</artifactId>
-            <version>0.1</version>
-            <executions>
-              <execution>
-                <id>directories</id>
-                <goals>
-                  <goal>directory-of</goal>
-                </goals>
-                <phase>initialize</phase>
-                <configuration>
-                  <property>ocijavasdk.basedir</property>
-                  <project>
-                    <groupId>com.oracle.oci.sdk</groupId>
-                    <artifactId>oci-java-sdk</artifactId>
-                  </project>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>dev</id>
       <build>
@@ -192,7 +169,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <configuration>
-              <skip>${dev.profile.skip.javadoc}</skip>
+              <skipSource>${dev.profile.skip.javadoc}</skipSource>
             </configuration>
           </plugin>
           <plugin>
@@ -241,7 +218,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <configuration>
-              <skip>true</skip>
+              <skipSource>true</skipSource>
             </configuration>
           </plugin>
           <plugin>
@@ -268,7 +245,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
+          <version>3.8.1</version>
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
@@ -329,7 +306,6 @@
                   <indent>4</indent>
                   <suppressWarnings>skip</suppressWarnings>
                 </formatPreferences>
-                <verbose>true</verbose>
               </configuration>
             </execution>
           </executions>
@@ -354,6 +330,8 @@
             <includes>
               <include>src/main/java/**/*.java</include>
               <include>src/test/java/**/*.java</include>
+              <include>**/*.properties</include>
+              <include>**/*.html</include>
             </includes>
           </configuration>
         </plugin>
@@ -364,7 +342,7 @@
           <executions>
             <execution>
               <id>attach-sources</id>
-              <phase>verify</phase>
+              <phase>package</phase>
               <goals>
                 <goal>jar-no-fork</goal>
               </goals>
@@ -379,7 +357,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.4</version>
+          <version>3.3.0</version>
           <goals>
             <goal>jar</goal>
           </goals>
@@ -395,17 +373,10 @@
           <configuration>
             <!-- Exclude classes that shouldn't be exposed to end users, ex, those in 'internal' packages -->
             <excludePackageNames>*.internal.*</excludePackageNames>
-            <doclet>ch.raffael.doclets.pegdown.PegdownDoclet</doclet>
-            <docletArtifact>
-              <groupId>ch.raffael.pegdown-doclet</groupId>
-              <artifactId>pegdown-doclet</artifactId>
-              <version>1.3</version>
-            </docletArtifact>
-            <useStandardDocletOptions>true</useStandardDocletOptions>
             <aggregate>true</aggregate>
-            <minmemory>128m</minmemory>
-            <maxmemory>1024m</maxmemory>
-            <additionalparam>-Xdoclint:none -disable-highlight</additionalparam>
+            <minmemory>512m</minmemory>
+            <maxmemory>3072m</maxmemory>
+            <doclint>none</doclint>
             <sourcepath>target/generated-sources-for-docs/delombok</sourcepath>
             <links>
               <link>https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs</link>
@@ -442,14 +413,20 @@
           <version>3.1.0</version>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.6.0</version>
+          <inherited>true</inherited>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.0.0-M1</version>
+          <version>3.0.0-M3</version>
           <dependencies>
             <dependency>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>extra-enforcer-rules</artifactId>
-              <version>1.0-beta-9</version>
+              <version>1.3</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -473,6 +450,10 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
@@ -501,7 +482,6 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -524,14 +504,9 @@
     </dependency>
     <!-- Direct dependencies -->
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${javax.ws.rs-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>${validation-api.version}</version>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>${jakarta.ws.rs-api.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -618,15 +593,38 @@
         <version>${jackson.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-core</artifactId>
+        <version>${resilience4jVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-circuitbreaker</artifactId>
+        <version>${resilience4jVersion}</version>
+      </dependency>
+      <!-- io.vavr is added here because it is in resilience4j-circuitbreaker, update versions together -->
+      <dependency>
+        <groupId>io.vavr</groupId>
+        <artifactId>vavr</artifactId>
+        <version>${io.vavr.version}</version>
+      </dependency>
+      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
   <modules>
     <module>bmc-audit</module>
     <module>bmc-bom</module>
+    <module>bmc-circuitbreaker</module>
     <module>bmc-common</module>
     <module>bmc-core</module>
     <module>bmc-database</module>
@@ -655,6 +653,59 @@
     <module>bmc-functions</module>
     <module>bmc-events</module>
     <module>bmc-dts</module>
+    <module>bmc-oce</module>
+    <module>bmc-oda</module>
+    <module>bmc-analytics</module>
+    <module>bmc-integration</module>
+    <module>bmc-osmanagement</module>
+    <module>bmc-marketplace</module>
+    <module>bmc-apigateway</module>
+    <module>bmc-applicationmigration</module>
+    <module>bmc-datacatalog</module>
+    <module>bmc-dataflow</module>
+    <module>bmc-datascience</module>
+    <module>bmc-nosql</module>
+    <module>bmc-secrets</module>
+    <module>bmc-vault</module>
+    <module>bmc-bds</module>
+    <module>bmc-encryption</module>
+    <module>bmc-cims</module>
+    <module>bmc-datasafe</module>
+    <module>bmc-mysql</module>
+    <module>bmc-dataintegration</module>
+    <module>bmc-ocvp</module>
+    <module>bmc-usageapi</module>
+    <module>bmc-blockchain</module>
+    <module>bmc-loggingingestion</module>
+    <module>bmc-logging</module>
+    <module>bmc-loganalytics</module>
+    <module>bmc-managementdashboard</module>
+    <module>bmc-sch</module>
+    <module>bmc-loggingsearch</module>
+    <module>bmc-managementagent</module>
+    <module>bmc-cloudguard</module>
+    <module>bmc-opsi</module>
+    <module>bmc-computeinstanceagent</module>
+    <module>bmc-optimizer</module>
+    <module>bmc-tenantmanagercontrolplane</module>
+    <module>bmc-rover</module>
+    <module>bmc-databasemanagement</module>
+    <module>bmc-artifacts</module>
+    <module>bmc-apmsynthetics</module>
+    <module>bmc-goldengate</module>
+    <module>bmc-apmcontrolplane</module>
+    <module>bmc-apmtraces</module>
+    <module>bmc-networkloadbalancer</module>
+    <module>bmc-vulnerabilityscanning</module>
+    <module>bmc-databasemigration</module>
+    <module>bmc-servicecatalog</module>
+    <module>bmc-ailanguage</module>
+    <module>bmc-operatoraccesscontrol</module>
+    <module>bmc-bastion</module>
+    <module>bmc-genericartifactscontent</module>
+    <module>bmc-jms</module>
+    <module>bmc-devops</module>
+    <module>bmc-aianomalydetection</module>
     <module>bmc-full</module>
     <module>bmc-shaded</module>
   </modules>

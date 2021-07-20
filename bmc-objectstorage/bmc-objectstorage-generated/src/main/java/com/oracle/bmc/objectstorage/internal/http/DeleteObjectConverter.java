@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.internal.http;
 
@@ -16,13 +17,15 @@ public class DeleteObjectConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeleteObjectRequest interceptRequest(DeleteObjectRequest request) {
+    public static com.oracle.bmc.objectstorage.requests.DeleteObjectRequest interceptRequest(
+            com.oracle.bmc.objectstorage.requests.DeleteObjectRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, DeleteObjectRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.objectstorage.requests.DeleteObjectRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNamespaceName(), "namespaceName must not be blank");
         Validate.notBlank(request.getBucketName(), "bucketName must not be blank");
@@ -44,6 +47,14 @@ public class DeleteObjectConverter {
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
                                         request.getObjectName()));
 
+        if (request.getVersionId() != null) {
+            target =
+                    target.queryParam(
+                            "versionId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getVersionId()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
@@ -56,19 +67,28 @@ public class DeleteObjectConverter {
             ib.header("opc-client-request-id", request.getOpcClientRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, DeleteObjectResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.objectstorage.responses.DeleteObjectResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, DeleteObjectResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.objectstorage.responses.DeleteObjectResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, DeleteObjectResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.objectstorage.responses.DeleteObjectResponse>() {
                             @Override
-                            public DeleteObjectResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for DeleteObjectResponse");
+                            public com.oracle.bmc.objectstorage.responses.DeleteObjectResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.objectstorage.responses.DeleteObjectResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -79,8 +99,12 @@ public class DeleteObjectConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeleteObjectResponse.Builder builder =
-                                        DeleteObjectResponse.builder();
+                                com.oracle.bmc.objectstorage.responses.DeleteObjectResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.objectstorage.responses
+                                                        .DeleteObjectResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcClientRequestIdHeader =
@@ -118,7 +142,32 @@ public class DeleteObjectConverter {
                                                     java.util.Date.class));
                                 }
 
-                                DeleteObjectResponse responseWrapper = builder.build();
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        versionIdHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "version-id");
+                                if (versionIdHeader.isPresent()) {
+                                    builder.versionId(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "version-id",
+                                                    versionIdHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        isDeleteMarkerHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "is-delete-marker");
+                                if (isDeleteMarkerHeader.isPresent()) {
+                                    builder.isDeleteMarker(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "is-delete-marker",
+                                                    isDeleteMarkerHeader.get().get(0),
+                                                    Boolean.class));
+                                }
+
+                                com.oracle.bmc.objectstorage.responses.DeleteObjectResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

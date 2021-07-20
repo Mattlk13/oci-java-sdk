@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.objectstorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = WorkRequest.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class WorkRequest {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -153,6 +155,7 @@ public class WorkRequest {
     @lombok.extern.slf4j.Slf4j
     public enum OperationType {
         CopyObject("COPY_OBJECT"),
+        Reencrypt("REENCRYPT"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -260,10 +263,12 @@ public class WorkRequest {
     String id;
 
     /**
-     * The OCID of the compartment that contains the work request. Work requests should be scoped to
-     * the same compartment as the resource the work request affects. If the work request affects multiple resources,
-     * and those resources are not in the same compartment, it is up to the service team to pick the primary
-     * resource whose compartment should be used.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the work request. Work
+     * requests are scoped to the same compartment as the resource the work request affects.
+     * <p>
+     * If the work request affects multiple resources and those resources are not in the same compartment, the OCID of
+     * the primary resource is used. For example, you can copy an object in a bucket in one compartment to a bucket in
+     * another compartment. In this case, the OCID of the source compartment is used.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
@@ -280,7 +285,7 @@ public class WorkRequest {
 
     /**
      * The date and time the work request was created, as described in
-     * [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+     * [RFC 3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeAccepted")
@@ -288,7 +293,7 @@ public class WorkRequest {
 
     /**
      * The date and time the work request was started, as described in
-     * [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+     * [RFC 3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeStarted")
@@ -296,7 +301,7 @@ public class WorkRequest {
 
     /**
      * The date and time the work request was finished, as described in
-     * [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+     * [RFC 3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeFinished")

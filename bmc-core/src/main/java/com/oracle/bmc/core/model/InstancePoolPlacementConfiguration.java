@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = InstancePoolPlacementConfiguration.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class InstancePoolPlacementConfiguration {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -42,6 +44,15 @@ public class InstancePoolPlacementConfiguration {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("faultDomains")
+        private java.util.List<String> faultDomains;
+
+        public Builder faultDomains(java.util.List<String> faultDomains) {
+            this.faultDomains = faultDomains;
+            this.__explicitlySet__.add("faultDomains");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("secondaryVnicSubnets")
         private java.util.List<InstancePoolPlacementSecondaryVnicSubnet> secondaryVnicSubnets;
 
@@ -58,7 +69,10 @@ public class InstancePoolPlacementConfiguration {
         public InstancePoolPlacementConfiguration build() {
             InstancePoolPlacementConfiguration __instance__ =
                     new InstancePoolPlacementConfiguration(
-                            availabilityDomain, primarySubnetId, secondaryVnicSubnets);
+                            availabilityDomain,
+                            primarySubnetId,
+                            faultDomains,
+                            secondaryVnicSubnets);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -68,6 +82,7 @@ public class InstancePoolPlacementConfiguration {
             Builder copiedBuilder =
                     availabilityDomain(o.getAvailabilityDomain())
                             .primarySubnetId(o.getPrimarySubnetId())
+                            .faultDomains(o.getFaultDomains())
                             .secondaryVnicSubnets(o.getSecondaryVnicSubnets());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
@@ -84,6 +99,7 @@ public class InstancePoolPlacementConfiguration {
 
     /**
      * The availability domain to place instances.
+     * <p>
      * Example: `Uocm:PHX-AD-1`
      *
      **/
@@ -91,10 +107,31 @@ public class InstancePoolPlacementConfiguration {
     String availabilityDomain;
 
     /**
-     * The OCID of the primary subnet to place instances.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the primary subnet to place instances.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("primarySubnetId")
     String primarySubnetId;
+
+    /**
+     * The fault domains to place instances.
+     * <p>
+     * If you don't provide any values, the system makes a best effort to distribute
+     * instances across all fault domains based on capacity.
+     * <p>
+     * To distribute the instances evenly across selected fault domains, provide a
+     * set of fault domains. For example, you might want instances to be evenly
+     * distributed if your applications require high availability.
+     * <p>
+     * To get a list of fault domains, use the
+     * {@link #listFaultDomains(ListFaultDomainsRequest) listFaultDomains} operation
+     * in the Identity and Access Management Service API.
+     * <p>
+     * Example: `[FAULT-DOMAIN-1, FAULT-DOMAIN-2, FAULT-DOMAIN-3]`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("faultDomains")
+    java.util.List<String> faultDomains;
 
     /**
      * The set of secondary VNIC data for instances in the pool.

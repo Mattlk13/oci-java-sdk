@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.internal.http;
 
@@ -16,13 +17,15 @@ public class UploadPartConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UploadPartRequest interceptRequest(UploadPartRequest request) {
+    public static com.oracle.bmc.objectstorage.requests.UploadPartRequest interceptRequest(
+            com.oracle.bmc.objectstorage.requests.UploadPartRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UploadPartRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.objectstorage.requests.UploadPartRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNamespaceName(), "namespaceName must not be blank");
         Validate.notBlank(request.getBucketName(), "bucketName must not be blank");
@@ -87,18 +90,40 @@ public class UploadPartConverter {
             ib.header("Content-MD5", request.getContentMD5());
         }
 
+        if (request.getOpcSseCustomerAlgorithm() != null) {
+            ib.header("opc-sse-customer-algorithm", request.getOpcSseCustomerAlgorithm());
+        }
+
+        if (request.getOpcSseCustomerKey() != null) {
+            ib.header("opc-sse-customer-key", request.getOpcSseCustomerKey());
+        }
+
+        if (request.getOpcSseCustomerKeySha256() != null) {
+            ib.header("opc-sse-customer-key-sha256", request.getOpcSseCustomerKeySha256());
+        }
+
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, UploadPartResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.objectstorage.responses.UploadPartResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UploadPartResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.objectstorage.responses.UploadPartResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UploadPartResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.objectstorage.responses.UploadPartResponse>() {
                             @Override
-                            public UploadPartResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for UploadPartResponse");
+                            public com.oracle.bmc.objectstorage.responses.UploadPartResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.objectstorage.responses.UploadPartResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -109,7 +134,12 @@ public class UploadPartConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UploadPartResponse.Builder builder = UploadPartResponse.builder();
+                                com.oracle.bmc.objectstorage.responses.UploadPartResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.objectstorage.responses
+                                                        .UploadPartResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcClientRequestIdHeader =
@@ -156,7 +186,8 @@ public class UploadPartConverter {
                                                     "ETag", eTagHeader.get().get(0), String.class));
                                 }
 
-                                UploadPartResponse responseWrapper = builder.build();
+                                com.oracle.bmc.objectstorage.responses.UploadPartResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

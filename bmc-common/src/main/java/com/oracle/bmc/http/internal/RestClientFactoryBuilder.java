@@ -1,16 +1,20 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
+import com.oracle.bmc.InternalSdk;
 import com.oracle.bmc.http.ClientConfigurator;
 import com.oracle.bmc.http.CompositeClientConfigurator;
 import com.oracle.bmc.http.DefaultConfigurator;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,8 @@ import java.util.List;
  * Builder for {@link RestClientFactory}.  Will use default values
  * when no other values were provided.
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RestClientFactoryBuilder {
     public static final ClientConfigurator DEFAULT_CONFIGURATOR = new DefaultConfigurator();
 
@@ -107,7 +112,15 @@ public class RestClientFactoryBuilder {
                                 .build()));
     }
 
-    private ClientConfigurator getClientConfigurator() {
+    @InternalSdk
+    @VisibleForTesting
+    protected ClientConfigurator getClientConfigurator() {
         return MoreObjects.firstNonNull(this.clientConfigurator, defaultConfigurator);
+    }
+
+    @InternalSdk
+    @VisibleForTesting
+    protected List<ClientConfigurator> getAdditionalClientConfigurators() {
+        return additionalClientConfigurators;
     }
 }

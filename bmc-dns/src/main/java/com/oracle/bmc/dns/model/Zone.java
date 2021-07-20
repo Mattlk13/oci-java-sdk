@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.dns.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Zone.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Zone {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -49,6 +51,24 @@ public class Zone {
         public Builder compartmentId(String compartmentId) {
             this.compartmentId = compartmentId;
             this.__explicitlySet__.add("compartmentId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("viewId")
+        private String viewId;
+
+        public Builder viewId(String viewId) {
+            this.viewId = viewId;
+            this.__explicitlySet__.add("viewId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("scope")
+        private Scope scope;
+
+        public Builder scope(Scope scope) {
+            this.scope = scope;
+            this.__explicitlySet__.add("scope");
             return this;
         }
 
@@ -134,12 +154,30 @@ public class Zone {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isProtected")
+        private Boolean isProtected;
+
+        public Builder isProtected(Boolean isProtected) {
+            this.isProtected = isProtected;
+            this.__explicitlySet__.add("isProtected");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("nameservers")
         private java.util.List<Nameserver> nameservers;
 
         public Builder nameservers(java.util.List<Nameserver> nameservers) {
             this.nameservers = nameservers;
             this.__explicitlySet__.add("nameservers");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("zoneTransferServers")
+        private java.util.List<ZoneTransferServer> zoneTransferServers;
+
+        public Builder zoneTransferServers(java.util.List<ZoneTransferServer> zoneTransferServers) {
+            this.zoneTransferServers = zoneTransferServers;
+            this.__explicitlySet__.add("zoneTransferServers");
             return this;
         }
 
@@ -152,6 +190,8 @@ public class Zone {
                             name,
                             zoneType,
                             compartmentId,
+                            viewId,
+                            scope,
                             freeformTags,
                             definedTags,
                             externalMasters,
@@ -161,7 +201,9 @@ public class Zone {
                             version,
                             serial,
                             lifecycleState,
-                            nameservers);
+                            isProtected,
+                            nameservers,
+                            zoneTransferServers);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -172,6 +214,8 @@ public class Zone {
                     name(o.getName())
                             .zoneType(o.getZoneType())
                             .compartmentId(o.getCompartmentId())
+                            .viewId(o.getViewId())
+                            .scope(o.getScope())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .externalMasters(o.getExternalMasters())
@@ -181,7 +225,9 @@ public class Zone {
                             .version(o.getVersion())
                             .serial(o.getSerial())
                             .lifecycleState(o.getLifecycleState())
-                            .nameservers(o.getNameservers());
+                            .isProtected(o.getIsProtected())
+                            .nameservers(o.getNameservers())
+                            .zoneTransferServers(o.getZoneTransferServers());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -201,7 +247,7 @@ public class Zone {
     @com.fasterxml.jackson.annotation.JsonProperty("name")
     String name;
     /**
-     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL zones.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -248,7 +294,7 @@ public class Zone {
         }
     };
     /**
-     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL zones.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("zoneType")
@@ -259,6 +305,21 @@ public class Zone {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
+
+    /**
+     * The OCID of the private view containing the zone. This value will
+     * be null for zones in the global DNS, which are publicly resolvable and
+     * not part of a private view.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("viewId")
+    String viewId;
+
+    /**
+     * The scope of the zone.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("scope")
+    Scope scope;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -303,7 +364,7 @@ public class Zone {
     String id;
 
     /**
-     * The date and time the resource was created in \"YYYY-MM-ddThh:mmZ\" format
+     * The date and time the resource was created in \"YYYY-MM-ddThh:mm:ssZ\" format
      * with a Z offset, as defined by RFC 3339.
      * <p>
      **Example:** `2016-07-22T17:23:59:60Z`
@@ -337,6 +398,7 @@ public class Zone {
         Deleted("DELETED"),
         Deleting("DELETING"),
         Failed("FAILED"),
+        Updating("UPDATING"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -383,10 +445,24 @@ public class Zone {
     LifecycleState lifecycleState;
 
     /**
+     * A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isProtected")
+    Boolean isProtected;
+
+    /**
      * The authoritative nameservers for the zone.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nameservers")
     java.util.List<Nameserver> nameservers;
+
+    /**
+     * The OCI nameservers that transfer the zone data with external nameservers.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("zoneTransferServers")
+    java.util.List<ZoneTransferServer> zoneTransferServers;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

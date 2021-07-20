@@ -1,11 +1,14 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.io.internal;
 
 import com.oracle.bmc.http.internal.ResponseHelper;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +17,7 @@ import java.io.InputStream;
  * A wrapper over an {@link java.io.InputStream} that ensures that the delegate {@link javax.ws.rs.core.Response} is
  * closed when the delegate input stream is closed.
  */
+@Slf4j
 public class WrappedResponseInputStream extends InputStream {
     protected final InputStream delegate;
     protected final Response delegateResponse;
@@ -68,6 +72,8 @@ public class WrappedResponseInputStream extends InputStream {
     public void close() throws IOException {
         try {
             delegate.close();
+        } catch (ProcessingException e) {
+            LOG.debug("Exception caused while trying to close the stream", e);
         } finally {
             // When the input stream has been consumed, try also closing the wrapped response entity to free up
             // resources for the Jersey Client (e.g., a connection via a connection pool).

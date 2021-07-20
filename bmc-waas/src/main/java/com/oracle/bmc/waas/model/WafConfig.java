@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.waas.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = WafConfig.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class WafConfig {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -96,6 +98,34 @@ public class WafConfig {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("cachingRules")
+        private java.util.List<CachingRule> cachingRules;
+
+        public Builder cachingRules(java.util.List<CachingRule> cachingRules) {
+            this.cachingRules = cachingRules;
+            this.__explicitlySet__.add("cachingRules");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("customProtectionRules")
+        private java.util.List<CustomProtectionRuleSetting> customProtectionRules;
+
+        public Builder customProtectionRules(
+                java.util.List<CustomProtectionRuleSetting> customProtectionRules) {
+            this.customProtectionRules = customProtectionRules;
+            this.__explicitlySet__.add("customProtectionRules");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("originGroups")
+        private java.util.List<String> originGroups;
+
+        public Builder originGroups(java.util.List<String> originGroups) {
+            this.originGroups = originGroups;
+            this.__explicitlySet__.add("originGroups");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("protectionRules")
         private java.util.List<ProtectionRule> protectionRules;
 
@@ -146,6 +176,9 @@ public class WafConfig {
                             humanInteractionChallenge,
                             jsChallenge,
                             origin,
+                            cachingRules,
+                            customProtectionRules,
+                            originGroups,
                             protectionRules,
                             protectionSettings,
                             threatFeeds,
@@ -165,6 +198,9 @@ public class WafConfig {
                             .humanInteractionChallenge(o.getHumanInteractionChallenge())
                             .jsChallenge(o.getJsChallenge())
                             .origin(o.getOrigin())
+                            .cachingRules(o.getCachingRules())
+                            .customProtectionRules(o.getCustomProtectionRules())
+                            .originGroups(o.getOriginGroups())
                             .protectionRules(o.getProtectionRules())
                             .protectionSettings(o.getProtectionSettings())
                             .threatFeeds(o.getThreatFeeds())
@@ -229,6 +265,25 @@ public class WafConfig {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("origin")
     String origin;
+
+    /**
+     * A list of caching rules applied to the web application.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("cachingRules")
+    java.util.List<CachingRule> cachingRules;
+
+    /**
+     * A list of the custom protection rule OCIDs and their actions.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("customProtectionRules")
+    java.util.List<CustomProtectionRuleSetting> customProtectionRules;
+
+    /**
+     * The map of origin groups and their keys used to associate origins to the `wafConfig`. Origin groups allow you to apply weights to groups of origins for load balancing purposes. Origins with higher weights will receive larger proportions of client requests.
+     * To add additional origins to your WAAS policy, update the `origins` field of a `UpdateWaasPolicy` request.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("originGroups")
+    java.util.List<String> originGroups;
 
     /**
      * A list of the protection rules and their details.

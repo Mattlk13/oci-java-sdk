@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdateStackConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateStackRequest interceptRequest(UpdateStackRequest request) {
+    public static com.oracle.bmc.resourcemanager.requests.UpdateStackRequest interceptRequest(
+            com.oracle.bmc.resourcemanager.requests.UpdateStackRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdateStackRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.resourcemanager.requests.UpdateStackRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getStackId(), "stackId must not be blank");
         Validate.notNull(request.getUpdateStackDetails(), "updateStackDetails is required");
@@ -47,19 +50,28 @@ public class UpdateStackConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, UpdateStackResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.resourcemanager.responses.UpdateStackResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UpdateStackResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.resourcemanager.responses.UpdateStackResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateStackResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.resourcemanager.responses.UpdateStackResponse>() {
                             @Override
-                            public UpdateStackResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for UpdateStackResponse");
+                            public com.oracle.bmc.resourcemanager.responses.UpdateStackResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.resourcemanager.responses.UpdateStackResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Stack>>
@@ -71,7 +83,12 @@ public class UpdateStackConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateStackResponse.Builder builder = UpdateStackResponse.builder();
+                                com.oracle.bmc.resourcemanager.responses.UpdateStackResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.resourcemanager.responses
+                                                        .UpdateStackResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.stack(response.getItem());
 
@@ -96,7 +113,8 @@ public class UpdateStackConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                UpdateStackResponse responseWrapper = builder.build();
+                                com.oracle.bmc.resourcemanager.responses.UpdateStackResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

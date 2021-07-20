@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
- * The configuration details for creating a Data Guard association for a bare metal DB system database. A standby database will be created in the DB system you specify.
+ * The configuration details for creating a Data Guard association for a bare metal or Exadata DB system database. For these types of DB system databases, the `creationType` should be `ExistingDbSystem`. A standby database will be created in the DB system you specify.
  * <p>
- * To create a Data Guard association for a database in a virtual machine DB system, use the {@link #createDataGuardAssociationWithNewDbSystemDetails(CreateDataGuardAssociationWithNewDbSystemDetailsRequest) createDataGuardAssociationWithNewDbSystemDetails} subtype.
+ * To create a Data Guard association for a database in a virtual machine DB system, use the {@link #createDataGuardAssociationWithNewDbSystemDetails(CreateDataGuardAssociationWithNewDbSystemDetailsRequest) createDataGuardAssociationWithNewDbSystemDetails} subtype instead.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -29,11 +30,21 @@ package com.oracle.bmc.database.model;
     property = "creationType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateDataGuardAssociationToExistingDbSystemDetails
         extends CreateDataGuardAssociationDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("databaseAdminPassword")
         private String databaseAdminPassword;
 
@@ -70,13 +81,27 @@ public class CreateDataGuardAssociationToExistingDbSystemDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("peerDbHomeId")
+        private String peerDbHomeId;
+
+        public Builder peerDbHomeId(String peerDbHomeId) {
+            this.peerDbHomeId = peerDbHomeId;
+            this.__explicitlySet__.add("peerDbHomeId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public CreateDataGuardAssociationToExistingDbSystemDetails build() {
             CreateDataGuardAssociationToExistingDbSystemDetails __instance__ =
                     new CreateDataGuardAssociationToExistingDbSystemDetails(
-                            databaseAdminPassword, protectionMode, transportType, peerDbSystemId);
+                            databaseSoftwareImageId,
+                            databaseAdminPassword,
+                            protectionMode,
+                            transportType,
+                            peerDbSystemId,
+                            peerDbHomeId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -84,10 +109,12 @@ public class CreateDataGuardAssociationToExistingDbSystemDetails
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(CreateDataGuardAssociationToExistingDbSystemDetails o) {
             Builder copiedBuilder =
-                    databaseAdminPassword(o.getDatabaseAdminPassword())
+                    databaseSoftwareImageId(o.getDatabaseSoftwareImageId())
+                            .databaseAdminPassword(o.getDatabaseAdminPassword())
                             .protectionMode(o.getProtectionMode())
                             .transportType(o.getTransportType())
-                            .peerDbSystemId(o.getPeerDbSystemId());
+                            .peerDbSystemId(o.getPeerDbSystemId())
+                            .peerDbHomeId(o.getPeerDbHomeId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -103,12 +130,15 @@ public class CreateDataGuardAssociationToExistingDbSystemDetails
 
     @Deprecated
     public CreateDataGuardAssociationToExistingDbSystemDetails(
+            String databaseSoftwareImageId,
             String databaseAdminPassword,
             ProtectionMode protectionMode,
             TransportType transportType,
-            String peerDbSystemId) {
-        super(databaseAdminPassword, protectionMode, transportType);
+            String peerDbSystemId,
+            String peerDbHomeId) {
+        super(databaseSoftwareImageId, databaseAdminPassword, protectionMode, transportType);
         this.peerDbSystemId = peerDbSystemId;
+        this.peerDbHomeId = peerDbHomeId;
     }
 
     /**
@@ -118,6 +148,14 @@ public class CreateDataGuardAssociationToExistingDbSystemDetails
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("peerDbSystemId")
     String peerDbSystemId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB home in which to create the standby database.
+     * You must supply this value to create standby database with an existing DB home
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerDbHomeId")
+    String peerDbHomeId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

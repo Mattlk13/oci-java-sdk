@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -28,6 +29,7 @@ package com.oracle.bmc.objectstorage.model;
     builder = PreauthenticatedRequest.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class PreauthenticatedRequest {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -68,6 +70,15 @@ public class PreauthenticatedRequest {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("bucketListingAction")
+        private BucketListingAction bucketListingAction;
+
+        public Builder bucketListingAction(BucketListingAction bucketListingAction) {
+            this.bucketListingAction = bucketListingAction;
+            this.__explicitlySet__.add("bucketListingAction");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("accessType")
         private AccessType accessType;
 
@@ -101,7 +112,14 @@ public class PreauthenticatedRequest {
         public PreauthenticatedRequest build() {
             PreauthenticatedRequest __instance__ =
                     new PreauthenticatedRequest(
-                            id, name, accessUri, objectName, accessType, timeExpires, timeCreated);
+                            id,
+                            name,
+                            accessUri,
+                            objectName,
+                            bucketListingAction,
+                            accessType,
+                            timeExpires,
+                            timeCreated);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -113,6 +131,7 @@ public class PreauthenticatedRequest {
                             .name(o.getName())
                             .accessUri(o.getAccessUri())
                             .objectName(o.getObjectName())
+                            .bucketListingAction(o.getBucketListingAction())
                             .accessType(o.getAccessType())
                             .timeExpires(o.getTimeExpires())
                             .timeCreated(o.getTimeCreated());
@@ -150,10 +169,68 @@ public class PreauthenticatedRequest {
     /**
      * The name of the object that is being granted access to by the pre-authenticated request. Avoid entering confidential
      * information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket.
+     * Example: test/object1.log
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("objectName")
     String objectName;
+    /**
+     * Specifies whether a list operation is allowed on a PAR with accessType \"AnyObjectRead\" or \"AnyObjectReadWrite\".
+     * Deny: Prevents the user from performing a list operation.
+     * ListObjects: Authorizes the user to perform a list operation.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum BucketListingAction {
+        Deny("Deny"),
+        ListObjects("ListObjects"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, BucketListingAction> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (BucketListingAction v : BucketListingAction.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        BucketListingAction(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static BucketListingAction create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'BucketListingAction', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Specifies whether a list operation is allowed on a PAR with accessType \"AnyObjectRead\" or \"AnyObjectReadWrite\".
+     * Deny: Prevents the user from performing a list operation.
+     * ListObjects: Authorizes the user to perform a list operation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("bucketListingAction")
+    BucketListingAction bucketListingAction;
     /**
      * The operation that can be performed on this resource.
      **/
@@ -163,6 +240,8 @@ public class PreauthenticatedRequest {
         ObjectWrite("ObjectWrite"),
         ObjectReadWrite("ObjectReadWrite"),
         AnyObjectWrite("AnyObjectWrite"),
+        AnyObjectRead("AnyObjectRead"),
+        AnyObjectReadWrite("AnyObjectReadWrite"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -209,7 +288,7 @@ public class PreauthenticatedRequest {
     AccessType accessType;
 
     /**
-     * The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After
+     * The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/html/rfc3339). After
      * this date the pre-authenticated request will no longer be valid.
      *
      **/
@@ -218,7 +297,7 @@ public class PreauthenticatedRequest {
 
     /**
      * The date when the pre-authenticated request was created as per specification
-     * [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+     * [RFC 3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")

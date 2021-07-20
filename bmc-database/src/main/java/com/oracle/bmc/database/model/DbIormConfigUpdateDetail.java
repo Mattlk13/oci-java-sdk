@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
- * IORM Config setting request for this database
+ * Details of the IORM configuration settings update request.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
     builder = DbIormConfigUpdateDetail.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbIormConfigUpdateDetail {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,14 +71,14 @@ public class DbIormConfigUpdateDetail {
     }
 
     /**
-     * Database Name. For updating default DbPlan, pass in dbName as `default`
+     * The database name. For the default `DbPlan`, the `dbName` is `default`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("dbName")
     String dbName;
 
     /**
-     * Relative priority of a database
+     * The relative priority of this database.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("share")

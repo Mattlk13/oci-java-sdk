@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdateSubnetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateSubnetRequest interceptRequest(UpdateSubnetRequest request) {
+    public static com.oracle.bmc.core.requests.UpdateSubnetRequest interceptRequest(
+            com.oracle.bmc.core.requests.UpdateSubnetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdateSubnetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.UpdateSubnetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getSubnetId(), "subnetId must not be blank");
         Validate.notNull(request.getUpdateSubnetDetails(), "updateSubnetDetails is required");
@@ -43,19 +46,27 @@ public class UpdateSubnetConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, UpdateSubnetResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.core.responses.UpdateSubnetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UpdateSubnetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.UpdateSubnetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateSubnetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.UpdateSubnetResponse>() {
                             @Override
-                            public UpdateSubnetResponse apply(
+                            public com.oracle.bmc.core.responses.UpdateSubnetResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for UpdateSubnetResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.core.responses.UpdateSubnetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Subnet>>
@@ -67,8 +78,9 @@ public class UpdateSubnetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateSubnetResponse.Builder builder =
-                                        UpdateSubnetResponse.builder();
+                                com.oracle.bmc.core.responses.UpdateSubnetResponse.Builder builder =
+                                        com.oracle.bmc.core.responses.UpdateSubnetResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.subnet(response.getItem());
 
@@ -93,7 +105,8 @@ public class UpdateSubnetConverter {
                                                     String.class));
                                 }
 
-                                UpdateSubnetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.UpdateSubnetResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

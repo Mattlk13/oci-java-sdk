@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
@@ -37,7 +38,7 @@ import java.util.concurrent.TimeUnit;
  * <ul>
  *   <li>Create a VCN and subnets needed for the DB system and its related resources</li>
  *   <li>
- *     Launch a DB system with VM.Standard1.1 shape. See:
+ *     Launch a DB system with VM.Standard2.1 shape. See:
  *       <a href="https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/overview.htm">overview</a>
  *       for more information
  * </ul>
@@ -92,8 +93,12 @@ public class LaunchDbSystemWithNsgExample {
         compartmentId = args[0];
         availabilityDomain = args[1];
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
         databaseClient = new DatabaseClient(provider);
@@ -137,7 +142,7 @@ public class LaunchDbSystemWithNsgExample {
                                     LaunchDbSystemDetails.DatabaseEdition
                                             .EnterpriseEditionExtremePerformance)
                             .displayName("dbs" + randomId)
-                            .shape("VM.Standard1.1")
+                            .shape("VM.Standard2.1")
                             .subnetId(subnet.getId())
                             .hostname("host" + randomId)
                             .nsgIds(createdNsgIds)

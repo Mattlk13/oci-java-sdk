@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
@@ -33,8 +34,8 @@ import java.util.concurrent.TimeUnit;
  *   <li>Create a VCN and subnet for the DB system and its related resources</li>
  *   <li>
  *     Launch a DB system containing a single DB home and database from an active backup. See:
- *       <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm">overview</a> and
- *       <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/launchingDB.htm">managing DB systems</a>
+ *       <a href="https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm">overview</a> and
+ *       <a href="https://docs.cloud.oracle.com/Content/Database/Tasks/launchingDB.htm">managing DB systems</a>
  *       for more information
  * </ul>
  * <p></p>
@@ -89,8 +90,12 @@ public class LaunchDbSystemFromBackupExample {
         availabilityDomain = args[1];
         backupId = args[2];
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
         databaseClient = new DatabaseClient(provider);
@@ -163,7 +168,7 @@ public class LaunchDbSystemFromBackupExample {
                         LaunchDbSystemFromBackupDetails.DatabaseEdition
                                 .EnterpriseEditionExtremePerformance)
                 .displayName("dbs" + randomId)
-                .shape("VM.Standard1.1")
+                .shape("VM.Standard2.1")
                 .subnetId(subnetId)
                 .hostname("host" + randomId)
                 .licenseModel(LaunchDbSystemFromBackupDetails.LicenseModel.LicenseIncluded)

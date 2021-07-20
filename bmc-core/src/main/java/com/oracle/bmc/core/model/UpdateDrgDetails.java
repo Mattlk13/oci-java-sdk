@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = UpdateDrgDetails.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateDrgDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -29,6 +31,15 @@ public class UpdateDrgDetails {
                 java.util.Map<String, java.util.Map<String, Object>> definedTags) {
             this.definedTags = definedTags;
             this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("defaultDrgRouteTables")
+        private DefaultDrgRouteTables defaultDrgRouteTables;
+
+        public Builder defaultDrgRouteTables(DefaultDrgRouteTables defaultDrgRouteTables) {
+            this.defaultDrgRouteTables = defaultDrgRouteTables;
+            this.__explicitlySet__.add("defaultDrgRouteTables");
             return this;
         }
 
@@ -55,7 +66,8 @@ public class UpdateDrgDetails {
 
         public UpdateDrgDetails build() {
             UpdateDrgDetails __instance__ =
-                    new UpdateDrgDetails(definedTags, displayName, freeformTags);
+                    new UpdateDrgDetails(
+                            definedTags, defaultDrgRouteTables, displayName, freeformTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -64,6 +76,7 @@ public class UpdateDrgDetails {
         public Builder copy(UpdateDrgDetails o) {
             Builder copiedBuilder =
                     definedTags(o.getDefinedTags())
+                            .defaultDrgRouteTables(o.getDefaultDrgRouteTables())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags());
 
@@ -81,13 +94,16 @@ public class UpdateDrgDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("defaultDrgRouteTables")
+    DefaultDrgRouteTables defaultDrgRouteTables;
 
     /**
      * A user-friendly name. Does not have to be unique, and it's changeable.
@@ -99,7 +115,7 @@ public class UpdateDrgDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *

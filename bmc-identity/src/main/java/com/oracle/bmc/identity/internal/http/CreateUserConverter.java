@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,13 +17,15 @@ public class CreateUserConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CreateUserRequest interceptRequest(CreateUserRequest request) {
+    public static com.oracle.bmc.identity.requests.CreateUserRequest interceptRequest(
+            com.oracle.bmc.identity.requests.CreateUserRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, CreateUserRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.CreateUserRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCreateUserDetails(), "createUserDetails is required");
 
@@ -37,18 +40,27 @@ public class CreateUserConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, CreateUserResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.identity.responses.CreateUserResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, CreateUserResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.CreateUserResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, CreateUserResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses.CreateUserResponse>() {
                             @Override
-                            public CreateUserResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for CreateUserResponse");
+                            public com.oracle.bmc.identity.responses.CreateUserResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.CreateUserResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<User>>
@@ -59,7 +71,12 @@ public class CreateUserConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CreateUserResponse.Builder builder = CreateUserResponse.builder();
+                                com.oracle.bmc.identity.responses.CreateUserResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses.CreateUserResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.user(response.getItem());
 
@@ -84,7 +101,8 @@ public class CreateUserConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                CreateUserResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.CreateUserResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.model;
 
@@ -17,13 +18,20 @@ package com.oracle.bmc.dns.model;
  * (since the constructor cannot distinguish explicit {@code null} from unset {@code null}).
  **/
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180115")
-@lombok.AllArgsConstructor(onConstructor = @__({@Deprecated}))
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(
     builder = CreateZoneDetails.Builder.class
 )
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
+@com.fasterxml.jackson.annotation.JsonTypeInfo(
+    use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME,
+    include = com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY,
+    property = "migrationSource"
+)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
-public class CreateZoneDetails {
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
+public class CreateZoneDetails extends CreateZoneBaseDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
@@ -33,15 +41,6 @@ public class CreateZoneDetails {
         public Builder name(String name) {
             this.name = name;
             this.__explicitlySet__.add("name");
-            return this;
-        }
-
-        @com.fasterxml.jackson.annotation.JsonProperty("zoneType")
-        private ZoneType zoneType;
-
-        public Builder zoneType(ZoneType zoneType) {
-            this.zoneType = zoneType;
-            this.__explicitlySet__.add("zoneType");
             return this;
         }
 
@@ -73,6 +72,33 @@ public class CreateZoneDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("zoneType")
+        private ZoneType zoneType;
+
+        public Builder zoneType(ZoneType zoneType) {
+            this.zoneType = zoneType;
+            this.__explicitlySet__.add("zoneType");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("viewId")
+        private String viewId;
+
+        public Builder viewId(String viewId) {
+            this.viewId = viewId;
+            this.__explicitlySet__.add("viewId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("scope")
+        private Scope scope;
+
+        public Builder scope(Scope scope) {
+            this.scope = scope;
+            this.__explicitlySet__.add("scope");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("externalMasters")
         private java.util.List<ExternalMaster> externalMasters;
 
@@ -89,10 +115,12 @@ public class CreateZoneDetails {
             CreateZoneDetails __instance__ =
                     new CreateZoneDetails(
                             name,
-                            zoneType,
                             compartmentId,
                             freeformTags,
                             definedTags,
+                            zoneType,
+                            viewId,
+                            scope,
                             externalMasters);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
@@ -102,10 +130,12 @@ public class CreateZoneDetails {
         public Builder copy(CreateZoneDetails o) {
             Builder copiedBuilder =
                     name(o.getName())
-                            .zoneType(o.getZoneType())
                             .compartmentId(o.getCompartmentId())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
+                            .zoneType(o.getZoneType())
+                            .viewId(o.getViewId())
+                            .scope(o.getScope())
                             .externalMasters(o.getExternalMasters());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
@@ -120,13 +150,26 @@ public class CreateZoneDetails {
         return new Builder();
     }
 
+    @Deprecated
+    public CreateZoneDetails(
+            String name,
+            String compartmentId,
+            java.util.Map<String, String> freeformTags,
+            java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            ZoneType zoneType,
+            String viewId,
+            Scope scope,
+            java.util.List<ExternalMaster> externalMasters) {
+        super(name, compartmentId, freeformTags, definedTags);
+        this.zoneType = zoneType;
+        this.viewId = viewId;
+        this.scope = scope;
+        this.externalMasters = externalMasters;
+    }
+
     /**
-     * The name of the zone.
-     **/
-    @com.fasterxml.jackson.annotation.JsonProperty("name")
-    String name;
-    /**
-     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL
+     * zones.
      *
      **/
     public enum ZoneType {
@@ -158,43 +201,29 @@ public class CreateZoneDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ZoneType: " + key);
+            throw new IllegalArgumentException("Invalid ZoneType: " + key);
         }
     };
     /**
-     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+     * The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL
+     * zones.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("zoneType")
     ZoneType zoneType;
 
     /**
-     * The OCID of the compartment containing the zone.
+     * This value will be null for zones in the global DNS.
+     *
      **/
-    @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
-    String compartmentId;
+    @com.fasterxml.jackson.annotation.JsonProperty("viewId")
+    String viewId;
 
     /**
-     * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     *
-     * **Example:** `{\"Department\": \"Finance\"}`
-     *
+     * The scope of the zone.
      **/
-    @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
-    java.util.Map<String, String> freeformTags;
-
-    /**
-     * Defined tags for this resource. Each key is predefined and scoped to a namespace.
-     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     *
-     * **Example:** `{\"Operations\": {\"CostCenter\": \"42\"}}`
-     *
-     **/
-    @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
-    java.util.Map<String, java.util.Map<String, Object>> definedTags;
+    @com.fasterxml.jackson.annotation.JsonProperty("scope")
+    Scope scope;
 
     /**
      * External master servers for the zone. `externalMasters` becomes a

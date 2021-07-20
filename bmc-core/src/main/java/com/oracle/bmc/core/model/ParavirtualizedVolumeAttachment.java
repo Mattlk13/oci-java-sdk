@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -26,6 +27,7 @@ package com.oracle.bmc.core.model;
     property = "attachmentType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -93,6 +95,15 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isShareable")
+        private Boolean isShareable;
+
+        public Builder isShareable(Boolean isShareable) {
+            this.isShareable = isShareable;
+            this.__explicitlySet__.add("isShareable");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
         private LifecycleState lifecycleState;
 
@@ -129,6 +140,24 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isMultipath")
+        private Boolean isMultipath;
+
+        public Builder isMultipath(Boolean isMultipath) {
+            this.isMultipath = isMultipath;
+            this.__explicitlySet__.add("isMultipath");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("iscsiLoginState")
+        private IscsiLoginState iscsiLoginState;
+
+        public Builder iscsiLoginState(IscsiLoginState iscsiLoginState) {
+            this.iscsiLoginState = iscsiLoginState;
+            this.__explicitlySet__.add("iscsiLoginState");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -142,10 +171,13 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
                             id,
                             instanceId,
                             isReadOnly,
+                            isShareable,
                             lifecycleState,
                             timeCreated,
                             volumeId,
-                            isPvEncryptionInTransitEnabled);
+                            isPvEncryptionInTransitEnabled,
+                            isMultipath,
+                            iscsiLoginState);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -160,10 +192,13 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
                             .id(o.getId())
                             .instanceId(o.getInstanceId())
                             .isReadOnly(o.getIsReadOnly())
+                            .isShareable(o.getIsShareable())
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
                             .volumeId(o.getVolumeId())
-                            .isPvEncryptionInTransitEnabled(o.getIsPvEncryptionInTransitEnabled());
+                            .isPvEncryptionInTransitEnabled(o.getIsPvEncryptionInTransitEnabled())
+                            .isMultipath(o.getIsMultipath())
+                            .iscsiLoginState(o.getIscsiLoginState());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -186,10 +221,13 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
             String id,
             String instanceId,
             Boolean isReadOnly,
+            Boolean isShareable,
             LifecycleState lifecycleState,
             java.util.Date timeCreated,
             String volumeId,
-            Boolean isPvEncryptionInTransitEnabled) {
+            Boolean isPvEncryptionInTransitEnabled,
+            Boolean isMultipath,
+            IscsiLoginState iscsiLoginState) {
         super(
                 availabilityDomain,
                 compartmentId,
@@ -198,10 +236,13 @@ public class ParavirtualizedVolumeAttachment extends VolumeAttachment {
                 id,
                 instanceId,
                 isReadOnly,
+                isShareable,
                 lifecycleState,
                 timeCreated,
                 volumeId,
-                isPvEncryptionInTransitEnabled);
+                isPvEncryptionInTransitEnabled,
+                isMultipath,
+                iscsiLoginState);
     }
 
     @com.fasterxml.jackson.annotation.JsonIgnore

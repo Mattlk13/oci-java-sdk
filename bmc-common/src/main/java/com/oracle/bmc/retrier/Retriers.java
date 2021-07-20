@@ -1,16 +1,21 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.retrier;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.stream.Stream;
+import javax.annotation.Nullable;
+
+import com.oracle.bmc.InternalSdk;
+import com.oracle.bmc.requests.BmcRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * Group of utility methods to configure the SDK retry behavior
@@ -70,5 +75,173 @@ public final class Retriers {
                         .get();
         LOG.debug("Using retry configuration: {}", preferredRetryConfiguration);
         return new BmcGenericRetrier(preferredRetryConfiguration);
+    }
+
+    /**
+     * Try to reset the {@link InputStream} for the next retry, if supported.
+     *
+     * If the stream supports {@link InputStream#mark(int)} and {@link InputStream#reset()}, we reset the stream so it
+     * starts at the beginning (or wherever the stream has been marked using {@link InputStream#mark(int)}.
+     *
+     * Note that this means that if the caller has used {@link InputStream#mark(int)} and the mark does not represent
+     * the place in the stream where retries should commence (if retries are requested and necessary), then incorrect
+     * data may be processed.
+     *
+     * If the stream does not support {@link InputStream#mark(int)} and {@link InputStream#reset()}, then retries
+     * will not work. Therefore, those streams should be wrapped in a {@link java.io.BufferedInputStream} before
+     * they are sent here.
+     *
+     * If the stream does not support being reset, this method throws an IllegalArgumentException. This is never
+     * the case using the auto-generated code, since streams are always wrapped and/or buffered appropriately.
+     * It could happen if someone sent in a {@link com.oracle.bmc.io.internal.KeepOpenInputStream} directly,
+     * but users are not supposed to do that, since it's an internal class.
+     *
+     * @param body
+     * @throws IllegalArgumentException if stream does not support being reset
+     * @throws RuntimeException if stream does support being reset, but the reset failed
+     */
+    @InternalSdk
+    public static void tryResetStreamForRetry(InputStream body) {
+        tryResetStreamForRetry(body, true);
+    }
+
+    /**
+     * Try to reset the {@link InputStream} for the next retry, if supported. If not supported, fail if requested.
+     *
+     * If the stream supports {@link InputStream#mark(int)} and {@link InputStream#reset()}, we reset the stream so it
+     * starts at the beginning (or wherever the stream has been marked using {@link InputStream#mark(int)}.
+     *
+     * Note that this means that if the caller has used {@link InputStream#mark(int)} and the mark does not represent
+     * the place in the stream where retries should commence (if retries are requested and necessary), then incorrect
+     * data may be processed.
+     *
+     * If the stream does not support {@link InputStream#mark(int)} and {@link InputStream#reset()}, then retries
+     * will not work. Therefore, those streams should be wrapped in a {@link java.io.BufferedInputStream} before
+     * they are sent here.
+     *
+     * @param body
+     * @param failIfUnsupported if true, fail if unsupported
+     * @throws IllegalArgumentException if stream does not support being reset and failIfUnsupported is true
+     * @throws RuntimeException if stream does support being reset, but the reset failed
+     */
+    @InternalSdk
+    public static void tryResetStreamForRetry(InputStream body, boolean failIfUnsupported) {
+        if (body.markSupported()) {
+            LOG.debug("mark/reset is supported, resetting stream {}", body.getClass().getName());
+            try {
+                body.reset();
+            } catch (IOException ioe) {
+                throw new RuntimeException("Failed to reset stream for next retry");
+            }
+        } else {
+            if (failIfUnsupported) {
+                throw new RuntimeException(
+                        String.format(
+                                "Stream {} does not support mark/reset, retries do not work",
+                                body.getClass().getName()));
+            } else {
+                LOG.warn(
+                        "Stream {} does not support mark/reset, retries will not work",
+                        body.getClass().getName());
+            }
+        }
+    }
+
+    /**
+     * Wrap the input stream in the request so retries can work.
+     *
+     * Note: The stream in the request may be wrapped in a {@link com.oracle.bmc.io.internal.KeepOpenInputStream},
+     * which prevents a call to {@code close()} from actually closing the stream (this is necessary, since a closed
+     * stream would not be able to serve in a potentially required retry). If this method
+     * ({@code wrapBodyInputStreamIfNecessary}) is called on request with a stream, you have to enclose it in a
+     * {@code try-finally} block that calls {@link com.oracle.bmc.io.internal.KeepOpenInputStream#closeStream(InputStream)}.
+     *
+     * Example:
+     *
+     * <pre>
+     * <code>try {
+     *     request = Retriers.wrapBodyInputStreamIfNecessary(
+     *         request, MyRequest.builder());
+     *     ...
+     * } finally {
+     *     com.oracle.bmc.io.internal.KeepOpenInputStream.closeStream(
+     *         request.getBody$());
+     * }
+     * </code>
+     * </pre>
+     *
+     * @param request request being handled
+     * @param builder builder for the request
+     * @param <T> type of the request
+     * @return request with the input stream wrapped
+     */
+    @InternalSdk
+    public static <T extends BmcRequest<InputStream>> T wrapBodyInputStreamIfNecessary(
+            T request, BmcRequest.Builder<T, InputStream> builder) {
+        final java.io.InputStream body = request.getBody$();
+
+        final InputStream wrappedStream = wrapInputStreamForRetry(body);
+
+        request = builder.copy(request).body$(wrappedStream).build();
+
+        // mark the current position of the stream so we can rewind to it if a retry is necessary
+        // The markLimit = retryConfiguration.getRetryOptions().getMarkReadLimit() reads from the requests retryConfiguration
+        // The markLimit = Integer.MAX_VALUE guarantees that we can read at least that many bytes before we cannot rewind anymore.
+        final RetryConfiguration retryConfiguration = request.getRetryConfiguration();
+        if (retryConfiguration != null && retryConfiguration.getRetryOptions() != null) {
+            wrappedStream.mark(retryConfiguration.getRetryOptions().getMarkReadLimit());
+        } else {
+            wrappedStream.mark(Integer.MAX_VALUE);
+        }
+
+        return request;
+    }
+
+    /**
+     * Wrap the input stream so retries can work.
+     *
+     * Note: The stream in the request may be wrapped in a {@link com.oracle.bmc.io.internal.KeepOpenInputStream},
+     * which prevents a call to {@code close()} from actually closing the stream (this is necessary, since a closed
+     * stream would not be able to serve in a potentially required retry).
+     *
+     * After using this method, you now have to close the stream in a {@code try-finally} block that calls
+     * {@link com.oracle.bmc.io.internal.KeepOpenInputStream#closeStream(InputStream)}.
+     *
+     * Example:
+     *
+     * <pre>
+     * <code>try {
+     *     stream = Retriers.wrapInputStreamForRetry(stream);
+     *     ...
+     * } finally {
+     *     com.oracle.bmc.io.internal.KeepOpenInputStream.closeStream(stream);
+     * }
+     * </code>
+     * </pre>
+     *
+     * @param body input stream body
+     * @return the input stream wrapped
+     */
+    @InternalSdk
+    public static InputStream wrapInputStreamForRetry(InputStream body) {
+        final InputStream wrappedStream;
+        if (body instanceof java.io.FileInputStream
+                && com.oracle.bmc.io.internal.ResettableFileInputStream.canBeWrapped(
+                        (java.io.FileInputStream) body)) {
+            LOG.debug("Wrapping FileInputStream in a ResettableFileInputStream");
+            wrappedStream =
+                    new com.oracle.bmc.io.internal.KeepOpenInputStream(
+                            new com.oracle.bmc.io.internal.ResettableFileInputStream(
+                                    (java.io.FileInputStream) body));
+        } else if (!body.markSupported()) {
+            LOG.warn(
+                    "stream does not support mark/reset or is a FileInputStream that doesn't allow changing the position, buffering in memory!");
+            wrappedStream =
+                    new com.oracle.bmc.io.internal.KeepOpenInputStream(
+                            new java.io.BufferedInputStream(body));
+        } else {
+            wrappedStream = new com.oracle.bmc.io.internal.KeepOpenInputStream(body);
+        }
+        return wrappedStream;
     }
 }

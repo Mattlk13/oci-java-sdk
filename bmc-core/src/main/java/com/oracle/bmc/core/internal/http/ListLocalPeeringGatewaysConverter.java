@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,18 +17,17 @@ public class ListLocalPeeringGatewaysConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListLocalPeeringGatewaysRequest interceptRequest(
-            ListLocalPeeringGatewaysRequest request) {
+    public static com.oracle.bmc.core.requests.ListLocalPeeringGatewaysRequest interceptRequest(
+            com.oracle.bmc.core.requests.ListLocalPeeringGatewaysRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ListLocalPeeringGatewaysRequest request) {
+            com.oracle.bmc.core.requests.ListLocalPeeringGatewaysRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
-        Validate.notNull(request.getVcnId(), "vcnId is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
                 client.getBaseTarget().path("/20160918").path("localPeeringGateways");
@@ -54,32 +54,40 @@ public class ListLocalPeeringGatewaysConverter {
                                     request.getPage()));
         }
 
-        target =
-                target.queryParam(
-                        "vcnId",
-                        com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
-                                request.getVcnId()));
+        if (request.getVcnId() != null) {
+            target =
+                    target.queryParam(
+                            "vcnId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getVcnId()));
+        }
 
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListLocalPeeringGatewaysResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListLocalPeeringGatewaysResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListLocalPeeringGatewaysResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse>() {
                             @Override
-                            public ListLocalPeeringGatewaysResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListLocalPeeringGatewaysResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -96,8 +104,13 @@ public class ListLocalPeeringGatewaysConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListLocalPeeringGatewaysResponse.Builder builder =
-                                        ListLocalPeeringGatewaysResponse.builder();
+                                com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ListLocalPeeringGatewaysResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -125,7 +138,8 @@ public class ListLocalPeeringGatewaysConverter {
                                                     String.class));
                                 }
 
-                                ListLocalPeeringGatewaysResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.ListLocalPeeringGatewaysResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

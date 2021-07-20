@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.autoscaling.model;
 
 /**
- * An autoscaling configuration allows you to dynamically scale the resources in a Compute instance pool.
+ * An autoscaling configuration lets you dynamically scale the resources in a Compute instance pool.
  * For more information, see [Autoscaling](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/autoscalinginstancepools.htm).
  *
  * <br/>
@@ -22,6 +23,7 @@ package com.oracle.bmc.autoscaling.model;
     builder = AutoScalingConfiguration.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AutoScalingConfiguration {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -117,6 +119,24 @@ public class AutoScalingConfiguration {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("maxResourceCount")
+        private Integer maxResourceCount;
+
+        public Builder maxResourceCount(Integer maxResourceCount) {
+            this.maxResourceCount = maxResourceCount;
+            this.__explicitlySet__.add("maxResourceCount");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("minResourceCount")
+        private Integer minResourceCount;
+
+        public Builder minResourceCount(Integer minResourceCount) {
+            this.minResourceCount = minResourceCount;
+            this.__explicitlySet__.add("minResourceCount");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -132,7 +152,9 @@ public class AutoScalingConfiguration {
                             isEnabled,
                             resource,
                             policies,
-                            timeCreated);
+                            timeCreated,
+                            maxResourceCount,
+                            minResourceCount);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -149,7 +171,9 @@ public class AutoScalingConfiguration {
                             .isEnabled(o.getIsEnabled())
                             .resource(o.getResource())
                             .policies(o.getPolicies())
-                            .timeCreated(o.getTimeCreated());
+                            .timeCreated(o.getTimeCreated())
+                            .maxResourceCount(o.getMaxResourceCount())
+                            .minResourceCount(o.getMinResourceCount());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -204,8 +228,11 @@ public class AutoScalingConfiguration {
     String id;
 
     /**
-     * The minimum period of time to wait between scaling actions. The cooldown period gives the system time to stabilize
-     * before rescaling. The minimum value is 300 seconds, which is also the default.
+     * For threshold-based autoscaling policies, this value is the minimum period of time to wait between scaling actions.
+     * The cooldown period gives the system time to stabilize before rescaling. The minimum value is 300 seconds, which
+     * is also the default. The cooldown period starts when the instance pool reaches the running state.
+     * <p>
+     * For schedule-based autoscaling policies, this value is not used.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("coolDownInSeconds")
@@ -223,21 +250,31 @@ public class AutoScalingConfiguration {
     /**
      * Autoscaling policy definitions for the autoscaling configuration. An autoscaling policy defines the criteria that
      * trigger autoscaling actions and the actions to take.
-     * <p>
-     * Each autoscaling configuration can have one autoscaling policy.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("policies")
     java.util.List<AutoScalingPolicy> policies;
 
     /**
-     * The date and time the AutoScalingConfiguration was created, in the format defined by RFC3339.
+     * The date and time the autoscaling configuration was created, in the format defined by RFC3339.
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * The maximum number of resources to scale out to.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("maxResourceCount")
+    Integer maxResourceCount;
+
+    /**
+     * The minimum number of resources to scale in to.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("minResourceCount")
+    Integer minResourceCount;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -7,6 +8,9 @@ package com.oracle.bmc.identity.model;
  * A tag definition that belongs to a specific tag namespace.  \"Defined tags\" must be set up in your tenancy before
  * you can apply them to resources.
  * For more information, see [Managing Tags and Tag Namespaces](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm).
+ * <p>
+ **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values
+ * using the API.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -21,6 +25,7 @@ package com.oracle.bmc.identity.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Tag.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Tag {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -134,6 +139,15 @@ public class Tag {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("validator")
+        private BaseTagDefinitionValidator validator;
+
+        public Builder validator(BaseTagDefinitionValidator validator) {
+            this.validator = validator;
+            this.__explicitlySet__.add("validator");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -151,7 +165,8 @@ public class Tag {
                             isRetired,
                             lifecycleState,
                             timeCreated,
-                            isCostTracking);
+                            isCostTracking,
+                            validator);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -170,7 +185,8 @@ public class Tag {
                             .isRetired(o.getIsRetired())
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
-                            .isCostTracking(o.getIsCostTracking());
+                            .isCostTracking(o.getIsCostTracking())
+                            .validator(o.getValidator());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -210,7 +226,8 @@ public class Tag {
     String id;
 
     /**
-     * The name of the tag. The name must be unique across all tags in the namespace and can't be changed.
+     * The name assigned to the tag during creation. This is the tag key definition.
+     * The name must be unique within the tag namespace and cannot be changed.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("name")
@@ -225,6 +242,7 @@ public class Tag {
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
      **/
@@ -234,7 +252,8 @@ public class Tag {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}``
+     * <p>
+     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
@@ -248,7 +267,7 @@ public class Tag {
     @com.fasterxml.jackson.annotation.JsonProperty("isRetired")
     Boolean isRetired;
     /**
-     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it.
+     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it. If you delete a tag, you cannot delete another tag until the deleted tag's `lifecycleState` changes from DELETING to DELETED.
      **/
     @lombok.extern.slf4j.Slf4j
     public enum LifecycleState {
@@ -296,13 +315,14 @@ public class Tag {
         }
     };
     /**
-     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it.
+     * The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it. If you delete a tag, you cannot delete another tag until the deleted tag's `lifecycleState` changes from DELETING to DELETED.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     LifecycleState lifecycleState;
 
     /**
      * Date and time the tag was created, in the format defined by RFC3339.
+     * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
      **/
@@ -315,6 +335,9 @@ public class Tag {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isCostTracking")
     Boolean isCostTracking;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("validator")
+    BaseTagDefinitionValidator validator;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

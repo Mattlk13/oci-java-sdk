@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
 /**
- * Location of the zip file that contains the Terraform configuration.
+ * Information about the Terraform configuration.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -29,6 +30,18 @@ package com.oracle.bmc.resourcemanager.model;
 )
 @com.fasterxml.jackson.annotation.JsonSubTypes({
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = GitConfigSource.class,
+        name = "GIT_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = ObjectStorageConfigSource.class,
+        name = "OBJECT_STORAGE_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CompartmentConfigSource.class,
+        name = "COMPARTMENT_CONFIG_SOURCE"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = ZipUploadConfigSource.class,
         name = "ZIP_UPLOAD"
     )
@@ -37,10 +50,61 @@ package com.oracle.bmc.resourcemanager.model;
 public class ConfigSource {
 
     /**
-     * File path to the directory from which Terraform runs.
-     * If not specified, we use the root directory.
+     * File path to the directory to use for running Terraform.
+     * If not specified, the root directory is used.
+     * This parameter is ignored for the `configSourceType` value of `COMPARTMENT_CONFIG_SOURCE`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("workingDirectory")
     String workingDirectory;
+
+    /**
+     * The type of configuration source to use for the Terraform configuration.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum ConfigSourceType {
+        ZipUpload("ZIP_UPLOAD"),
+        GitConfigSource("GIT_CONFIG_SOURCE"),
+        CompartmentConfigSource("COMPARTMENT_CONFIG_SOURCE"),
+        ObjectStorageConfigSource("OBJECT_STORAGE_CONFIG_SOURCE"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, ConfigSourceType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (ConfigSourceType v : ConfigSourceType.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        ConfigSourceType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static ConfigSourceType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'ConfigSourceType', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
 }

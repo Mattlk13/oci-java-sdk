@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.monitoring.model;
 
@@ -22,6 +23,7 @@ package com.oracle.bmc.monitoring.model;
     builder = SummarizeMetricsDataDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class SummarizeMetricsDataDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -32,6 +34,15 @@ public class SummarizeMetricsDataDetails {
         public Builder namespace(String namespace) {
             this.namespace = namespace;
             this.__explicitlySet__.add("namespace");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+        private String resourceGroup;
+
+        public Builder resourceGroup(String resourceGroup) {
+            this.resourceGroup = resourceGroup;
+            this.__explicitlySet__.add("resourceGroup");
             return this;
         }
 
@@ -77,7 +88,7 @@ public class SummarizeMetricsDataDetails {
         public SummarizeMetricsDataDetails build() {
             SummarizeMetricsDataDetails __instance__ =
                     new SummarizeMetricsDataDetails(
-                            namespace, query, startTime, endTime, resolution);
+                            namespace, resourceGroup, query, startTime, endTime, resolution);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -86,6 +97,7 @@ public class SummarizeMetricsDataDetails {
         public Builder copy(SummarizeMetricsDataDetails o) {
             Builder copiedBuilder =
                     namespace(o.getNamespace())
+                            .resourceGroup(o.getResourceGroup())
                             .query(o.getQuery())
                             .startTime(o.getStartTime())
                             .endTime(o.getEndTime())
@@ -111,6 +123,17 @@ public class SummarizeMetricsDataDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("namespace")
     String namespace;
+
+    /**
+     * Resource group that you want to use as a filter. The specified resource group must exist in the definition of the posted metric. Only one resource group can be applied per metric.
+     * A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+     * Avoid entering confidential information.
+     * <p>
+     * Example: `frontend-fleet`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+    String resourceGroup;
 
     /**
      * The Monitoring Query Language (MQL) expression to use when searching for metric data points to

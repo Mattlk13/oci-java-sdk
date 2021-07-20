@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,16 @@ public class ChangeInstancePoolCompartmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ChangeInstancePoolCompartmentRequest interceptRequest(
-            ChangeInstancePoolCompartmentRequest request) {
+    public static com.oracle.bmc.core.requests.ChangeInstancePoolCompartmentRequest
+            interceptRequest(
+                    com.oracle.bmc.core.requests.ChangeInstancePoolCompartmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ChangeInstancePoolCompartmentRequest request) {
+            com.oracle.bmc.core.requests.ChangeInstancePoolCompartmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getInstancePoolId(), "instancePoolId must not be blank");
         Validate.notNull(
@@ -57,23 +59,30 @@ public class ChangeInstancePoolCompartmentConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ChangeInstancePoolCompartmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ChangeInstancePoolCompartmentResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ChangeInstancePoolCompartmentResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ChangeInstancePoolCompartmentResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ChangeInstancePoolCompartmentResponse>() {
+                                com.oracle.bmc.core.responses
+                                        .ChangeInstancePoolCompartmentResponse>() {
                             @Override
-                            public ChangeInstancePoolCompartmentResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses
+                                            .ChangeInstancePoolCompartmentResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ChangeInstancePoolCompartmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ChangeInstancePoolCompartmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -84,8 +93,14 @@ public class ChangeInstancePoolCompartmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ChangeInstancePoolCompartmentResponse.Builder builder =
-                                        ChangeInstancePoolCompartmentResponse.builder();
+                                com.oracle.bmc.core.responses.ChangeInstancePoolCompartmentResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ChangeInstancePoolCompartmentResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>> etagHeader =
                                         com.oracle.bmc.http.internal.HeaderUtils.get(
@@ -108,8 +123,8 @@ public class ChangeInstancePoolCompartmentConverter {
                                                     String.class));
                                 }
 
-                                ChangeInstancePoolCompartmentResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.core.responses.ChangeInstancePoolCompartmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

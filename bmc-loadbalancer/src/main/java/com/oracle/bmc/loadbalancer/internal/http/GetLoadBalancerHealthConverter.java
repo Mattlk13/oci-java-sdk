@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.internal.http;
 
@@ -16,14 +17,16 @@ public class GetLoadBalancerHealthConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetLoadBalancerHealthRequest interceptRequest(
-            GetLoadBalancerHealthRequest request) {
+    public static com.oracle.bmc.loadbalancer.requests.GetLoadBalancerHealthRequest
+            interceptRequest(
+                    com.oracle.bmc.loadbalancer.requests.GetLoadBalancerHealthRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetLoadBalancerHealthRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.loadbalancer.requests.GetLoadBalancerHealthRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getLoadBalancerId(), "loadBalancerId must not be blank");
 
@@ -44,22 +47,30 @@ public class GetLoadBalancerHealthConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetLoadBalancerHealthResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.loadbalancer.responses.GetLoadBalancerHealthResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, GetLoadBalancerHealthResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.loadbalancer.responses.GetLoadBalancerHealthResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetLoadBalancerHealthResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.loadbalancer.responses
+                                        .GetLoadBalancerHealthResponse>() {
                             @Override
-                            public GetLoadBalancerHealthResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.loadbalancer.responses
+                                            .GetLoadBalancerHealthResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetLoadBalancerHealthResponse");
+                                        "Transform function invoked for com.oracle.bmc.loadbalancer.responses.GetLoadBalancerHealthResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -73,8 +84,13 @@ public class GetLoadBalancerHealthConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetLoadBalancerHealthResponse.Builder builder =
-                                        GetLoadBalancerHealthResponse.builder();
+                                com.oracle.bmc.loadbalancer.responses.GetLoadBalancerHealthResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.loadbalancer.responses
+                                                        .GetLoadBalancerHealthResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.loadBalancerHealth(response.getItem());
 
@@ -90,7 +106,8 @@ public class GetLoadBalancerHealthConverter {
                                                     String.class));
                                 }
 
-                                GetLoadBalancerHealthResponse responseWrapper = builder.build();
+                                com.oracle.bmc.loadbalancer.responses.GetLoadBalancerHealthResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

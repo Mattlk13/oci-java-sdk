@@ -1,16 +1,19 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
 /**
- * Jobs perform the actions that are defined in your configuration. There are three job types
+ * The properties that define a job. Jobs perform the actions that are defined in your configuration.
  * - **Plan job**. A plan job takes your Terraform configuration, parses it, and creates an execution plan.
  * - **Apply job**. The apply job takes your execution plan, applies it to the associated stack, then executes
  * the configuration's instructions.
  * - **Destroy job**. To clean up the infrastructure controlled by the stack, you run a destroy job.
  * A destroy job does not delete the stack or associated job resources,
  * but instead releases the resources managed by the stack.
+ * - **Import_TF_State job**. An import Terraform state job takes a Terraform state file and sets it as the current
+ * state of the stack. This is used to migrate local Terraform environments to Resource Manager.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -25,6 +28,7 @@ package com.oracle.bmc.resourcemanager.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Job.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Job {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -71,6 +75,15 @@ public class Job {
         public Builder operation(Operation operation) {
             this.operation = operation;
             this.__explicitlySet__.add("operation");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("jobOperationDetails")
+        private JobOperationDetails jobOperationDetails;
+
+        public Builder jobOperationDetails(JobOperationDetails jobOperationDetails) {
+            this.jobOperationDetails = jobOperationDetails;
+            this.__explicitlySet__.add("jobOperationDetails");
             return this;
         }
 
@@ -146,6 +159,15 @@ public class Job {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("configSource")
+        private ConfigSourceRecord configSource;
+
+        public Builder configSource(ConfigSourceRecord configSource) {
+            this.configSource = configSource;
+            this.__explicitlySet__.add("configSource");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -176,6 +198,7 @@ public class Job {
                             compartmentId,
                             displayName,
                             operation,
+                            jobOperationDetails,
                             applyJobPlanResolution,
                             resolvedPlanJobId,
                             timeCreated,
@@ -184,6 +207,7 @@ public class Job {
                             failureDetails,
                             workingDirectory,
                             variables,
+                            configSource,
                             freeformTags,
                             definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
@@ -198,6 +222,7 @@ public class Job {
                             .compartmentId(o.getCompartmentId())
                             .displayName(o.getDisplayName())
                             .operation(o.getOperation())
+                            .jobOperationDetails(o.getJobOperationDetails())
                             .applyJobPlanResolution(o.getApplyJobPlanResolution())
                             .resolvedPlanJobId(o.getResolvedPlanJobId())
                             .timeCreated(o.getTimeCreated())
@@ -206,6 +231,7 @@ public class Job {
                             .failureDetails(o.getFailureDetails())
                             .workingDirectory(o.getWorkingDirectory())
                             .variables(o.getVariables())
+                            .configSource(o.getConfigSource())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -222,19 +248,19 @@ public class Job {
     }
 
     /**
-     * The job's OCID.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
 
     /**
-     * The OCID of the stack that is associated with the job.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack that is associated with the job.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("stackId")
     String stackId;
 
     /**
-     * The OCID of the compartment in which the job's associated stack resides.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which the job's associated stack resides.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -252,6 +278,7 @@ public class Job {
         Plan("PLAN"),
         Apply("APPLY"),
         Destroy("DESTROY"),
+        ImportTfState("IMPORT_TF_STATE"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -297,27 +324,42 @@ public class Job {
     @com.fasterxml.jackson.annotation.JsonProperty("operation")
     Operation operation;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("jobOperationDetails")
+    JobOperationDetails jobOperationDetails;
+
     @com.fasterxml.jackson.annotation.JsonProperty("applyJobPlanResolution")
     ApplyJobPlanResolution applyJobPlanResolution;
 
     /**
-     * The plan job OCID that was used (if this was an apply job and was not auto-approved).
+     * Deprecated. Use the property `executionPlanJobId` in `jobOperationDetails` instead.
+     * The plan job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that was used (if this was an apply job and was not auto-approved).
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("resolvedPlanJobId")
     String resolvedPlanJobId;
 
     /**
-     * The date and time at which the job was created.
+     * The date and time when the job was created.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
 
     /**
-     * The date and time at which the job stopped running, irrespective of whether the job ran successfully.
+     * The date and time when the job stopped running, irrespective of whether the job ran successfully.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeFinished")
     java.util.Date timeFinished;
     /**
+     * Current state of the specified job.
+     * For more information about job lifecycle states in Resource Manager, see
+     * [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#JobStates).
+     *
      **/
     @lombok.extern.slf4j.Slf4j
     public enum LifecycleState {
@@ -366,7 +408,12 @@ public class Job {
             return UnknownEnumValue;
         }
     };
-
+    /**
+     * Current state of the specified job.
+     * For more information about job lifecycle states in Resource Manager, see
+     * [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#JobStates).
+     *
+     **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     LifecycleState lifecycleState;
 
@@ -374,20 +421,26 @@ public class Job {
     FailureDetails failureDetails;
 
     /**
-     * The file path to the directory within the configuration from which the job runs.
+     * File path to the directory from which Terraform runs.
+     * If not specified, the root directory is used.
+     * This parameter is ignored for the `configSourceType` value of `COMPARTMENT_CONFIG_SOURCE`.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("workingDirectory")
     String workingDirectory;
 
     /**
      * Terraform variables associated with this resource.
-     * Maximum number of variables supported is 100.
+     * Maximum number of variables supported is 250.
      * The maximum size of each variable, including both name and value, is 4096 bytes.
      * Example: `{\"CompartmentId\": \"compartment-id-value\"}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("variables")
     java.util.Map<String, String> variables;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("configSource")
+    ConfigSourceRecord configSource;
 
     /**
      * Free-form tags associated with this resource. Each tag is a key-value pair with no predefined name, type, or namespace.

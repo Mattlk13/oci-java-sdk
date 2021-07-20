@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.objectstorage.model;
     builder = UpdateBucketDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateBucketDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -72,6 +74,15 @@ public class UpdateBucketDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("objectEventsEnabled")
+        private Boolean objectEventsEnabled;
+
+        public Builder objectEventsEnabled(Boolean objectEventsEnabled) {
+            this.objectEventsEnabled = objectEventsEnabled;
+            this.__explicitlySet__.add("objectEventsEnabled");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -100,6 +111,24 @@ public class UpdateBucketDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("versioning")
+        private Versioning versioning;
+
+        public Builder versioning(Versioning versioning) {
+            this.versioning = versioning;
+            this.__explicitlySet__.add("versioning");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("autoTiering")
+        private Bucket.AutoTiering autoTiering;
+
+        public Builder autoTiering(Bucket.AutoTiering autoTiering) {
+            this.autoTiering = autoTiering;
+            this.__explicitlySet__.add("autoTiering");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -111,9 +140,12 @@ public class UpdateBucketDetails {
                             name,
                             metadata,
                             publicAccessType,
+                            objectEventsEnabled,
                             freeformTags,
                             definedTags,
-                            kmsKeyId);
+                            kmsKeyId,
+                            versioning,
+                            autoTiering);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -126,9 +158,12 @@ public class UpdateBucketDetails {
                             .name(o.getName())
                             .metadata(o.getMetadata())
                             .publicAccessType(o.getPublicAccessType())
+                            .objectEventsEnabled(o.getObjectEventsEnabled())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
-                            .kmsKeyId(o.getKmsKeyId());
+                            .kmsKeyId(o.getKmsKeyId())
+                            .versioning(o.getVersioning())
+                            .autoTiering(o.getAutoTiering());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -149,13 +184,14 @@ public class UpdateBucketDetails {
     String namespace;
 
     /**
-     * The compartmentId for the compartment to which the bucket is targeted to move to.
+     * The compartmentId for the compartment to move the bucket to.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
     /**
-     * The name of the bucket. Avoid entering confidential information.
+     * The name of the bucket. Valid characters are uppercase or lowercase letters, numbers, hyphens, underscores, and periods.
+     * Bucket names must be unique within an Object Storage namespace. Avoid entering confidential information.
      * Example: my-new-bucket1
      *
      **/
@@ -204,7 +240,7 @@ public class UpdateBucketDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid PublicAccessType: " + key);
+            throw new IllegalArgumentException("Invalid PublicAccessType: " + key);
         }
     };
     /**
@@ -216,6 +252,15 @@ public class UpdateBucketDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("publicAccessType")
     PublicAccessType publicAccessType;
+
+    /**
+     * Whether or not events are emitted for object state changes in this bucket. By default, `objectEventsEnabled` is
+     * set to `false`. Set `objectEventsEnabled` to `true` to emit events for object state changes. For more information
+     * about events, see [Overview of Events](https://docs.cloud.oracle.com/Content/Events/Concepts/eventsoverview.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("objectEventsEnabled")
+    Boolean objectEventsEnabled;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -236,14 +281,69 @@ public class UpdateBucketDetails {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * A KMS key OCID that will be associated with the given bucket. If it is empty the Update operation will
-     * actually remove the KMS key, if there is one, from the given bucket. Note that the old kms key should
-     * still be enbaled in KMS otherwise all the objects in the bucket encrypted with the old KMS key will no
-     * longer be accessible.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Key Management master encryption key to associate
+     * with the specified bucket. If this value is empty, the Update operation will remove the associated key, if
+     * there is one, from the bucket. (The bucket will continue to be encrypted, but with an encryption key managed
+     * by Oracle.)
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
     String kmsKeyId;
+    /**
+     * The versioning status on the bucket. If in state `Enabled`, multiple versions of the same object can be kept in the bucket.
+     * When the object is overwritten or deleted, previous versions will still be available. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+     * Versioning cannot be disabled on a bucket once enabled.
+     *
+     **/
+    public enum Versioning {
+        Enabled("Enabled"),
+        Suspended("Suspended"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, Versioning> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Versioning v : Versioning.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        Versioning(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Versioning create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid Versioning: " + key);
+        }
+    };
+    /**
+     * The versioning status on the bucket. If in state `Enabled`, multiple versions of the same object can be kept in the bucket.
+     * When the object is overwritten or deleted, previous versions will still be available. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+     * Versioning cannot be disabled on a bucket once enabled.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("versioning")
+    Versioning versioning;
+
+    /**
+     * The auto tiering status on the bucket. If in state `InfrequentAccess`, objects are transitioned
+     * automatically between the 'Standard' and 'InfrequentAccess' tiers based on the access pattern of the objects.
+     * When auto tiering is `Disabled`, there will be no automatic transitions between storage tiers.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autoTiering")
+    Bucket.AutoTiering autoTiering;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -17,6 +17,16 @@ For details on compatibility, advanced configurations, and add-ons, see [Configu
 
 Examples can be found [here](/bmc-examples/src/main/java/).
 
+You may run any example by invoking the `exec:java` goal and passing appropriate values for `exec.mainClass` and `.exec.arguments` properties,
+for example: `ObjectStorageGetBucketExample` class requires 3 arguments which are OCID of the compartment, name of bucket, name of object. This example class can be executed as follows:
+
+```
+mvn -am -pl bmc-examples exec:java -Dexec.mainClass=ObjectStorageGetBucketExample \
+  -Dexec.arguments=compartment_ocid,bucket_name,object_name
+```
+
+Where `compartment_id`, `bucket_name`, and `object_name` should be substituted with appropriate values according to your setup.
+
 ## Documentation
 
 Full documentation, including prerequisites, installation, and configuration instructions, is available [here](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/javasdk.htm).
@@ -39,12 +49,40 @@ Oracle gratefully acknowledges the contributions to oci-java-sdk that have been 
 
 ## Known Issues
 
+You can find information on any known issues with the SDK [here](https://docs.cloud.oracle.com/iaas/Content/knownissues.htm) and under the [“Issues” tab of this GitHub repository](https://github.com/oracle/oci-java-sdk/issues).
+
+### Potential data corruption issue with OCI Java SDK on binary data upload with `RefreshableOnNotAuthenticatedProvider`
+
+**Details**: When using version 1.25.1 or earlier of the OCI Java SDK clients that upload streams of data (for example `ObjectStorageClient` or `FunctionsInvokeClient`), either synchronously and asynchronously, and you use a `RefreshableOnNotAuthenticatedProvider` (for example, for Resource Principals or Instance Principals) you may be affected by **silent data corruption**.
+
+**Workaround**: Update the OCI Java SDK client to version 1.25.2 or later. For more information about this issue and workarounds, see [Potential data corruption issue for OCI Java SDK on binary data upload with `RefreshableOnNotAuthenticatedProvider`](https://github.com/oracle/oci-java-sdk/issues/255).
+
+**Direct link to this issue**: [Potential data corruption issue with OCI Java SDK on binary data upload with `RefreshableOnNotAuthenticatedProvider`](https://docs.cloud.oracle.com/en-us/iaas/Content/knownissues.htm#javaSDKStreamDataCorrupt)
+
+### Program hangs for an indefinite time
+
+If the request to the server hangs for an indefinite time and the program gets stuck, it could be 
+because the connection is not released from the Apache connection 
+pool. If you're calling APIs that return a binary/stream response, 
+please make sure to close all the streams returned from the response to release the connections from the connection pool in case of partial reads. If reading the stream completely, the SDK will 
+automatically try to close the stream to release the connection from the connection pool, to disable this feature of auto-closing streams on full read, please call `ResponseHelper.shouldAutoCloseResponseInputStream(false)`. This is because the SDK for Java supports the Apache Connector for sending requests and managing connections to the service. By default, the Apache Connector supports connection pooling and in the cases where the stream from the response is not closed, the connections don't get released from the connection pool and in turn results in an indefinite wait time. This can be avoided either by closing the streams or switching back to the Jersey default connector, i.e. `HttpUrlConnector`. You can find more information about the same in the OCI Java SDK Troubleshooting section.
+ 
+### Performance issues and switching between connection closing strategies with the Apache Connector
+ 
+The Java SDK supports the Apache Connector as the default. The Apache Connector supports the use of two connection closing strategies - `ApacheConnectionClosingStrategy.GracefulClosingStrategy` and `ApacheConnectionClosingStrategy.ImmediateClosingStrategy`. 
+When using `ApacheConnectionClosingStrategy.GracefulClosingStrategy`, streams returned from response are read till the end of the stream when closing the stream. This can introduce additional time when closing the stream with partial read, depending on how large the remaining stream is.
+Use `ApacheConnectionClosingStrategy.ImmediateClosingStrategy` for large files with partial reads instead for faster close. One of the disadvantages of using
+`ApacheConnectionClosingStrategy.ImmediateClosingStrategy` on the other hand takes longer when using partial read for smaller stream size (< 1MB). Please consider your use-case and change accordingly. For more info please look into : https://github.com/oracle/oci-java-sdk/blob/master/ApacheConnector-README.md. 
+ 
+Note : If both the above Apache Connection closing strategies do not give you optimal results for your use-cases, please consider switching back to Jersey Default `HttpUrlConnectorProvider`.
+For more info on Apache Connector, please look into ApacheConnector-README.
+ 
 You can find information on any known issues with the SDK [here](https://docs.cloud.oracle.com/iaas/Content/knownissues.htm) and under the “Issues” tab of this GitHub repository.
 
 ## License
 
-Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
-
-This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License 2.0.
+Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl
+or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 See [LICENSE](/LICENSE.txt) for more details.

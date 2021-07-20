@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.responses;
 
@@ -7,8 +8,14 @@ import com.oracle.bmc.objectstorage.model.*;
 
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
 @lombok.Builder(builderClassName = "Builder")
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode
 @lombok.Getter
 public class ListWorkRequestsResponse {
+    /**
+     * HTTP status code returned by the operation.
+     */
+    private final int __httpStatusCode__;
 
     /**
      * Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular
@@ -18,12 +25,14 @@ public class ListWorkRequestsResponse {
     private String opcRequestId;
 
     /**
-     * Paginating a list of work requests.
+     * For paginating a list of work requests.
      * In the GET request, set the limit to the number of compartment work requests that you want returned in the
-     * response. If the opc-next-page header appears in the response, then this is a partial list and there are
+     * response. If the `opc-next-page` header appears in the response, then this is a partial list and there are
      * additional work requests to get. Include the header's value as the `page` parameter in the subsequent
      * GET request to get the next batch of work requests. Repeat this process to retrieve the entire list of work
      * requests.
+     * <p>
+     * For more details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
      *
      */
     private String opcNextPage;
@@ -44,6 +53,7 @@ public class ListWorkRequestsResponse {
          * @return this builder instance
          */
         public Builder copy(ListWorkRequestsResponse o) {
+            __httpStatusCode__(o.get__httpStatusCode__());
             opcRequestId(o.getOpcRequestId());
             opcNextPage(o.getOpcNextPage());
             opcClientRequestId(o.getOpcClientRequestId());

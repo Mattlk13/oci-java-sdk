@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class GetVnicAttachmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetVnicAttachmentRequest interceptRequest(GetVnicAttachmentRequest request) {
+    public static com.oracle.bmc.core.requests.GetVnicAttachmentRequest interceptRequest(
+            com.oracle.bmc.core.requests.GetVnicAttachmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetVnicAttachmentRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.GetVnicAttachmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getVnicAttachmentId(), "vnicAttachmentId must not be blank");
 
@@ -38,21 +41,28 @@ public class GetVnicAttachmentConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetVnicAttachmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.GetVnicAttachmentResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetVnicAttachmentResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.GetVnicAttachmentResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetVnicAttachmentResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetVnicAttachmentResponse>() {
                             @Override
-                            public GetVnicAttachmentResponse apply(
+                            public com.oracle.bmc.core.responses.GetVnicAttachmentResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetVnicAttachmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetVnicAttachmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -66,8 +76,12 @@ public class GetVnicAttachmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetVnicAttachmentResponse.Builder builder =
-                                        GetVnicAttachmentResponse.builder();
+                                com.oracle.bmc.core.responses.GetVnicAttachmentResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .GetVnicAttachmentResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.vnicAttachment(response.getItem());
 
@@ -92,7 +106,8 @@ public class GetVnicAttachmentConverter {
                                                     String.class));
                                 }
 
-                                GetVnicAttachmentResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetVnicAttachmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

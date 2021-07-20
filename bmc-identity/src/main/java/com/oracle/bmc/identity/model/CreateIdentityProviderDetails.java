@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -94,7 +95,7 @@ public class CreateIdentityProviderDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ProductType: " + key);
+            throw new IllegalArgumentException("Invalid ProductType: " + key);
         }
     };
     /**
@@ -125,4 +126,43 @@ public class CreateIdentityProviderDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * The protocol used for federation.
+     * <p>
+     * Example: `SAML2`
+     *
+     **/
+    public enum Protocol {
+        Saml2("SAML2"),
+        Adfs("ADFS"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, Protocol> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Protocol v : Protocol.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        Protocol(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Protocol create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid Protocol: " + key);
+        }
+    };
 }

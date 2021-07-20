@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.model;
 
 /**
  * An external master name server used as the source of zone data.
+ *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
  * that are {@code null} because they are unset from fields that are explicitly set to {@code null}. This is done in
@@ -18,6 +20,7 @@ package com.oracle.bmc.dns.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = ExternalMaster.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ExternalMaster {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,12 +43,12 @@ public class ExternalMaster {
             return this;
         }
 
-        @com.fasterxml.jackson.annotation.JsonProperty("tsig")
-        private TSIG tsig;
+        @com.fasterxml.jackson.annotation.JsonProperty("tsigKeyId")
+        private String tsigKeyId;
 
-        public Builder tsig(TSIG tsig) {
-            this.tsig = tsig;
-            this.__explicitlySet__.add("tsig");
+        public Builder tsigKeyId(String tsigKeyId) {
+            this.tsigKeyId = tsigKeyId;
+            this.__explicitlySet__.add("tsigKeyId");
             return this;
         }
 
@@ -53,14 +56,15 @@ public class ExternalMaster {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public ExternalMaster build() {
-            ExternalMaster __instance__ = new ExternalMaster(address, port, tsig);
+            ExternalMaster __instance__ = new ExternalMaster(address, port, tsigKeyId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(ExternalMaster o) {
-            Builder copiedBuilder = address(o.getAddress()).port(o.getPort()).tsig(o.getTsig());
+            Builder copiedBuilder =
+                    address(o.getAddress()).port(o.getPort()).tsigKeyId(o.getTsigKeyId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -88,8 +92,11 @@ public class ExternalMaster {
     @com.fasterxml.jackson.annotation.JsonProperty("port")
     Integer port;
 
-    @com.fasterxml.jackson.annotation.JsonProperty("tsig")
-    TSIG tsig;
+    /**
+     * The OCID of the TSIG key.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("tsigKeyId")
+    String tsigKeyId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

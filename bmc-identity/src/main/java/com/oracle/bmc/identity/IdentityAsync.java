@@ -1,11 +1,15 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity;
 
 import com.oracle.bmc.identity.requests.*;
 import com.oracle.bmc.identity.responses.*;
 
+/**
+ * APIs for managing users, groups, compartments, and policies.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
 public interface IdentityAsync extends AutoCloseable {
 
@@ -14,6 +18,11 @@ public interface IdentityAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -70,6 +79,168 @@ public interface IdentityAsync extends AutoCloseable {
     java.util.concurrent.Future<AddUserToGroupResponse> addUserToGroup(
             AddUserToGroupRequest request,
             com.oracle.bmc.responses.AsyncHandler<AddUserToGroupRequest, AddUserToGroupResponse>
+                    handler);
+
+    /**
+     * Assembles tag defaults in the specified compartment and any parent compartments to determine
+     * the tags to apply. Tag defaults from parent compartments do not override tag defaults
+     * referencing the same tag in a compartment lower down the hierarchy. This set of tag defaults
+     * includes all tag defaults from the current compartment back to the root compartment.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<AssembleEffectiveTagSetResponse> assembleEffectiveTagSet(
+            AssembleEffectiveTagSetRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            AssembleEffectiveTagSetRequest, AssembleEffectiveTagSetResponse>
+                    handler);
+
+    /**
+     * Deletes multiple resources in the compartment. All resources must be in the same compartment. You must have the appropriate
+     * permissions to delete the resources in the request. This API can only be invoked from the tenancy's
+     * [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home). This operation creates a
+     * {@link WorkRequest}. Use the {@link #getWorkRequest(GetWorkRequestRequest, Consumer, Consumer) getWorkRequest}
+     * API to monitor the status of the bulk action.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDeleteResourcesResponse> bulkDeleteResources(
+            BulkDeleteResourcesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkDeleteResourcesRequest, BulkDeleteResourcesResponse>
+                    handler);
+
+    /**
+     * Deletes the specified tag key definitions. This operation triggers a process that removes the
+     * tags from all resources in your tenancy. The tag key definitions must be within the same tag namespace.
+     * <p>
+     * The following actions happen immediately:
+     * \u00A0
+     *   * If the tag is a cost-tracking tag, the tag no longer counts against your
+     *   10 cost-tracking tags limit, even if you do not disable the tag before running this operation.
+     *   * If the tag is used with dynamic groups, the rules that contain the tag are no longer
+     *   evaluated against the tag.
+     * <p>
+     * After you start this operation, the state of the tag changes to DELETING, and tag removal
+     * from resources begins. This process can take up to 48 hours depending on the number of resources that
+     * are tagged and the regions in which those resources reside.
+     * <p>
+     * When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. After the tag state
+     * changes to DELETED, you can use the same tag name again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #deleteTag(DeleteTagRequest, Consumer, Consumer) deleteTag} or the {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest, Consumer, Consumer) cascadeDeleteTagNamespace} operation until this process completes.
+     * <p>
+     * In order to delete tags, you must first retire the tags. Use {@link #updateTag(UpdateTagRequest, Consumer, Consumer) updateTag}
+     * to retire a tag.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDeleteTagsResponse> bulkDeleteTags(
+            BulkDeleteTagsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkDeleteTagsRequest, BulkDeleteTagsResponse>
+                    handler);
+
+    /**
+     * Edits the specified list of tag key definitions for the selected resources.
+     * This operation triggers a process that edits the tags on all selected resources. The possible actions are:
+     * <p>
+     * Add a defined tag when the tag does not already exist on the resource.
+     *   * Update the value for a defined tag when the tag is present on the resource.
+     *   * Add a defined tag when it does not already exist on the resource or update the value for a defined tag when the tag is present on the resource.
+     *   * Remove a defined tag from a resource. The tag is removed from the resource regardless of the tag value.
+     * <p>
+     * See {@link #bulkEditOperationDetails(BulkEditOperationDetailsRequest, Consumer, Consumer) bulkEditOperationDetails} for more information.
+     * <p>
+     * The edits can include a combination of operations and tag sets.
+     * However, multiple operations cannot apply to one key definition in the same request.
+     * For example, if one request adds `tag set-1` to a resource and sets a tag value to `tag set-2`,
+     * `tag set-1` and `tag set-2` cannot have any common tag definitions.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkEditTagsResponse> bulkEditTags(
+            BulkEditTagsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkEditTagsRequest, BulkEditTagsResponse>
+                    handler);
+
+    /**
+     * Moves multiple resources from one compartment to another. All resources must be in the same compartment.
+     * This API can only be invoked from the tenancy's [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home).
+     * To move resources, you must have the appropriate permissions to move the resource in both the source and target
+     * compartments. This operation creates a {@link WorkRequest}.
+     * Use the {@link #getWorkRequest(GetWorkRequestRequest, Consumer, Consumer) getWorkRequest} API to monitor the status of the bulk action.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkMoveResourcesResponse> bulkMoveResources(
+            BulkMoveResourcesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkMoveResourcesRequest, BulkMoveResourcesResponse>
+                    handler);
+
+    /**
+     * Deletes the specified tag namespace. This operation triggers a process that removes all of the tags
+     * defined in the specified tag namespace from all resources in your tenancy and then deletes the tag namespace.
+     * <p>
+     * After you start the delete operation:
+     * <p>
+     * New tag key definitions cannot be created under the namespace.
+     *   * The state of the tag namespace changes to DELETING.
+     *   * Tag removal from the resources begins.
+     * <p>
+     * This process can take up to 48 hours depending on the number of tag definitions in the namespace, the number of resources
+     * that are tagged, and the locations of the regions in which those resources reside.
+     * <p>
+     * After all tags are removed, the state changes to DELETED. You cannot restore a deleted tag namespace. After the deleted tag namespace
+     * changes its state to DELETED, you can use the name of the deleted tag namespace again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #deleteTag(DeleteTagRequest, Consumer, Consumer) deleteTag} or the {@link #bulkDeleteTags(BulkDeleteTagsRequest, Consumer, Consumer) bulkDeleteTags} operation until this process completes.
+     * <p>
+     * To delete a tag namespace, you must first retire it. Use {@link #updateTagNamespace(UpdateTagNamespaceRequest, Consumer, Consumer) updateTagNamespace}
+     * to retire a tag namespace.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CascadeDeleteTagNamespaceResponse> cascadeDeleteTagNamespace(
+            CascadeDeleteTagNamespaceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CascadeDeleteTagNamespaceRequest, CascadeDeleteTagNamespaceResponse>
                     handler);
 
     /**
@@ -158,7 +329,7 @@ public interface IdentityAsync extends AutoCloseable {
 
     /**
      * Creates a new secret key for the specified user. Secret keys are used for authentication with the Object Storage Service's Amazon S3
-     * compatible API. For information, see
+     * compatible API. The secret key consists of an Access Key/Secret Key pair. For information, see
      * [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
      * <p>
      * You must specify a *description* for the secret key (although it can be an empty string). It does not
@@ -322,6 +493,60 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Creates a new network source in your tenancy.
+     * <p>
+     * You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy
+     * is simply the root compartment). Notice that IAM resources (users, groups, compartments, and some policies)
+     * reside within the tenancy itself, unlike cloud resources such as compute instances, which typically
+     * reside within compartments inside the tenancy. For information about OCIDs, see
+     * [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+     * <p>
+     * You must also specify a *name* for the network source, which must be unique across all network sources in your
+     * tenancy, and cannot be changed.
+     * You can use this name or the OCID when writing policies that apply to the network source. For more information
+     * about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+     * <p>
+     * You must also specify a *description* for the network source (although it can be an empty string). It does not
+     * have to be unique, and you can change it anytime with {@link #updateNetworkSource(UpdateNetworkSourceRequest, Consumer, Consumer) updateNetworkSource}.
+     * <p>
+     * After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
+     * object, first make sure its `lifecycleState` has changed to ACTIVE.
+     * <p>
+     * After your network resource is created, you can use it in policy to restrict access to only requests made from an allowed
+     * IP address specified in your network source. For more information, see [Managing Network Sources](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingnetworksources.htm).
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateNetworkSourceResponse> createNetworkSource(
+            CreateNetworkSourceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateNetworkSourceRequest, CreateNetworkSourceResponse>
+                    handler);
+
+    /**
+     * Creates Oauth token for the user
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateOAuthClientCredentialResponse> createOAuthClientCredential(
+            CreateOAuthClientCredentialRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateOAuthClientCredentialRequest, CreateOAuthClientCredentialResponse>
+                    handler);
+
+    /**
      * Creates a new Console one-time password for the specified user. For more information about user
      * credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm).
      * <p>
@@ -448,16 +673,26 @@ public interface IdentityAsync extends AutoCloseable {
     /**
      * Creates a new tag in the specified tag namespace.
      * <p>
-     * You must specify either the OCID or the name of the tag namespace that will contain this tag definition.
+     * The tag requires either the OCID or the name of the tag namespace that will contain this
+     * tag definition.
      * <p>
-     * You must also specify a *name* for the tag, which must be unique across all tags in the tag namespace
+     * You must specify a *name* for the tag, which must be unique across all tags in the tag namespace
      * and cannot be changed. The name can contain any ASCII character except the space (_) or period (.) characters.
      * Names are case insensitive. That means, for example, \"myTag\" and \"mytag\" are not allowed in the same namespace.
      * If you specify a name that's already in use in the tag namespace, a 409 error is returned.
      * <p>
-     * You must also specify a *description* for the tag.
-     * It does not have to be unique, and you can change it with
+     * The tag must have a *description*. It does not have to be unique, and you can change it with
      * {@link #updateTag(UpdateTagRequest, Consumer, Consumer) updateTag}.
+     * <p>
+     * The tag must have a value type, which is specified with a validator. Tags can use either a
+     * static value or a list of possible values. Static values are entered by a user applying the tag
+     * to a resource. Lists are created by you and the user must apply a value from the list. Lists
+     * are validiated.
+     * <p>
+     * If no `validator` is set, the user applying the tag to a resource can type in a static
+     * value or leave the tag value empty.
+     * * If a `validator` is set, the user applying the tag to a resource must select from a list
+     * of values that you supply with {@link #enumTagDefinitionValidator(EnumTagDefinitionValidatorRequest, Consumer, Consumer) enumTagDefinitionValidator}.
      *
      *
      * @param request The request object containing the details to send
@@ -473,6 +708,13 @@ public interface IdentityAsync extends AutoCloseable {
 
     /**
      * Creates a new tag default in the specified compartment for the specified tag definition.
+     * <p>
+     * If you specify that a value is required, a value is set during resource creation (either by
+     * the user creating the resource or another tag defualt). If no value is set, resource creation
+     * is blocked.
+     * <p>
+     * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+     * * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
      *
      *
      * @param request The request object containing the details to send
@@ -502,9 +744,6 @@ public interface IdentityAsync extends AutoCloseable {
      * You must also specify a *description* for the namespace.
      * It does not have to be unique, and you can change it with
      * {@link #updateTagNamespace(UpdateTagNamespaceRequest, Consumer, Consumer) updateTagNamespace}.
-     * <p>
-     * Tag namespaces cannot be deleted, but they can be retired.
-     * See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring) for more information.
      *
      *
      * @param request The request object containing the details to send
@@ -724,6 +963,40 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Deletes the specified network source
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteNetworkSourceResponse> deleteNetworkSource(
+            DeleteNetworkSourceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteNetworkSourceRequest, DeleteNetworkSourceResponse>
+                    handler);
+
+    /**
+     * Delete Oauth token for the user
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteOAuthClientCredentialResponse> deleteOAuthClientCredential(
+            DeleteOAuthClientCredentialRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteOAuthClientCredentialRequest, DeleteOAuthClientCredentialResponse>
+                    handler);
+
+    /**
      * Deletes the specified policy. The deletion takes effect typically within 10 seconds.
      *
      * @param request The request object containing the details to send
@@ -775,7 +1048,27 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Deletes the the specified tag definition.
+     * Deletes the specified tag definition. This operation triggers a process that removes the
+     * tag from all resources in your tenancy.
+     * <p>
+     * These things happen immediately:
+     * \u00A0
+     *   * If the tag was a cost-tracking tag, it no longer counts against your 10 cost-tracking
+     *   tags limit, whether you first disabled it or not.
+     *   * If the tag was used with dynamic groups, none of the rules that contain the tag will
+     *   be evaluated against the tag.
+     * <p>
+     * When you start the delete operation, the state of the tag changes to DELETING and tag removal
+     * from resources begins. This can take up to 48 hours depending on the number of resources that
+     * were tagged as well as the regions in which those resources reside.
+     * <p>
+     * When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. Once the deleted tag
+     * changes its state to DELETED, you can use the same tag name again.
+     * <p>
+     * After you start this operation, you cannot start either the {@link #bulkDeleteTags(BulkDeleteTagsRequest, Consumer, Consumer) bulkDeleteTags} or the {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest, Consumer, Consumer) cascadeDeleteTagNamespace} operation until this process completes.
+     * <p>
+     * To delete a tag, you must first retire it. Use {@link #updateTag(UpdateTagRequest, Consumer, Consumer) updateTag}
+     * to retire a tag.
      *
      *
      * @param request The request object containing the details to send
@@ -806,8 +1099,13 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Delete the specified tag namespace. Only an empty tagnamespace can be deleted.
-     * If the tag namespace you are trying to delete is not empty, please remove tag definitions from it first.
+     * Deletes the specified tag namespace. Only an empty tag namespace can be deleted with this operation. To use this operation
+     * to delete a tag namespace that contains tag definitions, first delete all of its tag definitions.
+     * <p>
+     * Use {@link #cascadeDeleteTagNamespace(CascadeDeleteTagNamespaceRequest, Consumer, Consumer) cascadeDeleteTagNamespace} to delete a tag namespace along with all of
+     * the tag definitions contained within that namespace.
+     * <p>
+     * Use {@link #deleteTag(DeleteTagRequest, Consumer, Consumer) deleteTag} to delete a tag definition.
      *
      *
      * @param request The request object containing the details to send
@@ -978,6 +1276,22 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Gets the specified network source's information.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetNetworkSourceResponse> getNetworkSource(
+            GetNetworkSourceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetNetworkSourceRequest, GetNetworkSourceResponse>
+                    handler);
+
+    /**
      * Gets the specified policy's information.
      *
      * @param request The request object containing the details to send
@@ -1035,6 +1349,24 @@ public interface IdentityAsync extends AutoCloseable {
     java.util.concurrent.Future<GetTagNamespaceResponse> getTagNamespace(
             GetTagNamespaceRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetTagNamespaceRequest, GetTagNamespaceResponse>
+                    handler);
+
+    /**
+     * Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
+     * for any asynchronous operation in the Identity and Access Management service.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetTaggingWorkRequestResponse> getTaggingWorkRequest(
+            GetTaggingWorkRequestRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetTaggingWorkRequestRequest, GetTaggingWorkRequestResponse>
                     handler);
 
     /**
@@ -1172,6 +1504,48 @@ public interface IdentityAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<
                             ListAvailabilityDomainsRequest, ListAvailabilityDomainsResponse>
                     handler);
+
+    /**
+     * Lists the resource-types supported by compartment bulk actions. Use this API to help you provide the correct
+     * resource-type information to the {@link #bulkDeleteResources(BulkDeleteResourcesRequest, Consumer, Consumer) bulkDeleteResources}
+     * and {@link #bulkMoveResources(BulkMoveResourcesRequest, Consumer, Consumer) bulkMoveResources} operations. The returned list of
+     * resource-types provides the appropriate resource-type names to use with the bulk action operations along with
+     * the type of identifying information you'll need to provide for each resource-type. Most resource-types just
+     * require an [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) to identify a specific resource, but some resource-types,
+     * such as buckets, require you to provide other identifying information.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListBulkActionResourceTypesResponse> listBulkActionResourceTypes(
+            ListBulkActionResourceTypesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListBulkActionResourceTypesRequest, ListBulkActionResourceTypesResponse>
+                    handler);
+
+    /**
+     * Lists the resource types that support bulk tag editing.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListBulkEditTagsResourceTypesResponse>
+            listBulkEditTagsResourceTypes(
+                    ListBulkEditTagsResourceTypesRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListBulkEditTagsResourceTypesRequest,
+                                    ListBulkEditTagsResourceTypesResponse>
+                            handler);
 
     /**
      * Lists the compartments in a specified compartment. The members of the list
@@ -1368,6 +1742,42 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Lists the network sources in your tenancy. You must specify your tenancy's OCID as the value for
+     * the compartment ID (remember that the tenancy is simply the root compartment).
+     * See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListNetworkSourcesResponse> listNetworkSources(
+            ListNetworkSourcesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListNetworkSourcesRequest, ListNetworkSourcesResponse>
+                    handler);
+
+    /**
+     * List of Oauth tokens for the user
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListOAuthClientCredentialsResponse> listOAuthClientCredentials(
+            ListOAuthClientCredentialsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListOAuthClientCredentialsRequest, ListOAuthClientCredentialsResponse>
+                    handler);
+
+    /**
      * Lists the policies in the specified compartment (either the tenancy or another of your compartments).
      * See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
      * <p>
@@ -1489,6 +1899,58 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Gets the errors for a work request.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListTaggingWorkRequestErrorsResponse> listTaggingWorkRequestErrors(
+            ListTaggingWorkRequestErrorsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListTaggingWorkRequestErrorsRequest,
+                            ListTaggingWorkRequestErrorsResponse>
+                    handler);
+
+    /**
+     * Gets the logs for a work request.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListTaggingWorkRequestLogsResponse> listTaggingWorkRequestLogs(
+            ListTaggingWorkRequestLogsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListTaggingWorkRequestLogsRequest, ListTaggingWorkRequestLogsResponse>
+                    handler);
+
+    /**
+     * Lists the tagging work requests in compartment.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListTaggingWorkRequestsResponse> listTaggingWorkRequests(
+            ListTaggingWorkRequestsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListTaggingWorkRequestsRequest, ListTaggingWorkRequestsResponse>
+                    handler);
+
+    /**
      * Lists the tag definitions in the specified tag namespace.
      *
      *
@@ -1513,7 +1975,7 @@ public interface IdentityAsync extends AutoCloseable {
      * - Similarly, you can limit the results to just the memberships for a given group by specifying a `groupId`.
      * - You can set both the `userId` and `groupId` to determine if the specified user is in the specified group.
      * If the answer is no, the response is an empty list.
-     * - Although`userId` and `groupId` are not indvidually required, you must set one of them.
+     * - Although`userId` and `groupId` are not individually required, you must set one of them.
      *
      *
      * @param request The request object containing the details to send
@@ -1563,7 +2025,14 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Move the compartment tree to a different parent compartment.
+     * Move the compartment to a different parent compartment in the same tenancy. When you move a
+     * compartment, all its contents (subcompartments and resources) are moved with it. Note that
+     * the `CompartmentId` that you specify in the path is the compartment that you want to move.
+     * <p>
+     **IMPORTANT**: After you move a compartment to a new parent compartment, the access policies of
+     * the new parent take effect and the policies of the previous parent no longer apply. Ensure that you
+     * are aware of the implications for the compartment contents before you move it. For more
+     * information, see [Moving a Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#MoveCompartment).
      *
      *
      * @param request The request object containing the details to send
@@ -1576,6 +2045,23 @@ public interface IdentityAsync extends AutoCloseable {
     java.util.concurrent.Future<MoveCompartmentResponse> moveCompartment(
             MoveCompartmentRequest request,
             com.oracle.bmc.responses.AsyncHandler<MoveCompartmentRequest, MoveCompartmentResponse>
+                    handler);
+
+    /**
+     * Recover the compartment from DELETED state to ACTIVE state.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<RecoverCompartmentResponse> recoverCompartment(
+            RecoverCompartmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            RecoverCompartmentRequest, RecoverCompartmentResponse>
                     handler);
 
     /**
@@ -1740,6 +2226,39 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Updates the specified network source.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateNetworkSourceResponse> updateNetworkSource(
+            UpdateNetworkSourceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateNetworkSourceRequest, UpdateNetworkSourceResponse>
+                    handler);
+
+    /**
+     * Updates Oauth token for the user
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateOAuthClientCredentialResponse> updateOAuthClientCredential(
+            UpdateOAuthClientCredentialRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateOAuthClientCredentialRequest, UpdateOAuthClientCredentialResponse>
+                    handler);
+
+    /**
      * Updates the specified policy. You can update the description or the policy statements themselves.
      * <p>
      * Policy changes take effect typically within 10 seconds.
@@ -1794,7 +2313,16 @@ public interface IdentityAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the the specified tag definition. You can update `description`, and `isRetired`.
+     * Updates the specified tag definition.
+     * <p>
+     * Setting `validator` determines the value type. Tags can use either a static value or a
+     * list of possible values. Static values are entered by a user applying the tag to a resource.
+     * Lists are created by you and the user must apply a value from the list. On update, any values
+     * in a list that were previously set do not change, but new values must pass validation. Values
+     * already applied to a resource do not change.
+     * <p>
+     * You cannot remove list values that appear in a TagDefault. To remove a list value that
+     * appears in a TagDefault, first update the TagDefault to use a different value.
      *
      *
      * @param request The request object containing the details to send
@@ -1809,7 +2337,12 @@ public interface IdentityAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<UpdateTagRequest, UpdateTagResponse> handler);
 
     /**
-     * Updates the specified tag default. You can update the following field: `value`.
+     * Updates the specified tag default. If you specify that a value is required, a value is set
+     * during resource creation (either by the user creating the resource or another tag defualt).
+     * If no value is set, resource creation is blocked.
+     * <p>
+     * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+     * * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
      *
      *
      * @param request The request object containing the details to send
@@ -1829,7 +2362,7 @@ public interface IdentityAsync extends AutoCloseable {
      * <p>
      * Updating `isRetired` to 'true' retires the namespace and all the tag definitions in the namespace. Reactivating a
      * namespace (changing `isRetired` from 'true' to 'false') does not reactivate tag definitions.
-     * To reactivate the tag definitions, you must reactivate each one indvidually *after* you reactivate the namespace,
+     * To reactivate the tag definitions, you must reactivate each one individually *after* you reactivate the namespace,
      * using {@link #updateTag(UpdateTagRequest, Consumer, Consumer) updateTag}. For more information about retiring tag namespaces, see
      * [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
      * <p>

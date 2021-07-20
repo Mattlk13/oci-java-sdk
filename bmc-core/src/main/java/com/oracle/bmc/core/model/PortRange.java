@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = PortRange.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class PortRange {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -66,7 +68,7 @@ public class PortRange {
     }
 
     /**
-     * The maximum port number. Must not be lower than the minimum port number. To specify
+     * The maximum port number, which must not be less than the minimum port number. To specify
      * a single port number, set both the min and max to the same value.
      *
      **/
@@ -74,7 +76,8 @@ public class PortRange {
     Integer max;
 
     /**
-     * The minimum port number. Must not be greater than the maximum port number.
+     * The minimum port number, which must not be greater than the maximum port number.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("min")
     Integer min;

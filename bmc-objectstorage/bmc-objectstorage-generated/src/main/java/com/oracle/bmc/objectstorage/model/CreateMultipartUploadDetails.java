@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.objectstorage.model;
     builder = CreateMultipartUploadDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateMultipartUploadDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -63,6 +65,33 @@ public class CreateMultipartUploadDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("contentDisposition")
+        private String contentDisposition;
+
+        public Builder contentDisposition(String contentDisposition) {
+            this.contentDisposition = contentDisposition;
+            this.__explicitlySet__.add("contentDisposition");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("cacheControl")
+        private String cacheControl;
+
+        public Builder cacheControl(String cacheControl) {
+            this.cacheControl = cacheControl;
+            this.__explicitlySet__.add("cacheControl");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+        private StorageTier storageTier;
+
+        public Builder storageTier(StorageTier storageTier) {
+            this.storageTier = storageTier;
+            this.__explicitlySet__.add("storageTier");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("metadata")
         private java.util.Map<String, String> metadata;
 
@@ -78,7 +107,14 @@ public class CreateMultipartUploadDetails {
         public CreateMultipartUploadDetails build() {
             CreateMultipartUploadDetails __instance__ =
                     new CreateMultipartUploadDetails(
-                            object, contentType, contentLanguage, contentEncoding, metadata);
+                            object,
+                            contentType,
+                            contentLanguage,
+                            contentEncoding,
+                            contentDisposition,
+                            cacheControl,
+                            storageTier,
+                            metadata);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -90,6 +126,9 @@ public class CreateMultipartUploadDetails {
                             .contentType(o.getContentType())
                             .contentLanguage(o.getContentLanguage())
                             .contentEncoding(o.getContentEncoding())
+                            .contentDisposition(o.getContentDisposition())
+                            .cacheControl(o.getCacheControl())
+                            .storageTier(o.getStorageTier())
                             .metadata(o.getMetadata());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
@@ -113,22 +152,63 @@ public class CreateMultipartUploadDetails {
     String object;
 
     /**
-     * The content type of the object to upload.
+     * The optional Content-Type header that defines the standard MIME type format of the object to upload.
+     * Specifying values for this header has no effect on Object Storage behavior. Programs that read the object
+     * determine what to do based on the value provided. For example, you could use this header to identify and
+     * perform special operations on text only objects.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("contentType")
     String contentType;
 
     /**
-     * The content language of the object to upload.
+     * The optional Content-Language header that defines the content language of the object to upload. Specifying
+     * values for this header has no effect on Object Storage behavior. Programs that read the object determine what
+     * to do based on the value provided. For example, you could use this header to identify and differentiate objects
+     * based on a particular language.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("contentLanguage")
     String contentLanguage;
 
     /**
-     * The content encoding of the object to upload.
+     * The optional Content-Encoding header that defines the content encodings that were applied to the object to
+     * upload. Specifying values for this header has no effect on Object Storage behavior. Programs that read the
+     * object determine what to do based on the value provided. For example, you could use this header to determine
+     * what decoding mechanisms need to be applied to obtain the media-type specified by the Content-Type header of
+     * the object.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("contentEncoding")
     String contentEncoding;
+
+    /**
+     * The optional Content-Disposition header that defines presentational information for the object to be
+     * returned in GetObject and HeadObject responses. Specifying values for this header has no effect on Object
+     * Storage behavior. Programs that read the object determine what to do based on the value provided.
+     * For example, you could use this header to let users download objects with custom filenames in a browser.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("contentDisposition")
+    String contentDisposition;
+
+    /**
+     * The optional Cache-Control header that defines the caching behavior value to be returned in GetObject and
+     * HeadObject responses. Specifying values for this header has no effect on Object Storage behavior. Programs
+     * that read the object determine what to do based on the value provided.
+     * For example, you could use this header to identify objects that require caching restrictions.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("cacheControl")
+    String cacheControl;
+
+    /**
+     * The storage tier that the object should be stored in. If not specified, the object will be stored in
+     * the same storage tier as the bucket.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+    StorageTier storageTier;
 
     /**
      * Arbitrary string keys and values for the user-defined metadata for the object.

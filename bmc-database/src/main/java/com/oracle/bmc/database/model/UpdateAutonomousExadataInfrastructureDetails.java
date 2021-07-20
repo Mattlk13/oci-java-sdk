@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
     builder = UpdateAutonomousExadataInfrastructureDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateAutonomousExadataInfrastructureDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,6 +42,15 @@ public class UpdateAutonomousExadataInfrastructureDetails {
         public Builder maintenanceWindowDetails(MaintenanceWindow maintenanceWindowDetails) {
             this.maintenanceWindowDetails = maintenanceWindowDetails;
             this.__explicitlySet__.add("maintenanceWindowDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+        private java.util.List<String> nsgIds;
+
+        public Builder nsgIds(java.util.List<String> nsgIds) {
+            this.nsgIds = nsgIds;
+            this.__explicitlySet__.add("nsgIds");
             return this;
         }
 
@@ -68,7 +79,11 @@ public class UpdateAutonomousExadataInfrastructureDetails {
         public UpdateAutonomousExadataInfrastructureDetails build() {
             UpdateAutonomousExadataInfrastructureDetails __instance__ =
                     new UpdateAutonomousExadataInfrastructureDetails(
-                            displayName, maintenanceWindowDetails, freeformTags, definedTags);
+                            displayName,
+                            maintenanceWindowDetails,
+                            nsgIds,
+                            freeformTags,
+                            definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -78,6 +93,7 @@ public class UpdateAutonomousExadataInfrastructureDetails {
             Builder copiedBuilder =
                     displayName(o.getDisplayName())
                             .maintenanceWindowDetails(o.getMaintenanceWindowDetails())
+                            .nsgIds(o.getNsgIds())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -103,6 +119,15 @@ public class UpdateAutonomousExadataInfrastructureDetails {
     MaintenanceWindow maintenanceWindowDetails;
 
     /**
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * **NsgIds restrictions:**
+     * - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+    java.util.List<String> nsgIds;
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
      * <p>
@@ -115,8 +140,6 @@ public class UpdateAutonomousExadataInfrastructureDetails {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")

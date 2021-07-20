@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
     builder = CreateAutonomousContainerDatabaseDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateAutonomousContainerDatabaseDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,6 +33,15 @@ public class CreateAutonomousContainerDatabaseDetails {
         public Builder displayName(String displayName) {
             this.displayName = displayName;
             this.__explicitlySet__.add("displayName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dbUniqueName")
+        private String dbUniqueName;
+
+        public Builder dbUniqueName(String dbUniqueName) {
+            this.dbUniqueName = dbUniqueName;
+            this.__explicitlySet__.add("dbUniqueName");
             return this;
         }
 
@@ -53,6 +64,89 @@ public class CreateAutonomousContainerDatabaseDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousExadataInfrastructureId")
+        private String peerAutonomousExadataInfrastructureId;
+
+        public Builder peerAutonomousExadataInfrastructureId(
+                String peerAutonomousExadataInfrastructureId) {
+            this.peerAutonomousExadataInfrastructureId = peerAutonomousExadataInfrastructureId;
+            this.__explicitlySet__.add("peerAutonomousExadataInfrastructureId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousContainerDatabaseDisplayName")
+        private String peerAutonomousContainerDatabaseDisplayName;
+
+        public Builder peerAutonomousContainerDatabaseDisplayName(
+                String peerAutonomousContainerDatabaseDisplayName) {
+            this.peerAutonomousContainerDatabaseDisplayName =
+                    peerAutonomousContainerDatabaseDisplayName;
+            this.__explicitlySet__.add("peerAutonomousContainerDatabaseDisplayName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("protectionMode")
+        private ProtectionMode protectionMode;
+
+        public Builder protectionMode(ProtectionMode protectionMode) {
+            this.protectionMode = protectionMode;
+            this.__explicitlySet__.add("protectionMode");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousVmClusterId")
+        private String peerAutonomousVmClusterId;
+
+        public Builder peerAutonomousVmClusterId(String peerAutonomousVmClusterId) {
+            this.peerAutonomousVmClusterId = peerAutonomousVmClusterId;
+            this.__explicitlySet__.add("peerAutonomousVmClusterId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty(
+                "peerAutonomousContainerDatabaseCompartmentId")
+        private String peerAutonomousContainerDatabaseCompartmentId;
+
+        public Builder peerAutonomousContainerDatabaseCompartmentId(
+                String peerAutonomousContainerDatabaseCompartmentId) {
+            this.peerAutonomousContainerDatabaseCompartmentId =
+                    peerAutonomousContainerDatabaseCompartmentId;
+            this.__explicitlySet__.add("peerAutonomousContainerDatabaseCompartmentId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty(
+                "peerAutonomousContainerDatabaseBackupConfig")
+        private PeerAutonomousContainerDatabaseBackupConfig
+                peerAutonomousContainerDatabaseBackupConfig;
+
+        public Builder peerAutonomousContainerDatabaseBackupConfig(
+                PeerAutonomousContainerDatabaseBackupConfig
+                        peerAutonomousContainerDatabaseBackupConfig) {
+            this.peerAutonomousContainerDatabaseBackupConfig =
+                    peerAutonomousContainerDatabaseBackupConfig;
+            this.__explicitlySet__.add("peerAutonomousContainerDatabaseBackupConfig");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("peerDbUniqueName")
+        private String peerDbUniqueName;
+
+        public Builder peerDbUniqueName(String peerDbUniqueName) {
+            this.peerDbUniqueName = peerDbUniqueName;
+            this.__explicitlySet__.add("peerDbUniqueName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("autonomousVmClusterId")
+        private String autonomousVmClusterId;
+
+        public Builder autonomousVmClusterId(String autonomousVmClusterId) {
+            this.autonomousVmClusterId = autonomousVmClusterId;
+            this.__explicitlySet__.add("autonomousVmClusterId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
         private String compartmentId;
 
@@ -68,6 +162,24 @@ public class CreateAutonomousContainerDatabaseDetails {
         public Builder patchModel(PatchModel patchModel) {
             this.patchModel = patchModel;
             this.__explicitlySet__.add("patchModel");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+        private MaintenanceWindow maintenanceWindowDetails;
+
+        public Builder maintenanceWindowDetails(MaintenanceWindow maintenanceWindowDetails) {
+            this.maintenanceWindowDetails = maintenanceWindowDetails;
+            this.__explicitlySet__.add("maintenanceWindowDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("standbyMaintenanceBufferInDays")
+        private Integer standbyMaintenanceBufferInDays;
+
+        public Builder standbyMaintenanceBufferInDays(Integer standbyMaintenanceBufferInDays) {
+            this.standbyMaintenanceBufferInDays = standbyMaintenanceBufferInDays;
+            this.__explicitlySet__.add("standbyMaintenanceBufferInDays");
             return this;
         }
 
@@ -99,6 +211,42 @@ public class CreateAutonomousContainerDatabaseDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyVersionId")
+        private String kmsKeyVersionId;
+
+        public Builder kmsKeyVersionId(String kmsKeyVersionId) {
+            this.kmsKeyVersionId = kmsKeyVersionId;
+            this.__explicitlySet__.add("kmsKeyVersionId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("vaultId")
+        private String vaultId;
+
+        public Builder vaultId(String vaultId) {
+            this.vaultId = vaultId;
+            this.__explicitlySet__.add("vaultId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("keyStoreId")
+        private String keyStoreId;
+
+        public Builder keyStoreId(String keyStoreId) {
+            this.keyStoreId = keyStoreId;
+            this.__explicitlySet__.add("keyStoreId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -106,13 +254,28 @@ public class CreateAutonomousContainerDatabaseDetails {
             CreateAutonomousContainerDatabaseDetails __instance__ =
                     new CreateAutonomousContainerDatabaseDetails(
                             displayName,
+                            dbUniqueName,
                             serviceLevelAgreementType,
                             autonomousExadataInfrastructureId,
+                            peerAutonomousExadataInfrastructureId,
+                            peerAutonomousContainerDatabaseDisplayName,
+                            protectionMode,
+                            peerAutonomousVmClusterId,
+                            peerAutonomousContainerDatabaseCompartmentId,
+                            peerAutonomousContainerDatabaseBackupConfig,
+                            peerDbUniqueName,
+                            autonomousVmClusterId,
                             compartmentId,
                             patchModel,
+                            maintenanceWindowDetails,
+                            standbyMaintenanceBufferInDays,
                             freeformTags,
                             definedTags,
-                            backupConfig);
+                            backupConfig,
+                            kmsKeyId,
+                            kmsKeyVersionId,
+                            vaultId,
+                            keyStoreId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -121,14 +284,33 @@ public class CreateAutonomousContainerDatabaseDetails {
         public Builder copy(CreateAutonomousContainerDatabaseDetails o) {
             Builder copiedBuilder =
                     displayName(o.getDisplayName())
+                            .dbUniqueName(o.getDbUniqueName())
                             .serviceLevelAgreementType(o.getServiceLevelAgreementType())
                             .autonomousExadataInfrastructureId(
                                     o.getAutonomousExadataInfrastructureId())
+                            .peerAutonomousExadataInfrastructureId(
+                                    o.getPeerAutonomousExadataInfrastructureId())
+                            .peerAutonomousContainerDatabaseDisplayName(
+                                    o.getPeerAutonomousContainerDatabaseDisplayName())
+                            .protectionMode(o.getProtectionMode())
+                            .peerAutonomousVmClusterId(o.getPeerAutonomousVmClusterId())
+                            .peerAutonomousContainerDatabaseCompartmentId(
+                                    o.getPeerAutonomousContainerDatabaseCompartmentId())
+                            .peerAutonomousContainerDatabaseBackupConfig(
+                                    o.getPeerAutonomousContainerDatabaseBackupConfig())
+                            .peerDbUniqueName(o.getPeerDbUniqueName())
+                            .autonomousVmClusterId(o.getAutonomousVmClusterId())
                             .compartmentId(o.getCompartmentId())
                             .patchModel(o.getPatchModel())
+                            .maintenanceWindowDetails(o.getMaintenanceWindowDetails())
+                            .standbyMaintenanceBufferInDays(o.getStandbyMaintenanceBufferInDays())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
-                            .backupConfig(o.getBackupConfig());
+                            .backupConfig(o.getBackupConfig())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .kmsKeyVersionId(o.getKmsKeyVersionId())
+                            .vaultId(o.getVaultId())
+                            .keyStoreId(o.getKeyStoreId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -147,11 +329,18 @@ public class CreateAutonomousContainerDatabaseDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
+
     /**
-     * The service level agreement type of the Autonomous Container Database. The default is STANDARD. For a Mission Critical Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
+     * The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dbUniqueName")
+    String dbUniqueName;
+    /**
+     * The service level agreement type of the Autonomous Container Database. The default is STANDARD. For an autonomous dataguard Autonomous Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
      **/
     public enum ServiceLevelAgreementType {
         Standard("STANDARD"),
+        AutonomousDataguard("AUTONOMOUS_DATAGUARD"),
         ;
 
         private final String value;
@@ -178,11 +367,11 @@ public class CreateAutonomousContainerDatabaseDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ServiceLevelAgreementType: " + key);
+            throw new IllegalArgumentException("Invalid ServiceLevelAgreementType: " + key);
         }
     };
     /**
-     * The service level agreement type of the Autonomous Container Database. The default is STANDARD. For a Mission Critical Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
+     * The service level agreement type of the Autonomous Container Database. The default is STANDARD. For an autonomous dataguard Autonomous Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("serviceLevelAgreementType")
     ServiceLevelAgreementType serviceLevelAgreementType;
@@ -192,6 +381,94 @@ public class CreateAutonomousContainerDatabaseDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("autonomousExadataInfrastructureId")
     String autonomousExadataInfrastructureId;
+
+    /**
+     * The OCID of the peer Autonomous Exadata Infrastructure for Autonomous Data Guard.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousExadataInfrastructureId")
+    String peerAutonomousExadataInfrastructureId;
+
+    /**
+     * The display name for the peer Autonomous Container Database.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousContainerDatabaseDisplayName")
+    String peerAutonomousContainerDatabaseDisplayName;
+    /**
+     * The protection mode of this Autonomous Data Guard association. For more information, see
+     * [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000)
+     * in the Oracle Data Guard documentation.
+     *
+     **/
+    public enum ProtectionMode {
+        MaximumAvailability("MAXIMUM_AVAILABILITY"),
+        MaximumPerformance("MAXIMUM_PERFORMANCE"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, ProtectionMode> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (ProtectionMode v : ProtectionMode.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        ProtectionMode(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static ProtectionMode create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid ProtectionMode: " + key);
+        }
+    };
+    /**
+     * The protection mode of this Autonomous Data Guard association. For more information, see
+     * [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000)
+     * in the Oracle Data Guard documentation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("protectionMode")
+    ProtectionMode protectionMode;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the peer Autonomous VM cluster for Autonomous Data Guard. Required to enable Data Guard.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousVmClusterId")
+    String peerAutonomousVmClusterId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where the standby Autonomous Container Database
+     * will be created.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousContainerDatabaseCompartmentId")
+    String peerAutonomousContainerDatabaseCompartmentId;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("peerAutonomousContainerDatabaseBackupConfig")
+    PeerAutonomousContainerDatabaseBackupConfig peerAutonomousContainerDatabaseBackupConfig;
+
+    /**
+     * The `DB_UNIQUE_NAME` of the peer Autonomous Container Database in a Data Guard association.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("peerDbUniqueName")
+    String peerDbUniqueName;
+
+    /**
+     * The OCID of the Autonomous VM Cluster.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autonomousVmClusterId")
+    String autonomousVmClusterId;
 
     /**
      * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Autonomous Container Database.
@@ -230,7 +507,7 @@ public class CreateAutonomousContainerDatabaseDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid PatchModel: " + key);
+            throw new IllegalArgumentException("Invalid PatchModel: " + key);
         }
     };
     /**
@@ -238,6 +515,17 @@ public class CreateAutonomousContainerDatabaseDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("patchModel")
     PatchModel patchModel;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+    MaintenanceWindow maintenanceWindowDetails;
+
+    /**
+     * The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
+     * This value represents the number of days before scheduled maintenance of the primary database.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("standbyMaintenanceBufferInDays")
+    Integer standbyMaintenanceBufferInDays;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -252,8 +540,6 @@ public class CreateAutonomousContainerDatabaseDetails {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
@@ -261,6 +547,31 @@ public class CreateAutonomousContainerDatabaseDetails {
 
     @com.fasterxml.jackson.annotation.JsonProperty("backupConfig")
     AutonomousContainerDatabaseBackupConfig backupConfig;
+
+    /**
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    /**
+     * The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyVersionId")
+    String kmsKeyVersionId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vaultId")
+    String vaultId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("keyStoreId")
+    String keyStoreId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

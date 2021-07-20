@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -26,6 +27,7 @@ package com.oracle.bmc.identity.model;
     builder = RegionSubscription.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class RegionSubscription {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -97,26 +99,20 @@ public class RegionSubscription {
     }
 
     /**
-     * The region's key.
+     * The region's key. See [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm)
+     * for the full list of supported 3-letter region codes.
      * <p>
-     * Allowed values are:
-     * - `PHX`
-     * - `IAD`
-     * - `FRA`
-     * - `LHR`
+     * Example: `PHX`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("regionKey")
     String regionKey;
 
     /**
-     * The region's name.
+     * The region's name. See [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm)
+     * for the full list of supported region names.
      * <p>
-     * Allowed values are:
-     * - `us-phoenix-1`
-     * - `us-ashburn-1`
-     * - `eu-frankurt-1`
-     * - `uk-london-1`
+     * Example: `us-phoenix-1`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("regionName")

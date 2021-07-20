@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.io.internal;
 
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import com.oracle.bmc.io.DuplicatableInputStream;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Simple wrapper over FileInputStream that also exposes the File used
@@ -19,6 +21,7 @@ import lombok.Getter;
  * <p>
  * This version also support mark/reset.
  */
+@Slf4j
 public class WrappedFileInputStream extends FileInputStream implements DuplicatableInputStream {
     @Getter private final File sourceFile;
 
@@ -38,6 +41,7 @@ public class WrappedFileInputStream extends FileInputStream implements Duplicata
     public synchronized void mark(int readlimit) {
         try {
             markPosition = super.getChannel().position();
+            LOG.trace("mark called, markPosition={}", markPosition);
         } catch (IOException e) {
             throw new IllegalStateException("Could not mark position");
         }
@@ -45,6 +49,7 @@ public class WrappedFileInputStream extends FileInputStream implements Duplicata
 
     @Override
     public synchronized void reset() throws IOException {
+        LOG.trace("reset called, markPosition={}", markPosition);
         super.getChannel().position(markPosition);
     }
 

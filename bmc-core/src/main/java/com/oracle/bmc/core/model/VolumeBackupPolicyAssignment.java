@@ -1,10 +1,15 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Specifies that a particular volume backup policy is assigned to an asset such as a volume.
+ * Specifies the volume that the volume backup policy is assigned to.
+ * <p>
+ * For more information about Oracle defined backup policies and custom backup policies,
+ * see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+ *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
  * that are {@code null} because they are unset from fields that are explicitly set to {@code null}. This is done in
@@ -20,6 +25,7 @@ package com.oracle.bmc.core.model;
     builder = VolumeBackupPolicyAssignment.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class VolumeBackupPolicyAssignment {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -91,7 +97,7 @@ public class VolumeBackupPolicyAssignment {
     }
 
     /**
-     * The OCID of the asset (e.g. a volume) to which the policy has been assigned.
+     * The OCID of the volume the policy has been assigned to.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("assetId")
     String assetId;
@@ -103,13 +109,15 @@ public class VolumeBackupPolicyAssignment {
     String id;
 
     /**
-     * The OCID of the volume backup policy that has been assigned to an asset.
+     * The OCID of the volume backup policy that has been assigned to the volume.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("policyId")
     String policyId;
 
     /**
-     * The date and time the volume backup policy assignment was created. Format defined by RFC3339.
+     * The date and time the volume backup policy was assigned to the volume. The format is
+     * defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")

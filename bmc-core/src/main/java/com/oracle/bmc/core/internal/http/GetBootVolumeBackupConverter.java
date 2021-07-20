@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class GetBootVolumeBackupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetBootVolumeBackupRequest interceptRequest(GetBootVolumeBackupRequest request) {
+    public static com.oracle.bmc.core.requests.GetBootVolumeBackupRequest interceptRequest(
+            com.oracle.bmc.core.requests.GetBootVolumeBackupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetBootVolumeBackupRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.GetBootVolumeBackupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getBootVolumeBackupId(), "bootVolumeBackupId must not be blank");
 
@@ -38,22 +41,28 @@ public class GetBootVolumeBackupConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetBootVolumeBackupResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.GetBootVolumeBackupResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, GetBootVolumeBackupResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.GetBootVolumeBackupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetBootVolumeBackupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetBootVolumeBackupResponse>() {
                             @Override
-                            public GetBootVolumeBackupResponse apply(
+                            public com.oracle.bmc.core.responses.GetBootVolumeBackupResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetBootVolumeBackupResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetBootVolumeBackupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -67,8 +76,12 @@ public class GetBootVolumeBackupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetBootVolumeBackupResponse.Builder builder =
-                                        GetBootVolumeBackupResponse.builder();
+                                com.oracle.bmc.core.responses.GetBootVolumeBackupResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .GetBootVolumeBackupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.bootVolumeBackup(response.getItem());
 
@@ -93,7 +106,8 @@ public class GetBootVolumeBackupConverter {
                                                     String.class));
                                 }
 
-                                GetBootVolumeBackupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetBootVolumeBackupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

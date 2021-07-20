@@ -1,6 +1,8 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
@@ -91,7 +93,7 @@ public class VolumeAttachmentExample {
     private static final String VOL_ONE_DISPLAY_NAME = "VolumeAttachExample1";
     private static final String VOL_TWO_DISPLAY_NAME = "VolumeAttachExample2";
 
-    protected static final String INSTANCE_SHAPE = "VM.Standard1.1";
+    protected static final String INSTANCE_SHAPE = "VM.Standard2.1";
     protected static final String INSTANCE_OS = "Oracle Linux";
     protected static final String INSTANCE_OS_VERSION = "7.5";
     protected static final String INSTANCE_DISPLAY_NAME = "VolAttachExampleInstance";
@@ -113,8 +115,14 @@ public class VolumeAttachmentExample {
 
         final String compartmentId = args[0];
         final String kmsKeyId = args.length == 1 ? null : args[2];
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(CONFIG_LOCATION, CONFIG_PROFILE);
+                new ConfigFileAuthenticationDetailsProvider(configFile);
         final BlockstorageClient blockStorageClient = new BlockstorageClient(provider);
         final ComputeClient computeClient = new ComputeClient(provider);
         final VirtualNetworkClient vcnClient = new VirtualNetworkClient(provider);

@@ -1,12 +1,18 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.loadbalancer.LoadBalancerClient;
 import com.oracle.bmc.loadbalancer.model.AddHttpRequestHeaderRule;
 import com.oracle.bmc.loadbalancer.model.AddHttpResponseHeaderRule;
 import com.oracle.bmc.loadbalancer.model.ControlAccessUsingHttpMethodsRule;
+import com.oracle.bmc.loadbalancer.model.PathMatchCondition;
+import com.oracle.bmc.loadbalancer.model.RedirectRule;
+import com.oracle.bmc.loadbalancer.model.RedirectUri;
+import com.oracle.bmc.loadbalancer.model.RuleCondition;
 import com.oracle.bmc.loadbalancer.model.CreateListenerDetails;
 import com.oracle.bmc.loadbalancer.model.CreateRuleSetDetails;
 import com.oracle.bmc.loadbalancer.model.ExtendHttpRequestHeaderValueRule;
@@ -15,14 +21,11 @@ import com.oracle.bmc.loadbalancer.model.RemoveHttpRequestHeaderRule;
 import com.oracle.bmc.loadbalancer.model.RemoveHttpResponseHeaderRule;
 import com.oracle.bmc.loadbalancer.model.Rule;
 import com.oracle.bmc.loadbalancer.model.RuleSet;
-import com.oracle.bmc.loadbalancer.model.AddHttpRequestHeaderRule;
-import com.oracle.bmc.loadbalancer.model.AddHttpResponseHeaderRule;
 
 import com.oracle.bmc.loadbalancer.requests.CreateListenerRequest;
 import com.oracle.bmc.loadbalancer.requests.CreateRuleSetRequest;
 import com.oracle.bmc.loadbalancer.requests.GetWorkRequestRequest;
 import com.oracle.bmc.loadbalancer.requests.GetRuleSetRequest;
-import com.oracle.bmc.loadbalancer.requests.ListListenerRulesRequest;
 
 import com.oracle.bmc.loadbalancer.responses.CreateListenerResponse;
 import com.oracle.bmc.loadbalancer.responses.CreateRuleSetResponse;
@@ -58,8 +61,14 @@ public class CreateLoadBalancerRuleSetExample {
         String listenerProtocol =
                 "HTTP"; // Rules in this example are applicable to HTTP or HTTP2 protocols
 
-        AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(configurationFilePath, profile);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
+        final AuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         LoadBalancerClient loadBalancerClient = new LoadBalancerClient(provider);
 
@@ -88,7 +97,8 @@ public class CreateLoadBalancerRuleSetExample {
     }
 
     private static RuleSet createRuleSet(
-            LoadBalancerClient loadBalancerClient, String loadBalancerId, String ruleSetName) {
+            LoadBalancerClient loadBalancerClient, String loadBalancerId, String ruleSetName)
+            throws Exception {
         List<Rule> rules = new ArrayList<>();
         rules.add(
                 AddHttpRequestHeaderRule.builder()
@@ -119,6 +129,18 @@ public class CreateLoadBalancerRuleSetExample {
                         .allowedMethods(Arrays.asList("PUT", "POST"))
                         .statusCode(403)
                         .build());
+        rules.add(
+                RedirectRule.builder()
+                        .responseCode(302)
+                        .conditions(getPathMatchConditions())
+                        .redirectUri(
+                                RedirectUri.builder()
+                                        .host("abc.com")
+                                        .protocol("http")
+                                        .port(8998)
+                                        .path("/xyz")
+                                        .build())
+                        .build());
 
         CreateRuleSetResponse response =
                 loadBalancerClient.createRuleSet(
@@ -136,7 +158,8 @@ public class CreateLoadBalancerRuleSetExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
 
         return loadBalancerClient
                 .getRuleSet(
@@ -154,7 +177,8 @@ public class CreateLoadBalancerRuleSetExample {
             String listenerName,
             String backendSetName,
             String listenerProtocol,
-            RuleSet ruleSet) {
+            RuleSet ruleSet)
+            throws Exception {
         CreateListenerResponse response =
                 loadBalancerClient.createListener(
                         CreateListenerRequest.builder()
@@ -175,6 +199,18 @@ public class CreateLoadBalancerRuleSetExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
+    }
+
+    private static List<RuleCondition> getPathMatchConditions() {
+        PathMatchCondition condition =
+                PathMatchCondition.builder()
+                        .attributeValue("/xyz")
+                        .operator(PathMatchCondition.Operator.ForceLongestPrefixMatch)
+                        .build();
+        List<RuleCondition> conditions = new ArrayList<>();
+        conditions.add(condition);
+        return conditions;
     }
 }

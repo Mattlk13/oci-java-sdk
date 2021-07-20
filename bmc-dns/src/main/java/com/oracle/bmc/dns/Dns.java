@@ -1,11 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns;
 
 import com.oracle.bmc.dns.requests.*;
 import com.oracle.bmc.dns.responses.*;
 
+/**
+ * API for the DNS service. Use this API to manage DNS zones, records, and other DNS resources.
+ * For more information, see [Overview of the DNS Service](https://docs.cloud.oracle.com/iaas/Content/DNS/Concepts/dnszonemanagement.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180115")
 public interface Dns extends AutoCloseable {
 
@@ -14,6 +20,11 @@ public interface Dns extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -37,22 +48,79 @@ public interface Dns extends AutoCloseable {
     void setRegion(String regionId);
 
     /**
-     * Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+     * Moves a resolver into a different compartment along with its protected default view and any endpoints.
+     * Zones in the default view are not moved. Requires a `PRIVATE` scope query parameter.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ChangeResolverCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeResolverCompartment API.
+     */
+    ChangeResolverCompartmentResponse changeResolverCompartment(
+            ChangeResolverCompartmentRequest request);
+
+    /**
+     * Moves a steering policy into a different compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ChangeSteeringPolicyCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeSteeringPolicyCompartment API.
      */
     ChangeSteeringPolicyCompartmentResponse changeSteeringPolicyCompartment(
             ChangeSteeringPolicyCompartmentRequest request);
 
     /**
-     * Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource.
-     * **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+     * Moves a TSIG key into a different compartment.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ChangeTsigKeyCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeTsigKeyCompartment API.
+     */
+    ChangeTsigKeyCompartmentResponse changeTsigKeyCompartment(
+            ChangeTsigKeyCompartmentRequest request);
+
+    /**
+     * Moves a view into a different compartment. Protected views cannot have their compartment changed. Requires a
+     * `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ChangeViewCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeViewCompartment API.
+     */
+    ChangeViewCompartmentResponse changeViewCompartment(ChangeViewCompartmentRequest request);
+
+    /**
+     * Moves a zone into a different compartment. Protected zones cannot have their compartment changed. For private
+     * zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+     * path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
+     * <p>
+     **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ChangeZoneCompartmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ChangeZoneCompartment API.
      */
     ChangeZoneCompartmentResponse changeZoneCompartment(ChangeZoneCompartmentRequest request);
+
+    /**
+     * Creates a new resolver endpoint. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateResolverEndpointExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateResolverEndpoint API.
+     */
+    CreateResolverEndpointResponse createResolverEndpoint(CreateResolverEndpointRequest request);
 
     /**
      * Creates a new steering policy in the specified compartment. For more information on
@@ -61,6 +129,8 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateSteeringPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateSteeringPolicy API.
      */
     CreateSteeringPolicyResponse createSteeringPolicy(CreateSteeringPolicyRequest request);
 
@@ -75,37 +145,89 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateSteeringPolicyAttachmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateSteeringPolicyAttachment API.
      */
     CreateSteeringPolicyAttachmentResponse createSteeringPolicyAttachment(
             CreateSteeringPolicyAttachmentRequest request);
 
     /**
-     * Creates a new zone in the specified compartment. The `compartmentId`
-     * query parameter is required if the `Content-Type` header for the
-     * request is `text/dns`.
+     * Creates a new TSIG key in the specified compartment. There is no
+     * `opc-retry-token` header since TSIG key names must be globally unique.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateTsigKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateTsigKey API.
+     */
+    CreateTsigKeyResponse createTsigKey(CreateTsigKeyRequest request);
+
+    /**
+     * Creates a new view in the specified compartment. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateViewExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateView API.
+     */
+    CreateViewResponse createView(CreateViewRequest request);
+
+    /**
+     * Creates a new zone in the specified compartment. For global zones, if the `Content-Type` header for the request
+     * is `text/dns`, the `compartmentId` query parameter is required. `text/dns` for the `Content-Type` header is
+     * not supported for private zones. Query parameter scope with a value of `PRIVATE` is required when creating a
+     * private zone. Private zones must have a zone type of `PRIMARY`. Creating a private zone at or under
+     * `oraclevcn.com` within the default protected view of a VCN-dedicated resolver is not permitted.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/CreateZoneExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateZone API.
      */
     CreateZoneResponse createZone(CreateZoneRequest request);
 
     /**
-     * Deletes all records at the specified zone and domain.
-     * @param request The request object containing the details to send
-     * @return A response object containing details about the completed operation
-     * @throws BmcException when an error occurs.
-     */
-    DeleteDomainRecordsResponse deleteDomainRecords(DeleteDomainRecordsRequest request);
-
-    /**
-     * Deletes all records in the specified RRSet.
+     * Deletes all records at the specified zone and domain. For private zones, the scope query parameter is
+     * required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+     * for the scope query parameter then the viewId query parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteDomainRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteDomainRecords API.
+     */
+    DeleteDomainRecordsResponse deleteDomainRecords(DeleteDomainRecordsRequest request);
+
+    /**
+     * Deletes all records in the specified RRSet. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteRRSetExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteRRSet API.
      */
     DeleteRRSetResponse deleteRRSet(DeleteRRSetRequest request);
+
+    /**
+     * Deletes the specified resolver endpoint. Note that attempting to delete a resolver endpoint in the
+     * DELETED lifecycle state will result in a `404` response to be consistent with other operations of the API.
+     * Resolver endpoints may not be deleted if they are referenced by a resolver rule. Requires a `PRIVATE` scope
+     * query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteResolverEndpointExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteResolverEndpoint API.
+     */
+    DeleteResolverEndpointResponse deleteResolverEndpoint(DeleteResolverEndpointRequest request);
 
     /**
      * Deletes the specified steering policy.
@@ -116,6 +238,8 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteSteeringPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteSteeringPolicy API.
      */
     DeleteSteeringPolicyResponse deleteSteeringPolicy(DeleteSteeringPolicyRequest request);
 
@@ -126,40 +250,106 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteSteeringPolicyAttachmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteSteeringPolicyAttachment API.
      */
     DeleteSteeringPolicyAttachmentResponse deleteSteeringPolicyAttachment(
             DeleteSteeringPolicyAttachmentRequest request);
 
     /**
-     * Deletes the specified zone and all its steering policy attachments.
-     * A `204` response indicates that zone has been successfully deleted.
+     * Deletes the specified TSIG key.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteTsigKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteTsigKey API.
+     */
+    DeleteTsigKeyResponse deleteTsigKey(DeleteTsigKeyRequest request);
+
+    /**
+     * Deletes the specified view. Note that attempting to delete a
+     * view in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Views cannot be
+     * deleted if they are referenced by non-deleted zones or resolvers.
+     * Protected views cannot be deleted. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteViewExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteView API.
+     */
+    DeleteViewResponse deleteView(DeleteViewRequest request);
+
+    /**
+     * Deletes the specified zone and all its steering policy attachments. A `204` response indicates that the zone has
+     * been successfully deleted. Protected zones cannot be deleted. For private zones, the scope query parameter is
+     * required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+     * for the scope query parameter then the viewId query parameter is required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/DeleteZoneExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteZone API.
      */
     DeleteZoneResponse deleteZone(DeleteZoneRequest request);
 
     /**
-     * Gets a list of all records at the specified zone and domain.
-     * The results are sorted by `rtype` in alphabetical order by default. You
-     * can optionally filter and/or sort the results using the listed parameters.
+     * Gets a list of all records at the specified zone and domain. The results are sorted by `rtype` in
+     * alphabetical order by default. You can optionally filter and/or sort the results using the listed parameters.
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetDomainRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetDomainRecords API.
      */
     GetDomainRecordsResponse getDomainRecords(GetDomainRecordsRequest request);
 
     /**
-     * Gets a list of all records in the specified RRSet. The results are
-     * sorted by `recordHash` by default.
+     * Gets a list of all records in the specified RRSet. The results are sorted by `recordHash` by default. For
+     * private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetRRSetExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetRRSet API.
      */
     GetRRSetResponse getRRSet(GetRRSetRequest request);
+
+    /**
+     * Gets information about a specific resolver. Note that attempting to get a
+     * resolver in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetResolverExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetResolver API.
+     */
+    GetResolverResponse getResolver(GetResolverRequest request);
+
+    /**
+     * Gets information about a specific resolver endpoint. Note that attempting to get a resolver endpoint
+     * in the DELETED lifecycle state will result in a `404` response to be consistent with other operations of the
+     * API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetResolverEndpointExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetResolverEndpoint API.
+     */
+    GetResolverEndpointResponse getResolverEndpoint(GetResolverEndpointRequest request);
 
     /**
      * Gets information about the specified steering policy.
@@ -167,6 +357,8 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetSteeringPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetSteeringPolicy API.
      */
     GetSteeringPolicyResponse getSteeringPolicy(GetSteeringPolicyRequest request);
 
@@ -176,30 +368,104 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetSteeringPolicyAttachmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetSteeringPolicyAttachment API.
      */
     GetSteeringPolicyAttachmentResponse getSteeringPolicyAttachment(
             GetSteeringPolicyAttachmentRequest request);
 
     /**
-     * Gets information about the specified zone, including its creation date,
-     * zone type, and serial.
+     * Gets information about the specified TSIG key.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetTsigKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTsigKey API.
+     */
+    GetTsigKeyResponse getTsigKey(GetTsigKeyRequest request);
+
+    /**
+     * Gets information about a specific view. Note that attempting to get a
+     * view in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetViewExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetView API.
+     */
+    GetViewResponse getView(GetViewRequest request);
+
+    /**
+     * Gets information about the specified zone, including its creation date, zone type, and serial. For private
+     * zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+     * path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetZoneExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetZone API.
      */
     GetZoneResponse getZone(GetZoneRequest request);
 
     /**
-     * Gets all records in the specified zone. The results are
-     * sorted by `domain` in alphabetical order by default. For more
-     * information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+     * Gets the requested zone's zone file.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetZoneContentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetZoneContent API.
+     */
+    GetZoneContentResponse getZoneContent(GetZoneContentRequest request);
+
+    /**
+     * Gets all records in the specified zone. The results are sorted by `domain` in alphabetical order by default.
+     * For more information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/GetZoneRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetZoneRecords API.
      */
     GetZoneRecordsResponse getZoneRecords(GetZoneRecordsRequest request);
+
+    /**
+     * Gets a list of all endpoints within a resolver. The collection can be filtered by name or lifecycle state.
+     * It can be sorted on creation time or name both in ASC or DESC order. Note that when no lifecycleState
+     * query parameter is provided, the collection does not include resolver endpoints in the DELETED
+     * lifecycle state to be consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListResolverEndpointsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListResolverEndpoints API.
+     */
+    ListResolverEndpointsResponse listResolverEndpoints(ListResolverEndpointsRequest request);
+
+    /**
+     * Gets a list of all resolvers within a compartment. The collection can
+     * be filtered by display name, id, or lifecycle state. It can be sorted
+     * on creation time or displayName both in ASC or DESC order. Note that
+     * when no lifecycleState query parameter is provided, the collection
+     * does not include resolvers in the DELETED lifecycleState to be consistent
+     * with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListResolversExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListResolvers API.
+     */
+    ListResolversResponse listResolvers(ListResolversRequest request);
 
     /**
      * Gets a list of all steering policies in the specified compartment.
@@ -207,6 +473,8 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListSteeringPoliciesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListSteeringPolicies API.
      */
     ListSteeringPoliciesResponse listSteeringPolicies(ListSteeringPoliciesRequest request);
 
@@ -216,73 +484,157 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListSteeringPolicyAttachmentsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListSteeringPolicyAttachments API.
      */
     ListSteeringPolicyAttachmentsResponse listSteeringPolicyAttachments(
             ListSteeringPolicyAttachmentsRequest request);
 
     /**
-     * Gets a list of all zones in the specified compartment. The collection
-     * can be filtered by name, time created, and zone type.
+     * Gets a list of all TSIG keys in the specified compartment.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListTsigKeysExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTsigKeys API.
+     */
+    ListTsigKeysResponse listTsigKeys(ListTsigKeysRequest request);
+
+    /**
+     * Gets a list of all views within a compartment. The collection can
+     * be filtered by display name, id, or lifecycle state. It can be sorted
+     * on creation time or displayName both in ASC or DESC order. Note that
+     * when no lifecycleState query parameter is provided, the collection
+     * does not include views in the DELETED lifecycleState to be consistent
+     * with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListViewsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListViews API.
+     */
+    ListViewsResponse listViews(ListViewsRequest request);
+
+    /**
+     * Gets a list of IP addresses of OCI nameservers for inbound and outbound transfer of zones in the specified
+     * compartment (which must be the root compartment of a tenancy) that transfer zone data with external master or
+     * downstream nameservers.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListZoneTransferServersExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListZoneTransferServers API.
+     */
+    ListZoneTransferServersResponse listZoneTransferServers(ListZoneTransferServersRequest request);
+
+    /**
+     * Gets a list of all zones in the specified compartment. The collection can be filtered by name, time created,
+     * scope, associated view, and zone type. Filtering by view is only supported for private zones.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListZonesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListZones API.
      */
     ListZonesResponse listZones(ListZonesRequest request);
 
     /**
-     * Updates records in the specified zone at a domain. You can update
-     * one record or all records for the specified zone depending on the changes
-     * provided in the request body. You can also add or remove records using this
-     * function.
+     * Updates records in the specified zone at a domain. You can update one record or all records for the specified
+     * zone depending on the changes provided in the request body. You can also add or remove records using this
+     * function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone
+     * name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId
+     * query parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/PatchDomainRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use PatchDomainRecords API.
      */
     PatchDomainRecordsResponse patchDomainRecords(PatchDomainRecordsRequest request);
 
     /**
-     * Updates records in the specified RRSet.
+     * Updates records in the specified RRSet. For private zones, the scope query parameter is required with a value
+     * of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query
+     * parameter then the viewId query parameter is required.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/PatchRRSetExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use PatchRRSet API.
      */
     PatchRRSetResponse patchRRSet(PatchRRSetRequest request);
 
     /**
-     * Updates a collection of records in the specified zone. You can update
-     * one record or all records for the specified zone depending on the
-     * changes provided in the request body. You can also add or remove records
-     * using this function.
+     * Updates a collection of records in the specified zone. You can update one record or all records for the
+     * specified zone depending on the changes provided in the request body. You can also add or remove records
+     * using this function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When
+     * the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the
+     * viewId query parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/PatchZoneRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use PatchZoneRecords API.
      */
     PatchZoneRecordsResponse patchZoneRecords(PatchZoneRecordsRequest request);
 
     /**
-     * Replaces records in the specified zone at a domain with the records
-     * specified in the request body. If a specified record does not exist,
-     * it will be created. If the record exists, then it will be updated to
-     * represent the record in the body of the request. If a record in the zone
-     * does not exist in the request body, the record will be removed from the
-     * zone.
+     * Replaces records in the specified zone at a domain with the records specified in the request body. If a
+     * specified record does not exist, it will be created. If the record exists, then it will be updated to
+     * represent the record in the body of the request. If a record in the zone does not exist in the request body,
+     * the record will be removed from the zone. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateDomainRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateDomainRecords API.
      */
     UpdateDomainRecordsResponse updateDomainRecords(UpdateDomainRecordsRequest request);
 
     /**
-     * Replaces records in the specified RRSet.
+     * Replaces records in the specified RRSet. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateRRSetExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateRRSet API.
      */
     UpdateRRSetResponse updateRRSet(UpdateRRSetRequest request);
+
+    /**
+     * Updates the specified resolver with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateResolverExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateResolver API.
+     */
+    UpdateResolverResponse updateResolver(UpdateResolverRequest request);
+
+    /**
+     * Updates the specified resolver endpoint with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateResolverEndpointExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateResolverEndpoint API.
+     */
+    UpdateResolverEndpointResponse updateResolverEndpoint(UpdateResolverEndpointRequest request);
 
     /**
      * Updates the configuration of the specified steering policy.
@@ -290,6 +642,8 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateSteeringPolicyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateSteeringPolicy API.
      */
     UpdateSteeringPolicyResponse updateSteeringPolicy(UpdateSteeringPolicyRequest request);
 
@@ -299,31 +653,62 @@ public interface Dns extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateSteeringPolicyAttachmentExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateSteeringPolicyAttachment API.
      */
     UpdateSteeringPolicyAttachmentResponse updateSteeringPolicyAttachment(
             UpdateSteeringPolicyAttachmentRequest request);
 
     /**
-     * Updates the specified secondary zone with your new external master
-     * server information. For more information about secondary zone, see
-     * [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+     * Updates the specified TSIG key.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateTsigKeyExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateTsigKey API.
+     */
+    UpdateTsigKeyResponse updateTsigKey(UpdateTsigKeyRequest request);
+
+    /**
+     * Updates the specified view with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateViewExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateView API.
+     */
+    UpdateViewResponse updateView(UpdateViewRequest request);
+
+    /**
+     * Updates the zone with the specified information. Global secondary zones may have their external masters updated.
+     * For more information about secondary zone, see [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateZoneExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateZone API.
      */
     UpdateZoneResponse updateZone(UpdateZoneRequest request);
 
     /**
-     * Replaces records in the specified zone with the records specified in the
-     * request body. If a specified record does not exist, it will be created.
-     * If the record exists, then it will be updated to represent the record in
-     * the body of the request. If a record in the zone does not exist in the
-     * request body, the record will be removed from the zone.
+     * Replaces records in the specified zone with the records specified in the request body. If a specified record
+     * does not exist, it will be created. If the record exists, then it will be updated to represent the record in
+     * the body of the request. If a record in the zone does not exist in the request body, the record will be
+     * removed from the zone. For private zones, the scope query parameter is required with a value of `PRIVATE`.
+     * When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then
+     * the viewId query parameter is required.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/UpdateZoneRecordsExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateZoneRecords API.
      */
     UpdateZoneRecordsResponse updateZoneRecords(UpdateZoneRecordsRequest request);
 

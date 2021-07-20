@@ -1,15 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * A point-in-time copy of a volume group that can then be used to create a new volume group
- * or restore a volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
+ * or restore a volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -29,6 +30,7 @@ package com.oracle.bmc.core.model;
     builder = VolumeGroupBackup.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class VolumeGroupBackup {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -58,6 +60,15 @@ public class VolumeGroupBackup {
         public Builder displayName(String displayName) {
             this.displayName = displayName;
             this.__explicitlySet__.add("displayName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("expirationTime")
+        private java.util.Date expirationTime;
+
+        public Builder expirationTime(java.util.Date expirationTime) {
+            this.expirationTime = expirationTime;
+            this.__explicitlySet__.add("expirationTime");
             return this;
         }
 
@@ -103,6 +114,15 @@ public class VolumeGroupBackup {
         public Builder sizeInGBs(Long sizeInGBs) {
             this.sizeInGBs = sizeInGBs;
             this.__explicitlySet__.add("sizeInGBs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
+        private SourceType sourceType;
+
+        public Builder sourceType(SourceType sourceType) {
+            this.sourceType = sourceType;
+            this.__explicitlySet__.add("sourceType");
             return this;
         }
 
@@ -169,6 +189,15 @@ public class VolumeGroupBackup {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceVolumeGroupBackupId")
+        private String sourceVolumeGroupBackupId;
+
+        public Builder sourceVolumeGroupBackupId(String sourceVolumeGroupBackupId) {
+            this.sourceVolumeGroupBackupId = sourceVolumeGroupBackupId;
+            this.__explicitlySet__.add("sourceVolumeGroupBackupId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -178,18 +207,21 @@ public class VolumeGroupBackup {
                             compartmentId,
                             definedTags,
                             displayName,
+                            expirationTime,
                             freeformTags,
                             id,
                             lifecycleState,
                             sizeInMBs,
                             sizeInGBs,
+                            sourceType,
                             timeCreated,
                             timeRequestReceived,
                             type,
                             uniqueSizeInMbs,
                             uniqueSizeInGbs,
                             volumeBackupIds,
-                            volumeGroupId);
+                            volumeGroupId,
+                            sourceVolumeGroupBackupId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -200,18 +232,21 @@ public class VolumeGroupBackup {
                     compartmentId(o.getCompartmentId())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
+                            .expirationTime(o.getExpirationTime())
                             .freeformTags(o.getFreeformTags())
                             .id(o.getId())
                             .lifecycleState(o.getLifecycleState())
                             .sizeInMBs(o.getSizeInMBs())
                             .sizeInGBs(o.getSizeInGBs())
+                            .sourceType(o.getSourceType())
                             .timeCreated(o.getTimeCreated())
                             .timeRequestReceived(o.getTimeRequestReceived())
                             .type(o.getType())
                             .uniqueSizeInMbs(o.getUniqueSizeInMbs())
                             .uniqueSizeInGbs(o.getUniqueSizeInGbs())
                             .volumeBackupIds(o.getVolumeBackupIds())
-                            .volumeGroupId(o.getVolumeGroupId());
+                            .volumeGroupId(o.getVolumeGroupId())
+                            .sourceVolumeGroupBackupId(o.getSourceVolumeGroupBackupId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -233,7 +268,7 @@ public class VolumeGroupBackup {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -242,14 +277,27 @@ public class VolumeGroupBackup {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * A user-friendly name for the volume group backup. Does not have to be unique and it's changeable. Avoid entering confidential information.
+     * A user-friendly name for the volume group backup. Does not have
+     * to be unique and it's changeable. Avoid entering confidential information.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
 
     /**
+     * The date and time the volume group backup will expire and be automatically deleted.
+     * Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339). This parameter will always be present for volume group
+     * backups that were created automatically by a scheduled-backup policy. For manually
+     * created volume group backups, it will be absent, signifying that there is no expiration
+     * time and the backup will last forever until manually deleted.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("expirationTime")
+    java.util.Date expirationTime;
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -332,17 +380,72 @@ public class VolumeGroupBackup {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInGBs")
     Long sizeInGBs;
+    /**
+     * Specifies whether the volume group backup was created manually, or via scheduled
+     * backup policy.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum SourceType {
+        Manual("MANUAL"),
+        Scheduled("SCHEDULED"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, SourceType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (SourceType v : SourceType.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        SourceType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static SourceType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'SourceType', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Specifies whether the volume group backup was created manually, or via scheduled
+     * backup policy.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
+    SourceType sourceType;
 
     /**
      * The date and time the volume group backup was created. This is the time the actual point-in-time image
-     * of the volume group data was taken. Format defined by RFC3339.
+     * of the volume group data was taken. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
 
     /**
-     * The date and time the request to create the volume group backup was received. Format defined by RFC3339.
+     * The date and time the request to create the volume group backup was received. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeRequestReceived")
@@ -400,8 +503,9 @@ public class VolumeGroupBackup {
 
     /**
      * The aggregate size used by the volume group backup, in MBs.
-     * It is typically smaller than sizeInMBs, depending on the space
-     * consumed on the volume group and whether the volume backup is full or incremental.
+     * <p>
+     * It is typically smaller than sizeInMBs, depending on the spaceconsumed
+     * on the volume group and whether the volume backup is full or incremental.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("uniqueSizeInMbs")
@@ -409,8 +513,9 @@ public class VolumeGroupBackup {
 
     /**
      * The aggregate size used by the volume group backup, in GBs.
-     * It is typically smaller than sizeInGBs, depending on the space
-     * consumed on the volume group and whether the volume backup is full or incremental.
+     * <p>
+     * It is typically smaller than sizeInGBs, depending on the spaceconsumed
+     * on the volume group and whether the volume backup is full or incremental.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("uniqueSizeInGbs")
@@ -427,6 +532,12 @@ public class VolumeGroupBackup {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("volumeGroupId")
     String volumeGroupId;
+
+    /**
+     * The OCID of the source volume group backup.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceVolumeGroupBackupId")
+    String sourceVolumeGroupBackupId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

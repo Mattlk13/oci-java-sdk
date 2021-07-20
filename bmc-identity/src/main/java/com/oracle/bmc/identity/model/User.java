@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -9,7 +10,7 @@ package com.oracle.bmc.identity.model;
  * have one or more IAM Service credentials ({@link ApiKey},
  * {@link UIPassword}, {@link SwiftPassword} and
  * {@link AuthToken}).
- * For more information, see [User Credentials](https://docs.cloud.oracle.com/Content/API/Concepts/usercredentials.htm)). End users of your
+ * For more information, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm)). End users of your
  * application are not typically IAM Service users. For conceptual information about users and other IAM Service
  * components, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
  * <p>
@@ -21,6 +22,9 @@ package com.oracle.bmc.identity.model;
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access,
  * see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * <p>
+ **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values
+ * using the API.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -35,6 +39,7 @@ package com.oracle.bmc.identity.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = User.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class User {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -81,6 +86,15 @@ public class User {
         public Builder email(String email) {
             this.email = email;
             this.__explicitlySet__.add("email");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("emailVerified")
+        private Boolean emailVerified;
+
+        public Builder emailVerified(Boolean emailVerified) {
+            this.emailVerified = emailVerified;
+            this.__explicitlySet__.add("emailVerified");
             return this;
         }
 
@@ -166,6 +180,24 @@ public class User {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("lastSuccessfulLoginTime")
+        private java.util.Date lastSuccessfulLoginTime;
+
+        public Builder lastSuccessfulLoginTime(java.util.Date lastSuccessfulLoginTime) {
+            this.lastSuccessfulLoginTime = lastSuccessfulLoginTime;
+            this.__explicitlySet__.add("lastSuccessfulLoginTime");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("previousSuccessfulLoginTime")
+        private java.util.Date previousSuccessfulLoginTime;
+
+        public Builder previousSuccessfulLoginTime(java.util.Date previousSuccessfulLoginTime) {
+            this.previousSuccessfulLoginTime = previousSuccessfulLoginTime;
+            this.__explicitlySet__.add("previousSuccessfulLoginTime");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -177,6 +209,7 @@ public class User {
                             name,
                             description,
                             email,
+                            emailVerified,
                             identityProviderId,
                             externalIdentifier,
                             timeCreated,
@@ -185,7 +218,9 @@ public class User {
                             freeformTags,
                             definedTags,
                             capabilities,
-                            isMfaActivated);
+                            isMfaActivated,
+                            lastSuccessfulLoginTime,
+                            previousSuccessfulLoginTime);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -198,6 +233,7 @@ public class User {
                             .name(o.getName())
                             .description(o.getDescription())
                             .email(o.getEmail())
+                            .emailVerified(o.getEmailVerified())
                             .identityProviderId(o.getIdentityProviderId())
                             .externalIdentifier(o.getExternalIdentifier())
                             .timeCreated(o.getTimeCreated())
@@ -206,7 +242,9 @@ public class User {
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .capabilities(o.getCapabilities())
-                            .isMfaActivated(o.getIsMfaActivated());
+                            .isMfaActivated(o.getIsMfaActivated())
+                            .lastSuccessfulLoginTime(o.getLastSuccessfulLoginTime())
+                            .previousSuccessfulLoginTime(o.getPreviousSuccessfulLoginTime());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -253,6 +291,12 @@ public class User {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("email")
     String email;
+
+    /**
+     * Whether the email address has been validated.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("emailVerified")
+    Boolean emailVerified;
 
     /**
      * The OCID of the `IdentityProvider` this user belongs to.
@@ -348,6 +392,7 @@ public class User {
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
      **/
@@ -363,9 +408,6 @@ public class User {
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
-    /**
-     * Properties indicating how the user is allowed to authenticate.
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("capabilities")
     UserCapabilities capabilities;
 
@@ -374,6 +416,40 @@ public class User {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isMfaActivated")
     Boolean isMfaActivated;
+
+    /**
+     * The date and time of when the user most recently logged in the
+     * format defined by RFC3339 (ex. `2016-08-25T21:10:29.600Z`).
+     * If there is no login history, this field is null.
+     * <p>
+     * For illustrative purposes, suppose we have a user who has logged in
+     * at July 1st, 2020 at 1200 PST and logged out 30 minutes later.
+     * They then login again on July 2nd, 2020 at 1500 PST.
+     * <p>
+     * Their previousSuccessfulLoginTime would be `2020-07-01:19:00.000Z`.
+     * <p>
+     * Their lastSuccessfulLoginTime would be `2020-07-02:22:00.000Z`.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lastSuccessfulLoginTime")
+    java.util.Date lastSuccessfulLoginTime;
+
+    /**
+     * The date and time of when the user most recently logged in the
+     * format defined by RFC3339 (ex. `2016-08-25T21:10:29.600Z`).
+     * If there is no login history, this field is null.
+     * <p>
+     * For illustrative purposes, suppose we have a user who has logged in
+     * at July 1st, 2020 at 1200 PST and logged out 30 minutes later.
+     * They then login again on July 2nd, 2020 at 1500 PST.
+     * <p>
+     * Their previousSuccessfulLoginTime would be `2020-07-01:19:00.000Z`.
+     * <p>
+     * Their lastSuccessfulLoginTime would be `2020-07-02:22:00.000Z`.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("previousSuccessfulLoginTime")
+    java.util.Date previousSuccessfulLoginTime;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

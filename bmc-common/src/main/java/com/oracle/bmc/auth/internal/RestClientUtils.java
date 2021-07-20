@@ -1,11 +1,14 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.auth.internal;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Supplier;
+import com.oracle.bmc.ClientConfiguration;
 import com.oracle.bmc.auth.X509CertificateSupplier;
+import com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration;
 import com.oracle.bmc.http.ClientConfigurator;
 import com.oracle.bmc.http.internal.RestClient;
 import com.oracle.bmc.http.internal.RestClientFactory;
@@ -32,7 +35,8 @@ public class RestClientUtils {
             ClientConfigurator clientConfigurator,
             List<ClientConfigurator> additionalClientConfigurators,
             final String tenancyId,
-            final X509CertificateSupplier leafCertificateSupplier) {
+            final X509CertificateSupplier leafCertificateSupplier,
+            CircuitBreakerConfiguration circuitBreakerConfiguration) {
         // load the leaf certificate details dynamically on each invocation in case it has changed, ex, rotated.
         // NOTE: because the signer calls both of these independently, there is an edge case where the certificate
         // has been rotated and the private key and keyId won't match -- that should be taken care of by a retry
@@ -62,14 +66,16 @@ public class RestClientUtils {
                 clientConfigurator,
                 additionalClientConfigurators,
                 keySupplier,
-                keyIdSupplier);
+                keyIdSupplier,
+                circuitBreakerConfiguration);
     }
 
     static RestClient createRestClient(
             String endpoint,
             ClientConfigurator clientConfigurator,
             List<ClientConfigurator> additionalClientConfigurators,
-            final X509FederationClient federationClient) {
+            final X509FederationClient federationClient,
+            CircuitBreakerConfiguration circuitBreakerConfiguration) {
         // load the leaf certificate details dynamically on each invocation in case it has changed, ex, rotated.
         // NOTE: because the signer calls both of these independently, there is an edge case where the certificate
         // has been rotated and the private key and keyId won't match -- that should be taken care of by a retry
@@ -103,7 +109,8 @@ public class RestClientUtils {
                 clientConfigurator,
                 additionalClientConfigurators,
                 keySupplier,
-                keyIdSupplier);
+                keyIdSupplier,
+                circuitBreakerConfiguration);
     }
 
     private static RestClient createRestClient(
@@ -111,11 +118,14 @@ public class RestClientUtils {
             ClientConfigurator clientConfigurator,
             List<ClientConfigurator> additionalClientConfigurators,
             KeySupplier<RSAPrivateKey> keySupplier,
-            Supplier<String> keyIdSupplier) {
+            Supplier<String> keyIdSupplier,
+            CircuitBreakerConfiguration circuitBreakerConfiguration) {
 
         // for the federation endpoint, do not sign the HOST header right now
         List<String> genericHeaders = removeHostHeader(Constants.GENERIC_HEADERS);
         List<String> allHeaders = removeHostHeader(Constants.ALL_HEADERS);
+        ClientConfiguration clientConfiguration = null;
+
         Map<String, List<String>> headersToSign =
                 Constants.createHeadersToSignMap(
                         genericHeaders,
@@ -137,9 +147,19 @@ public class RestClientUtils {
                         .clientConfigurator(clientConfigurator)
                         .additionalClientConfigurators(additionalClientConfigurators)
                         .build();
+
+        if (circuitBreakerConfiguration != null) {
+            clientConfiguration =
+                    ClientConfiguration.builder()
+                            .circuitBreakerConfiguration(circuitBreakerConfiguration)
+                            .build();
+        }
+
         RestClient restClient =
                 restClientFactory.create(
-                        requestSigner, Collections.<SigningStrategy, RequestSigner>emptyMap());
+                        requestSigner,
+                        Collections.<SigningStrategy, RequestSigner>emptyMap(),
+                        clientConfiguration);
         restClient.setEndpoint(endpoint);
         return restClient;
     }
@@ -155,6 +175,7 @@ public class RestClientUtils {
     }
 
     private static String keyIdForX509Request(String tenancyId, X509Certificate certificate) {
-        return String.format("%s/fed-x509/%s", tenancyId, AuthUtils.getFingerPrint(certificate));
+        return String.format(
+                "%s/fed-x509-sha256/%s", tenancyId, AuthUtils.getFingerPrint(certificate));
     }
 }

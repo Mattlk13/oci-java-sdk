@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.containerengine.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Cluster.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Cluster {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -49,6 +51,15 @@ public class Cluster {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("endpointConfig")
+        private ClusterEndpointConfig endpointConfig;
+
+        public Builder endpointConfig(ClusterEndpointConfig endpointConfig) {
+            this.endpointConfig = endpointConfig;
+            this.__explicitlySet__.add("endpointConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("vcnId")
         private String vcnId;
 
@@ -64,6 +75,15 @@ public class Cluster {
         public Builder kubernetesVersion(String kubernetesVersion) {
             this.kubernetesVersion = kubernetesVersion;
             this.__explicitlySet__.add("kubernetesVersion");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
             return this;
         }
 
@@ -122,6 +142,15 @@ public class Cluster {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("imagePolicyConfig")
+        private ImagePolicyConfig imagePolicyConfig;
+
+        public Builder imagePolicyConfig(ImagePolicyConfig imagePolicyConfig) {
+            this.imagePolicyConfig = imagePolicyConfig;
+            this.__explicitlySet__.add("imagePolicyConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -131,14 +160,17 @@ public class Cluster {
                             id,
                             name,
                             compartmentId,
+                            endpointConfig,
                             vcnId,
                             kubernetesVersion,
+                            kmsKeyId,
                             options,
                             metadata,
                             lifecycleState,
                             lifecycleDetails,
                             endpoints,
-                            availableKubernetesUpgrades);
+                            availableKubernetesUpgrades,
+                            imagePolicyConfig);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -149,14 +181,17 @@ public class Cluster {
                     id(o.getId())
                             .name(o.getName())
                             .compartmentId(o.getCompartmentId())
+                            .endpointConfig(o.getEndpointConfig())
                             .vcnId(o.getVcnId())
                             .kubernetesVersion(o.getKubernetesVersion())
+                            .kmsKeyId(o.getKmsKeyId())
                             .options(o.getOptions())
                             .metadata(o.getMetadata())
                             .lifecycleState(o.getLifecycleState())
                             .lifecycleDetails(o.getLifecycleDetails())
                             .endpoints(o.getEndpoints())
-                            .availableKubernetesUpgrades(o.getAvailableKubernetesUpgrades());
+                            .availableKubernetesUpgrades(o.getAvailableKubernetesUpgrades())
+                            .imagePolicyConfig(o.getImagePolicyConfig());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -189,6 +224,13 @@ public class Cluster {
     String compartmentId;
 
     /**
+     * The network configuration for access to the Cluster control plane.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("endpointConfig")
+    ClusterEndpointConfig endpointConfig;
+
+    /**
      * The OCID of the virtual cloud network (VCN) in which the cluster exists.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("vcnId")
@@ -199,6 +241,12 @@ public class Cluster {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kubernetesVersion")
     String kubernetesVersion;
+
+    /**
+     * The OCID of the KMS key to be used as the master encryption key for Kubernetes secret encryption.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
 
     /**
      * Optional attributes for the cluster.
@@ -235,6 +283,13 @@ public class Cluster {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("availableKubernetesUpgrades")
     java.util.List<String> availableKubernetesUpgrades;
+
+    /**
+     * The image verification policy for signature validation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("imagePolicyConfig")
+    ImagePolicyConfig imagePolicyConfig;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

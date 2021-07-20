@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.internal.http;
 
@@ -16,13 +17,15 @@ public class RestoreObjectsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static RestoreObjectsRequest interceptRequest(RestoreObjectsRequest request) {
+    public static com.oracle.bmc.objectstorage.requests.RestoreObjectsRequest interceptRequest(
+            com.oracle.bmc.objectstorage.requests.RestoreObjectsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, RestoreObjectsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.objectstorage.requests.RestoreObjectsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNamespaceName(), "namespaceName must not be blank");
         Validate.notBlank(request.getBucketName(), "bucketName must not be blank");
@@ -50,19 +53,28 @@ public class RestoreObjectsConverter {
             ib.header("opc-client-request-id", request.getOpcClientRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, RestoreObjectsResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, RestoreObjectsResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, RestoreObjectsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse>() {
                             @Override
-                            public RestoreObjectsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for RestoreObjectsResponse");
+                            public com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -73,8 +85,13 @@ public class RestoreObjectsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                RestoreObjectsResponse.Builder builder =
-                                        RestoreObjectsResponse.builder();
+                                com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.objectstorage.responses
+                                                        .RestoreObjectsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcClientRequestIdHeader =
@@ -100,7 +117,8 @@ public class RestoreObjectsConverter {
                                                     String.class));
                                 }
 
-                                RestoreObjectsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.objectstorage.responses.RestoreObjectsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

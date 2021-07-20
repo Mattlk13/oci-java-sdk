@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.model;
 
@@ -22,6 +23,7 @@ package com.oracle.bmc.waas.model;
     builder = CreateWaasPolicyDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateWaasPolicyDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -68,6 +70,15 @@ public class CreateWaasPolicyDetails {
         public Builder origins(java.util.Map<String, Origin> origins) {
             this.origins = origins;
             this.__explicitlySet__.add("origins");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("originGroups")
+        private java.util.Map<String, OriginGroup> originGroups;
+
+        public Builder originGroups(java.util.Map<String, OriginGroup> originGroups) {
+            this.originGroups = originGroups;
+            this.__explicitlySet__.add("originGroups");
             return this;
         }
 
@@ -119,6 +130,7 @@ public class CreateWaasPolicyDetails {
                             domain,
                             additionalDomains,
                             origins,
+                            originGroups,
                             policyConfig,
                             wafConfig,
                             freeformTags,
@@ -135,6 +147,7 @@ public class CreateWaasPolicyDetails {
                             .domain(o.getDomain())
                             .additionalDomains(o.getAdditionalDomains())
                             .origins(o.getOrigins())
+                            .originGroups(o.getOriginGroups())
                             .policyConfig(o.getPolicyConfig())
                             .wafConfig(o.getWafConfig())
                             .freeformTags(o.getFreeformTags())
@@ -181,6 +194,13 @@ public class CreateWaasPolicyDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("origins")
     java.util.Map<String, Origin> origins;
+
+    /**
+     * The map of origin groups and their keys used to associate origins to the `wafConfig`. Origin groups allow you to apply weights to groups of origins for load balancing purposes. Origins with higher weights will receive larger proportions of client requests.
+     * To add additional origins to your WAAS policy, update the `origins` field of a `UpdateWaasPolicy` request.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("originGroups")
+    java.util.Map<String, OriginGroup> originGroups;
 
     @com.fasterxml.jackson.annotation.JsonProperty("policyConfig")
     PolicyConfig policyConfig;

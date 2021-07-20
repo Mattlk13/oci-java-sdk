@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -46,4 +47,69 @@ package com.oracle.bmc.core.model;
     )
 })
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
-public class ExportImageDetails {}
+public class ExportImageDetails {
+
+    /**
+     * The format to export the image to. The default value is `OCI`.
+     * <p>
+     * The following image formats are available:
+     * <p>
+     * - `OCI` - Oracle Cloud Infrastructure file with a QCOW2 image and Oracle Cloud Infrastructure metadata (.oci).
+     * Use this format to export a custom image that you want to import into other tenancies or regions.
+     * - `QCOW2` - QEMU Copy On Write (.qcow2)
+     * - `VDI` - Virtual Disk Image (.vdi) for Oracle VM VirtualBox
+     * - `VHD` - Virtual Hard Disk (.vhd) for Hyper-V
+     * - `VMDK` - Virtual Machine Disk (.vmdk)
+     *
+     **/
+    public enum ExportFormat {
+        Qcow2("QCOW2"),
+        Vmdk("VMDK"),
+        Oci("OCI"),
+        Vhd("VHD"),
+        Vdi("VDI"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, ExportFormat> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (ExportFormat v : ExportFormat.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        ExportFormat(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static ExportFormat create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid ExportFormat: " + key);
+        }
+    };
+    /**
+     * The format to export the image to. The default value is `OCI`.
+     * <p>
+     * The following image formats are available:
+     * <p>
+     * - `OCI` - Oracle Cloud Infrastructure file with a QCOW2 image and Oracle Cloud Infrastructure metadata (.oci).
+     * Use this format to export a custom image that you want to import into other tenancies or regions.
+     * - `QCOW2` - QEMU Copy On Write (.qcow2)
+     * - `VDI` - Virtual Disk Image (.vdi) for Oracle VM VirtualBox
+     * - `VHD` - Virtual Hard Disk (.vhd) for Hyper-V
+     * - `VMDK` - Virtual Machine Disk (.vmdk)
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("exportFormat")
+    ExportFormat exportFormat;
+}

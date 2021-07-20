@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.functions.internal.http;
 
@@ -16,13 +17,15 @@ public class GetApplicationConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetApplicationRequest interceptRequest(GetApplicationRequest request) {
+    public static com.oracle.bmc.functions.requests.GetApplicationRequest interceptRequest(
+            com.oracle.bmc.functions.requests.GetApplicationRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetApplicationRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.functions.requests.GetApplicationRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getApplicationId(), "applicationId must not be blank");
 
@@ -42,19 +45,28 @@ public class GetApplicationConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetApplicationResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.functions.responses.GetApplicationResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetApplicationResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.functions.responses.GetApplicationResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetApplicationResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.functions.responses.GetApplicationResponse>() {
                             @Override
-                            public GetApplicationResponse apply(
+                            public com.oracle.bmc.functions.responses.GetApplicationResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetApplicationResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.functions.responses.GetApplicationResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -68,8 +80,12 @@ public class GetApplicationConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetApplicationResponse.Builder builder =
-                                        GetApplicationResponse.builder();
+                                com.oracle.bmc.functions.responses.GetApplicationResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.functions.responses
+                                                        .GetApplicationResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.application(response.getItem());
 
@@ -94,7 +110,8 @@ public class GetApplicationConverter {
                                                     String.class));
                                 }
 
-                                GetApplicationResponse responseWrapper = builder.build();
+                                com.oracle.bmc.functions.responses.GetApplicationResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

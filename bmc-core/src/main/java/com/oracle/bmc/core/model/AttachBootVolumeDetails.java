@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = AttachBootVolumeDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AttachBootVolumeDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -51,12 +53,22 @@ public class AttachBootVolumeDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionInTransitType")
+        private EncryptionInTransitType encryptionInTransitType;
+
+        public Builder encryptionInTransitType(EncryptionInTransitType encryptionInTransitType) {
+            this.encryptionInTransitType = encryptionInTransitType;
+            this.__explicitlySet__.add("encryptionInTransitType");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public AttachBootVolumeDetails build() {
             AttachBootVolumeDetails __instance__ =
-                    new AttachBootVolumeDetails(bootVolumeId, displayName, instanceId);
+                    new AttachBootVolumeDetails(
+                            bootVolumeId, displayName, instanceId, encryptionInTransitType);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -66,7 +78,8 @@ public class AttachBootVolumeDetails {
             Builder copiedBuilder =
                     bootVolumeId(o.getBootVolumeId())
                             .displayName(o.getDisplayName())
-                            .instanceId(o.getInstanceId());
+                            .instanceId(o.getInstanceId())
+                            .encryptionInTransitType(o.getEncryptionInTransitType());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -98,6 +111,14 @@ public class AttachBootVolumeDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("instanceId")
     String instanceId;
+
+    /**
+     * Refer the top-level definition of encryptionInTransitType.
+     * The default value is NONE.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionInTransitType")
+    EncryptionInTransitType encryptionInTransitType;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

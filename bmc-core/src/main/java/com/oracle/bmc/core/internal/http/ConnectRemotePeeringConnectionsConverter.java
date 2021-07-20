@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,16 @@ public class ConnectRemotePeeringConnectionsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ConnectRemotePeeringConnectionsRequest interceptRequest(
-            ConnectRemotePeeringConnectionsRequest request) {
+    public static com.oracle.bmc.core.requests.ConnectRemotePeeringConnectionsRequest
+            interceptRequest(
+                    com.oracle.bmc.core.requests.ConnectRemotePeeringConnectionsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ConnectRemotePeeringConnectionsRequest request) {
+            com.oracle.bmc.core.requests.ConnectRemotePeeringConnectionsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getRemotePeeringConnectionId(),
@@ -47,23 +49,30 @@ public class ConnectRemotePeeringConnectionsConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ConnectRemotePeeringConnectionsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ConnectRemotePeeringConnectionsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ConnectRemotePeeringConnectionsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ConnectRemotePeeringConnectionsResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ConnectRemotePeeringConnectionsResponse>() {
+                                com.oracle.bmc.core.responses
+                                        .ConnectRemotePeeringConnectionsResponse>() {
                             @Override
-                            public ConnectRemotePeeringConnectionsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses
+                                            .ConnectRemotePeeringConnectionsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ConnectRemotePeeringConnectionsResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ConnectRemotePeeringConnectionsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -74,8 +83,14 @@ public class ConnectRemotePeeringConnectionsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ConnectRemotePeeringConnectionsResponse.Builder builder =
-                                        ConnectRemotePeeringConnectionsResponse.builder();
+                                com.oracle.bmc.core.responses
+                                                .ConnectRemotePeeringConnectionsResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ConnectRemotePeeringConnectionsResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -89,8 +104,9 @@ public class ConnectRemotePeeringConnectionsConverter {
                                                     String.class));
                                 }
 
-                                ConnectRemotePeeringConnectionsResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.core.responses
+                                                .ConnectRemotePeeringConnectionsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

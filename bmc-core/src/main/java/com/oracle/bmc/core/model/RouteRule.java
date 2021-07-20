@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = RouteRule.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class RouteRule {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -60,12 +62,22 @@ public class RouteRule {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public RouteRule build() {
             RouteRule __instance__ =
-                    new RouteRule(cidrBlock, destination, destinationType, networkEntityId);
+                    new RouteRule(
+                            cidrBlock, destination, destinationType, networkEntityId, description);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -76,7 +88,8 @@ public class RouteRule {
                     cidrBlock(o.getCidrBlock())
                             .destination(o.getDestination())
                             .destinationType(o.getDestinationType())
-                            .networkEntityId(o.getNetworkEntityId());
+                            .networkEntityId(o.getNetworkEntityId())
+                            .description(o.getDescription());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -114,6 +127,8 @@ public class RouteRule {
      * IP address range in CIDR notation. Can be an IPv4 or IPv6 CIDR. For example: `192.168.1.0/24`
      *   or `2001:0db8:0123:45::/56`. If you set this to an IPv6 CIDR, the route rule's target
      *   can only be a DRG or internet gateway.
+     *   IPv6 addressing is supported for all commercial and government regions.
+     *   See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * The `cidrBlock` value for a {@link Service}, if you're
      *     setting up a route rule for traffic destined for a particular `Service` through
@@ -191,11 +206,18 @@ public class RouteRule {
     /**
      * The OCID for the route rule's target. For information about the type of
      * targets you can specify, see
-     * [Route Tables](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm).
+     * [Route Tables](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("networkEntityId")
     String networkEntityId;
+
+    /**
+     * An optional description of your choice for the rule.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    String description;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

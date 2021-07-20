@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.resourcemanager.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = WorkRequest.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class WorkRequest {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -153,6 +155,8 @@ public class WorkRequest {
     @lombok.extern.slf4j.Slf4j
     public enum OperationType {
         ChangeStackCompartment("CHANGE_STACK_COMPARTMENT"),
+        CreateStackFromCompartment("CREATE_STACK_FROM_COMPARTMENT"),
+        DriftDetection("DRIFT_DETECTION"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -252,13 +256,13 @@ public class WorkRequest {
     Status status;
 
     /**
-     * OCID identifying this work request.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) identifying this work request.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
 
     /**
-     * The OCID of the compartment containing this work request.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing this work request.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -276,19 +280,28 @@ public class WorkRequest {
     Float percentComplete;
 
     /**
-     * When the work request was created.
+     * The date and time when the work request was created.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeAccepted")
     java.util.Date timeAccepted;
 
     /**
-     * When the work request transitioned from ACCEPTED to IN_PROGRESS.
+     * The date and time when the work request transitioned from ACCEPTED to IN_PROGRESS.
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeStarted")
     java.util.Date timeStarted;
 
     /**
-     * When the work request reached a terminal state (FAILED or SUCCEEDED).
+     * The date and time when the work request reached a terminal state (FAILED or SUCCEEDED).
+     * Format is defined by RFC3339.
+     * Example: `2020-01-25T21:10:29.600Z`
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeFinished")
     java.util.Date timeFinished;

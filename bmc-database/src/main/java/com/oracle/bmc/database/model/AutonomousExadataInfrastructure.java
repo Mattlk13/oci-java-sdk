@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.database.model;
     builder = AutonomousExadataInfrastructure.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AutonomousExadataInfrastructure {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -66,6 +68,15 @@ public class AutonomousExadataInfrastructure {
         public Builder subnetId(String subnetId) {
             this.subnetId = subnetId;
             this.__explicitlySet__.add("subnetId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+        private java.util.List<String> nsgIds;
+
+        public Builder nsgIds(java.util.List<String> nsgIds) {
+            this.nsgIds = nsgIds;
+            this.__explicitlySet__.add("nsgIds");
             return this;
         }
 
@@ -178,6 +189,24 @@ public class AutonomousExadataInfrastructure {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("scanDnsName")
+        private String scanDnsName;
+
+        public Builder scanDnsName(String scanDnsName) {
+            this.scanDnsName = scanDnsName;
+            this.__explicitlySet__.add("scanDnsName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
+        private String zoneId;
+
+        public Builder zoneId(String zoneId) {
+            this.zoneId = zoneId;
+            this.__explicitlySet__.add("zoneId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -189,6 +218,7 @@ public class AutonomousExadataInfrastructure {
                             displayName,
                             availabilityDomain,
                             subnetId,
+                            nsgIds,
                             shape,
                             hostname,
                             domain,
@@ -200,7 +230,9 @@ public class AutonomousExadataInfrastructure {
                             lastMaintenanceRunId,
                             nextMaintenanceRunId,
                             freeformTags,
-                            definedTags);
+                            definedTags,
+                            scanDnsName,
+                            zoneId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -213,6 +245,7 @@ public class AutonomousExadataInfrastructure {
                             .displayName(o.getDisplayName())
                             .availabilityDomain(o.getAvailabilityDomain())
                             .subnetId(o.getSubnetId())
+                            .nsgIds(o.getNsgIds())
                             .shape(o.getShape())
                             .hostname(o.getHostname())
                             .domain(o.getDomain())
@@ -224,7 +257,9 @@ public class AutonomousExadataInfrastructure {
                             .lastMaintenanceRunId(o.getLastMaintenanceRunId())
                             .nextMaintenanceRunId(o.getNextMaintenanceRunId())
                             .freeformTags(o.getFreeformTags())
-                            .definedTags(o.getDefinedTags());
+                            .definedTags(o.getDefinedTags())
+                            .scanDnsName(o.getScanDnsName())
+                            .zoneId(o.getZoneId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -275,6 +310,15 @@ public class AutonomousExadataInfrastructure {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
     String subnetId;
+
+    /**
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * **NsgIds restrictions:**
+     * - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+    java.util.List<String> nsgIds;
 
     /**
      * The shape of the Autonomous Exadata Infrastructure. The shape determines resources to allocate to the Autonomous Exadata Infrastructure (CPU cores, memory and storage).
@@ -443,12 +487,24 @@ public class AutonomousExadataInfrastructure {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * The FQDN of the DNS record for the SCAN IP addresses that are associated with the Autonomous Exadata Infrastructure.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("scanDnsName")
+    String scanDnsName;
+
+    /**
+     * The OCID of the zone the Autonomous Exadata Infrastructure is associated with.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
+    String zoneId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

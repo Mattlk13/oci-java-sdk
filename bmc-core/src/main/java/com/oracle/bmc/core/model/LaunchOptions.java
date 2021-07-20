@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Options for tuning compatibility and performance of VM shapes.
+ * Options for tuning the compatibility and performance of VM shapes. The values that you specify override any
+ * default values.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -19,6 +21,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = LaunchOptions.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class LaunchOptions {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -117,14 +120,14 @@ public class LaunchOptions {
     }
 
     /**
-     * Emulation type for volume.
-     * * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-     * Storage volumes on Oracle provided images.
+     * Emulation type for the boot volume.
+     * * `ISCSI` - ISCSI attached block storage device.
      * * `SCSI` - Emulated SCSI disk.
      * * `IDE` - Emulated IDE disk.
-     * * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-     * volumes on Oracle provided images.
-     * * `PARAVIRTUALIZED` - Paravirtualized disk.
+     * * `VFIO` - Direct attached Virtual Function storage. This is the default option for local data
+     * volumes on platform images.
+     * * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+     * storage volumes on platform images.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -174,24 +177,24 @@ public class LaunchOptions {
         }
     };
     /**
-     * Emulation type for volume.
-     * * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-     * Storage volumes on Oracle provided images.
+     * Emulation type for the boot volume.
+     * * `ISCSI` - ISCSI attached block storage device.
      * * `SCSI` - Emulated SCSI disk.
      * * `IDE` - Emulated IDE disk.
-     * * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-     * volumes on Oracle provided images.
-     * * `PARAVIRTUALIZED` - Paravirtualized disk.
+     * * `VFIO` - Direct attached Virtual Function storage. This is the default option for local data
+     * volumes on platform images.
+     * * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+     * storage volumes on platform images.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeType")
     BootVolumeType bootVolumeType;
     /**
-     * Firmware used to boot VM.  Select the option that matches your operating system.
-     * * `BIOS` - Boot VM using BIOS style firmware.  This is compatible with both 32 bit and 64 bit operating
+     * Firmware used to boot VM. Select the option that matches your operating system.
+     * * `BIOS` - Boot VM using BIOS style firmware. This is compatible with both 32 bit and 64 bit operating
      * systems that boot using MBR style bootloaders.
-     * * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems.  This is the
-     * default for Oracle provided images.
+     * * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems. This is the
+     * default for platform images.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -238,20 +241,21 @@ public class LaunchOptions {
         }
     };
     /**
-     * Firmware used to boot VM.  Select the option that matches your operating system.
-     * * `BIOS` - Boot VM using BIOS style firmware.  This is compatible with both 32 bit and 64 bit operating
+     * Firmware used to boot VM. Select the option that matches your operating system.
+     * * `BIOS` - Boot VM using BIOS style firmware. This is compatible with both 32 bit and 64 bit operating
      * systems that boot using MBR style bootloaders.
-     * * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems.  This is the
-     * default for Oracle provided images.
+     * * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems. This is the
+     * default for platform images.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("firmware")
     Firmware firmware;
     /**
-     * Emulation type for NIC.
-     * * `E1000` - Emulated Gigabit ethernet controller.  Compatible with Linux e1000 network driver.
-     * * `VFIO` - Direct attached Virtual Function network controller.  Default for Oracle provided images.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * Emulation type for the physical network interface card (NIC).
+     * * `E1000` - Emulated Gigabit ethernet controller. Compatible with Linux e1000 network driver.
+     * * `VFIO` - Direct attached Virtual Function network controller. This is the networking type
+     * when you launch an instance using hardware-assisted (SR-IOV) networking.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -299,23 +303,24 @@ public class LaunchOptions {
         }
     };
     /**
-     * Emulation type for NIC.
-     * * `E1000` - Emulated Gigabit ethernet controller.  Compatible with Linux e1000 network driver.
-     * * `VFIO` - Direct attached Virtual Function network controller.  Default for Oracle provided images.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * Emulation type for the physical network interface card (NIC).
+     * * `E1000` - Emulated Gigabit ethernet controller. Compatible with Linux e1000 network driver.
+     * * `VFIO` - Direct attached Virtual Function network controller. This is the networking type
+     * when you launch an instance using hardware-assisted (SR-IOV) networking.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("networkType")
     NetworkType networkType;
     /**
      * Emulation type for volume.
-     * * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-     * Storage volumes on Oracle provided images.
+     * * `ISCSI` - ISCSI attached block storage device.
      * * `SCSI` - Emulated SCSI disk.
      * * `IDE` - Emulated IDE disk.
-     * * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-     * volumes on Oracle provided images.
-     * * `PARAVIRTUALIZED` - Paravirtualized disk.
+     * * `VFIO` - Direct attached Virtual Function storage. This is the default option for local data
+     * volumes on platform images.
+     * * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+     * storage volumes on platform images.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -366,20 +371,22 @@ public class LaunchOptions {
     };
     /**
      * Emulation type for volume.
-     * * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-     * Storage volumes on Oracle provided images.
+     * * `ISCSI` - ISCSI attached block storage device.
      * * `SCSI` - Emulated SCSI disk.
      * * `IDE` - Emulated IDE disk.
-     * * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-     * volumes on Oracle provided images.
-     * * `PARAVIRTUALIZED` - Paravirtualized disk.
+     * * `VFIO` - Direct attached Virtual Function storage. This is the default option for local data
+     * volumes on platform images.
+     * * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+     * storage volumes on platform images.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("remoteDataVolumeType")
     RemoteDataVolumeType remoteDataVolumeType;
 
     /**
-     * Whether to enable in-transit encryption for the boot volume's paravirtualized attachment. The default value is false.
+     * Deprecated. Instead use `isPvEncryptionInTransitEnabled` in
+     * {@link #launchInstanceDetails(LaunchInstanceDetailsRequest) launchInstanceDetails}.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isPvEncryptionInTransitEnabled")
     Boolean isPvEncryptionInTransitEnabled;

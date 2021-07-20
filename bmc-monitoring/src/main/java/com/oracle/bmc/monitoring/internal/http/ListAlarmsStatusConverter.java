@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.monitoring.internal.http;
 
@@ -16,13 +17,15 @@ public class ListAlarmsStatusConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListAlarmsStatusRequest interceptRequest(ListAlarmsStatusRequest request) {
+    public static com.oracle.bmc.monitoring.requests.ListAlarmsStatusRequest interceptRequest(
+            com.oracle.bmc.monitoring.requests.ListAlarmsStatusRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListAlarmsStatusRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.monitoring.requests.ListAlarmsStatusRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
 
@@ -91,21 +94,28 @@ public class ListAlarmsStatusConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListAlarmsStatusResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListAlarmsStatusResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListAlarmsStatusResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse>() {
                             @Override
-                            public ListAlarmsStatusResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListAlarmsStatusResponse");
+                                        "Transform function invoked for com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -122,8 +132,12 @@ public class ListAlarmsStatusConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListAlarmsStatusResponse.Builder builder =
-                                        ListAlarmsStatusResponse.builder();
+                                com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.monitoring.responses
+                                                        .ListAlarmsStatusResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -151,7 +165,8 @@ public class ListAlarmsStatusConverter {
                                                     String.class));
                                 }
 
-                                ListAlarmsStatusResponse responseWrapper = builder.build();
+                                com.oracle.bmc.monitoring.responses.ListAlarmsStatusResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

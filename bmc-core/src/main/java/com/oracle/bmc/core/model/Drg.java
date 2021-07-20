@@ -1,21 +1,19 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * A dynamic routing gateway (DRG), which is a virtual router that provides a path for private
- * network traffic between your VCN and your existing network. You use it with other Networking
- * Service components to create an IPSec VPN or a connection that uses
- * Oracle Cloud Infrastructure FastConnect. For more information, see
- * [Overview of the Networking Service](https://docs.cloud.oracle.com/Content/Network/Concepts/overview.htm).
+ * A dynamic routing gateway (DRG) is a virtual router that provides a path for private
+ * network traffic between networks. You use it with other Networking
+ * Service components to create a connection to your on-premises network using [VPN Connect](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm) or a connection that uses
+ * [FastConnect](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm). For more information, see
+ * [Overview of the Networking Service](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
- * <p>
- **Warning:** Oracle recommends that you avoid using any confidential information when you
- * supply string values using the API.
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -30,6 +28,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Drg.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Drg {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -98,6 +97,25 @@ public class Drg {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("defaultDrgRouteTables")
+        private DefaultDrgRouteTables defaultDrgRouteTables;
+
+        public Builder defaultDrgRouteTables(DefaultDrgRouteTables defaultDrgRouteTables) {
+            this.defaultDrgRouteTables = defaultDrgRouteTables;
+            this.__explicitlySet__.add("defaultDrgRouteTables");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("defaultExportDrgRouteDistributionId")
+        private String defaultExportDrgRouteDistributionId;
+
+        public Builder defaultExportDrgRouteDistributionId(
+                String defaultExportDrgRouteDistributionId) {
+            this.defaultExportDrgRouteDistributionId = defaultExportDrgRouteDistributionId;
+            this.__explicitlySet__.add("defaultExportDrgRouteDistributionId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -110,7 +128,9 @@ public class Drg {
                             freeformTags,
                             id,
                             lifecycleState,
-                            timeCreated);
+                            timeCreated,
+                            defaultDrgRouteTables,
+                            defaultExportDrgRouteDistributionId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -124,7 +144,10 @@ public class Drg {
                             .freeformTags(o.getFreeformTags())
                             .id(o.getId())
                             .lifecycleState(o.getLifecycleState())
-                            .timeCreated(o.getTimeCreated());
+                            .timeCreated(o.getTimeCreated())
+                            .defaultDrgRouteTables(o.getDefaultDrgRouteTables())
+                            .defaultExportDrgRouteDistributionId(
+                                    o.getDefaultExportDrgRouteDistributionId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -139,14 +162,14 @@ public class Drg {
     }
 
     /**
-     * The OCID of the compartment containing the DRG.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the DRG.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -164,7 +187,7 @@ public class Drg {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -173,7 +196,7 @@ public class Drg {
     java.util.Map<String, String> freeformTags;
 
     /**
-     * The DRG's Oracle ID (OCID).
+     * The DRG's Oracle ID ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -232,13 +255,23 @@ public class Drg {
     LifecycleState lifecycleState;
 
     /**
-     * The date and time the DRG was created, in the format defined by RFC3339.
+     * The date and time the DRG was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("defaultDrgRouteTables")
+    DefaultDrgRouteTables defaultDrgRouteTables;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of this DRG's default export route distribution for the DRG attachments.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("defaultExportDrgRouteDistributionId")
+    String defaultExportDrgRouteDistributionId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

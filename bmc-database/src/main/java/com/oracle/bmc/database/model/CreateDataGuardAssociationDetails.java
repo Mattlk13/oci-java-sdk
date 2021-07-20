@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -35,12 +36,22 @@ package com.oracle.bmc.database.model;
         name = "NewDbSystem"
     ),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+        value = CreateDataGuardAssociationToExistingVmClusterDetails.class,
+        name = "ExistingVmCluster"
+    ),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
         value = CreateDataGuardAssociationToExistingDbSystemDetails.class,
         name = "ExistingDbSystem"
     )
 })
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
 public class CreateDataGuardAssociationDetails {
+
+    /**
+     * The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+    String databaseSoftwareImageId;
 
     /**
      * A strong password for the `SYS`, `SYSTEM`, and `PDB Admin` users to apply during standby creation.
@@ -98,7 +109,7 @@ public class CreateDataGuardAssociationDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ProtectionMode: " + key);
+            throw new IllegalArgumentException("Invalid ProtectionMode: " + key);
         }
     };
     /**
@@ -155,7 +166,7 @@ public class CreateDataGuardAssociationDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid TransportType: " + key);
+            throw new IllegalArgumentException("Invalid TransportType: " + key);
         }
     };
     /**

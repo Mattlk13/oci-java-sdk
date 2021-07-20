@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Instance agent features supported on the image
+ * Oracle Cloud Agent features supported on the image.
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
  * that are {@code null} because they are unset from fields that are explicitly set to {@code null}. This is done in
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = InstanceAgentFeatures.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class InstanceAgentFeatures {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -33,18 +35,30 @@ public class InstanceAgentFeatures {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isManagementSupported")
+        private Boolean isManagementSupported;
+
+        public Builder isManagementSupported(Boolean isManagementSupported) {
+            this.isManagementSupported = isManagementSupported;
+            this.__explicitlySet__.add("isManagementSupported");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public InstanceAgentFeatures build() {
-            InstanceAgentFeatures __instance__ = new InstanceAgentFeatures(isMonitoringSupported);
+            InstanceAgentFeatures __instance__ =
+                    new InstanceAgentFeatures(isMonitoringSupported, isManagementSupported);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(InstanceAgentFeatures o) {
-            Builder copiedBuilder = isMonitoringSupported(o.getIsMonitoringSupported());
+            Builder copiedBuilder =
+                    isMonitoringSupported(o.getIsMonitoringSupported())
+                            .isManagementSupported(o.getIsManagementSupported());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -59,11 +73,18 @@ public class InstanceAgentFeatures {
     }
 
     /**
-     * Whether the agent running on the instance can gather performance metrics and monitor the instance.
+     * This attribute is not used.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isMonitoringSupported")
     Boolean isMonitoringSupported;
+
+    /**
+     * This attribute is not used.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isManagementSupported")
+    Boolean isManagementSupported;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

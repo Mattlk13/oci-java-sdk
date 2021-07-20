@@ -1,14 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.requests;
 
 import com.oracle.bmc.objectstorage.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/objectstorage/GetObjectExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use GetObjectRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class GetObjectRequest extends com.oracle.bmc.requests.BmcRequest {
+public class GetObjectRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The Object Storage namespace used for the request.
@@ -30,16 +39,21 @@ public class GetObjectRequest extends com.oracle.bmc.requests.BmcRequest {
     private String objectName;
 
     /**
-     * The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-     * For uploading a part, this is the entity tag of the target part.
+     * VersionId used to identify a particular version of the object
+     */
+    private String versionId;
+
+    /**
+     * The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+     * the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+     * the resource.
      *
      */
     private String ifMatch;
 
     /**
-     * The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-     * already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-     * part, this is the entity tag of the target part.
+     * The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+     * fail if the resource already exists.
      *
      */
     private String ifNoneMatch;
@@ -50,13 +64,68 @@ public class GetObjectRequest extends com.oracle.bmc.requests.BmcRequest {
     private String opcClientRequestId;
 
     /**
-     * Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/rfc/rfc7233), section 2.1.
+     * Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7233#section-2.1).
      * Note that only a single range of bytes is supported.
      *
      */
     private com.oracle.bmc.model.Range range;
 
-    public static class Builder {
+    /**
+     * The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerAlgorithm;
+
+    /**
+     * The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+     * decrypt the data. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerKey;
+
+    /**
+     * The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+     * value is used to check the integrity of the encryption key. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerKeySha256;
+
+    /**
+     * Specify this query parameter to override the value of the Content-Disposition response header in the GetObject response.
+     */
+    private String httpResponseContentDisposition;
+
+    /**
+     * Specify this query parameter to override the Cache-Control response header in the GetObject response.
+     */
+    private String httpResponseCacheControl;
+
+    /**
+     * Specify this query parameter to override the Content-Type response header in the GetObject response.
+     */
+    private String httpResponseContentType;
+
+    /**
+     * Specify this query parameter to override the Content-Language response header in the GetObject response.
+     */
+    private String httpResponseContentLanguage;
+
+    /**
+     * Specify this query parameter to override the Content-Encoding response header in the GetObject response.
+     */
+    private String httpResponseContentEncoding;
+
+    /**
+     * Specify this query parameter to override the Expires response header in the GetObject response.
+     */
+    private String httpResponseExpires;
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    GetObjectRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -92,10 +161,20 @@ public class GetObjectRequest extends com.oracle.bmc.requests.BmcRequest {
             namespaceName(o.getNamespaceName());
             bucketName(o.getBucketName());
             objectName(o.getObjectName());
+            versionId(o.getVersionId());
             ifMatch(o.getIfMatch());
             ifNoneMatch(o.getIfNoneMatch());
             opcClientRequestId(o.getOpcClientRequestId());
             range(o.getRange());
+            opcSseCustomerAlgorithm(o.getOpcSseCustomerAlgorithm());
+            opcSseCustomerKey(o.getOpcSseCustomerKey());
+            opcSseCustomerKeySha256(o.getOpcSseCustomerKeySha256());
+            httpResponseContentDisposition(o.getHttpResponseContentDisposition());
+            httpResponseCacheControl(o.getHttpResponseCacheControl());
+            httpResponseContentType(o.getHttpResponseContentType());
+            httpResponseContentLanguage(o.getHttpResponseContentLanguage());
+            httpResponseContentEncoding(o.getHttpResponseContentEncoding());
+            httpResponseExpires(o.getHttpResponseExpires());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

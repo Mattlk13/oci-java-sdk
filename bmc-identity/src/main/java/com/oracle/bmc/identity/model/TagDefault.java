@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -29,6 +30,7 @@ package com.oracle.bmc.identity.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = TagDefault.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class TagDefault {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -105,6 +107,15 @@ public class TagDefault {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isRequired")
+        private Boolean isRequired;
+
+        public Builder isRequired(Boolean isRequired) {
+            this.isRequired = isRequired;
+            this.__explicitlySet__.add("isRequired");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -118,7 +129,8 @@ public class TagDefault {
                             tagDefinitionName,
                             value,
                             timeCreated,
-                            lifecycleState);
+                            lifecycleState,
+                            isRequired);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -133,7 +145,8 @@ public class TagDefault {
                             .tagDefinitionName(o.getTagDefinitionName())
                             .value(o.getValue())
                             .timeCreated(o.getTimeCreated())
-                            .lifecycleState(o.getLifecycleState());
+                            .lifecycleState(o.getLifecycleState())
+                            .isRequired(o.getIsRequired());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -249,6 +262,20 @@ public class TagDefault {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     LifecycleState lifecycleState;
+
+    /**
+     * If you specify that a value is required, a value is set during resource creation (either by the
+     * user creating the resource or another tag defualt). If no value is set, resource creation is
+     * blocked.
+     * <p>
+     * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+     * * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
+     * <p>
+     * Example: `false`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isRequired")
+    Boolean isRequired;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

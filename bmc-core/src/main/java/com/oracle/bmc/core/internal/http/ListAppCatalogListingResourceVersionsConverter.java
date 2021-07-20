@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,17 @@ public class ListAppCatalogListingResourceVersionsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListAppCatalogListingResourceVersionsRequest interceptRequest(
-            ListAppCatalogListingResourceVersionsRequest request) {
+    public static com.oracle.bmc.core.requests.ListAppCatalogListingResourceVersionsRequest
+            interceptRequest(
+                    com.oracle.bmc.core.requests.ListAppCatalogListingResourceVersionsRequest
+                            request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ListAppCatalogListingResourceVersionsRequest request) {
+            com.oracle.bmc.core.requests.ListAppCatalogListingResourceVersionsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getListingId(), "listingId must not be blank");
 
@@ -65,23 +68,30 @@ public class ListAppCatalogListingResourceVersionsConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListAppCatalogListingResourceVersionsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ListAppCatalogListingResourceVersionsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListAppCatalogListingResourceVersionsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ListAppCatalogListingResourceVersionsResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ListAppCatalogListingResourceVersionsResponse>() {
+                                com.oracle.bmc.core.responses
+                                        .ListAppCatalogListingResourceVersionsResponse>() {
                             @Override
-                            public ListAppCatalogListingResourceVersionsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses
+                                            .ListAppCatalogListingResourceVersionsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListAppCatalogListingResourceVersionsResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ListAppCatalogListingResourceVersionsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -100,19 +110,17 @@ public class ListAppCatalogListingResourceVersionsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListAppCatalogListingResourceVersionsResponse.Builder builder =
-                                        ListAppCatalogListingResourceVersionsResponse.builder();
+                                com.oracle.bmc.core.responses
+                                                .ListAppCatalogListingResourceVersionsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ListAppCatalogListingResourceVersionsResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
-
-                                com.google.common.base.Optional<java.util.List<String>> etagHeader =
-                                        com.oracle.bmc.http.internal.HeaderUtils.get(
-                                                headers, "etag");
-                                if (etagHeader.isPresent()) {
-                                    builder.etag(
-                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
-                                                    "etag", etagHeader.get().get(0), String.class));
-                                }
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcNextPageHeader =
@@ -138,8 +146,9 @@ public class ListAppCatalogListingResourceVersionsConverter {
                                                     String.class));
                                 }
 
-                                ListAppCatalogListingResourceVersionsResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.core.responses
+                                                .ListAppCatalogListingResourceVersionsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

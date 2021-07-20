@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.io.internal;
 
@@ -17,6 +18,7 @@ import java.io.InputStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
@@ -145,13 +147,12 @@ public class WrappedResponseInputStreamTest {
 
         try {
             streamUnderTest.close();
-            fail("ProcessingException should have been thrown");
-        } catch (Throwable t) {
-            assertThat(
-                    "Exception thrown should be a ProcessingException",
-                    t,
-                    instanceOf(ProcessingException.class));
             verify(mockRawResponseDelegate).close();
+        } catch (Throwable t) {
+            assertNotEquals(
+                    "Processing exception should not have been thrown",
+                    true,
+                    t instanceof ProcessingException);
         }
     }
 }

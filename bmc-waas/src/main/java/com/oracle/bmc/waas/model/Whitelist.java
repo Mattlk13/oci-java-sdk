@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.waas.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Whitelist.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Whitelist {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,18 +42,28 @@ public class Whitelist {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("addressLists")
+        private java.util.List<String> addressLists;
+
+        public Builder addressLists(java.util.List<String> addressLists) {
+            this.addressLists = addressLists;
+            this.__explicitlySet__.add("addressLists");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public Whitelist build() {
-            Whitelist __instance__ = new Whitelist(name, addresses);
+            Whitelist __instance__ = new Whitelist(name, addresses, addressLists);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(Whitelist o) {
-            Builder copiedBuilder = name(o.getName()).addresses(o.getAddresses());
+            Builder copiedBuilder =
+                    name(o.getName()).addresses(o.getAddresses()).addressLists(o.getAddressLists());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -76,6 +88,12 @@ public class Whitelist {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("addresses")
     java.util.List<String> addresses;
+
+    /**
+     * A list of [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of IP address lists to include in the whitelist.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("addressLists")
+    java.util.List<String> addressLists;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

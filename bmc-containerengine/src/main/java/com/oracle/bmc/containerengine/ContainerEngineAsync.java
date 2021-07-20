@@ -1,11 +1,18 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine;
 
 import com.oracle.bmc.containerengine.requests.*;
 import com.oracle.bmc.containerengine.responses.*;
 
+/**
+ * API for the Container Engine for Kubernetes service. Use this API to build, deploy,
+ * and manage cloud-native applications. For more information, see
+ * [Overview of Container Engine for Kubernetes](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180222")
 public interface ContainerEngineAsync extends AutoCloseable {
 
@@ -14,6 +21,11 @@ public interface ContainerEngineAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -35,6 +47,22 @@ public interface ContainerEngineAsync extends AutoCloseable {
      * @param regionId The public region ID.
      */
     void setRegion(String regionId);
+
+    /**
+     * Initiates cluster migration to use native VCN.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ClusterMigrateToNativeVcnResponse> clusterMigrateToNativeVcn(
+            ClusterMigrateToNativeVcnRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ClusterMigrateToNativeVcnRequest, ClusterMigrateToNativeVcnResponse>
+                    handler);
 
     /**
      * Create a new cluster.
@@ -140,6 +168,24 @@ public interface ContainerEngineAsync extends AutoCloseable {
     java.util.concurrent.Future<GetClusterResponse> getCluster(
             GetClusterRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetClusterRequest, GetClusterResponse> handler);
+
+    /**
+     * Get details on a cluster's migration to native VCN.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetClusterMigrateToNativeVcnStatusResponse>
+            getClusterMigrateToNativeVcnStatus(
+                    GetClusterMigrateToNativeVcnStatusRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetClusterMigrateToNativeVcnStatusRequest,
+                                    GetClusterMigrateToNativeVcnStatusResponse>
+                            handler);
 
     /**
      * Get options available for clusters.
@@ -292,6 +338,22 @@ public interface ContainerEngineAsync extends AutoCloseable {
     java.util.concurrent.Future<UpdateClusterResponse> updateCluster(
             UpdateClusterRequest request,
             com.oracle.bmc.responses.AsyncHandler<UpdateClusterRequest, UpdateClusterResponse>
+                    handler);
+
+    /**
+     * Update the details of the cluster endpoint configuration.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateClusterEndpointConfigResponse> updateClusterEndpointConfig(
+            UpdateClusterEndpointConfigRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateClusterEndpointConfigRequest, UpdateClusterEndpointConfigResponse>
                     handler);
 
     /**

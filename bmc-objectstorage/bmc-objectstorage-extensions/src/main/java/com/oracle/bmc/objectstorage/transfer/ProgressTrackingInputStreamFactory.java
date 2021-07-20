@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.transfer;
 
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Slf4j
 class ProgressTrackingInputStreamFactory {
     static InputStream create(final InputStream source, final ProgressTracker progressTracker) {
         if (progressTracker == null) {
@@ -34,6 +36,8 @@ class ProgressTrackingInputStreamFactory {
         @Getter(value = AccessLevel.PROTECTED)
         private final ProgressTracker progressTracker;
 
+        private long bytesReadSinceReset = 0L;
+
         @Override
         public long skip(long n) throws IOException {
             return source.skip(n);
@@ -52,6 +56,9 @@ class ProgressTrackingInputStreamFactory {
         @Override
         public void reset() throws IOException {
             source.reset();
+            progressTracker.invalidateBytesRead(bytesReadSinceReset);
+            LOG.trace("Invalidated {} bytes", bytesReadSinceReset);
+            bytesReadSinceReset = 0;
         }
 
         @Override
@@ -61,9 +68,11 @@ class ProgressTrackingInputStreamFactory {
 
         @Override
         public int read() throws IOException {
-            final int bytesRead = source.read();
-            checkAndReportBytesRead(bytesRead);
-            return bytesRead;
+            final int data = source.read();
+            if (data != -1) {
+                checkAndReportBytesRead(1);
+            }
+            return data;
         }
 
         @Override
@@ -87,6 +96,8 @@ class ProgressTrackingInputStreamFactory {
 
         private void checkAndReportBytesRead(final int bytesRead) {
             if (bytesRead != -1) {
+                bytesReadSinceReset += bytesRead;
+                LOG.trace("Read {} bytes for a total of {}", bytesRead, bytesReadSinceReset);
                 progressTracker.onBytesRead(bytesRead);
             }
         }

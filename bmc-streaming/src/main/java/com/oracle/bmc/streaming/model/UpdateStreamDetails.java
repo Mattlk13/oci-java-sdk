@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.streaming.model;
 
@@ -20,10 +21,20 @@ package com.oracle.bmc.streaming.model;
     builder = UpdateStreamDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateStreamDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("streamPoolId")
+        private String streamPoolId;
+
+        public Builder streamPoolId(String streamPoolId) {
+            this.streamPoolId = streamPoolId;
+            this.__explicitlySet__.add("streamPoolId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -47,7 +58,8 @@ public class UpdateStreamDetails {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateStreamDetails build() {
-            UpdateStreamDetails __instance__ = new UpdateStreamDetails(freeformTags, definedTags);
+            UpdateStreamDetails __instance__ =
+                    new UpdateStreamDetails(streamPoolId, freeformTags, definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -55,7 +67,9 @@ public class UpdateStreamDetails {
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateStreamDetails o) {
             Builder copiedBuilder =
-                    freeformTags(o.getFreeformTags()).definedTags(o.getDefinedTags());
+                    streamPoolId(o.getStreamPoolId())
+                            .freeformTags(o.getFreeformTags())
+                            .definedTags(o.getDefinedTags());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -68,6 +82,13 @@ public class UpdateStreamDetails {
     public static Builder builder() {
         return new Builder();
     }
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the stream pool where the stream should be moved.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("streamPoolId")
+    String streamPoolId;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair that is applied with no predefined name, type, or namespace. Exists for cross-compatibility only.

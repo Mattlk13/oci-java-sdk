@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.internal.http;
 
@@ -16,13 +17,15 @@ public class GetSteeringPolicyConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetSteeringPolicyRequest interceptRequest(GetSteeringPolicyRequest request) {
+    public static com.oracle.bmc.dns.requests.GetSteeringPolicyRequest interceptRequest(
+            com.oracle.bmc.dns.requests.GetSteeringPolicyRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetSteeringPolicyRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.dns.requests.GetSteeringPolicyRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getSteeringPolicyId(), "steeringPolicyId must not be blank");
 
@@ -33,6 +36,14 @@ public class GetSteeringPolicyConverter {
                         .path(
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
                                         request.getSteeringPolicyId()));
+
+        if (request.getScope() != null) {
+            target =
+                    target.queryParam(
+                            "scope",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getScope().getValue()));
+        }
 
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
@@ -46,21 +57,32 @@ public class GetSteeringPolicyConverter {
             ib.header("If-Modified-Since", request.getIfModifiedSince());
         }
 
+        if (request.getOpcRequestId() != null) {
+            ib.header("opc-request-id", request.getOpcRequestId());
+        }
+
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetSteeringPolicyResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.dns.responses.GetSteeringPolicyResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetSteeringPolicyResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.dns.responses.GetSteeringPolicyResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetSteeringPolicyResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.dns.responses.GetSteeringPolicyResponse>() {
                             @Override
-                            public GetSteeringPolicyResponse apply(
+                            public com.oracle.bmc.dns.responses.GetSteeringPolicyResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetSteeringPolicyResponse");
+                                        "Transform function invoked for com.oracle.bmc.dns.responses.GetSteeringPolicyResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -74,8 +96,12 @@ public class GetSteeringPolicyConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetSteeringPolicyResponse.Builder builder =
-                                        GetSteeringPolicyResponse.builder();
+                                com.oracle.bmc.dns.responses.GetSteeringPolicyResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.dns.responses
+                                                        .GetSteeringPolicyResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 if (response.getStatusCode() != 304) {
                                     builder.steeringPolicy(response.getItem());
@@ -105,7 +131,8 @@ public class GetSteeringPolicyConverter {
                                                     "ETag", eTagHeader.get().get(0), String.class));
                                 }
 
-                                GetSteeringPolicyResponse responseWrapper = builder.build();
+                                com.oracle.bmc.dns.responses.GetSteeringPolicyResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

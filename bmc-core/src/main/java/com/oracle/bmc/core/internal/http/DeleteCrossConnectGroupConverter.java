@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,15 @@ public class DeleteCrossConnectGroupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeleteCrossConnectGroupRequest interceptRequest(
-            DeleteCrossConnectGroupRequest request) {
+    public static com.oracle.bmc.core.requests.DeleteCrossConnectGroupRequest interceptRequest(
+            com.oracle.bmc.core.requests.DeleteCrossConnectGroupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            DeleteCrossConnectGroupRequest request) {
+            com.oracle.bmc.core.requests.DeleteCrossConnectGroupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getCrossConnectGroupId(), "crossConnectGroupId must not be blank");
@@ -45,22 +46,28 @@ public class DeleteCrossConnectGroupConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, DeleteCrossConnectGroupResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, DeleteCrossConnectGroupResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, DeleteCrossConnectGroupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse>() {
                             @Override
-                            public DeleteCrossConnectGroupResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for DeleteCrossConnectGroupResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -71,8 +78,13 @@ public class DeleteCrossConnectGroupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeleteCrossConnectGroupResponse.Builder builder =
-                                        DeleteCrossConnectGroupResponse.builder();
+                                com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .DeleteCrossConnectGroupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -86,7 +98,8 @@ public class DeleteCrossConnectGroupConverter {
                                                     String.class));
                                 }
 
-                                DeleteCrossConnectGroupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.DeleteCrossConnectGroupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

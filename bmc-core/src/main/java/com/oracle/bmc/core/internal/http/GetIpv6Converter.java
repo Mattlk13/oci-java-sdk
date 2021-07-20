@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class GetIpv6Converter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetIpv6Request interceptRequest(GetIpv6Request request) {
+    public static com.oracle.bmc.core.requests.GetIpv6Request interceptRequest(
+            com.oracle.bmc.core.requests.GetIpv6Request request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetIpv6Request request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.GetIpv6Request request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getIpv6Id(), "ipv6Id must not be blank");
 
@@ -42,18 +45,26 @@ public class GetIpv6Converter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetIpv6Response>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.core.responses.GetIpv6Response>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetIpv6Response>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response, com.oracle.bmc.core.responses.GetIpv6Response>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetIpv6Response>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetIpv6Response>() {
                             @Override
-                            public GetIpv6Response apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetIpv6Response");
+                            public com.oracle.bmc.core.responses.GetIpv6Response apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetIpv6Response");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Ipv6>>
@@ -64,7 +75,9 @@ public class GetIpv6Converter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetIpv6Response.Builder builder = GetIpv6Response.builder();
+                                com.oracle.bmc.core.responses.GetIpv6Response.Builder builder =
+                                        com.oracle.bmc.core.responses.GetIpv6Response.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.ipv6(response.getItem());
 
@@ -89,7 +102,8 @@ public class GetIpv6Converter {
                                                     String.class));
                                 }
 
-                                GetIpv6Response responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetIpv6Response responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

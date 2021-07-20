@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.transfer.internal;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
+import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.requests.UploadPartRequest;
 import com.oracle.bmc.objectstorage.responses.UploadPartResponse;
 
@@ -29,7 +31,7 @@ public class MultipartTransferManager {
     private final SecureRandom random = new SecureRandom();
     private final ExecutorService executor;
     private final MultipartManifestImpl manifest;
-    private final SimpleRetry simpleRetry;
+    private final ObjectStorage client;
 
     private final List<Future<Void>> responses = new ArrayList<>();
 
@@ -50,14 +52,13 @@ public class MultipartTransferManager {
                                     Thread.sleep(
                                             random.nextInt(
                                                     MAX_RANDOM_SLEEP_BEFORE_UPLOAD_START_MS));
-                                    UploadPartResponse response =
-                                            simpleRetry.createUploadPartFunction().apply(request);
+                                    UploadPartResponse response = client.uploadPart(request);
                                     manifest.registerSuccess(request.getUploadPartNum(), response);
                                 } catch (Exception e) {
                                     LOG.error(
                                             "Failed to upload part " + request.getUploadPartNum(),
                                             e);
-                                    manifest.registerFailure(request.getUploadPartNum());
+                                    manifest.registerFailure(request.getUploadPartNum(), e);
                                 }
                                 return null;
                             }

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.internal.http;
 
@@ -16,13 +17,15 @@ public class DeleteMountTargetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeleteMountTargetRequest interceptRequest(DeleteMountTargetRequest request) {
+    public static com.oracle.bmc.filestorage.requests.DeleteMountTargetRequest interceptRequest(
+            com.oracle.bmc.filestorage.requests.DeleteMountTargetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, DeleteMountTargetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.filestorage.requests.DeleteMountTargetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getMountTargetId(), "mountTargetId must not be blank");
 
@@ -46,21 +49,28 @@ public class DeleteMountTargetConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, DeleteMountTargetResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, DeleteMountTargetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, DeleteMountTargetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse>() {
                             @Override
-                            public DeleteMountTargetResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for DeleteMountTargetResponse");
+                                        "Transform function invoked for com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -71,8 +81,13 @@ public class DeleteMountTargetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeleteMountTargetResponse.Builder builder =
-                                        DeleteMountTargetResponse.builder();
+                                com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.filestorage.responses
+                                                        .DeleteMountTargetResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -86,7 +101,8 @@ public class DeleteMountTargetConverter {
                                                     String.class));
                                 }
 
-                                DeleteMountTargetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.filestorage.responses.DeleteMountTargetResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

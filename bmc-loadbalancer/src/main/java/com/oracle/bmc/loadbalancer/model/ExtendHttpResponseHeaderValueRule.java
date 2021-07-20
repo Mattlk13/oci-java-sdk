@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
@@ -40,6 +41,7 @@ package com.oracle.bmc.loadbalancer.model;
     property = "action"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ExtendHttpResponseHeaderValueRule extends Rule {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -117,6 +119,9 @@ public class ExtendHttpResponseHeaderValueRule extends Rule {
 
     /**
      * A string to prepend to the header value. The resulting header value must still conform to RFC 7230.
+     * With the following exceptions:
+     * *  value cannot contain `$`
+     * *  value cannot contain patterns like `{variable_name}`. They are reserved for future extensions. Currently, such values are invalid.
      * <p>
      * Example: `example_prefix_value`
      *
@@ -126,6 +131,9 @@ public class ExtendHttpResponseHeaderValueRule extends Rule {
 
     /**
      * A string to append to the header value. The resulting header value must still conform to RFC 7230.
+     * With the following exceptions:
+     * *  value cannot contain `$`
+     * *  value cannot contain patterns like `{variable_name}`. They are reserved for future extensions. Currently, such values are invalid.
      * <p>
      * Example: `example_suffix_value`
      *

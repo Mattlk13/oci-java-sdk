@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.resourcemanager.model;
     builder = UpdateStackDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateStackDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -61,6 +63,15 @@ public class UpdateStackDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("terraformVersion")
+        private String terraformVersion;
+
+        public Builder terraformVersion(String terraformVersion) {
+            this.terraformVersion = terraformVersion;
+            this.__explicitlySet__.add("terraformVersion");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -90,6 +101,7 @@ public class UpdateStackDetails {
                             description,
                             configSource,
                             variables,
+                            terraformVersion,
                             freeformTags,
                             definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
@@ -103,6 +115,7 @@ public class UpdateStackDetails {
                             .description(o.getDescription())
                             .configSource(o.getConfigSource())
                             .variables(o.getVariables())
+                            .terraformVersion(o.getTerraformVersion())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -135,13 +148,20 @@ public class UpdateStackDetails {
 
     /**
      * Terraform variables associated with this resource.
-     * The maximum number of variables supported is 100.
+     * The maximum number of variables supported is 250.
      * The maximum size of each variable, including both name and value, is 4096 bytes.
      * Example: `{\"CompartmentId\": \"compartment-id-value\"}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("variables")
     java.util.Map<String, String> variables;
+
+    /**
+     * The version of Terraform to use with the stack. Example: `0.12.x`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("terraformVersion")
+    String terraformVersion;
 
     /**
      * Free-form tags associated with this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -154,7 +174,7 @@ public class UpdateStackDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
-     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/

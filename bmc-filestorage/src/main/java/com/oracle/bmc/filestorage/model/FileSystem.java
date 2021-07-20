@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.model;
 
@@ -30,6 +31,7 @@ package com.oracle.bmc.filestorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = FileSystem.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class FileSystem {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -116,6 +118,51 @@ public class FileSystem {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
+        private SourceDetails sourceDetails;
+
+        public Builder sourceDetails(SourceDetails sourceDetails) {
+            this.sourceDetails = sourceDetails;
+            this.__explicitlySet__.add("sourceDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isCloneParent")
+        private Boolean isCloneParent;
+
+        public Builder isCloneParent(Boolean isCloneParent) {
+            this.isCloneParent = isCloneParent;
+            this.__explicitlySet__.add("isCloneParent");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isHydrated")
+        private Boolean isHydrated;
+
+        public Builder isHydrated(Boolean isHydrated) {
+            this.isHydrated = isHydrated;
+            this.__explicitlySet__.add("isHydrated");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+        private String lifecycleDetails;
+
+        public Builder lifecycleDetails(String lifecycleDetails) {
+            this.lifecycleDetails = lifecycleDetails;
+            this.__explicitlySet__.add("lifecycleDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -130,7 +177,12 @@ public class FileSystem {
                             lifecycleState,
                             timeCreated,
                             freeformTags,
-                            definedTags);
+                            definedTags,
+                            kmsKeyId,
+                            sourceDetails,
+                            isCloneParent,
+                            isHydrated,
+                            lifecycleDetails);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -146,7 +198,12 @@ public class FileSystem {
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
                             .freeformTags(o.getFreeformTags())
-                            .definedTags(o.getDefinedTags());
+                            .definedTags(o.getDefinedTags())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .sourceDetails(o.getSourceDetails())
+                            .isCloneParent(o.getIsCloneParent())
+                            .isHydrated(o.getIsHydrated())
+                            .lifecycleDetails(o.getLifecycleDetails());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -175,13 +232,14 @@ public class FileSystem {
      * any snapshots. This number reflects the metered size of the file
      * system and is updated asynchronously with respect to
      * updates to the file system.
+     * For more information, see [File System Usage and Metering](https://docs.cloud.oracle.com/Content/File/Concepts/FSutilization.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("meteredBytes")
     Long meteredBytes;
 
     /**
-     * The OCID of the compartment that contains the file system.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the file system.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -197,7 +255,7 @@ public class FileSystem {
     String displayName;
 
     /**
-     * The OCID of the file system.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -283,6 +341,40 @@ public class FileSystem {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the KMS key which is the master encryption key for the file system.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
+    SourceDetails sourceDetails;
+
+    /**
+     * Specifies whether the file system has been cloned.
+     * See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isCloneParent")
+    Boolean isCloneParent;
+
+    /**
+     * Specifies whether the data has finished copying from the source to the clone.
+     * Hydration can take up to several hours to complete depending on the size of the source.
+     * The source and clone remain available during hydration, but there may be some performance impact.
+     * See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm#hydration).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isHydrated")
+    Boolean isHydrated;
+
+    /**
+     * Additional information about the current 'lifecycleState'.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+    String lifecycleDetails;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdateFileSystemConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateFileSystemRequest interceptRequest(UpdateFileSystemRequest request) {
+    public static com.oracle.bmc.filestorage.requests.UpdateFileSystemRequest interceptRequest(
+            com.oracle.bmc.filestorage.requests.UpdateFileSystemRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdateFileSystemRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.filestorage.requests.UpdateFileSystemRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getFileSystemId(), "fileSystemId must not be blank");
         Validate.notNull(
@@ -48,21 +51,28 @@ public class UpdateFileSystemConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdateFileSystemResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UpdateFileSystemResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateFileSystemResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse>() {
                             @Override
-                            public UpdateFileSystemResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdateFileSystemResponse");
+                                        "Transform function invoked for com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -76,8 +86,13 @@ public class UpdateFileSystemConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateFileSystemResponse.Builder builder =
-                                        UpdateFileSystemResponse.builder();
+                                com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.filestorage.responses
+                                                        .UpdateFileSystemResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.fileSystem(response.getItem());
 
@@ -102,7 +117,8 @@ public class UpdateFileSystemConverter {
                                                     String.class));
                                 }
 
-                                UpdateFileSystemResponse responseWrapper = builder.build();
+                                com.oracle.bmc.filestorage.responses.UpdateFileSystemResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

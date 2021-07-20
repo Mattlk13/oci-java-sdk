@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.internal.http;
 
@@ -16,13 +17,15 @@ public class CreateMountTargetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CreateMountTargetRequest interceptRequest(CreateMountTargetRequest request) {
+    public static com.oracle.bmc.filestorage.requests.CreateMountTargetRequest interceptRequest(
+            com.oracle.bmc.filestorage.requests.CreateMountTargetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, CreateMountTargetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.filestorage.requests.CreateMountTargetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(
                 request.getCreateMountTargetDetails(), "createMountTargetDetails is required");
@@ -42,21 +45,28 @@ public class CreateMountTargetConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, CreateMountTargetResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.filestorage.responses.CreateMountTargetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, CreateMountTargetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.filestorage.responses.CreateMountTargetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, CreateMountTargetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.filestorage.responses.CreateMountTargetResponse>() {
                             @Override
-                            public CreateMountTargetResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.filestorage.responses.CreateMountTargetResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for CreateMountTargetResponse");
+                                        "Transform function invoked for com.oracle.bmc.filestorage.responses.CreateMountTargetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -70,8 +80,13 @@ public class CreateMountTargetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CreateMountTargetResponse.Builder builder =
-                                        CreateMountTargetResponse.builder();
+                                com.oracle.bmc.filestorage.responses.CreateMountTargetResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.filestorage.responses
+                                                        .CreateMountTargetResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.mountTarget(response.getItem());
 
@@ -96,7 +111,8 @@ public class CreateMountTargetConverter {
                                                     String.class));
                                 }
 
-                                CreateMountTargetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.filestorage.responses.CreateMountTargetResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

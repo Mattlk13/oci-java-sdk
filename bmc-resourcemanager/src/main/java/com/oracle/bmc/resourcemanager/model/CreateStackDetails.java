@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.model;
 
 /**
- * Properties provided for creating a stack.
+ * The configuration details for creating a stack.
+ *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
  * that are {@code null} because they are unset from fields that are explicitly set to {@code null}. This is done in
@@ -20,6 +22,7 @@ package com.oracle.bmc.resourcemanager.model;
     builder = CreateStackDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateStackDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,6 +72,15 @@ public class CreateStackDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("terraformVersion")
+        private String terraformVersion;
+
+        public Builder terraformVersion(String terraformVersion) {
+            this.terraformVersion = terraformVersion;
+            this.__explicitlySet__.add("terraformVersion");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -99,6 +111,7 @@ public class CreateStackDetails {
                             description,
                             configSource,
                             variables,
+                            terraformVersion,
                             freeformTags,
                             definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
@@ -113,6 +126,7 @@ public class CreateStackDetails {
                             .description(o.getDescription())
                             .configSource(o.getConfigSource())
                             .variables(o.getVariables())
+                            .terraformVersion(o.getTerraformVersion())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -129,7 +143,7 @@ public class CreateStackDetails {
     }
 
     /**
-     * Unique identifier (OCID) of the compartment in which the stack resides.
+     * Unique identifier ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)) of the compartment in which the stack resides.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -151,13 +165,20 @@ public class CreateStackDetails {
 
     /**
      * Terraform variables associated with this resource.
-     * Maximum number of variables supported is 100.
+     * Maximum number of variables supported is 250.
      * The maximum size of each variable, including both name and value, is 4096 bytes.
      * Example: `{\"CompartmentId\": \"compartment-id-value\"}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("variables")
     java.util.Map<String, String> variables;
+
+    /**
+     * The version of Terraform to use with the stack. Example: `0.12.x`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("terraformVersion")
+    String terraformVersion;
 
     /**
      * Free-form tags associated with this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.

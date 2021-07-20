@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dts.internal.http;
 
@@ -9,20 +10,22 @@ import com.oracle.bmc.dts.requests.*;
 import com.oracle.bmc.dts.responses.*;
 import org.apache.commons.lang3.Validate;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.009")
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.015")
 @lombok.extern.slf4j.Slf4j
 public class ListShippingVendorsConverter {
     private static final com.oracle.bmc.http.internal.ResponseConversionFunctionFactory
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListShippingVendorsRequest interceptRequest(ListShippingVendorsRequest request) {
+    public static com.oracle.bmc.dts.requests.ListShippingVendorsRequest interceptRequest(
+            com.oracle.bmc.dts.requests.ListShippingVendorsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListShippingVendorsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.dts.requests.ListShippingVendorsRequest request) {
         Validate.notNull(request, "request instance is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
@@ -32,22 +35,28 @@ public class ListShippingVendorsConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListShippingVendorsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.dts.responses.ListShippingVendorsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListShippingVendorsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.dts.responses.ListShippingVendorsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListShippingVendorsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.dts.responses.ListShippingVendorsResponse>() {
                             @Override
-                            public ListShippingVendorsResponse apply(
+                            public com.oracle.bmc.dts.responses.ListShippingVendorsResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListShippingVendorsResponse");
+                                        "Transform function invoked for com.oracle.bmc.dts.responses.ListShippingVendorsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -61,8 +70,12 @@ public class ListShippingVendorsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListShippingVendorsResponse.Builder builder =
-                                        ListShippingVendorsResponse.builder();
+                                com.oracle.bmc.dts.responses.ListShippingVendorsResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.dts.responses
+                                                        .ListShippingVendorsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.shippingVendors(response.getItem());
 
@@ -78,7 +91,8 @@ public class ListShippingVendorsConverter {
                                                     String.class));
                                 }
 
-                                ListShippingVendorsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.dts.responses.ListShippingVendorsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

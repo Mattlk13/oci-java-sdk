@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.email.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.email.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Sender.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Sender {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -76,6 +78,15 @@ public class Sender {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("emailDomainId")
+        private String emailDomainId;
+
+        public Builder emailDomainId(String emailDomainId) {
+            this.emailDomainId = emailDomainId;
+            this.__explicitlySet__.add("emailDomainId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -107,6 +118,7 @@ public class Sender {
                             isSpf,
                             lifecycleState,
                             timeCreated,
+                            emailDomainId,
                             freeformTags,
                             definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
@@ -122,6 +134,7 @@ public class Sender {
                             .isSpf(o.getIsSpf())
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
+                            .emailDomainId(o.getEmailDomainId())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -225,8 +238,16 @@ public class Sender {
     java.util.Date timeCreated;
 
     /**
+     * The email domain used to assert responsibility for emails sent from this sender.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("emailDomainId")
+    String emailDomainId;
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
      **/
@@ -236,6 +257,7 @@ public class Sender {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/

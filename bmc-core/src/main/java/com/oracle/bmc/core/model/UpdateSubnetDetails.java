@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = UpdateSubnetDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateSubnetDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -79,6 +81,24 @@ public class UpdateSubnetDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("cidrBlock")
+        private String cidrBlock;
+
+        public Builder cidrBlock(String cidrBlock) {
+            this.cidrBlock = cidrBlock;
+            this.__explicitlySet__.add("cidrBlock");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("ipv6CidrBlock")
+        private String ipv6CidrBlock;
+
+        public Builder ipv6CidrBlock(String ipv6CidrBlock) {
+            this.ipv6CidrBlock = ipv6CidrBlock;
+            this.__explicitlySet__.add("ipv6CidrBlock");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -90,7 +110,9 @@ public class UpdateSubnetDetails {
                             displayName,
                             freeformTags,
                             routeTableId,
-                            securityListIds);
+                            securityListIds,
+                            cidrBlock,
+                            ipv6CidrBlock);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -103,7 +125,9 @@ public class UpdateSubnetDetails {
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
                             .routeTableId(o.getRouteTableId())
-                            .securityListIds(o.getSecurityListIds());
+                            .securityListIds(o.getSecurityListIds())
+                            .cidrBlock(o.getCidrBlock())
+                            .ipv6CidrBlock(o.getIpv6CidrBlock());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -119,7 +143,7 @@ public class UpdateSubnetDetails {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -144,7 +168,7 @@ public class UpdateSubnetDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -168,6 +192,38 @@ public class UpdateSubnetDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("securityListIds")
     java.util.List<String> securityListIds;
+
+    /**
+     * The CIDR block of the subnet. The new CIDR block must meet the following criteria:
+     * <p>
+     * - Must be valid.
+     * - The CIDR block's IP range must be completely within one of the VCN's CIDR block ranges.
+     * - The old and new CIDR block ranges must use the same network address. Example: `10.0.0.0/25` and `10.0.0.0/24`.
+     * - Must contain all IP addresses in use in the old CIDR range.
+     * - The new CIDR range's broadcast address (last IP address of CIDR range) must not be an IP address in use in the old CIDR range.
+     * <p>
+     **Note:** If you are changing the CIDR block, you cannot create VNICs or private IPs for this resource while the update is in progress.
+     * <p>
+     * Example: `172.16.0.0/16`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("cidrBlock")
+    String cidrBlock;
+
+    /**
+     * This is the IPv6 CIDR block for the subnet's IP address space.
+     * The subnet size is always /64.
+     * See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
+     * The provided CIDR must maintain the following rules -
+     * <p>
+     * a. The IPv6 CIDR block is valid and correctly formatted.
+     * b. The IPv6 CIDR is within the parent VCN IPv6 range.
+     * <p>
+     * Example: `2001:0db8:0123:1111::/64`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("ipv6CidrBlock")
+    String ipv6CidrBlock;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

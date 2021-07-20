@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.waas.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Origin.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Origin {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -94,13 +96,13 @@ public class Origin {
     String uri;
 
     /**
-     * The HTTP port on the origin that the web application listens on. If unspecified, defaults to `80`.
+     * The HTTP port on the origin that the web application listens on. If unspecified, defaults to `80`. If `0` is specified - the origin is not used for HTTP traffic.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("httpPort")
     Integer httpPort;
 
     /**
-     * The HTTPS port on the origin that the web application listens on. If unspecified, defaults to `443`.
+     * The HTTPS port on the origin that the web application listens on. If unspecified, defaults to `443`. If `0` is specified - the origin is not used for HTTPS traffic.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("httpsPort")
     Integer httpsPort;

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.signing.internal;
 
@@ -16,6 +17,8 @@ import com.oracle.bmc.http.signing.RequestSigner;
 import com.oracle.bmc.http.signing.RequestSignerException;
 import com.oracle.bmc.http.signing.SigningStrategy;
 import com.oracle.bmc.io.DuplicatableInputStream;
+import com.oracle.bmc.io.internal.KeepOpenInputStream;
+import com.oracle.bmc.retrier.Retriers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -185,6 +188,7 @@ public class RequestSignerImpl implements RequestSigner {
             final Map<String, List<String>> allHeaders = new HashMap<>();
             allHeaders.putAll(existingHeaders);
             for (Map.Entry<String, String> e : missingHeaders.entrySet()) {
+                LOG.trace("Adding missing header '{}' = '{}'", e.getKey(), e.getValue());
                 allHeaders.put(e.getKey(), ImmutableList.of(e.getValue()));
             }
 
@@ -314,26 +318,22 @@ public class RequestSignerImpl implements RequestSigner {
         if (!(isPut || isPost || isPatch)) {
             // Asking to sign a body on GET/DELETE/HEAD is not allowed
             if (body != null) {
-                throw new RequestSignerException("MUST NOT send body on non-POST/PUT request");
+                throw new RequestSignerException(
+                        "MUST NOT send body on non-POST/PUT/PATCH request");
             } else {
                 // nothing left to do
                 return missingHeaders;
             }
         }
 
-        // the one exception for the below is when doing a PUT if the body is an InputStream
-        // and the configuration allows it to be skipped
-        if ((isPut || isPatch) && (body instanceof InputStream)) {
-            if (signingConfiguration.skipContentHeadersForStreamingPutRequests) {
-                return missingHeaders;
-            } else {
-                // TODO: support DuplicatableInputStream to be able to calculate length/sha-256
-                throw new IllegalArgumentException(
-                        "Streaming body not supported for signing strategy");
-            }
+        // Return if the body is an InputStream and the configuration allows for it to be skipped.
+        // This is typically done for put, patch, and post http method types.
+        if (body instanceof InputStream
+                && signingConfiguration.skipContentHeadersForStreamingPutRequests) {
+            return missingHeaders;
         }
 
-        // supply content-type, content-length and x-content-sha256 if missing (PUT and POST only)
+        // supply content-type, content-length and x-content-sha256 if missing (PUT, PATCH, and POST only)
         if (requiredHeaders.contains(Constants.CONTENT_TYPE)) {
             // While we don't always sign content-type, services always
             // expect application/json (except if we're sending an input stream)
@@ -490,6 +490,10 @@ public class RequestSignerImpl implements RequestSigner {
         } else if (body instanceof DuplicatableInputStream) {
             final InputStream duplicatedBody = ((DuplicatableInputStream) body).duplicate();
             return ByteStreams.toByteArray(duplicatedBody);
+        } else if (body instanceof KeepOpenInputStream) {
+            byte[] byteArr = ByteStreams.toByteArray((KeepOpenInputStream) body);
+            Retriers.tryResetStreamForRetry((InputStream) body, true);
+            return byteArr;
         } else if (body instanceof InputStream) {
             // TODO: Allow input streams to be signed, but for now restrict to DIS until we can refactor
             throw new IllegalArgumentException(

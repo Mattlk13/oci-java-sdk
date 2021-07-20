@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -27,6 +28,7 @@ package com.oracle.bmc.objectstorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = MultipartUpload.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class MultipartUpload {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -76,12 +78,22 @@ public class MultipartUpload {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+        private StorageTier storageTier;
+
+        public Builder storageTier(StorageTier storageTier) {
+            this.storageTier = storageTier;
+            this.__explicitlySet__.add("storageTier");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public MultipartUpload build() {
             MultipartUpload __instance__ =
-                    new MultipartUpload(namespace, bucket, object, uploadId, timeCreated);
+                    new MultipartUpload(
+                            namespace, bucket, object, uploadId, timeCreated, storageTier);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -93,7 +105,8 @@ public class MultipartUpload {
                             .bucket(o.getBucket())
                             .object(o.getObject())
                             .uploadId(o.getUploadId())
-                            .timeCreated(o.getTimeCreated());
+                            .timeCreated(o.getTimeCreated())
+                            .storageTier(o.getStorageTier());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -132,10 +145,16 @@ public class MultipartUpload {
     String uploadId;
 
     /**
-     * The date and time the upload was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+     * The date and time the upload was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * The storage tier that the object is stored in.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+    StorageTier storageTier;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

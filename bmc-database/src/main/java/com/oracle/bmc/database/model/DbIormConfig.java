@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
- * IORM Config setting response for this database
+ * The IORM configuration settings for the database.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -19,6 +20,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DbIormConfig.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbIormConfig {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -79,21 +81,21 @@ public class DbIormConfig {
     }
 
     /**
-     * Database Name. For default DbPlan, the dbName will always be `default`
+     * The database name. For the default `DbPlan`, the `dbName` is `default`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("dbName")
     String dbName;
 
     /**
-     * Relative priority of a database
+     * The relative priority of this database.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("share")
     Integer share;
 
     /**
-     * Flash Cache limit, internally configured based on shares
+     * The flash cache limit for this database. This value is internally configured based on the share value assigned to the database.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("flashCacheLimit")

@@ -1,14 +1,24 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.requests;
 
 import com.oracle.bmc.objectstorage.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/objectstorage/CreateMultipartUploadExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use CreateMultipartUploadRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class CreateMultipartUploadRequest extends com.oracle.bmc.requests.BmcRequest {
+public class CreateMultipartUploadRequest
+        extends com.oracle.bmc.requests.BmcRequest<CreateMultipartUploadDetails> {
 
     /**
      * The Object Storage namespace used for the request.
@@ -23,21 +33,21 @@ public class CreateMultipartUploadRequest extends com.oracle.bmc.requests.BmcReq
     private String bucketName;
 
     /**
-     * Request object for creating a multi-part upload.
+     * Request object for creating a multipart upload.
      */
     private CreateMultipartUploadDetails createMultipartUploadDetails;
 
     /**
-     * The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-     * For uploading a part, this is the entity tag of the target part.
+     * The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+     * the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+     * the resource.
      *
      */
     private String ifMatch;
 
     /**
-     * The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-     * already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-     * part, this is the entity tag of the target part.
+     * The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+     * fail if the resource already exists.
      *
      */
     private String ifNoneMatch;
@@ -47,7 +57,47 @@ public class CreateMultipartUploadRequest extends com.oracle.bmc.requests.BmcReq
      */
     private String opcClientRequestId;
 
-    public static class Builder {
+    /**
+     * The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerAlgorithm;
+
+    /**
+     * The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+     * decrypt the data. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerKey;
+
+    /**
+     * The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+     * value is used to check the integrity of the encryption key. For more information, see
+     * [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+     *
+     */
+    private String opcSseCustomerKeySha256;
+
+    /**
+     * Alternative accessor for the body parameter.
+     * @return body parameter
+     */
+    @Override
+    @com.oracle.bmc.InternalSdk
+    public CreateMultipartUploadDetails getBody$() {
+        return createMultipartUploadDetails;
+    }
+
+    @Override
+    public boolean supportsExpect100Continue() {
+        return true;
+    }
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    CreateMultipartUploadRequest, CreateMultipartUploadDetails> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -86,6 +136,9 @@ public class CreateMultipartUploadRequest extends com.oracle.bmc.requests.BmcReq
             ifMatch(o.getIfMatch());
             ifNoneMatch(o.getIfNoneMatch());
             opcClientRequestId(o.getOpcClientRequestId());
+            opcSseCustomerAlgorithm(o.getOpcSseCustomerAlgorithm());
+            opcSseCustomerKey(o.getOpcSseCustomerKey());
+            opcSseCustomerKeySha256(o.getOpcSseCustomerKeySha256());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;
@@ -106,6 +159,17 @@ public class CreateMultipartUploadRequest extends com.oracle.bmc.requests.BmcReq
             request.setInvocationCallback(invocationCallback);
             request.setRetryConfiguration(retryConfiguration);
             return request;
+        }
+
+        /**
+         * Alternative setter for the body parameter.
+         * @param body the body parameter
+         * @return this builder instance
+         */
+        @com.oracle.bmc.InternalSdk
+        public Builder body$(CreateMultipartUploadDetails body) {
+            createMultipartUploadDetails(body);
+            return this;
         }
     }
 }

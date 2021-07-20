@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.functions.model;
 
@@ -19,6 +20,7 @@ package com.oracle.bmc.functions.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = FunctionSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class FunctionSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -104,6 +106,15 @@ public class FunctionSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("traceConfig")
+        private FunctionTraceConfig traceConfig;
+
+        public Builder traceConfig(FunctionTraceConfig traceConfig) {
+            this.traceConfig = traceConfig;
+            this.__explicitlySet__.add("traceConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -165,6 +176,7 @@ public class FunctionSummary {
                             imageDigest,
                             memoryInMBs,
                             timeoutInSeconds,
+                            traceConfig,
                             freeformTags,
                             invokeEndpoint,
                             definedTags,
@@ -186,6 +198,7 @@ public class FunctionSummary {
                             .imageDigest(o.getImageDigest())
                             .memoryInMBs(o.getMemoryInMBs())
                             .timeoutInSeconds(o.getTimeoutInSeconds())
+                            .traceConfig(o.getTraceConfig())
                             .freeformTags(o.getFreeformTags())
                             .invokeEndpoint(o.getInvokeEndpoint())
                             .definedTags(o.getDefinedTags())
@@ -318,6 +331,9 @@ public class FunctionSummary {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeoutInSeconds")
     Integer timeoutInSeconds;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("traceConfig")
+    FunctionTraceConfig traceConfig;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.internal.http;
 
@@ -16,14 +17,15 @@ public class AcceptRecommendationsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static AcceptRecommendationsRequest interceptRequest(
-            AcceptRecommendationsRequest request) {
+    public static com.oracle.bmc.waas.requests.AcceptRecommendationsRequest interceptRequest(
+            com.oracle.bmc.waas.requests.AcceptRecommendationsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, AcceptRecommendationsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.waas.requests.AcceptRecommendationsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getWaasPolicyId(), "waasPolicyId must not be blank");
         Validate.notNull(request.getProtectionRuleKeys(), "protectionRuleKeys is required");
@@ -50,22 +52,28 @@ public class AcceptRecommendationsConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, AcceptRecommendationsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.waas.responses.AcceptRecommendationsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, AcceptRecommendationsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.waas.responses.AcceptRecommendationsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, AcceptRecommendationsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.waas.responses.AcceptRecommendationsResponse>() {
                             @Override
-                            public AcceptRecommendationsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.waas.responses.AcceptRecommendationsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for AcceptRecommendationsResponse");
+                                        "Transform function invoked for com.oracle.bmc.waas.responses.AcceptRecommendationsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -76,8 +84,12 @@ public class AcceptRecommendationsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                AcceptRecommendationsResponse.Builder builder =
-                                        AcceptRecommendationsResponse.builder();
+                                com.oracle.bmc.waas.responses.AcceptRecommendationsResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.waas.responses
+                                                        .AcceptRecommendationsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -103,7 +115,8 @@ public class AcceptRecommendationsConverter {
                                                     String.class));
                                 }
 
-                                AcceptRecommendationsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.waas.responses.AcceptRecommendationsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

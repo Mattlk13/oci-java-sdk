@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.internal.http;
 
@@ -16,13 +17,15 @@ public class GetDbSystemPatchConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetDbSystemPatchRequest interceptRequest(GetDbSystemPatchRequest request) {
+    public static com.oracle.bmc.database.requests.GetDbSystemPatchRequest interceptRequest(
+            com.oracle.bmc.database.requests.GetDbSystemPatchRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetDbSystemPatchRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.database.requests.GetDbSystemPatchRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
         Validate.notBlank(request.getPatchId(), "patchId must not be blank");
@@ -43,21 +46,28 @@ public class GetDbSystemPatchConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetDbSystemPatchResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.database.responses.GetDbSystemPatchResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetDbSystemPatchResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.database.responses.GetDbSystemPatchResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetDbSystemPatchResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.database.responses.GetDbSystemPatchResponse>() {
                             @Override
-                            public GetDbSystemPatchResponse apply(
+                            public com.oracle.bmc.database.responses.GetDbSystemPatchResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetDbSystemPatchResponse");
+                                        "Transform function invoked for com.oracle.bmc.database.responses.GetDbSystemPatchResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Patch>>
@@ -69,8 +79,12 @@ public class GetDbSystemPatchConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetDbSystemPatchResponse.Builder builder =
-                                        GetDbSystemPatchResponse.builder();
+                                com.oracle.bmc.database.responses.GetDbSystemPatchResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.database.responses
+                                                        .GetDbSystemPatchResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.patch(response.getItem());
 
@@ -86,7 +100,8 @@ public class GetDbSystemPatchConverter {
                                                     String.class));
                                 }
 
-                                GetDbSystemPatchResponse responseWrapper = builder.build();
+                                com.oracle.bmc.database.responses.GetDbSystemPatchResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

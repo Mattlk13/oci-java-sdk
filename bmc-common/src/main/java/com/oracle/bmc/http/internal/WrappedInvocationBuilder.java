@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import java.net.URI;
 
 /**
  * An {@link Invocation.Builder} that stores the headers being set, allowing access to them.
@@ -22,6 +24,11 @@ public class WrappedInvocationBuilder extends ForwardingInvocationBuilder {
      * This structure stores all the headers set by the customer in the invocation callback.
      */
     @Getter private MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
+
+    /**
+     * This structure stores the request URI set by the customer in the invocation callback.
+     */
+    @Getter private final URI requestUri;
 
     @Override
     public Invocation.Builder delegate() {

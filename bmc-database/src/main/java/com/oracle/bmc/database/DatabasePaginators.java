@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database;
 
@@ -28,6 +29,148 @@ import com.oracle.bmc.database.responses.*;
 @lombok.RequiredArgsConstructor
 public class DatabasePaginators {
     private final Database client;
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listAutonomousContainerDatabaseDataguardAssociations operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListAutonomousContainerDatabaseDataguardAssociationsResponse>
+            listAutonomousContainerDatabaseDataguardAssociationsResponseIterator(
+                    final ListAutonomousContainerDatabaseDataguardAssociationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder,
+                ListAutonomousContainerDatabaseDataguardAssociationsRequest,
+                ListAutonomousContainerDatabaseDataguardAssociationsResponse>(
+                new com.google.common.base.Supplier<
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder
+                            get() {
+                        return ListAutonomousContainerDatabaseDataguardAssociationsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousContainerDatabaseDataguardAssociationsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAutonomousContainerDatabaseDataguardAssociationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousContainerDatabaseDataguardAssociationsRequest
+                                        .Builder>,
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousContainerDatabaseDataguardAssociationsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest,
+                        ListAutonomousContainerDatabaseDataguardAssociationsResponse>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsResponse apply(
+                            ListAutonomousContainerDatabaseDataguardAssociationsRequest request) {
+                        return client.listAutonomousContainerDatabaseDataguardAssociations(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousContainerDatabaseDataguardAssociation} objects
+     * contained in responses from the listAutonomousContainerDatabaseDataguardAssociations operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousContainerDatabaseDataguardAssociation} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousContainerDatabaseDataguardAssociation>
+            listAutonomousContainerDatabaseDataguardAssociationsRecordIterator(
+                    final ListAutonomousContainerDatabaseDataguardAssociationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder,
+                ListAutonomousContainerDatabaseDataguardAssociationsRequest,
+                ListAutonomousContainerDatabaseDataguardAssociationsResponse,
+                com.oracle.bmc.database.model.AutonomousContainerDatabaseDataguardAssociation>(
+                new com.google.common.base.Supplier<
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsRequest.Builder
+                            get() {
+                        return ListAutonomousContainerDatabaseDataguardAssociationsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousContainerDatabaseDataguardAssociationsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAutonomousContainerDatabaseDataguardAssociationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousContainerDatabaseDataguardAssociationsRequest
+                                        .Builder>,
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousContainerDatabaseDataguardAssociationsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousContainerDatabaseDataguardAssociationsRequest,
+                        ListAutonomousContainerDatabaseDataguardAssociationsResponse>() {
+                    @Override
+                    public ListAutonomousContainerDatabaseDataguardAssociationsResponse apply(
+                            ListAutonomousContainerDatabaseDataguardAssociationsRequest request) {
+                        return client.listAutonomousContainerDatabaseDataguardAssociations(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousContainerDatabaseDataguardAssociationsResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .AutonomousContainerDatabaseDataguardAssociation>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .AutonomousContainerDatabaseDataguardAssociation>
+                            apply(
+                                    ListAutonomousContainerDatabaseDataguardAssociationsResponse
+                                            response) {
+                        return response.getItems();
+                    }
+                });
+    }
 
     /**
      * Creates a new iterable which will iterate over the responses received from the listAutonomousContainerDatabases operation. This iterable
@@ -158,260 +301,6 @@ public class DatabasePaginators {
     }
 
     /**
-     * Creates a new iterable which will iterate over the responses received from the listAutonomousDataWarehouseBackups operation. This iterable
-     * will fetch more data from the server as needed.
-     *
-     * @param request a request which can be sent to the service operation
-     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
-     */
-    public Iterable<ListAutonomousDataWarehouseBackupsResponse>
-            listAutonomousDataWarehouseBackupsResponseIterator(
-                    final ListAutonomousDataWarehouseBackupsRequest request) {
-        return new com.oracle.bmc.paginator.internal.ResponseIterable<
-                ListAutonomousDataWarehouseBackupsRequest.Builder,
-                ListAutonomousDataWarehouseBackupsRequest,
-                ListAutonomousDataWarehouseBackupsResponse>(
-                new com.google.common.base.Supplier<
-                        ListAutonomousDataWarehouseBackupsRequest.Builder>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsRequest.Builder get() {
-                        return ListAutonomousDataWarehouseBackupsRequest.builder().copy(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehouseBackupsResponse, String>() {
-                    @Override
-                    public String apply(ListAutonomousDataWarehouseBackupsResponse response) {
-                        return response.getOpcNextPage();
-                    }
-                },
-                new com.google.common.base.Function<
-                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                ListAutonomousDataWarehouseBackupsRequest.Builder>,
-                        ListAutonomousDataWarehouseBackupsRequest>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsRequest apply(
-                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                            ListAutonomousDataWarehouseBackupsRequest.Builder>
-                                    input) {
-                        if (input.getToken() == null) {
-                            return input.getRequestBuilder().build();
-                        } else {
-                            return input.getRequestBuilder()
-                                    .page(input.getToken().orNull())
-                                    .build();
-                        }
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehouseBackupsRequest,
-                        ListAutonomousDataWarehouseBackupsResponse>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsResponse apply(
-                            ListAutonomousDataWarehouseBackupsRequest request) {
-                        return client.listAutonomousDataWarehouseBackups(request);
-                    }
-                });
-    }
-
-    /**
-     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousDataWarehouseBackupSummary} objects
-     * contained in responses from the listAutonomousDataWarehouseBackups operation. This iterable will fetch more data from the
-     * server as needed.
-     *
-     * @param request a request which can be sent to the service operation
-     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousDataWarehouseBackupSummary} objects
-     * contained in responses received from the service.
-     */
-    public Iterable<com.oracle.bmc.database.model.AutonomousDataWarehouseBackupSummary>
-            listAutonomousDataWarehouseBackupsRecordIterator(
-                    final ListAutonomousDataWarehouseBackupsRequest request) {
-        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
-                ListAutonomousDataWarehouseBackupsRequest.Builder,
-                ListAutonomousDataWarehouseBackupsRequest,
-                ListAutonomousDataWarehouseBackupsResponse,
-                com.oracle.bmc.database.model.AutonomousDataWarehouseBackupSummary>(
-                new com.google.common.base.Supplier<
-                        ListAutonomousDataWarehouseBackupsRequest.Builder>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsRequest.Builder get() {
-                        return ListAutonomousDataWarehouseBackupsRequest.builder().copy(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehouseBackupsResponse, String>() {
-                    @Override
-                    public String apply(ListAutonomousDataWarehouseBackupsResponse response) {
-                        return response.getOpcNextPage();
-                    }
-                },
-                new com.google.common.base.Function<
-                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                ListAutonomousDataWarehouseBackupsRequest.Builder>,
-                        ListAutonomousDataWarehouseBackupsRequest>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsRequest apply(
-                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                            ListAutonomousDataWarehouseBackupsRequest.Builder>
-                                    input) {
-                        if (input.getToken() == null) {
-                            return input.getRequestBuilder().build();
-                        } else {
-                            return input.getRequestBuilder()
-                                    .page(input.getToken().orNull())
-                                    .build();
-                        }
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehouseBackupsRequest,
-                        ListAutonomousDataWarehouseBackupsResponse>() {
-                    @Override
-                    public ListAutonomousDataWarehouseBackupsResponse apply(
-                            ListAutonomousDataWarehouseBackupsRequest request) {
-                        return client.listAutonomousDataWarehouseBackups(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehouseBackupsResponse,
-                        java.util.List<
-                                com.oracle.bmc.database.model
-                                        .AutonomousDataWarehouseBackupSummary>>() {
-                    @Override
-                    public java.util.List<
-                                    com.oracle.bmc.database.model
-                                            .AutonomousDataWarehouseBackupSummary>
-                            apply(ListAutonomousDataWarehouseBackupsResponse response) {
-                        return response.getItems();
-                    }
-                });
-    }
-
-    /**
-     * Creates a new iterable which will iterate over the responses received from the listAutonomousDataWarehouses operation. This iterable
-     * will fetch more data from the server as needed.
-     *
-     * @param request a request which can be sent to the service operation
-     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
-     */
-    public Iterable<ListAutonomousDataWarehousesResponse>
-            listAutonomousDataWarehousesResponseIterator(
-                    final ListAutonomousDataWarehousesRequest request) {
-        return new com.oracle.bmc.paginator.internal.ResponseIterable<
-                ListAutonomousDataWarehousesRequest.Builder, ListAutonomousDataWarehousesRequest,
-                ListAutonomousDataWarehousesResponse>(
-                new com.google.common.base.Supplier<ListAutonomousDataWarehousesRequest.Builder>() {
-                    @Override
-                    public ListAutonomousDataWarehousesRequest.Builder get() {
-                        return ListAutonomousDataWarehousesRequest.builder().copy(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehousesResponse, String>() {
-                    @Override
-                    public String apply(ListAutonomousDataWarehousesResponse response) {
-                        return response.getOpcNextPage();
-                    }
-                },
-                new com.google.common.base.Function<
-                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                ListAutonomousDataWarehousesRequest.Builder>,
-                        ListAutonomousDataWarehousesRequest>() {
-                    @Override
-                    public ListAutonomousDataWarehousesRequest apply(
-                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                            ListAutonomousDataWarehousesRequest.Builder>
-                                    input) {
-                        if (input.getToken() == null) {
-                            return input.getRequestBuilder().build();
-                        } else {
-                            return input.getRequestBuilder()
-                                    .page(input.getToken().orNull())
-                                    .build();
-                        }
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehousesRequest,
-                        ListAutonomousDataWarehousesResponse>() {
-                    @Override
-                    public ListAutonomousDataWarehousesResponse apply(
-                            ListAutonomousDataWarehousesRequest request) {
-                        return client.listAutonomousDataWarehouses(request);
-                    }
-                });
-    }
-
-    /**
-     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousDataWarehouseSummary} objects
-     * contained in responses from the listAutonomousDataWarehouses operation. This iterable will fetch more data from the
-     * server as needed.
-     *
-     * @param request a request which can be sent to the service operation
-     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousDataWarehouseSummary} objects
-     * contained in responses received from the service.
-     */
-    public Iterable<com.oracle.bmc.database.model.AutonomousDataWarehouseSummary>
-            listAutonomousDataWarehousesRecordIterator(
-                    final ListAutonomousDataWarehousesRequest request) {
-        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
-                ListAutonomousDataWarehousesRequest.Builder, ListAutonomousDataWarehousesRequest,
-                ListAutonomousDataWarehousesResponse,
-                com.oracle.bmc.database.model.AutonomousDataWarehouseSummary>(
-                new com.google.common.base.Supplier<ListAutonomousDataWarehousesRequest.Builder>() {
-                    @Override
-                    public ListAutonomousDataWarehousesRequest.Builder get() {
-                        return ListAutonomousDataWarehousesRequest.builder().copy(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehousesResponse, String>() {
-                    @Override
-                    public String apply(ListAutonomousDataWarehousesResponse response) {
-                        return response.getOpcNextPage();
-                    }
-                },
-                new com.google.common.base.Function<
-                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                ListAutonomousDataWarehousesRequest.Builder>,
-                        ListAutonomousDataWarehousesRequest>() {
-                    @Override
-                    public ListAutonomousDataWarehousesRequest apply(
-                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
-                                            ListAutonomousDataWarehousesRequest.Builder>
-                                    input) {
-                        if (input.getToken() == null) {
-                            return input.getRequestBuilder().build();
-                        } else {
-                            return input.getRequestBuilder()
-                                    .page(input.getToken().orNull())
-                                    .build();
-                        }
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehousesRequest,
-                        ListAutonomousDataWarehousesResponse>() {
-                    @Override
-                    public ListAutonomousDataWarehousesResponse apply(
-                            ListAutonomousDataWarehousesRequest request) {
-                        return client.listAutonomousDataWarehouses(request);
-                    }
-                },
-                new com.google.common.base.Function<
-                        ListAutonomousDataWarehousesResponse,
-                        java.util.List<
-                                com.oracle.bmc.database.model.AutonomousDataWarehouseSummary>>() {
-                    @Override
-                    public java.util.List<
-                                    com.oracle.bmc.database.model.AutonomousDataWarehouseSummary>
-                            apply(ListAutonomousDataWarehousesResponse response) {
-                        return response.getItems();
-                    }
-                });
-    }
-
-    /**
      * Creates a new iterable which will iterate over the responses received from the listAutonomousDatabaseBackups operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -532,6 +421,264 @@ public class DatabasePaginators {
                     public java.util.List<
                                     com.oracle.bmc.database.model.AutonomousDatabaseBackupSummary>
                             apply(ListAutonomousDatabaseBackupsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listAutonomousDatabaseClones operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListAutonomousDatabaseClonesResponse>
+            listAutonomousDatabaseClonesResponseIterator(
+                    final ListAutonomousDatabaseClonesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAutonomousDatabaseClonesRequest.Builder, ListAutonomousDatabaseClonesRequest,
+                ListAutonomousDatabaseClonesResponse>(
+                new com.google.common.base.Supplier<ListAutonomousDatabaseClonesRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesRequest.Builder get() {
+                        return ListAutonomousDatabaseClonesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseClonesResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousDatabaseClonesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDatabaseClonesRequest.Builder>,
+                        ListAutonomousDatabaseClonesRequest>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDatabaseClonesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseClonesRequest,
+                        ListAutonomousDatabaseClonesResponse>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesResponse apply(
+                            ListAutonomousDatabaseClonesRequest request) {
+                        return client.listAutonomousDatabaseClones(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousDatabaseSummary} objects
+     * contained in responses from the listAutonomousDatabaseClones operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousDatabaseSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousDatabaseSummary>
+            listAutonomousDatabaseClonesRecordIterator(
+                    final ListAutonomousDatabaseClonesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAutonomousDatabaseClonesRequest.Builder, ListAutonomousDatabaseClonesRequest,
+                ListAutonomousDatabaseClonesResponse,
+                com.oracle.bmc.database.model.AutonomousDatabaseSummary>(
+                new com.google.common.base.Supplier<ListAutonomousDatabaseClonesRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesRequest.Builder get() {
+                        return ListAutonomousDatabaseClonesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseClonesResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousDatabaseClonesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDatabaseClonesRequest.Builder>,
+                        ListAutonomousDatabaseClonesRequest>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDatabaseClonesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseClonesRequest,
+                        ListAutonomousDatabaseClonesResponse>() {
+                    @Override
+                    public ListAutonomousDatabaseClonesResponse apply(
+                            ListAutonomousDatabaseClonesRequest request) {
+                        return client.listAutonomousDatabaseClones(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseClonesResponse,
+                        java.util.List<com.oracle.bmc.database.model.AutonomousDatabaseSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.AutonomousDatabaseSummary>
+                            apply(ListAutonomousDatabaseClonesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listAutonomousDatabaseDataguardAssociations operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListAutonomousDatabaseDataguardAssociationsResponse>
+            listAutonomousDatabaseDataguardAssociationsResponseIterator(
+                    final ListAutonomousDatabaseDataguardAssociationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAutonomousDatabaseDataguardAssociationsRequest.Builder,
+                ListAutonomousDatabaseDataguardAssociationsRequest,
+                ListAutonomousDatabaseDataguardAssociationsResponse>(
+                new com.google.common.base.Supplier<
+                        ListAutonomousDatabaseDataguardAssociationsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsRequest.Builder get() {
+                        return ListAutonomousDatabaseDataguardAssociationsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseDataguardAssociationsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAutonomousDatabaseDataguardAssociationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDatabaseDataguardAssociationsRequest.Builder>,
+                        ListAutonomousDatabaseDataguardAssociationsRequest>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDatabaseDataguardAssociationsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseDataguardAssociationsRequest,
+                        ListAutonomousDatabaseDataguardAssociationsResponse>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsResponse apply(
+                            ListAutonomousDatabaseDataguardAssociationsRequest request) {
+                        return client.listAutonomousDatabaseDataguardAssociations(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousDatabaseDataguardAssociation} objects
+     * contained in responses from the listAutonomousDatabaseDataguardAssociations operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousDatabaseDataguardAssociation} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousDatabaseDataguardAssociation>
+            listAutonomousDatabaseDataguardAssociationsRecordIterator(
+                    final ListAutonomousDatabaseDataguardAssociationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAutonomousDatabaseDataguardAssociationsRequest.Builder,
+                ListAutonomousDatabaseDataguardAssociationsRequest,
+                ListAutonomousDatabaseDataguardAssociationsResponse,
+                com.oracle.bmc.database.model.AutonomousDatabaseDataguardAssociation>(
+                new com.google.common.base.Supplier<
+                        ListAutonomousDatabaseDataguardAssociationsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsRequest.Builder get() {
+                        return ListAutonomousDatabaseDataguardAssociationsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseDataguardAssociationsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAutonomousDatabaseDataguardAssociationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDatabaseDataguardAssociationsRequest.Builder>,
+                        ListAutonomousDatabaseDataguardAssociationsRequest>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDatabaseDataguardAssociationsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseDataguardAssociationsRequest,
+                        ListAutonomousDatabaseDataguardAssociationsResponse>() {
+                    @Override
+                    public ListAutonomousDatabaseDataguardAssociationsResponse apply(
+                            ListAutonomousDatabaseDataguardAssociationsRequest request) {
+                        return client.listAutonomousDatabaseDataguardAssociations(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDatabaseDataguardAssociationsResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .AutonomousDatabaseDataguardAssociation>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .AutonomousDatabaseDataguardAssociation>
+                            apply(ListAutonomousDatabaseDataguardAssociationsResponse response) {
                         return response.getItems();
                     }
                 });
@@ -775,6 +922,123 @@ public class DatabasePaginators {
                     public java.util.List<
                                     com.oracle.bmc.database.model.AutonomousDbPreviewVersionSummary>
                             apply(ListAutonomousDbPreviewVersionsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listAutonomousDbVersions operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListAutonomousDbVersionsResponse> listAutonomousDbVersionsResponseIterator(
+            final ListAutonomousDbVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAutonomousDbVersionsRequest.Builder, ListAutonomousDbVersionsRequest,
+                ListAutonomousDbVersionsResponse>(
+                new com.google.common.base.Supplier<ListAutonomousDbVersionsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDbVersionsRequest.Builder get() {
+                        return ListAutonomousDbVersionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListAutonomousDbVersionsResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousDbVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDbVersionsRequest.Builder>,
+                        ListAutonomousDbVersionsRequest>() {
+                    @Override
+                    public ListAutonomousDbVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDbVersionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDbVersionsRequest, ListAutonomousDbVersionsResponse>() {
+                    @Override
+                    public ListAutonomousDbVersionsResponse apply(
+                            ListAutonomousDbVersionsRequest request) {
+                        return client.listAutonomousDbVersions(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousDbVersionSummary} objects
+     * contained in responses from the listAutonomousDbVersions operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousDbVersionSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousDbVersionSummary>
+            listAutonomousDbVersionsRecordIterator(final ListAutonomousDbVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAutonomousDbVersionsRequest.Builder, ListAutonomousDbVersionsRequest,
+                ListAutonomousDbVersionsResponse,
+                com.oracle.bmc.database.model.AutonomousDbVersionSummary>(
+                new com.google.common.base.Supplier<ListAutonomousDbVersionsRequest.Builder>() {
+                    @Override
+                    public ListAutonomousDbVersionsRequest.Builder get() {
+                        return ListAutonomousDbVersionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListAutonomousDbVersionsResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousDbVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousDbVersionsRequest.Builder>,
+                        ListAutonomousDbVersionsRequest>() {
+                    @Override
+                    public ListAutonomousDbVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousDbVersionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDbVersionsRequest, ListAutonomousDbVersionsResponse>() {
+                    @Override
+                    public ListAutonomousDbVersionsResponse apply(
+                            ListAutonomousDbVersionsRequest request) {
+                        return client.listAutonomousDbVersions(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousDbVersionsResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.AutonomousDbVersionSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.AutonomousDbVersionSummary>
+                            apply(ListAutonomousDbVersionsResponse response) {
                         return response.getItems();
                     }
                 });
@@ -1047,6 +1311,239 @@ public class DatabasePaginators {
     }
 
     /**
+     * Creates a new iterable which will iterate over the responses received from the listAutonomousVmClusters operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListAutonomousVmClustersResponse> listAutonomousVmClustersResponseIterator(
+            final ListAutonomousVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAutonomousVmClustersRequest.Builder, ListAutonomousVmClustersRequest,
+                ListAutonomousVmClustersResponse>(
+                new com.google.common.base.Supplier<ListAutonomousVmClustersRequest.Builder>() {
+                    @Override
+                    public ListAutonomousVmClustersRequest.Builder get() {
+                        return ListAutonomousVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListAutonomousVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousVmClustersRequest.Builder>,
+                        ListAutonomousVmClustersRequest>() {
+                    @Override
+                    public ListAutonomousVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousVmClustersRequest, ListAutonomousVmClustersResponse>() {
+                    @Override
+                    public ListAutonomousVmClustersResponse apply(
+                            ListAutonomousVmClustersRequest request) {
+                        return client.listAutonomousVmClusters(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousVmClusterSummary} objects
+     * contained in responses from the listAutonomousVmClusters operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousVmClusterSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousVmClusterSummary>
+            listAutonomousVmClustersRecordIterator(final ListAutonomousVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAutonomousVmClustersRequest.Builder, ListAutonomousVmClustersRequest,
+                ListAutonomousVmClustersResponse,
+                com.oracle.bmc.database.model.AutonomousVmClusterSummary>(
+                new com.google.common.base.Supplier<ListAutonomousVmClustersRequest.Builder>() {
+                    @Override
+                    public ListAutonomousVmClustersRequest.Builder get() {
+                        return ListAutonomousVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListAutonomousVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListAutonomousVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAutonomousVmClustersRequest.Builder>,
+                        ListAutonomousVmClustersRequest>() {
+                    @Override
+                    public ListAutonomousVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAutonomousVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousVmClustersRequest, ListAutonomousVmClustersResponse>() {
+                    @Override
+                    public ListAutonomousVmClustersResponse apply(
+                            ListAutonomousVmClustersRequest request) {
+                        return client.listAutonomousVmClusters(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListAutonomousVmClustersResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.AutonomousVmClusterSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.AutonomousVmClusterSummary>
+                            apply(ListAutonomousVmClustersResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listBackupDestination operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListBackupDestinationResponse> listBackupDestinationResponseIterator(
+            final ListBackupDestinationRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListBackupDestinationRequest.Builder, ListBackupDestinationRequest,
+                ListBackupDestinationResponse>(
+                new com.google.common.base.Supplier<ListBackupDestinationRequest.Builder>() {
+                    @Override
+                    public ListBackupDestinationRequest.Builder get() {
+                        return ListBackupDestinationRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListBackupDestinationResponse, String>() {
+                    @Override
+                    public String apply(ListBackupDestinationResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListBackupDestinationRequest.Builder>,
+                        ListBackupDestinationRequest>() {
+                    @Override
+                    public ListBackupDestinationRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListBackupDestinationRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListBackupDestinationRequest, ListBackupDestinationResponse>() {
+                    @Override
+                    public ListBackupDestinationResponse apply(
+                            ListBackupDestinationRequest request) {
+                        return client.listBackupDestination(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.BackupDestinationSummary} objects
+     * contained in responses from the listBackupDestination operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.BackupDestinationSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.BackupDestinationSummary>
+            listBackupDestinationRecordIterator(final ListBackupDestinationRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListBackupDestinationRequest.Builder, ListBackupDestinationRequest,
+                ListBackupDestinationResponse,
+                com.oracle.bmc.database.model.BackupDestinationSummary>(
+                new com.google.common.base.Supplier<ListBackupDestinationRequest.Builder>() {
+                    @Override
+                    public ListBackupDestinationRequest.Builder get() {
+                        return ListBackupDestinationRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListBackupDestinationResponse, String>() {
+                    @Override
+                    public String apply(ListBackupDestinationResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListBackupDestinationRequest.Builder>,
+                        ListBackupDestinationRequest>() {
+                    @Override
+                    public ListBackupDestinationRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListBackupDestinationRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListBackupDestinationRequest, ListBackupDestinationResponse>() {
+                    @Override
+                    public ListBackupDestinationResponse apply(
+                            ListBackupDestinationRequest request) {
+                        return client.listBackupDestination(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListBackupDestinationResponse,
+                        java.util.List<com.oracle.bmc.database.model.BackupDestinationSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.BackupDestinationSummary>
+                            apply(ListBackupDestinationResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
      * Creates a new iterable which will iterate over the responses received from the listBackups operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -1151,6 +1648,612 @@ public class DatabasePaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.database.model.BackupSummary> apply(
                             ListBackupsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listCloudExadataInfrastructures operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListCloudExadataInfrastructuresResponse>
+            listCloudExadataInfrastructuresResponseIterator(
+                    final ListCloudExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudExadataInfrastructuresRequest.Builder,
+                ListCloudExadataInfrastructuresRequest, ListCloudExadataInfrastructuresResponse>(
+                new com.google.common.base.Supplier<
+                        ListCloudExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest.Builder get() {
+                        return ListCloudExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataInfrastructuresRequest.Builder>,
+                        ListCloudExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudExadataInfrastructuresRequest,
+                        ListCloudExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresResponse apply(
+                            ListCloudExadataInfrastructuresRequest request) {
+                        return client.listCloudExadataInfrastructures(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.CloudExadataInfrastructureSummary} objects
+     * contained in responses from the listCloudExadataInfrastructures operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.CloudExadataInfrastructureSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.CloudExadataInfrastructureSummary>
+            listCloudExadataInfrastructuresRecordIterator(
+                    final ListCloudExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudExadataInfrastructuresRequest.Builder,
+                ListCloudExadataInfrastructuresRequest, ListCloudExadataInfrastructuresResponse,
+                com.oracle.bmc.database.model.CloudExadataInfrastructureSummary>(
+                new com.google.common.base.Supplier<
+                        ListCloudExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest.Builder get() {
+                        return ListCloudExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataInfrastructuresRequest.Builder>,
+                        ListCloudExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudExadataInfrastructuresRequest,
+                        ListCloudExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresResponse apply(
+                            ListCloudExadataInfrastructuresRequest request) {
+                        return client.listCloudExadataInfrastructures(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudExadataInfrastructuresResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .CloudExadataInfrastructureSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.CloudExadataInfrastructureSummary>
+                            apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listCloudVmClusterUpdateHistoryEntries operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListCloudVmClusterUpdateHistoryEntriesResponse>
+            listCloudVmClusterUpdateHistoryEntriesResponseIterator(
+                    final ListCloudVmClusterUpdateHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudVmClusterUpdateHistoryEntriesRequest.Builder,
+                ListCloudVmClusterUpdateHistoryEntriesRequest,
+                ListCloudVmClusterUpdateHistoryEntriesResponse>(
+                new com.google.common.base.Supplier<
+                        ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesRequest.Builder get() {
+                        return ListCloudVmClusterUpdateHistoryEntriesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdateHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>,
+                        ListCloudVmClusterUpdateHistoryEntriesRequest>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdateHistoryEntriesRequest,
+                        ListCloudVmClusterUpdateHistoryEntriesResponse>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesResponse apply(
+                            ListCloudVmClusterUpdateHistoryEntriesRequest request) {
+                        return client.listCloudVmClusterUpdateHistoryEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.UpdateHistoryEntrySummary} objects
+     * contained in responses from the listCloudVmClusterUpdateHistoryEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.UpdateHistoryEntrySummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.UpdateHistoryEntrySummary>
+            listCloudVmClusterUpdateHistoryEntriesRecordIterator(
+                    final ListCloudVmClusterUpdateHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudVmClusterUpdateHistoryEntriesRequest.Builder,
+                ListCloudVmClusterUpdateHistoryEntriesRequest,
+                ListCloudVmClusterUpdateHistoryEntriesResponse,
+                com.oracle.bmc.database.model.UpdateHistoryEntrySummary>(
+                new com.google.common.base.Supplier<
+                        ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesRequest.Builder get() {
+                        return ListCloudVmClusterUpdateHistoryEntriesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdateHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>,
+                        ListCloudVmClusterUpdateHistoryEntriesRequest>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClusterUpdateHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdateHistoryEntriesRequest,
+                        ListCloudVmClusterUpdateHistoryEntriesResponse>() {
+                    @Override
+                    public ListCloudVmClusterUpdateHistoryEntriesResponse apply(
+                            ListCloudVmClusterUpdateHistoryEntriesRequest request) {
+                        return client.listCloudVmClusterUpdateHistoryEntries(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdateHistoryEntriesResponse,
+                        java.util.List<com.oracle.bmc.database.model.UpdateHistoryEntrySummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.UpdateHistoryEntrySummary>
+                            apply(ListCloudVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listCloudVmClusterUpdates operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListCloudVmClusterUpdatesResponse> listCloudVmClusterUpdatesResponseIterator(
+            final ListCloudVmClusterUpdatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudVmClusterUpdatesRequest.Builder, ListCloudVmClusterUpdatesRequest,
+                ListCloudVmClusterUpdatesResponse>(
+                new com.google.common.base.Supplier<ListCloudVmClusterUpdatesRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesRequest.Builder get() {
+                        return ListCloudVmClusterUpdatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCloudVmClusterUpdatesResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClusterUpdatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClusterUpdatesRequest.Builder>,
+                        ListCloudVmClusterUpdatesRequest>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClusterUpdatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdatesRequest, ListCloudVmClusterUpdatesResponse>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesResponse apply(
+                            ListCloudVmClusterUpdatesRequest request) {
+                        return client.listCloudVmClusterUpdates(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.UpdateSummary} objects
+     * contained in responses from the listCloudVmClusterUpdates operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.UpdateSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.UpdateSummary>
+            listCloudVmClusterUpdatesRecordIterator(
+                    final ListCloudVmClusterUpdatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudVmClusterUpdatesRequest.Builder, ListCloudVmClusterUpdatesRequest,
+                ListCloudVmClusterUpdatesResponse, com.oracle.bmc.database.model.UpdateSummary>(
+                new com.google.common.base.Supplier<ListCloudVmClusterUpdatesRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesRequest.Builder get() {
+                        return ListCloudVmClusterUpdatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCloudVmClusterUpdatesResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClusterUpdatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClusterUpdatesRequest.Builder>,
+                        ListCloudVmClusterUpdatesRequest>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClusterUpdatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdatesRequest, ListCloudVmClusterUpdatesResponse>() {
+                    @Override
+                    public ListCloudVmClusterUpdatesResponse apply(
+                            ListCloudVmClusterUpdatesRequest request) {
+                        return client.listCloudVmClusterUpdates(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClusterUpdatesResponse,
+                        java.util.List<com.oracle.bmc.database.model.UpdateSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.UpdateSummary> apply(
+                            ListCloudVmClusterUpdatesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listCloudVmClusters operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListCloudVmClustersResponse> listCloudVmClustersResponseIterator(
+            final ListCloudVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudVmClustersRequest.Builder, ListCloudVmClustersRequest,
+                ListCloudVmClustersResponse>(
+                new com.google.common.base.Supplier<ListCloudVmClustersRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClustersRequest.Builder get() {
+                        return ListCloudVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCloudVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClustersRequest.Builder>,
+                        ListCloudVmClustersRequest>() {
+                    @Override
+                    public ListCloudVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClustersRequest, ListCloudVmClustersResponse>() {
+                    @Override
+                    public ListCloudVmClustersResponse apply(ListCloudVmClustersRequest request) {
+                        return client.listCloudVmClusters(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.CloudVmClusterSummary} objects
+     * contained in responses from the listCloudVmClusters operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.CloudVmClusterSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.CloudVmClusterSummary>
+            listCloudVmClustersRecordIterator(final ListCloudVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudVmClustersRequest.Builder, ListCloudVmClustersRequest,
+                ListCloudVmClustersResponse, com.oracle.bmc.database.model.CloudVmClusterSummary>(
+                new com.google.common.base.Supplier<ListCloudVmClustersRequest.Builder>() {
+                    @Override
+                    public ListCloudVmClustersRequest.Builder get() {
+                        return ListCloudVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCloudVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListCloudVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudVmClustersRequest.Builder>,
+                        ListCloudVmClustersRequest>() {
+                    @Override
+                    public ListCloudVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClustersRequest, ListCloudVmClustersResponse>() {
+                    @Override
+                    public ListCloudVmClustersResponse apply(ListCloudVmClustersRequest request) {
+                        return client.listCloudVmClusters(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCloudVmClustersResponse,
+                        java.util.List<com.oracle.bmc.database.model.CloudVmClusterSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.CloudVmClusterSummary>
+                            apply(ListCloudVmClustersResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listContainerDatabasePatches operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListContainerDatabasePatchesResponse>
+            listContainerDatabasePatchesResponseIterator(
+                    final ListContainerDatabasePatchesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListContainerDatabasePatchesRequest.Builder, ListContainerDatabasePatchesRequest,
+                ListContainerDatabasePatchesResponse>(
+                new com.google.common.base.Supplier<ListContainerDatabasePatchesRequest.Builder>() {
+                    @Override
+                    public ListContainerDatabasePatchesRequest.Builder get() {
+                        return ListContainerDatabasePatchesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListContainerDatabasePatchesResponse, String>() {
+                    @Override
+                    public String apply(ListContainerDatabasePatchesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListContainerDatabasePatchesRequest.Builder>,
+                        ListContainerDatabasePatchesRequest>() {
+                    @Override
+                    public ListContainerDatabasePatchesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListContainerDatabasePatchesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListContainerDatabasePatchesRequest,
+                        ListContainerDatabasePatchesResponse>() {
+                    @Override
+                    public ListContainerDatabasePatchesResponse apply(
+                            ListContainerDatabasePatchesRequest request) {
+                        return client.listContainerDatabasePatches(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.AutonomousPatchSummary} objects
+     * contained in responses from the listContainerDatabasePatches operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.AutonomousPatchSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AutonomousPatchSummary>
+            listContainerDatabasePatchesRecordIterator(
+                    final ListContainerDatabasePatchesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListContainerDatabasePatchesRequest.Builder, ListContainerDatabasePatchesRequest,
+                ListContainerDatabasePatchesResponse,
+                com.oracle.bmc.database.model.AutonomousPatchSummary>(
+                new com.google.common.base.Supplier<ListContainerDatabasePatchesRequest.Builder>() {
+                    @Override
+                    public ListContainerDatabasePatchesRequest.Builder get() {
+                        return ListContainerDatabasePatchesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListContainerDatabasePatchesResponse, String>() {
+                    @Override
+                    public String apply(ListContainerDatabasePatchesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListContainerDatabasePatchesRequest.Builder>,
+                        ListContainerDatabasePatchesRequest>() {
+                    @Override
+                    public ListContainerDatabasePatchesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListContainerDatabasePatchesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListContainerDatabasePatchesRequest,
+                        ListContainerDatabasePatchesResponse>() {
+                    @Override
+                    public ListContainerDatabasePatchesResponse apply(
+                            ListContainerDatabasePatchesRequest request) {
+                        return client.listContainerDatabasePatches(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListContainerDatabasePatchesResponse,
+                        java.util.List<com.oracle.bmc.database.model.AutonomousPatchSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.AutonomousPatchSummary>
+                            apply(ListContainerDatabasePatchesResponse response) {
                         return response.getItems();
                     }
                 });
@@ -1269,6 +2372,254 @@ public class DatabasePaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.database.model.DataGuardAssociationSummary>
                             apply(ListDataGuardAssociationsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDatabaseSoftwareImages operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDatabaseSoftwareImagesResponse> listDatabaseSoftwareImagesResponseIterator(
+            final ListDatabaseSoftwareImagesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDatabaseSoftwareImagesRequest.Builder, ListDatabaseSoftwareImagesRequest,
+                ListDatabaseSoftwareImagesResponse>(
+                new com.google.common.base.Supplier<ListDatabaseSoftwareImagesRequest.Builder>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesRequest.Builder get() {
+                        return ListDatabaseSoftwareImagesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDatabaseSoftwareImagesResponse, String>() {
+                    @Override
+                    public String apply(ListDatabaseSoftwareImagesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDatabaseSoftwareImagesRequest.Builder>,
+                        ListDatabaseSoftwareImagesRequest>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDatabaseSoftwareImagesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseSoftwareImagesRequest, ListDatabaseSoftwareImagesResponse>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesResponse apply(
+                            ListDatabaseSoftwareImagesRequest request) {
+                        return client.listDatabaseSoftwareImages(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.DatabaseSoftwareImageSummary} objects
+     * contained in responses from the listDatabaseSoftwareImages operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.DatabaseSoftwareImageSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.DatabaseSoftwareImageSummary>
+            listDatabaseSoftwareImagesRecordIterator(
+                    final ListDatabaseSoftwareImagesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDatabaseSoftwareImagesRequest.Builder, ListDatabaseSoftwareImagesRequest,
+                ListDatabaseSoftwareImagesResponse,
+                com.oracle.bmc.database.model.DatabaseSoftwareImageSummary>(
+                new com.google.common.base.Supplier<ListDatabaseSoftwareImagesRequest.Builder>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesRequest.Builder get() {
+                        return ListDatabaseSoftwareImagesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDatabaseSoftwareImagesResponse, String>() {
+                    @Override
+                    public String apply(ListDatabaseSoftwareImagesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDatabaseSoftwareImagesRequest.Builder>,
+                        ListDatabaseSoftwareImagesRequest>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDatabaseSoftwareImagesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseSoftwareImagesRequest, ListDatabaseSoftwareImagesResponse>() {
+                    @Override
+                    public ListDatabaseSoftwareImagesResponse apply(
+                            ListDatabaseSoftwareImagesRequest request) {
+                        return client.listDatabaseSoftwareImages(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseSoftwareImagesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.DatabaseSoftwareImageSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.DatabaseSoftwareImageSummary>
+                            apply(ListDatabaseSoftwareImagesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDatabaseUpgradeHistoryEntries operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDatabaseUpgradeHistoryEntriesResponse>
+            listDatabaseUpgradeHistoryEntriesResponseIterator(
+                    final ListDatabaseUpgradeHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDatabaseUpgradeHistoryEntriesRequest.Builder,
+                ListDatabaseUpgradeHistoryEntriesRequest,
+                ListDatabaseUpgradeHistoryEntriesResponse>(
+                new com.google.common.base.Supplier<
+                        ListDatabaseUpgradeHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesRequest.Builder get() {
+                        return ListDatabaseUpgradeHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseUpgradeHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListDatabaseUpgradeHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDatabaseUpgradeHistoryEntriesRequest.Builder>,
+                        ListDatabaseUpgradeHistoryEntriesRequest>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDatabaseUpgradeHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseUpgradeHistoryEntriesRequest,
+                        ListDatabaseUpgradeHistoryEntriesResponse>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesResponse apply(
+                            ListDatabaseUpgradeHistoryEntriesRequest request) {
+                        return client.listDatabaseUpgradeHistoryEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.DatabaseUpgradeHistoryEntrySummary} objects
+     * contained in responses from the listDatabaseUpgradeHistoryEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.DatabaseUpgradeHistoryEntrySummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.DatabaseUpgradeHistoryEntrySummary>
+            listDatabaseUpgradeHistoryEntriesRecordIterator(
+                    final ListDatabaseUpgradeHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDatabaseUpgradeHistoryEntriesRequest.Builder,
+                ListDatabaseUpgradeHistoryEntriesRequest, ListDatabaseUpgradeHistoryEntriesResponse,
+                com.oracle.bmc.database.model.DatabaseUpgradeHistoryEntrySummary>(
+                new com.google.common.base.Supplier<
+                        ListDatabaseUpgradeHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesRequest.Builder get() {
+                        return ListDatabaseUpgradeHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseUpgradeHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListDatabaseUpgradeHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDatabaseUpgradeHistoryEntriesRequest.Builder>,
+                        ListDatabaseUpgradeHistoryEntriesRequest>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDatabaseUpgradeHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseUpgradeHistoryEntriesRequest,
+                        ListDatabaseUpgradeHistoryEntriesResponse>() {
+                    @Override
+                    public ListDatabaseUpgradeHistoryEntriesResponse apply(
+                            ListDatabaseUpgradeHistoryEntriesRequest request) {
+                        return client.listDatabaseUpgradeHistoryEntries(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDatabaseUpgradeHistoryEntriesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .DatabaseUpgradeHistoryEntrySummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .DatabaseUpgradeHistoryEntrySummary>
+                            apply(ListDatabaseUpgradeHistoryEntriesResponse response) {
                         return response.getItems();
                     }
                 });
@@ -2414,6 +3765,967 @@ public class DatabasePaginators {
     }
 
     /**
+     * Creates a new iterable which will iterate over the responses received from the listExadataInfrastructures operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListExadataInfrastructuresResponse> listExadataInfrastructuresResponseIterator(
+            final ListExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListExadataInfrastructuresRequest.Builder, ListExadataInfrastructuresRequest,
+                ListExadataInfrastructuresResponse>(
+                new com.google.common.base.Supplier<ListExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListExadataInfrastructuresRequest.Builder get() {
+                        return ListExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExadataInfrastructuresRequest.Builder>,
+                        ListExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExadataInfrastructuresRequest, ListExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListExadataInfrastructuresResponse apply(
+                            ListExadataInfrastructuresRequest request) {
+                        return client.listExadataInfrastructures(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.ExadataInfrastructureSummary} objects
+     * contained in responses from the listExadataInfrastructures operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.ExadataInfrastructureSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.ExadataInfrastructureSummary>
+            listExadataInfrastructuresRecordIterator(
+                    final ListExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListExadataInfrastructuresRequest.Builder, ListExadataInfrastructuresRequest,
+                ListExadataInfrastructuresResponse,
+                com.oracle.bmc.database.model.ExadataInfrastructureSummary>(
+                new com.google.common.base.Supplier<ListExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListExadataInfrastructuresRequest.Builder get() {
+                        return ListExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExadataInfrastructuresRequest.Builder>,
+                        ListExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExadataInfrastructuresRequest, ListExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListExadataInfrastructuresResponse apply(
+                            ListExadataInfrastructuresRequest request) {
+                        return client.listExadataInfrastructures(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExadataInfrastructuresResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.ExadataInfrastructureSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.ExadataInfrastructureSummary>
+                            apply(ListExadataInfrastructuresResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listExternalContainerDatabases operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListExternalContainerDatabasesResponse>
+            listExternalContainerDatabasesResponseIterator(
+                    final ListExternalContainerDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListExternalContainerDatabasesRequest.Builder,
+                ListExternalContainerDatabasesRequest, ListExternalContainerDatabasesResponse>(
+                new com.google.common.base.Supplier<
+                        ListExternalContainerDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalContainerDatabasesRequest.Builder get() {
+                        return ListExternalContainerDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalContainerDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalContainerDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalContainerDatabasesRequest.Builder>,
+                        ListExternalContainerDatabasesRequest>() {
+                    @Override
+                    public ListExternalContainerDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalContainerDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalContainerDatabasesRequest,
+                        ListExternalContainerDatabasesResponse>() {
+                    @Override
+                    public ListExternalContainerDatabasesResponse apply(
+                            ListExternalContainerDatabasesRequest request) {
+                        return client.listExternalContainerDatabases(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.ExternalContainerDatabaseSummary} objects
+     * contained in responses from the listExternalContainerDatabases operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.ExternalContainerDatabaseSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.ExternalContainerDatabaseSummary>
+            listExternalContainerDatabasesRecordIterator(
+                    final ListExternalContainerDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListExternalContainerDatabasesRequest.Builder,
+                ListExternalContainerDatabasesRequest, ListExternalContainerDatabasesResponse,
+                com.oracle.bmc.database.model.ExternalContainerDatabaseSummary>(
+                new com.google.common.base.Supplier<
+                        ListExternalContainerDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalContainerDatabasesRequest.Builder get() {
+                        return ListExternalContainerDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalContainerDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalContainerDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalContainerDatabasesRequest.Builder>,
+                        ListExternalContainerDatabasesRequest>() {
+                    @Override
+                    public ListExternalContainerDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalContainerDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalContainerDatabasesRequest,
+                        ListExternalContainerDatabasesResponse>() {
+                    @Override
+                    public ListExternalContainerDatabasesResponse apply(
+                            ListExternalContainerDatabasesRequest request) {
+                        return client.listExternalContainerDatabases(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalContainerDatabasesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.ExternalContainerDatabaseSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.ExternalContainerDatabaseSummary>
+                            apply(ListExternalContainerDatabasesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listExternalDatabaseConnectors operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListExternalDatabaseConnectorsResponse>
+            listExternalDatabaseConnectorsResponseIterator(
+                    final ListExternalDatabaseConnectorsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListExternalDatabaseConnectorsRequest.Builder,
+                ListExternalDatabaseConnectorsRequest, ListExternalDatabaseConnectorsResponse>(
+                new com.google.common.base.Supplier<
+                        ListExternalDatabaseConnectorsRequest.Builder>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsRequest.Builder get() {
+                        return ListExternalDatabaseConnectorsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalDatabaseConnectorsResponse, String>() {
+                    @Override
+                    public String apply(ListExternalDatabaseConnectorsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalDatabaseConnectorsRequest.Builder>,
+                        ListExternalDatabaseConnectorsRequest>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalDatabaseConnectorsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalDatabaseConnectorsRequest,
+                        ListExternalDatabaseConnectorsResponse>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsResponse apply(
+                            ListExternalDatabaseConnectorsRequest request) {
+                        return client.listExternalDatabaseConnectors(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary} objects
+     * contained in responses from the listExternalDatabaseConnectors operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary>
+            listExternalDatabaseConnectorsRecordIterator(
+                    final ListExternalDatabaseConnectorsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListExternalDatabaseConnectorsRequest.Builder,
+                ListExternalDatabaseConnectorsRequest, ListExternalDatabaseConnectorsResponse,
+                com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary>(
+                new com.google.common.base.Supplier<
+                        ListExternalDatabaseConnectorsRequest.Builder>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsRequest.Builder get() {
+                        return ListExternalDatabaseConnectorsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalDatabaseConnectorsResponse, String>() {
+                    @Override
+                    public String apply(ListExternalDatabaseConnectorsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalDatabaseConnectorsRequest.Builder>,
+                        ListExternalDatabaseConnectorsRequest>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalDatabaseConnectorsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalDatabaseConnectorsRequest,
+                        ListExternalDatabaseConnectorsResponse>() {
+                    @Override
+                    public ListExternalDatabaseConnectorsResponse apply(
+                            ListExternalDatabaseConnectorsRequest request) {
+                        return client.listExternalDatabaseConnectors(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalDatabaseConnectorsResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.ExternalDatabaseConnectorSummary>
+                            apply(ListExternalDatabaseConnectorsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listExternalNonContainerDatabases operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListExternalNonContainerDatabasesResponse>
+            listExternalNonContainerDatabasesResponseIterator(
+                    final ListExternalNonContainerDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListExternalNonContainerDatabasesRequest.Builder,
+                ListExternalNonContainerDatabasesRequest,
+                ListExternalNonContainerDatabasesResponse>(
+                new com.google.common.base.Supplier<
+                        ListExternalNonContainerDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesRequest.Builder get() {
+                        return ListExternalNonContainerDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalNonContainerDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalNonContainerDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalNonContainerDatabasesRequest.Builder>,
+                        ListExternalNonContainerDatabasesRequest>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalNonContainerDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalNonContainerDatabasesRequest,
+                        ListExternalNonContainerDatabasesResponse>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesResponse apply(
+                            ListExternalNonContainerDatabasesRequest request) {
+                        return client.listExternalNonContainerDatabases(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.ExternalNonContainerDatabaseSummary} objects
+     * contained in responses from the listExternalNonContainerDatabases operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.ExternalNonContainerDatabaseSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.ExternalNonContainerDatabaseSummary>
+            listExternalNonContainerDatabasesRecordIterator(
+                    final ListExternalNonContainerDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListExternalNonContainerDatabasesRequest.Builder,
+                ListExternalNonContainerDatabasesRequest, ListExternalNonContainerDatabasesResponse,
+                com.oracle.bmc.database.model.ExternalNonContainerDatabaseSummary>(
+                new com.google.common.base.Supplier<
+                        ListExternalNonContainerDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesRequest.Builder get() {
+                        return ListExternalNonContainerDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalNonContainerDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalNonContainerDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalNonContainerDatabasesRequest.Builder>,
+                        ListExternalNonContainerDatabasesRequest>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalNonContainerDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalNonContainerDatabasesRequest,
+                        ListExternalNonContainerDatabasesResponse>() {
+                    @Override
+                    public ListExternalNonContainerDatabasesResponse apply(
+                            ListExternalNonContainerDatabasesRequest request) {
+                        return client.listExternalNonContainerDatabases(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalNonContainerDatabasesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .ExternalNonContainerDatabaseSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .ExternalNonContainerDatabaseSummary>
+                            apply(ListExternalNonContainerDatabasesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listExternalPluggableDatabases operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListExternalPluggableDatabasesResponse>
+            listExternalPluggableDatabasesResponseIterator(
+                    final ListExternalPluggableDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListExternalPluggableDatabasesRequest.Builder,
+                ListExternalPluggableDatabasesRequest, ListExternalPluggableDatabasesResponse>(
+                new com.google.common.base.Supplier<
+                        ListExternalPluggableDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalPluggableDatabasesRequest.Builder get() {
+                        return ListExternalPluggableDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalPluggableDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalPluggableDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalPluggableDatabasesRequest.Builder>,
+                        ListExternalPluggableDatabasesRequest>() {
+                    @Override
+                    public ListExternalPluggableDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalPluggableDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalPluggableDatabasesRequest,
+                        ListExternalPluggableDatabasesResponse>() {
+                    @Override
+                    public ListExternalPluggableDatabasesResponse apply(
+                            ListExternalPluggableDatabasesRequest request) {
+                        return client.listExternalPluggableDatabases(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary} objects
+     * contained in responses from the listExternalPluggableDatabases operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary>
+            listExternalPluggableDatabasesRecordIterator(
+                    final ListExternalPluggableDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListExternalPluggableDatabasesRequest.Builder,
+                ListExternalPluggableDatabasesRequest, ListExternalPluggableDatabasesResponse,
+                com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary>(
+                new com.google.common.base.Supplier<
+                        ListExternalPluggableDatabasesRequest.Builder>() {
+                    @Override
+                    public ListExternalPluggableDatabasesRequest.Builder get() {
+                        return ListExternalPluggableDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalPluggableDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListExternalPluggableDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListExternalPluggableDatabasesRequest.Builder>,
+                        ListExternalPluggableDatabasesRequest>() {
+                    @Override
+                    public ListExternalPluggableDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListExternalPluggableDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalPluggableDatabasesRequest,
+                        ListExternalPluggableDatabasesResponse>() {
+                    @Override
+                    public ListExternalPluggableDatabasesResponse apply(
+                            ListExternalPluggableDatabasesRequest request) {
+                        return client.listExternalPluggableDatabases(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListExternalPluggableDatabasesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.ExternalPluggableDatabaseSummary>
+                            apply(ListExternalPluggableDatabasesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listFlexComponents operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListFlexComponentsResponse> listFlexComponentsResponseIterator(
+            final ListFlexComponentsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListFlexComponentsRequest.Builder, ListFlexComponentsRequest,
+                ListFlexComponentsResponse>(
+                new com.google.common.base.Supplier<ListFlexComponentsRequest.Builder>() {
+                    @Override
+                    public ListFlexComponentsRequest.Builder get() {
+                        return ListFlexComponentsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListFlexComponentsResponse, String>() {
+                    @Override
+                    public String apply(ListFlexComponentsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListFlexComponentsRequest.Builder>,
+                        ListFlexComponentsRequest>() {
+                    @Override
+                    public ListFlexComponentsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListFlexComponentsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListFlexComponentsRequest, ListFlexComponentsResponse>() {
+                    @Override
+                    public ListFlexComponentsResponse apply(ListFlexComponentsRequest request) {
+                        return client.listFlexComponents(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.FlexComponentSummary} objects
+     * contained in responses from the listFlexComponents operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.FlexComponentSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.FlexComponentSummary>
+            listFlexComponentsRecordIterator(final ListFlexComponentsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListFlexComponentsRequest.Builder, ListFlexComponentsRequest,
+                ListFlexComponentsResponse, com.oracle.bmc.database.model.FlexComponentSummary>(
+                new com.google.common.base.Supplier<ListFlexComponentsRequest.Builder>() {
+                    @Override
+                    public ListFlexComponentsRequest.Builder get() {
+                        return ListFlexComponentsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListFlexComponentsResponse, String>() {
+                    @Override
+                    public String apply(ListFlexComponentsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListFlexComponentsRequest.Builder>,
+                        ListFlexComponentsRequest>() {
+                    @Override
+                    public ListFlexComponentsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListFlexComponentsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListFlexComponentsRequest, ListFlexComponentsResponse>() {
+                    @Override
+                    public ListFlexComponentsResponse apply(ListFlexComponentsRequest request) {
+                        return client.listFlexComponents(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListFlexComponentsResponse,
+                        java.util.List<com.oracle.bmc.database.model.FlexComponentSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.FlexComponentSummary> apply(
+                            ListFlexComponentsResponse response) {
+                        return response.getFlexComponentCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listGiVersions operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListGiVersionsResponse> listGiVersionsResponseIterator(
+            final ListGiVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListGiVersionsRequest.Builder, ListGiVersionsRequest, ListGiVersionsResponse>(
+                new com.google.common.base.Supplier<ListGiVersionsRequest.Builder>() {
+                    @Override
+                    public ListGiVersionsRequest.Builder get() {
+                        return ListGiVersionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListGiVersionsResponse, String>() {
+                    @Override
+                    public String apply(ListGiVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListGiVersionsRequest.Builder>,
+                        ListGiVersionsRequest>() {
+                    @Override
+                    public ListGiVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListGiVersionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListGiVersionsRequest, ListGiVersionsResponse>() {
+                    @Override
+                    public ListGiVersionsResponse apply(ListGiVersionsRequest request) {
+                        return client.listGiVersions(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.GiVersionSummary} objects
+     * contained in responses from the listGiVersions operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.GiVersionSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.GiVersionSummary> listGiVersionsRecordIterator(
+            final ListGiVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListGiVersionsRequest.Builder, ListGiVersionsRequest, ListGiVersionsResponse,
+                com.oracle.bmc.database.model.GiVersionSummary>(
+                new com.google.common.base.Supplier<ListGiVersionsRequest.Builder>() {
+                    @Override
+                    public ListGiVersionsRequest.Builder get() {
+                        return ListGiVersionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListGiVersionsResponse, String>() {
+                    @Override
+                    public String apply(ListGiVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListGiVersionsRequest.Builder>,
+                        ListGiVersionsRequest>() {
+                    @Override
+                    public ListGiVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListGiVersionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListGiVersionsRequest, ListGiVersionsResponse>() {
+                    @Override
+                    public ListGiVersionsResponse apply(ListGiVersionsRequest request) {
+                        return client.listGiVersions(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListGiVersionsResponse,
+                        java.util.List<com.oracle.bmc.database.model.GiVersionSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.GiVersionSummary> apply(
+                            ListGiVersionsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listKeyStores operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListKeyStoresResponse> listKeyStoresResponseIterator(
+            final ListKeyStoresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListKeyStoresRequest.Builder, ListKeyStoresRequest, ListKeyStoresResponse>(
+                new com.google.common.base.Supplier<ListKeyStoresRequest.Builder>() {
+                    @Override
+                    public ListKeyStoresRequest.Builder get() {
+                        return ListKeyStoresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListKeyStoresResponse, String>() {
+                    @Override
+                    public String apply(ListKeyStoresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListKeyStoresRequest.Builder>,
+                        ListKeyStoresRequest>() {
+                    @Override
+                    public ListKeyStoresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListKeyStoresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListKeyStoresRequest, ListKeyStoresResponse>() {
+                    @Override
+                    public ListKeyStoresResponse apply(ListKeyStoresRequest request) {
+                        return client.listKeyStores(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.KeyStoreSummary} objects
+     * contained in responses from the listKeyStores operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.KeyStoreSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.KeyStoreSummary> listKeyStoresRecordIterator(
+            final ListKeyStoresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListKeyStoresRequest.Builder, ListKeyStoresRequest, ListKeyStoresResponse,
+                com.oracle.bmc.database.model.KeyStoreSummary>(
+                new com.google.common.base.Supplier<ListKeyStoresRequest.Builder>() {
+                    @Override
+                    public ListKeyStoresRequest.Builder get() {
+                        return ListKeyStoresRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListKeyStoresResponse, String>() {
+                    @Override
+                    public String apply(ListKeyStoresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListKeyStoresRequest.Builder>,
+                        ListKeyStoresRequest>() {
+                    @Override
+                    public ListKeyStoresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListKeyStoresRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListKeyStoresRequest, ListKeyStoresResponse>() {
+                    @Override
+                    public ListKeyStoresResponse apply(ListKeyStoresRequest request) {
+                        return client.listKeyStores(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListKeyStoresResponse,
+                        java.util.List<com.oracle.bmc.database.model.KeyStoreSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.KeyStoreSummary> apply(
+                            ListKeyStoresResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
      * Creates a new iterable which will iterate over the responses received from the listMaintenanceRuns operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -2521,6 +4833,829 @@ public class DatabasePaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.database.model.MaintenanceRunSummary>
                             apply(ListMaintenanceRunsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listPluggableDatabases operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListPluggableDatabasesResponse> listPluggableDatabasesResponseIterator(
+            final ListPluggableDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListPluggableDatabasesRequest.Builder, ListPluggableDatabasesRequest,
+                ListPluggableDatabasesResponse>(
+                new com.google.common.base.Supplier<ListPluggableDatabasesRequest.Builder>() {
+                    @Override
+                    public ListPluggableDatabasesRequest.Builder get() {
+                        return ListPluggableDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListPluggableDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListPluggableDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListPluggableDatabasesRequest.Builder>,
+                        ListPluggableDatabasesRequest>() {
+                    @Override
+                    public ListPluggableDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListPluggableDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPluggableDatabasesRequest, ListPluggableDatabasesResponse>() {
+                    @Override
+                    public ListPluggableDatabasesResponse apply(
+                            ListPluggableDatabasesRequest request) {
+                        return client.listPluggableDatabases(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.PluggableDatabaseSummary} objects
+     * contained in responses from the listPluggableDatabases operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.PluggableDatabaseSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.PluggableDatabaseSummary>
+            listPluggableDatabasesRecordIterator(final ListPluggableDatabasesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListPluggableDatabasesRequest.Builder, ListPluggableDatabasesRequest,
+                ListPluggableDatabasesResponse,
+                com.oracle.bmc.database.model.PluggableDatabaseSummary>(
+                new com.google.common.base.Supplier<ListPluggableDatabasesRequest.Builder>() {
+                    @Override
+                    public ListPluggableDatabasesRequest.Builder get() {
+                        return ListPluggableDatabasesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListPluggableDatabasesResponse, String>() {
+                    @Override
+                    public String apply(ListPluggableDatabasesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListPluggableDatabasesRequest.Builder>,
+                        ListPluggableDatabasesRequest>() {
+                    @Override
+                    public ListPluggableDatabasesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListPluggableDatabasesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPluggableDatabasesRequest, ListPluggableDatabasesResponse>() {
+                    @Override
+                    public ListPluggableDatabasesResponse apply(
+                            ListPluggableDatabasesRequest request) {
+                        return client.listPluggableDatabases(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPluggableDatabasesResponse,
+                        java.util.List<com.oracle.bmc.database.model.PluggableDatabaseSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.PluggableDatabaseSummary>
+                            apply(ListPluggableDatabasesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusterNetworks operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClusterNetworksResponse> listVmClusterNetworksResponseIterator(
+            final ListVmClusterNetworksRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClusterNetworksRequest.Builder, ListVmClusterNetworksRequest,
+                ListVmClusterNetworksResponse>(
+                new com.google.common.base.Supplier<ListVmClusterNetworksRequest.Builder>() {
+                    @Override
+                    public ListVmClusterNetworksRequest.Builder get() {
+                        return ListVmClusterNetworksRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterNetworksResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterNetworksResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterNetworksRequest.Builder>,
+                        ListVmClusterNetworksRequest>() {
+                    @Override
+                    public ListVmClusterNetworksRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterNetworksRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterNetworksRequest, ListVmClusterNetworksResponse>() {
+                    @Override
+                    public ListVmClusterNetworksResponse apply(
+                            ListVmClusterNetworksRequest request) {
+                        return client.listVmClusterNetworks(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.VmClusterNetworkSummary} objects
+     * contained in responses from the listVmClusterNetworks operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.VmClusterNetworkSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.VmClusterNetworkSummary>
+            listVmClusterNetworksRecordIterator(final ListVmClusterNetworksRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClusterNetworksRequest.Builder, ListVmClusterNetworksRequest,
+                ListVmClusterNetworksResponse,
+                com.oracle.bmc.database.model.VmClusterNetworkSummary>(
+                new com.google.common.base.Supplier<ListVmClusterNetworksRequest.Builder>() {
+                    @Override
+                    public ListVmClusterNetworksRequest.Builder get() {
+                        return ListVmClusterNetworksRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterNetworksResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterNetworksResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterNetworksRequest.Builder>,
+                        ListVmClusterNetworksRequest>() {
+                    @Override
+                    public ListVmClusterNetworksRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterNetworksRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterNetworksRequest, ListVmClusterNetworksResponse>() {
+                    @Override
+                    public ListVmClusterNetworksResponse apply(
+                            ListVmClusterNetworksRequest request) {
+                        return client.listVmClusterNetworks(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterNetworksResponse,
+                        java.util.List<com.oracle.bmc.database.model.VmClusterNetworkSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.VmClusterNetworkSummary>
+                            apply(ListVmClusterNetworksResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusterPatchHistoryEntries operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClusterPatchHistoryEntriesResponse>
+            listVmClusterPatchHistoryEntriesResponseIterator(
+                    final ListVmClusterPatchHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClusterPatchHistoryEntriesRequest.Builder,
+                ListVmClusterPatchHistoryEntriesRequest, ListVmClusterPatchHistoryEntriesResponse>(
+                new com.google.common.base.Supplier<
+                        ListVmClusterPatchHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesRequest.Builder get() {
+                        return ListVmClusterPatchHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterPatchHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterPatchHistoryEntriesRequest.Builder>,
+                        ListVmClusterPatchHistoryEntriesRequest>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterPatchHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchHistoryEntriesRequest,
+                        ListVmClusterPatchHistoryEntriesResponse>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesResponse apply(
+                            ListVmClusterPatchHistoryEntriesRequest request) {
+                        return client.listVmClusterPatchHistoryEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.PatchHistoryEntrySummary} objects
+     * contained in responses from the listVmClusterPatchHistoryEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.PatchHistoryEntrySummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.PatchHistoryEntrySummary>
+            listVmClusterPatchHistoryEntriesRecordIterator(
+                    final ListVmClusterPatchHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClusterPatchHistoryEntriesRequest.Builder,
+                ListVmClusterPatchHistoryEntriesRequest, ListVmClusterPatchHistoryEntriesResponse,
+                com.oracle.bmc.database.model.PatchHistoryEntrySummary>(
+                new com.google.common.base.Supplier<
+                        ListVmClusterPatchHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesRequest.Builder get() {
+                        return ListVmClusterPatchHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterPatchHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterPatchHistoryEntriesRequest.Builder>,
+                        ListVmClusterPatchHistoryEntriesRequest>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterPatchHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchHistoryEntriesRequest,
+                        ListVmClusterPatchHistoryEntriesResponse>() {
+                    @Override
+                    public ListVmClusterPatchHistoryEntriesResponse apply(
+                            ListVmClusterPatchHistoryEntriesRequest request) {
+                        return client.listVmClusterPatchHistoryEntries(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchHistoryEntriesResponse,
+                        java.util.List<com.oracle.bmc.database.model.PatchHistoryEntrySummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.PatchHistoryEntrySummary>
+                            apply(ListVmClusterPatchHistoryEntriesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusterPatches operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClusterPatchesResponse> listVmClusterPatchesResponseIterator(
+            final ListVmClusterPatchesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClusterPatchesRequest.Builder, ListVmClusterPatchesRequest,
+                ListVmClusterPatchesResponse>(
+                new com.google.common.base.Supplier<ListVmClusterPatchesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterPatchesRequest.Builder get() {
+                        return ListVmClusterPatchesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterPatchesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterPatchesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterPatchesRequest.Builder>,
+                        ListVmClusterPatchesRequest>() {
+                    @Override
+                    public ListVmClusterPatchesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterPatchesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchesRequest, ListVmClusterPatchesResponse>() {
+                    @Override
+                    public ListVmClusterPatchesResponse apply(ListVmClusterPatchesRequest request) {
+                        return client.listVmClusterPatches(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.PatchSummary} objects
+     * contained in responses from the listVmClusterPatches operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.PatchSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.PatchSummary> listVmClusterPatchesRecordIterator(
+            final ListVmClusterPatchesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClusterPatchesRequest.Builder, ListVmClusterPatchesRequest,
+                ListVmClusterPatchesResponse, com.oracle.bmc.database.model.PatchSummary>(
+                new com.google.common.base.Supplier<ListVmClusterPatchesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterPatchesRequest.Builder get() {
+                        return ListVmClusterPatchesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterPatchesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterPatchesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterPatchesRequest.Builder>,
+                        ListVmClusterPatchesRequest>() {
+                    @Override
+                    public ListVmClusterPatchesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterPatchesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchesRequest, ListVmClusterPatchesResponse>() {
+                    @Override
+                    public ListVmClusterPatchesResponse apply(ListVmClusterPatchesRequest request) {
+                        return client.listVmClusterPatches(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterPatchesResponse,
+                        java.util.List<com.oracle.bmc.database.model.PatchSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.PatchSummary> apply(
+                            ListVmClusterPatchesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusterUpdateHistoryEntries operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClusterUpdateHistoryEntriesResponse>
+            listVmClusterUpdateHistoryEntriesResponseIterator(
+                    final ListVmClusterUpdateHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClusterUpdateHistoryEntriesRequest.Builder,
+                ListVmClusterUpdateHistoryEntriesRequest,
+                ListVmClusterUpdateHistoryEntriesResponse>(
+                new com.google.common.base.Supplier<
+                        ListVmClusterUpdateHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesRequest.Builder get() {
+                        return ListVmClusterUpdateHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdateHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterUpdateHistoryEntriesRequest.Builder>,
+                        ListVmClusterUpdateHistoryEntriesRequest>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterUpdateHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdateHistoryEntriesRequest,
+                        ListVmClusterUpdateHistoryEntriesResponse>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesResponse apply(
+                            ListVmClusterUpdateHistoryEntriesRequest request) {
+                        return client.listVmClusterUpdateHistoryEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.VmClusterUpdateHistoryEntrySummary} objects
+     * contained in responses from the listVmClusterUpdateHistoryEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.VmClusterUpdateHistoryEntrySummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.VmClusterUpdateHistoryEntrySummary>
+            listVmClusterUpdateHistoryEntriesRecordIterator(
+                    final ListVmClusterUpdateHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClusterUpdateHistoryEntriesRequest.Builder,
+                ListVmClusterUpdateHistoryEntriesRequest, ListVmClusterUpdateHistoryEntriesResponse,
+                com.oracle.bmc.database.model.VmClusterUpdateHistoryEntrySummary>(
+                new com.google.common.base.Supplier<
+                        ListVmClusterUpdateHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesRequest.Builder get() {
+                        return ListVmClusterUpdateHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdateHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterUpdateHistoryEntriesRequest.Builder>,
+                        ListVmClusterUpdateHistoryEntriesRequest>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterUpdateHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdateHistoryEntriesRequest,
+                        ListVmClusterUpdateHistoryEntriesResponse>() {
+                    @Override
+                    public ListVmClusterUpdateHistoryEntriesResponse apply(
+                            ListVmClusterUpdateHistoryEntriesRequest request) {
+                        return client.listVmClusterUpdateHistoryEntries(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdateHistoryEntriesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .VmClusterUpdateHistoryEntrySummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .VmClusterUpdateHistoryEntrySummary>
+                            apply(ListVmClusterUpdateHistoryEntriesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusterUpdates operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClusterUpdatesResponse> listVmClusterUpdatesResponseIterator(
+            final ListVmClusterUpdatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClusterUpdatesRequest.Builder, ListVmClusterUpdatesRequest,
+                ListVmClusterUpdatesResponse>(
+                new com.google.common.base.Supplier<ListVmClusterUpdatesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterUpdatesRequest.Builder get() {
+                        return ListVmClusterUpdatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterUpdatesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterUpdatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterUpdatesRequest.Builder>,
+                        ListVmClusterUpdatesRequest>() {
+                    @Override
+                    public ListVmClusterUpdatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterUpdatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdatesRequest, ListVmClusterUpdatesResponse>() {
+                    @Override
+                    public ListVmClusterUpdatesResponse apply(ListVmClusterUpdatesRequest request) {
+                        return client.listVmClusterUpdates(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.VmClusterUpdateSummary} objects
+     * contained in responses from the listVmClusterUpdates operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.VmClusterUpdateSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.VmClusterUpdateSummary>
+            listVmClusterUpdatesRecordIterator(final ListVmClusterUpdatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClusterUpdatesRequest.Builder, ListVmClusterUpdatesRequest,
+                ListVmClusterUpdatesResponse, com.oracle.bmc.database.model.VmClusterUpdateSummary>(
+                new com.google.common.base.Supplier<ListVmClusterUpdatesRequest.Builder>() {
+                    @Override
+                    public ListVmClusterUpdatesRequest.Builder get() {
+                        return ListVmClusterUpdatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClusterUpdatesResponse, String>() {
+                    @Override
+                    public String apply(ListVmClusterUpdatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClusterUpdatesRequest.Builder>,
+                        ListVmClusterUpdatesRequest>() {
+                    @Override
+                    public ListVmClusterUpdatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClusterUpdatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdatesRequest, ListVmClusterUpdatesResponse>() {
+                    @Override
+                    public ListVmClusterUpdatesResponse apply(ListVmClusterUpdatesRequest request) {
+                        return client.listVmClusterUpdates(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClusterUpdatesResponse,
+                        java.util.List<com.oracle.bmc.database.model.VmClusterUpdateSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.VmClusterUpdateSummary>
+                            apply(ListVmClusterUpdatesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVmClusters operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVmClustersResponse> listVmClustersResponseIterator(
+            final ListVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVmClustersRequest.Builder, ListVmClustersRequest, ListVmClustersResponse>(
+                new com.google.common.base.Supplier<ListVmClustersRequest.Builder>() {
+                    @Override
+                    public ListVmClustersRequest.Builder get() {
+                        return ListVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClustersRequest.Builder>,
+                        ListVmClustersRequest>() {
+                    @Override
+                    public ListVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClustersRequest, ListVmClustersResponse>() {
+                    @Override
+                    public ListVmClustersResponse apply(ListVmClustersRequest request) {
+                        return client.listVmClusters(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.database.model.VmClusterSummary} objects
+     * contained in responses from the listVmClusters operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.database.model.VmClusterSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.VmClusterSummary> listVmClustersRecordIterator(
+            final ListVmClustersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVmClustersRequest.Builder, ListVmClustersRequest, ListVmClustersResponse,
+                com.oracle.bmc.database.model.VmClusterSummary>(
+                new com.google.common.base.Supplier<ListVmClustersRequest.Builder>() {
+                    @Override
+                    public ListVmClustersRequest.Builder get() {
+                        return ListVmClustersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVmClustersResponse, String>() {
+                    @Override
+                    public String apply(ListVmClustersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVmClustersRequest.Builder>,
+                        ListVmClustersRequest>() {
+                    @Override
+                    public ListVmClustersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVmClustersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClustersRequest, ListVmClustersResponse>() {
+                    @Override
+                    public ListVmClustersResponse apply(ListVmClustersRequest request) {
+                        return client.listVmClusters(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVmClustersResponse,
+                        java.util.List<com.oracle.bmc.database.model.VmClusterSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.database.model.VmClusterSummary> apply(
+                            ListVmClustersResponse response) {
                         return response.getItems();
                     }
                 });

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.internal.http;
 
@@ -16,15 +17,16 @@ public class ListDbHomePatchHistoryEntriesConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListDbHomePatchHistoryEntriesRequest interceptRequest(
-            ListDbHomePatchHistoryEntriesRequest request) {
+    public static com.oracle.bmc.database.requests.ListDbHomePatchHistoryEntriesRequest
+            interceptRequest(
+                    com.oracle.bmc.database.requests.ListDbHomePatchHistoryEntriesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ListDbHomePatchHistoryEntriesRequest request) {
+            com.oracle.bmc.database.requests.ListDbHomePatchHistoryEntriesRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getDbHomeId(), "dbHomeId must not be blank");
 
@@ -57,23 +59,30 @@ public class ListDbHomePatchHistoryEntriesConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListDbHomePatchHistoryEntriesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.database.responses.ListDbHomePatchHistoryEntriesResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListDbHomePatchHistoryEntriesResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.database.responses.ListDbHomePatchHistoryEntriesResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ListDbHomePatchHistoryEntriesResponse>() {
+                                com.oracle.bmc.database.responses
+                                        .ListDbHomePatchHistoryEntriesResponse>() {
                             @Override
-                            public ListDbHomePatchHistoryEntriesResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.database.responses
+                                            .ListDbHomePatchHistoryEntriesResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListDbHomePatchHistoryEntriesResponse");
+                                        "Transform function invoked for com.oracle.bmc.database.responses.ListDbHomePatchHistoryEntriesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -90,8 +99,14 @@ public class ListDbHomePatchHistoryEntriesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListDbHomePatchHistoryEntriesResponse.Builder builder =
-                                        ListDbHomePatchHistoryEntriesResponse.builder();
+                                com.oracle.bmc.database.responses
+                                                .ListDbHomePatchHistoryEntriesResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.database.responses
+                                                        .ListDbHomePatchHistoryEntriesResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -119,8 +134,9 @@ public class ListDbHomePatchHistoryEntriesConverter {
                                                     String.class));
                                 }
 
-                                ListDbHomePatchHistoryEntriesResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.database.responses
+                                                .ListDbHomePatchHistoryEntriesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

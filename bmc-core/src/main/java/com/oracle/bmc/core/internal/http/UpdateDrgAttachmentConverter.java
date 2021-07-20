@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdateDrgAttachmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateDrgAttachmentRequest interceptRequest(UpdateDrgAttachmentRequest request) {
+    public static com.oracle.bmc.core.requests.UpdateDrgAttachmentRequest interceptRequest(
+            com.oracle.bmc.core.requests.UpdateDrgAttachmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdateDrgAttachmentRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.UpdateDrgAttachmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getDrgAttachmentId(), "drgAttachmentId must not be blank");
         Validate.notNull(
@@ -44,22 +47,28 @@ public class UpdateDrgAttachmentConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdateDrgAttachmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, UpdateDrgAttachmentResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateDrgAttachmentResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse>() {
                             @Override
-                            public UpdateDrgAttachmentResponse apply(
+                            public com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdateDrgAttachmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -73,8 +82,12 @@ public class UpdateDrgAttachmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateDrgAttachmentResponse.Builder builder =
-                                        UpdateDrgAttachmentResponse.builder();
+                                com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .UpdateDrgAttachmentResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.drgAttachment(response.getItem());
 
@@ -99,7 +112,8 @@ public class UpdateDrgAttachmentConverter {
                                                     String.class));
                                 }
 
-                                UpdateDrgAttachmentResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.UpdateDrgAttachmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

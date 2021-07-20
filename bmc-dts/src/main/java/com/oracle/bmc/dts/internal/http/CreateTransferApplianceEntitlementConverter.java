@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dts.internal.http;
 
@@ -9,22 +10,23 @@ import com.oracle.bmc.dts.requests.*;
 import com.oracle.bmc.dts.responses.*;
 import org.apache.commons.lang3.Validate;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.009")
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.015")
 @lombok.extern.slf4j.Slf4j
 public class CreateTransferApplianceEntitlementConverter {
     private static final com.oracle.bmc.http.internal.ResponseConversionFunctionFactory
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static CreateTransferApplianceEntitlementRequest interceptRequest(
-            CreateTransferApplianceEntitlementRequest request) {
+    public static com.oracle.bmc.dts.requests.CreateTransferApplianceEntitlementRequest
+            interceptRequest(
+                    com.oracle.bmc.dts.requests.CreateTransferApplianceEntitlementRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            CreateTransferApplianceEntitlementRequest request) {
+            com.oracle.bmc.dts.requests.CreateTransferApplianceEntitlementRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(
                 request.getCreateTransferApplianceEntitlementDetails(),
@@ -45,23 +47,30 @@ public class CreateTransferApplianceEntitlementConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, CreateTransferApplianceEntitlementResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.dts.responses.CreateTransferApplianceEntitlementResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, CreateTransferApplianceEntitlementResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.dts.responses.CreateTransferApplianceEntitlementResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                CreateTransferApplianceEntitlementResponse>() {
+                                com.oracle.bmc.dts.responses
+                                        .CreateTransferApplianceEntitlementResponse>() {
                             @Override
-                            public CreateTransferApplianceEntitlementResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.dts.responses
+                                            .CreateTransferApplianceEntitlementResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for CreateTransferApplianceEntitlementResponse");
+                                        "Transform function invoked for com.oracle.bmc.dts.responses.CreateTransferApplianceEntitlementResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -76,8 +85,14 @@ public class CreateTransferApplianceEntitlementConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                CreateTransferApplianceEntitlementResponse.Builder builder =
-                                        CreateTransferApplianceEntitlementResponse.builder();
+                                com.oracle.bmc.dts.responses
+                                                .CreateTransferApplianceEntitlementResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.dts.responses
+                                                        .CreateTransferApplianceEntitlementResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.transferApplianceEntitlement(response.getItem());
 
@@ -102,8 +117,9 @@ public class CreateTransferApplianceEntitlementConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                CreateTransferApplianceEntitlementResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.dts.responses
+                                                .CreateTransferApplianceEntitlementResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

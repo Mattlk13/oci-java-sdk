@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.containerengine.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = NodePoolOptions.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class NodePoolOptions {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,15 +33,6 @@ public class NodePoolOptions {
             return this;
         }
 
-        @com.fasterxml.jackson.annotation.JsonProperty("images")
-        private java.util.List<String> images;
-
-        public Builder images(java.util.List<String> images) {
-            this.images = images;
-            this.__explicitlySet__.add("images");
-            return this;
-        }
-
         @com.fasterxml.jackson.annotation.JsonProperty("shapes")
         private java.util.List<String> shapes;
 
@@ -49,11 +42,30 @@ public class NodePoolOptions {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("images")
+        private java.util.List<String> images;
+
+        public Builder images(java.util.List<String> images) {
+            this.images = images;
+            this.__explicitlySet__.add("images");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sources")
+        private java.util.List<NodeSourceOption> sources;
+
+        public Builder sources(java.util.List<NodeSourceOption> sources) {
+            this.sources = sources;
+            this.__explicitlySet__.add("sources");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public NodePoolOptions build() {
-            NodePoolOptions __instance__ = new NodePoolOptions(kubernetesVersions, images, shapes);
+            NodePoolOptions __instance__ =
+                    new NodePoolOptions(kubernetesVersions, shapes, images, sources);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -62,8 +74,9 @@ public class NodePoolOptions {
         public Builder copy(NodePoolOptions o) {
             Builder copiedBuilder =
                     kubernetesVersions(o.getKubernetesVersions())
+                            .shapes(o.getShapes())
                             .images(o.getImages())
-                            .shapes(o.getShapes());
+                            .sources(o.getSources());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -84,16 +97,25 @@ public class NodePoolOptions {
     java.util.List<String> kubernetesVersions;
 
     /**
-     * Available Kubernetes versions.
+     * Available shapes for nodes.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shapes")
+    java.util.List<String> shapes;
+
+    /**
+     * Deprecated. See sources.
+     * When creating a node pool using the `CreateNodePoolDetails` object, only image names contained in this
+     * property can be passed to the `nodeImageName` property.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("images")
     java.util.List<String> images;
 
     /**
-     * Available shapes for nodes.
+     * Available source of the node.
      **/
-    @com.fasterxml.jackson.annotation.JsonProperty("shapes")
-    java.util.List<String> shapes;
+    @com.fasterxml.jackson.annotation.JsonProperty("sources")
+    java.util.List<NodeSourceOption> sources;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

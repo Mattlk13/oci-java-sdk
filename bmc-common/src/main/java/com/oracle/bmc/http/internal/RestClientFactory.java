@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.google.common.annotations.VisibleForTesting;
 import com.oracle.bmc.ClientConfiguration;
+import com.oracle.bmc.circuitbreaker.internal.JaxRsCircuitBreakerImpl;
+import com.oracle.bmc.circuitbreaker.JaxRsCircuitBreaker;
 import com.oracle.bmc.http.ClientConfigurator;
 import com.oracle.bmc.http.signing.RequestSigner;
 import com.oracle.bmc.http.signing.SigningStrategy;
@@ -38,7 +41,6 @@ public class RestClientFactory {
                     DEFAULT_MAPPER, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS);
     private static final ClientIdFilter CLIENT_ID_FILTER = new ClientIdFilter();
     private static final LogHeadersFilter LOG_HEADERS_FILTER = new LogHeadersFilter();
-    private static final RetryTokenFilter RETRY_TOKEN_FILTER = new RetryTokenFilter();
 
     static {
         // Our default object mapper will ignore unknown properties when
@@ -120,6 +122,12 @@ public class RestClientFactory {
         return this.create(defaultRequestSigner, requestSigners, null);
     }
 
+    public RestClient create(
+            RequestSigner defaultRequestSigner,
+            Map<SigningStrategy, RequestSigner> requestSigners,
+            ClientConfiguration configuration) {
+        return create(defaultRequestSigner, requestSigners, configuration, false);
+    }
     /**
      * Creates a new client that will use the given
      * {@link com.oracle.bmc.auth.AuthenticationDetailsProvider} and {@link ClientConfiguration}.
@@ -131,12 +139,15 @@ public class RestClientFactory {
      * @param configuration
      *            The client configuration to use, or null for default
      *            configuration.
+     * @param isNonBuffering
+     *            The boolean value indicating if entities should be buffered
      * @return A new RestClient instance.
      */
     public RestClient create(
             RequestSigner defaultRequestSigner,
             Map<SigningStrategy, RequestSigner> requestSigners,
-            ClientConfiguration configuration) {
+            ClientConfiguration configuration,
+            boolean isNonBuffering) {
         ClientConfiguration clientConfigurationToUse =
                 configuration != null ? configuration : ClientConfiguration.builder().build();
         Client client =
@@ -145,7 +156,29 @@ public class RestClientFactory {
                         requestSigners,
                         clientConfigurationToUse,
                         this.clientConfigurator);
-        return new RestClient(client, new EntityFactory());
+
+        JaxRsCircuitBreaker circuitBreaker = null;
+        if (configuration != null) {
+
+            if (configuration.getCircuitBreakerConfiguration() != null
+                    && configuration.getCircuitBreaker() != null) {
+                throw new IllegalArgumentException(
+                        "Invalid CircuitBreaker setting. Please provide either CircuitBreaker configuration or CircuitBreaker and not both");
+            }
+
+            if (configuration.getCircuitBreakerConfiguration() != null) {
+                circuitBreaker =
+                        new JaxRsCircuitBreakerImpl(configuration.getCircuitBreakerConfiguration());
+            } else if (configuration.getCircuitBreaker() != null)
+                circuitBreaker = configuration.getCircuitBreaker();
+        }
+
+        return new RestClient(
+                client,
+                new EntityFactory(),
+                circuitBreaker,
+                isNonBuffering,
+                this.clientConfigurator);
     }
 
     @VisibleForTesting
@@ -173,7 +206,6 @@ public class RestClientFactory {
         client.register(new AuthnClientFilter(defaultRequestSigner, requestSigners));
         client.register(CLIENT_ID_FILTER);
         client.register(LOG_HEADERS_FILTER);
-        client.register(RETRY_TOKEN_FILTER);
 
         clientConfigurator.customizeClient(client);
         return client;

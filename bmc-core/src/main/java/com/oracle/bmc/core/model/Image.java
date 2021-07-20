@@ -1,15 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * A boot disk image for launching an instance. For more information, see
- * [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+ * [Overview of the Compute Service](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -27,6 +28,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Image.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Image {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -149,12 +151,30 @@ public class Image {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("listingType")
+        private ListingType listingType;
+
+        public Builder listingType(ListingType listingType) {
+            this.listingType = listingType;
+            this.__explicitlySet__.add("listingType");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sizeInMBs")
         private Long sizeInMBs;
 
         public Builder sizeInMBs(Long sizeInMBs) {
             this.sizeInMBs = sizeInMBs;
             this.__explicitlySet__.add("sizeInMBs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("billableSizeInGBs")
+        private Long billableSizeInGBs;
+
+        public Builder billableSizeInGBs(Long billableSizeInGBs) {
+            this.billableSizeInGBs = billableSizeInGBs;
+            this.__explicitlySet__.add("billableSizeInGBs");
             return this;
         }
 
@@ -186,7 +206,9 @@ public class Image {
                             operatingSystem,
                             operatingSystemVersion,
                             agentFeatures,
+                            listingType,
                             sizeInMBs,
+                            billableSizeInGBs,
                             timeCreated);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
@@ -208,7 +230,9 @@ public class Image {
                             .operatingSystem(o.getOperatingSystem())
                             .operatingSystemVersion(o.getOperatingSystemVersion())
                             .agentFeatures(o.getAgentFeatures())
+                            .listingType(o.getListingType())
                             .sizeInMBs(o.getSizeInMBs())
+                            .billableSizeInGBs(o.getBillableSizeInGBs())
                             .timeCreated(o.getTimeCreated());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
@@ -239,6 +263,7 @@ public class Image {
     /**
      * Whether instances launched with this image can be used to create new images.
      * For example, you cannot create an image of an Oracle Database instance.
+     * <p>
      * Example: `true`
      *
      **/
@@ -247,7 +272,7 @@ public class Image {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -258,7 +283,8 @@ public class Image {
     /**
      * A user-friendly name for the image. It does not have to be unique, and it's changeable.
      * Avoid entering confidential information.
-     * You cannot use an Oracle-provided image name as a custom image name.
+     * <p>
+     * You cannot use a platform image name as a custom image name.
      * <p>
      * Example: `My custom Oracle Linux image`
      *
@@ -268,7 +294,7 @@ public class Image {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -283,9 +309,9 @@ public class Image {
     String id;
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/
@@ -336,9 +362,9 @@ public class Image {
     };
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/
@@ -420,9 +446,60 @@ public class Image {
 
     @com.fasterxml.jackson.annotation.JsonProperty("agentFeatures")
     InstanceAgentFeatures agentFeatures;
+    /**
+     * The listing type of the image. The default value is \"NONE\".
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum ListingType {
+        Community("COMMUNITY"),
+        None("NONE"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, ListingType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (ListingType v : ListingType.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        ListingType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static ListingType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'ListingType', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The listing type of the image. The default value is \"NONE\".
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("listingType")
+    ListingType listingType;
 
     /**
-     * The boot volume size for an instance launched from this image, (1 MB = 1048576 bytes).
+     * The boot volume size for an instance launched from this image (1 MB = 1,048,576 bytes).
      * Note this is not the same as the size of the image when it was exported or the actual size of the image.
      * <p>
      * Example: `47694`
@@ -432,7 +509,16 @@ public class Image {
     Long sizeInMBs;
 
     /**
-     * The date and time the image was created, in the format defined by RFC3339.
+     * The size of the internal storage for this image that is subject to billing (1 GB = 1,073,741,824 bytes).
+     * <p>
+     * Example: `100`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("billableSizeInGBs")
+    Long billableSizeInGBs;
+
+    /**
+     * The date and time the image was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *

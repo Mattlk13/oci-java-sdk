@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
     builder = UpdateAutonomousContainerDatabaseDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateAutonomousContainerDatabaseDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,6 +42,24 @@ public class UpdateAutonomousContainerDatabaseDetails {
         public Builder patchModel(PatchModel patchModel) {
             this.patchModel = patchModel;
             this.__explicitlySet__.add("patchModel");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+        private MaintenanceWindow maintenanceWindowDetails;
+
+        public Builder maintenanceWindowDetails(MaintenanceWindow maintenanceWindowDetails) {
+            this.maintenanceWindowDetails = maintenanceWindowDetails;
+            this.__explicitlySet__.add("maintenanceWindowDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("standbyMaintenanceBufferInDays")
+        private Integer standbyMaintenanceBufferInDays;
+
+        public Builder standbyMaintenanceBufferInDays(Integer standbyMaintenanceBufferInDays) {
+            this.standbyMaintenanceBufferInDays = standbyMaintenanceBufferInDays;
+            this.__explicitlySet__.add("standbyMaintenanceBufferInDays");
             return this;
         }
 
@@ -77,7 +97,13 @@ public class UpdateAutonomousContainerDatabaseDetails {
         public UpdateAutonomousContainerDatabaseDetails build() {
             UpdateAutonomousContainerDatabaseDetails __instance__ =
                     new UpdateAutonomousContainerDatabaseDetails(
-                            displayName, patchModel, freeformTags, definedTags, backupConfig);
+                            displayName,
+                            patchModel,
+                            maintenanceWindowDetails,
+                            standbyMaintenanceBufferInDays,
+                            freeformTags,
+                            definedTags,
+                            backupConfig);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -87,6 +113,8 @@ public class UpdateAutonomousContainerDatabaseDetails {
             Builder copiedBuilder =
                     displayName(o.getDisplayName())
                             .patchModel(o.getPatchModel())
+                            .maintenanceWindowDetails(o.getMaintenanceWindowDetails())
+                            .standbyMaintenanceBufferInDays(o.getStandbyMaintenanceBufferInDays())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .backupConfig(o.getBackupConfig());
@@ -140,7 +168,7 @@ public class UpdateAutonomousContainerDatabaseDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid PatchModel: " + key);
+            throw new IllegalArgumentException("Invalid PatchModel: " + key);
         }
     };
     /**
@@ -148,6 +176,17 @@ public class UpdateAutonomousContainerDatabaseDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("patchModel")
     PatchModel patchModel;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowDetails")
+    MaintenanceWindow maintenanceWindowDetails;
+
+    /**
+     * The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
+     * This value represents the number of days before schedlued maintenance of the primary database.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("standbyMaintenanceBufferInDays")
+    Integer standbyMaintenanceBufferInDays;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -162,8 +201,6 @@ public class UpdateAutonomousContainerDatabaseDetails {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")

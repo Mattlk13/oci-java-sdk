@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
- * The configuration details for creating a Data Guard association for a bare metal DB system or virtual machine DB system database. A new DB system will be launched to create the standby database.
+ * The configuration details for creating a Data Guard association for a virtual machine DB system database. For this type of DB system database, the `creationType` should be `NewDbSystem`. A new DB system will be launched to create the standby database.
  * <p>
- **NOTE** - You must use this subtype to create a Data Guard association for a database in a virtual machine DB system.
+ * To create a Data Guard association for a database in a bare metal or Exadata DB system, use the {@link #createDataGuardAssociationToExistingDbSystemDetails(CreateDataGuardAssociationToExistingDbSystemDetailsRequest) createDataGuardAssociationToExistingDbSystemDetails} subtype instead.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -29,11 +30,21 @@ package com.oracle.bmc.database.model;
     property = "creationType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateDataGuardAssociationWithNewDbSystemDetails
         extends CreateDataGuardAssociationDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("databaseAdminPassword")
         private String databaseAdminPassword;
 
@@ -79,6 +90,15 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("shape")
+        private String shape;
+
+        public Builder shape(String shape) {
+            this.shape = shape;
+            this.__explicitlySet__.add("shape");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
         private String subnetId;
 
@@ -121,11 +141,13 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
         public CreateDataGuardAssociationWithNewDbSystemDetails build() {
             CreateDataGuardAssociationWithNewDbSystemDetails __instance__ =
                     new CreateDataGuardAssociationWithNewDbSystemDetails(
+                            databaseSoftwareImageId,
                             databaseAdminPassword,
                             protectionMode,
                             transportType,
                             displayName,
                             availabilityDomain,
+                            shape,
                             subnetId,
                             nsgIds,
                             backupNetworkNsgIds,
@@ -137,11 +159,13 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(CreateDataGuardAssociationWithNewDbSystemDetails o) {
             Builder copiedBuilder =
-                    databaseAdminPassword(o.getDatabaseAdminPassword())
+                    databaseSoftwareImageId(o.getDatabaseSoftwareImageId())
+                            .databaseAdminPassword(o.getDatabaseAdminPassword())
                             .protectionMode(o.getProtectionMode())
                             .transportType(o.getTransportType())
                             .displayName(o.getDisplayName())
                             .availabilityDomain(o.getAvailabilityDomain())
+                            .shape(o.getShape())
                             .subnetId(o.getSubnetId())
                             .nsgIds(o.getNsgIds())
                             .backupNetworkNsgIds(o.getBackupNetworkNsgIds())
@@ -161,18 +185,21 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
 
     @Deprecated
     public CreateDataGuardAssociationWithNewDbSystemDetails(
+            String databaseSoftwareImageId,
             String databaseAdminPassword,
             ProtectionMode protectionMode,
             TransportType transportType,
             String displayName,
             String availabilityDomain,
+            String shape,
             String subnetId,
             java.util.List<String> nsgIds,
             java.util.List<String> backupNetworkNsgIds,
             String hostname) {
-        super(databaseAdminPassword, protectionMode, transportType);
+        super(databaseSoftwareImageId, databaseAdminPassword, protectionMode, transportType);
         this.displayName = displayName;
         this.availabilityDomain = availabilityDomain;
+        this.shape = shape;
         this.subnetId = subnetId;
         this.nsgIds = nsgIds;
         this.backupNetworkNsgIds = backupNetworkNsgIds;
@@ -192,6 +219,16 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
     String availabilityDomain;
 
     /**
+     * The virtual machine DB system shape to launch for the standby database in the Data Guard association. The shape determines the number of CPU cores and the amount of memory available for the DB system.
+     * Only virtual machine shapes are valid options. If you do not supply this parameter, the default shape is the shape of the primary DB system.
+     * <p>
+     * To get a list of all shapes, use the {@link #listDbSystemShapes(ListDbSystemShapesRequest) listDbSystemShapes} operation.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shape")
+    String shape;
+
+    /**
      * The OCID of the subnet the DB system is associated with.
      * **Subnet Restrictions:**
      * - For 1- and 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.16.16/28
@@ -205,14 +242,16 @@ public class CreateDataGuardAssociationWithNewDbSystemDetails
     String subnetId;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * **NsgIds restrictions:**
+     * - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
     java.util.List<String> nsgIds;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata systems.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("backupNetworkNsgIds")

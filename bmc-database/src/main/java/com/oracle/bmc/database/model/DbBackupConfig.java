@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DbBackupConfig.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbBackupConfig {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -42,12 +44,35 @@ public class DbBackupConfig {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("autoBackupWindow")
+        private AutoBackupWindow autoBackupWindow;
+
+        public Builder autoBackupWindow(AutoBackupWindow autoBackupWindow) {
+            this.autoBackupWindow = autoBackupWindow;
+            this.__explicitlySet__.add("autoBackupWindow");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("backupDestinationDetails")
+        private java.util.List<BackupDestinationDetails> backupDestinationDetails;
+
+        public Builder backupDestinationDetails(
+                java.util.List<BackupDestinationDetails> backupDestinationDetails) {
+            this.backupDestinationDetails = backupDestinationDetails;
+            this.__explicitlySet__.add("backupDestinationDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public DbBackupConfig build() {
             DbBackupConfig __instance__ =
-                    new DbBackupConfig(autoBackupEnabled, recoveryWindowInDays);
+                    new DbBackupConfig(
+                            autoBackupEnabled,
+                            recoveryWindowInDays,
+                            autoBackupWindow,
+                            backupDestinationDetails);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -56,7 +81,9 @@ public class DbBackupConfig {
         public Builder copy(DbBackupConfig o) {
             Builder copiedBuilder =
                     autoBackupEnabled(o.getAutoBackupEnabled())
-                            .recoveryWindowInDays(o.getRecoveryWindowInDays());
+                            .recoveryWindowInDays(o.getRecoveryWindowInDays())
+                            .autoBackupWindow(o.getAutoBackupWindow())
+                            .backupDestinationDetails(o.getBackupDestinationDetails());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -84,6 +111,79 @@ public class DbBackupConfig {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("recoveryWindowInDays")
     Integer recoveryWindowInDays;
+    /**
+     * Time window selected for initiating automatic backup for the database system. There are twelve available two-hour time windows. If no option is selected, a start time between 12:00 AM to 7:00 AM in the region of the database is automatically chosen. For example, if the user selects SLOT_TWO from the enum list, the automatic backup job will start in between 2:00 AM (inclusive) to 4:00 AM (exclusive).
+     * <p>
+     * Example: `SLOT_TWO`
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum AutoBackupWindow {
+        SlotOne("SLOT_ONE"),
+        SlotTwo("SLOT_TWO"),
+        SlotThree("SLOT_THREE"),
+        SlotFour("SLOT_FOUR"),
+        SlotFive("SLOT_FIVE"),
+        SlotSix("SLOT_SIX"),
+        SlotSeven("SLOT_SEVEN"),
+        SlotEight("SLOT_EIGHT"),
+        SlotNine("SLOT_NINE"),
+        SlotTen("SLOT_TEN"),
+        SlotEleven("SLOT_ELEVEN"),
+        SlotTwelve("SLOT_TWELVE"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, AutoBackupWindow> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (AutoBackupWindow v : AutoBackupWindow.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        AutoBackupWindow(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static AutoBackupWindow create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'AutoBackupWindow', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Time window selected for initiating automatic backup for the database system. There are twelve available two-hour time windows. If no option is selected, a start time between 12:00 AM to 7:00 AM in the region of the database is automatically chosen. For example, if the user selects SLOT_TWO from the enum list, the automatic backup job will start in between 2:00 AM (inclusive) to 4:00 AM (exclusive).
+     * <p>
+     * Example: `SLOT_TWO`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autoBackupWindow")
+    AutoBackupWindow autoBackupWindow;
+
+    /**
+     * Backup destination details.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("backupDestinationDetails")
+    java.util.List<BackupDestinationDetails> backupDestinationDetails;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

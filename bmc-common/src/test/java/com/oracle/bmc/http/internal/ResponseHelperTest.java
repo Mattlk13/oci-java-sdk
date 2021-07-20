@@ -1,8 +1,10 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http.internal;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.oracle.bmc.io.internal.ContentLengthVerifyingInputStream;
 import com.oracle.bmc.io.internal.WrappedResponseInputStream;
@@ -34,6 +36,8 @@ public class ResponseHelperTest {
     private static final String OPC_REQUEST_ID = "DummyOPCRequestID";
     private static final MediaType HTML_MEDIA_TYPE = MediaType.TEXT_HTML_TYPE;
     private static final MediaType JSON_MEDIA_TYPE = MediaType.APPLICATION_JSON_TYPE;
+    private static final MediaType JSON_MEDIA_TYPE_WITH_CHARSET =
+            MediaType.APPLICATION_JSON_TYPE.withCharset("UTF-8");
     private static final Response.Status BAD_GATEWAY_STATUS = Response.Status.BAD_GATEWAY;
 
     @Test
@@ -51,6 +55,28 @@ public class ResponseHelperTest {
                     BAD_GATEWAY_STATUS,
                     "Unknown",
                     "Unexpected Content-Type: " + HTML_MEDIA_TYPE);
+        }
+    }
+
+    @Test
+    public void test_throwIfNotSuccessful_ValidUTF8JsonResponse() {
+        final Response jsonResponse =
+                buildMockResponse(OPC_REQUEST_ID, JSON_MEDIA_TYPE_WITH_CHARSET, BAD_GATEWAY_STATUS);
+        final String dummyServiceCode = "DummyServiceCode";
+        final String dummyMessage = "DummyMessage";
+        when(jsonResponse.readEntity(ResponseHelper.ErrorCodeAndMessage.class))
+                .thenReturn(
+                        ResponseHelper.ErrorCodeAndMessage.builder()
+                                .code(dummyServiceCode)
+                                .message(dummyMessage)
+                                .build());
+
+        try {
+            ResponseHelper.throwIfNotSuccessful(jsonResponse);
+            fail("Should have thrown");
+        } catch (BmcException exception) {
+            validateExceptionFields(
+                    exception, OPC_REQUEST_ID, BAD_GATEWAY_STATUS, dummyServiceCode, dummyMessage);
         }
     }
 
@@ -81,6 +107,32 @@ public class ResponseHelperTest {
             validateExceptionFields(
                     exception, OPC_REQUEST_ID, BAD_GATEWAY_STATUS, dummyServiceCode, dummyMessage);
         }
+    }
+
+    @Test
+    public void testReadEntity_encodedJsonString() throws Exception {
+        Response response = mock(Response.class);
+        Response.StatusType statusInfo = mock(Response.StatusType.class);
+        // with embedded quote
+        String jsonEncodedString = new ObjectMapper().writeValueAsString("foo \" bar");
+        assertEquals("\"foo \\\" bar\"", jsonEncodedString);
+
+        Class<String> entityType = String.class;
+
+        when(response.getStatusInfo()).thenReturn(statusInfo);
+        when(statusInfo.getFamily()).thenReturn(Response.Status.Family.SUCCESSFUL);
+        when(response.getHeaderString(HttpHeaders.CONTENT_TYPE))
+                .thenReturn(javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        when(response.readEntity(entityType)).thenReturn(jsonEncodedString);
+
+        String responseString = ResponseHelper.readEntity(response, entityType);
+
+        // embedded quote preserved, outer quotes removed
+        assertEquals("foo \" bar", responseString);
+        verify(response).bufferEntity();
+        verify(statusInfo).getFamily();
+        verify(response).readEntity(entityType);
+        verify(response).getHeaderString(HttpHeaders.CONTENT_TYPE);
     }
 
     @Test

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Backup.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Backup {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -130,6 +132,33 @@ public class Backup {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("shape")
+        private String shape;
+
+        public Builder shape(String shape) {
+            this.shape = shape;
+            this.__explicitlySet__.add("shape");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("version")
+        private String version;
+
+        public Builder version(String version) {
+            this.version = version;
+            this.__explicitlySet__.add("version");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -147,7 +176,10 @@ public class Backup {
                             availabilityDomain,
                             lifecycleState,
                             databaseEdition,
-                            databaseSizeInGBs);
+                            databaseSizeInGBs,
+                            shape,
+                            version,
+                            kmsKeyId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -166,7 +198,10 @@ public class Backup {
                             .availabilityDomain(o.getAvailabilityDomain())
                             .lifecycleState(o.getLifecycleState())
                             .databaseEdition(o.getDatabaseEdition())
-                            .databaseSizeInGBs(o.getDatabaseSizeInGBs());
+                            .databaseSizeInGBs(o.getDatabaseSizeInGBs())
+                            .shape(o.getShape())
+                            .version(o.getVersion())
+                            .kmsKeyId(o.getKmsKeyId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -268,7 +303,7 @@ public class Backup {
     java.util.Date timeEnded;
 
     /**
-     * Additional information about the current lifecycleState.
+     * Additional information about the current lifecycle state.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
     String lifecycleDetails;
@@ -395,6 +430,24 @@ public class Backup {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("databaseSizeInGBs")
     Double databaseSizeInGBs;
+
+    /**
+     * Shape of the backup's source database.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shape")
+    String shape;
+
+    /**
+     * Version of the backup's source database
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("version")
+    String version;
+
+    /**
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

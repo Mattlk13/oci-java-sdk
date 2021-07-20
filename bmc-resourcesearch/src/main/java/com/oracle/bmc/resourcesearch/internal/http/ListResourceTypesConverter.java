@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcesearch.internal.http;
 
@@ -9,20 +10,22 @@ import com.oracle.bmc.resourcesearch.requests.*;
 import com.oracle.bmc.resourcesearch.responses.*;
 import org.apache.commons.lang3.Validate;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 0.0.4")
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180409")
 @lombok.extern.slf4j.Slf4j
 public class ListResourceTypesConverter {
     private static final com.oracle.bmc.http.internal.ResponseConversionFunctionFactory
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListResourceTypesRequest interceptRequest(ListResourceTypesRequest request) {
+    public static com.oracle.bmc.resourcesearch.requests.ListResourceTypesRequest interceptRequest(
+            com.oracle.bmc.resourcesearch.requests.ListResourceTypesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListResourceTypesRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.resourcesearch.requests.ListResourceTypesRequest request) {
         Validate.notNull(request, "request instance is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
@@ -52,21 +55,29 @@ public class ListResourceTypesConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListResourceTypesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListResourceTypesResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListResourceTypesResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.resourcesearch.responses
+                                        .ListResourceTypesResponse>() {
                             @Override
-                            public ListResourceTypesResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListResourceTypesResponse");
+                                        "Transform function invoked for com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -82,8 +93,13 @@ public class ListResourceTypesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListResourceTypesResponse.Builder builder =
-                                        ListResourceTypesResponse.builder();
+                                com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.resourcesearch.responses
+                                                        .ListResourceTypesResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -111,7 +127,8 @@ public class ListResourceTypesConverter {
                                                     String.class));
                                 }
 
-                                ListResourceTypesResponse responseWrapper = builder.build();
+                                com.oracle.bmc.resourcesearch.responses.ListResourceTypesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

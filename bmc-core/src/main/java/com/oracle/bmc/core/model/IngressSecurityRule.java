@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = IngressSecurityRule.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class IngressSecurityRule {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -87,6 +89,15 @@ public class IngressSecurityRule {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -99,7 +110,8 @@ public class IngressSecurityRule {
                             source,
                             sourceType,
                             tcpOptions,
-                            udpOptions);
+                            udpOptions,
+                            description);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -113,7 +125,8 @@ public class IngressSecurityRule {
                             .source(o.getSource())
                             .sourceType(o.getSourceType())
                             .tcpOptions(o.getTcpOptions())
-                            .udpOptions(o.getUdpOptions());
+                            .udpOptions(o.getUdpOptions())
+                            .description(o.getDescription());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -127,20 +140,6 @@ public class IngressSecurityRule {
         return new Builder();
     }
 
-    /**
-     * Optional and valid only for ICMP and ICMPv6. Use to specify a particular ICMP type and code
-     * as defined in:
-     * <p>
-     * [ICMP Parameters](http://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
-     * * [ICMPv6 Parameters](https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml)
-     * <p>
-     * If you specify ICMP or ICMPv6 as the protocol but omit this object, then all ICMP types and
-     * codes are allowed. If you do provide this object, the type is required and the code is optional.
-     * To enable MTU negotiation for ingress internet traffic via IPv4, make sure to allow type 3 (\"Destination
-     * Unreachable\") code 4 (\"Fragmentation Needed and Don't Fragment was Set\"). If you need to specify
-     * multiple codes for a single type, create a separate security list rule for each.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("icmpOptions")
     IcmpOptions icmpOptions;
 
@@ -171,7 +170,9 @@ public class IngressSecurityRule {
      * <p>
      * Allowed values:
      * <p>
-     * IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+     * IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`.
+     *     IPv6 addressing is supported for all commercial and government regions. See
+     *     [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * The `cidrBlock` value for a {@link Service}, if you're
      *     setting up a security list rule for traffic coming from a particular `Service` through
@@ -246,21 +247,18 @@ public class IngressSecurityRule {
     @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
     SourceType sourceType;
 
-    /**
-     * Optional and valid only for TCP. Use to specify particular destination ports for TCP rules.
-     * If you specify TCP as the protocol but omit this object, then all destination ports are allowed.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("tcpOptions")
     TcpOptions tcpOptions;
 
-    /**
-     * Optional and valid only for UDP. Use to specify particular destination ports for UDP rules.
-     * If you specify UDP as the protocol but omit this object, then all destination ports are allowed.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("udpOptions")
     UdpOptions udpOptions;
+
+    /**
+     * An optional description of your choice for the rule.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    String description;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

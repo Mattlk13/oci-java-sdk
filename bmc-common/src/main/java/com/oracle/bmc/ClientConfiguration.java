@@ -1,10 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc;
 
+import com.oracle.bmc.circuitbreaker.JaxRsCircuitBreaker;
 import com.oracle.bmc.retrier.RetryConfiguration;
-import com.oracle.bmc.waiter.WaiterConfiguration;
+import com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -29,6 +32,8 @@ public class ClientConfiguration {
     private final int readTimeoutMillis;
     /**
      * The max number of async threads to use.  Default is 50;
+     * Note: This property is only supported for Jersey default HttpUrlConnector
+     * To configure connection pool for Apache client, use ApacheConnectorProperties
      */
     private final int maxAsyncThreads;
 
@@ -37,6 +42,16 @@ public class ClientConfiguration {
      */
     private final RetryConfiguration retryConfiguration;
 
+    /**
+     * The circuit-breaker configuration to use. Default is no circuit-breaker.
+     */
+    private final CircuitBreakerConfiguration circuitBreakerConfiguration;
+
+    /**
+     * The circuit-breaker to use. Default is no circuit-breaker.
+     */
+    private final JaxRsCircuitBreaker circuitBreaker;
+
     // Explicit @Builder on constructor so we can enforce default values.
     @Builder
     private ClientConfiguration(
@@ -44,12 +59,22 @@ public class ClientConfiguration {
             Integer readTimeoutMillis,
             Integer maxAsyncThreads,
             Boolean disableDataBufferingOnUpload,
-            RetryConfiguration retryConfiguration) {
+            RetryConfiguration retryConfiguration,
+            CircuitBreakerConfiguration circuitBreakerConfiguration,
+            JaxRsCircuitBreaker circuitBreaker) {
+
+        if (circuitBreakerConfiguration != null && circuitBreaker != null) {
+            throw new IllegalArgumentException(
+                    "Invalid CircuitBreaker setting. Please provide either CircuitBreaker configuration or CircuitBreaker and not both");
+        }
+
         this.connectionTimeoutMillis =
                 getOrDefault(connectionTimeoutMillis, CONNECTION_TIMEOUT_MILLIS);
         this.readTimeoutMillis = getOrDefault(readTimeoutMillis, READ_TIMEOUT_MILLIS);
         this.maxAsyncThreads = getOrDefault(maxAsyncThreads, MAX_ASYNC_THREADS);
         this.retryConfiguration = retryConfiguration;
+        this.circuitBreakerConfiguration = circuitBreakerConfiguration;
+        this.circuitBreaker = circuitBreaker;
     }
 
     private static <T> T getOrDefault(T value, T defaultValue) {

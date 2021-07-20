@@ -1,11 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns;
 
 import com.oracle.bmc.dns.requests.*;
 import com.oracle.bmc.dns.responses.*;
 
+/**
+ * API for the DNS service. Use this API to manage DNS zones, records, and other DNS resources.
+ * For more information, see [Overview of the DNS Service](https://docs.cloud.oracle.com/iaas/Content/DNS/Concepts/dnszonemanagement.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180115")
 public interface DnsAsync extends AutoCloseable {
 
@@ -14,6 +20,11 @@ public interface DnsAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -37,7 +48,26 @@ public interface DnsAsync extends AutoCloseable {
     void setRegion(String regionId);
 
     /**
-     * Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+     * Moves a resolver into a different compartment along with its protected default view and any endpoints.
+     * Zones in the default view are not moved. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ChangeResolverCompartmentResponse> changeResolverCompartment(
+            ChangeResolverCompartmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ChangeResolverCompartmentRequest, ChangeResolverCompartmentResponse>
+                    handler);
+
+    /**
+     * Moves a steering policy into a different compartment.
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -55,8 +85,47 @@ public interface DnsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource.
-     * **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+     * Moves a TSIG key into a different compartment.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ChangeTsigKeyCompartmentResponse> changeTsigKeyCompartment(
+            ChangeTsigKeyCompartmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ChangeTsigKeyCompartmentRequest, ChangeTsigKeyCompartmentResponse>
+                    handler);
+
+    /**
+     * Moves a view into a different compartment. Protected views cannot have their compartment changed. Requires a
+     * `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ChangeViewCompartmentResponse> changeViewCompartment(
+            ChangeViewCompartmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ChangeViewCompartmentRequest, ChangeViewCompartmentResponse>
+                    handler);
+
+    /**
+     * Moves a zone into a different compartment. Protected zones cannot have their compartment changed. For private
+     * zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+     * path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
+     * <p>
+     **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -69,6 +138,23 @@ public interface DnsAsync extends AutoCloseable {
             ChangeZoneCompartmentRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             ChangeZoneCompartmentRequest, ChangeZoneCompartmentResponse>
+                    handler);
+
+    /**
+     * Creates a new resolver endpoint. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateResolverEndpointResponse> createResolverEndpoint(
+            CreateResolverEndpointRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateResolverEndpointRequest, CreateResolverEndpointResponse>
                     handler);
 
     /**
@@ -114,9 +200,43 @@ public interface DnsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Creates a new zone in the specified compartment. The `compartmentId`
-     * query parameter is required if the `Content-Type` header for the
-     * request is `text/dns`.
+     * Creates a new TSIG key in the specified compartment. There is no
+     * `opc-retry-token` header since TSIG key names must be globally unique.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateTsigKeyResponse> createTsigKey(
+            CreateTsigKeyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<CreateTsigKeyRequest, CreateTsigKeyResponse>
+                    handler);
+
+    /**
+     * Creates a new view in the specified compartment. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateViewResponse> createView(
+            CreateViewRequest request,
+            com.oracle.bmc.responses.AsyncHandler<CreateViewRequest, CreateViewResponse> handler);
+
+    /**
+     * Creates a new zone in the specified compartment. For global zones, if the `Content-Type` header for the request
+     * is `text/dns`, the `compartmentId` query parameter is required. `text/dns` for the `Content-Type` header is
+     * not supported for private zones. Query parameter scope with a value of `PRIVATE` is required when creating a
+     * private zone. Private zones must have a zone type of `PRIMARY`. Creating a private zone at or under
+     * `oraclevcn.com` within the default protected view of a VCN-dedicated resolver is not permitted.
      *
      *
      * @param request The request object containing the details to send
@@ -131,7 +251,10 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<CreateZoneRequest, CreateZoneResponse> handler);
 
     /**
-     * Deletes all records at the specified zone and domain.
+     * Deletes all records at the specified zone and domain. For private zones, the scope query parameter is
+     * required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+     * for the scope query parameter then the viewId query parameter is required.
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -147,7 +270,9 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Deletes all records in the specified RRSet.
+     * Deletes all records in the specified RRSet. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -160,6 +285,26 @@ public interface DnsAsync extends AutoCloseable {
     java.util.concurrent.Future<DeleteRRSetResponse> deleteRRSet(
             DeleteRRSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<DeleteRRSetRequest, DeleteRRSetResponse> handler);
+
+    /**
+     * Deletes the specified resolver endpoint. Note that attempting to delete a resolver endpoint in the
+     * DELETED lifecycle state will result in a `404` response to be consistent with other operations of the API.
+     * Resolver endpoints may not be deleted if they are referenced by a resolver rule. Requires a `PRIVATE` scope
+     * query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteResolverEndpointResponse> deleteResolverEndpoint(
+            DeleteResolverEndpointRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteResolverEndpointRequest, DeleteResolverEndpointResponse>
+                    handler);
 
     /**
      * Deletes the specified steering policy.
@@ -202,8 +347,45 @@ public interface DnsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Deletes the specified zone and all its steering policy attachments.
-     * A `204` response indicates that zone has been successfully deleted.
+     * Deletes the specified TSIG key.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteTsigKeyResponse> deleteTsigKey(
+            DeleteTsigKeyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<DeleteTsigKeyRequest, DeleteTsigKeyResponse>
+                    handler);
+
+    /**
+     * Deletes the specified view. Note that attempting to delete a
+     * view in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Views cannot be
+     * deleted if they are referenced by non-deleted zones or resolvers.
+     * Protected views cannot be deleted. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteViewResponse> deleteView(
+            DeleteViewRequest request,
+            com.oracle.bmc.responses.AsyncHandler<DeleteViewRequest, DeleteViewResponse> handler);
+
+    /**
+     * Deletes the specified zone and all its steering policy attachments. A `204` response indicates that the zone has
+     * been successfully deleted. Protected zones cannot be deleted. For private zones, the scope query parameter is
+     * required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+     * for the scope query parameter then the viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -218,9 +400,11 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<DeleteZoneRequest, DeleteZoneResponse> handler);
 
     /**
-     * Gets a list of all records at the specified zone and domain.
-     * The results are sorted by `rtype` in alphabetical order by default. You
-     * can optionally filter and/or sort the results using the listed parameters.
+     * Gets a list of all records at the specified zone and domain. The results are sorted by `rtype` in
+     * alphabetical order by default. You can optionally filter and/or sort the results using the listed parameters.
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -236,8 +420,10 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets a list of all records in the specified RRSet. The results are
-     * sorted by `recordHash` by default.
+     * Gets a list of all records in the specified RRSet. The results are sorted by `recordHash` by default. For
+     * private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -250,6 +436,42 @@ public interface DnsAsync extends AutoCloseable {
     java.util.concurrent.Future<GetRRSetResponse> getRRSet(
             GetRRSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetRRSetRequest, GetRRSetResponse> handler);
+
+    /**
+     * Gets information about a specific resolver. Note that attempting to get a
+     * resolver in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetResolverResponse> getResolver(
+            GetResolverRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetResolverRequest, GetResolverResponse> handler);
+
+    /**
+     * Gets information about a specific resolver endpoint. Note that attempting to get a resolver endpoint
+     * in the DELETED lifecycle state will result in a `404` response to be consistent with other operations of the
+     * API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetResolverEndpointResponse> getResolverEndpoint(
+            GetResolverEndpointRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetResolverEndpointRequest, GetResolverEndpointResponse>
+                    handler);
 
     /**
      * Gets information about the specified steering policy.
@@ -286,8 +508,41 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Gets information about the specified zone, including its creation date,
-     * zone type, and serial.
+     * Gets information about the specified TSIG key.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetTsigKeyResponse> getTsigKey(
+            GetTsigKeyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetTsigKeyRequest, GetTsigKeyResponse> handler);
+
+    /**
+     * Gets information about a specific view. Note that attempting to get a
+     * view in the DELETED lifecycleState will result in a `404` response to be
+     * consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetViewResponse> getView(
+            GetViewRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetViewRequest, GetViewResponse> handler);
+
+    /**
+     * Gets information about the specified zone, including its creation date, zone type, and serial. For private
+     * zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+     * path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -302,9 +557,27 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<GetZoneRequest, GetZoneResponse> handler);
 
     /**
-     * Gets all records in the specified zone. The results are
-     * sorted by `domain` in alphabetical order by default. For more
-     * information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+     * Gets the requested zone's zone file.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetZoneContentResponse> getZoneContent(
+            GetZoneContentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetZoneContentRequest, GetZoneContentResponse>
+                    handler);
+
+    /**
+     * Gets all records in the specified zone. The results are sorted by `domain` in alphabetical order by default.
+     * For more information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -317,6 +590,47 @@ public interface DnsAsync extends AutoCloseable {
     java.util.concurrent.Future<GetZoneRecordsResponse> getZoneRecords(
             GetZoneRecordsRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetZoneRecordsRequest, GetZoneRecordsResponse>
+                    handler);
+
+    /**
+     * Gets a list of all endpoints within a resolver. The collection can be filtered by name or lifecycle state.
+     * It can be sorted on creation time or name both in ASC or DESC order. Note that when no lifecycleState
+     * query parameter is provided, the collection does not include resolver endpoints in the DELETED
+     * lifecycle state to be consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListResolverEndpointsResponse> listResolverEndpoints(
+            ListResolverEndpointsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListResolverEndpointsRequest, ListResolverEndpointsResponse>
+                    handler);
+
+    /**
+     * Gets a list of all resolvers within a compartment. The collection can
+     * be filtered by display name, id, or lifecycle state. It can be sorted
+     * on creation time or displayName both in ASC or DESC order. Note that
+     * when no lifecycleState query parameter is provided, the collection
+     * does not include resolvers in the DELETED lifecycleState to be consistent
+     * with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListResolversResponse> listResolvers(
+            ListResolversRequest request,
+            com.oracle.bmc.responses.AsyncHandler<ListResolversRequest, ListResolversResponse>
                     handler);
 
     /**
@@ -356,8 +670,63 @@ public interface DnsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Gets a list of all zones in the specified compartment. The collection
-     * can be filtered by name, time created, and zone type.
+     * Gets a list of all TSIG keys in the specified compartment.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListTsigKeysResponse> listTsigKeys(
+            ListTsigKeysRequest request,
+            com.oracle.bmc.responses.AsyncHandler<ListTsigKeysRequest, ListTsigKeysResponse>
+                    handler);
+
+    /**
+     * Gets a list of all views within a compartment. The collection can
+     * be filtered by display name, id, or lifecycle state. It can be sorted
+     * on creation time or displayName both in ASC or DESC order. Note that
+     * when no lifecycleState query parameter is provided, the collection
+     * does not include views in the DELETED lifecycleState to be consistent
+     * with other operations of the API. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListViewsResponse> listViews(
+            ListViewsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<ListViewsRequest, ListViewsResponse> handler);
+
+    /**
+     * Gets a list of IP addresses of OCI nameservers for inbound and outbound transfer of zones in the specified
+     * compartment (which must be the root compartment of a tenancy) that transfer zone data with external master or
+     * downstream nameservers.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListZoneTransferServersResponse> listZoneTransferServers(
+            ListZoneTransferServersRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListZoneTransferServersRequest, ListZoneTransferServersResponse>
+                    handler);
+
+    /**
+     * Gets a list of all zones in the specified compartment. The collection can be filtered by name, time created,
+     * scope, associated view, and zone type. Filtering by view is only supported for private zones.
      *
      *
      * @param request The request object containing the details to send
@@ -372,10 +741,11 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<ListZonesRequest, ListZonesResponse> handler);
 
     /**
-     * Updates records in the specified zone at a domain. You can update
-     * one record or all records for the specified zone depending on the changes
-     * provided in the request body. You can also add or remove records using this
-     * function.
+     * Updates records in the specified zone at a domain. You can update one record or all records for the specified
+     * zone depending on the changes provided in the request body. You can also add or remove records using this
+     * function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone
+     * name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId
+     * query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -392,7 +762,10 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates records in the specified RRSet.
+     * Updates records in the specified RRSet. For private zones, the scope query parameter is required with a value
+     * of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query
+     * parameter then the viewId query parameter is required.
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -406,10 +779,11 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<PatchRRSetRequest, PatchRRSetResponse> handler);
 
     /**
-     * Updates a collection of records in the specified zone. You can update
-     * one record or all records for the specified zone depending on the
-     * changes provided in the request body. You can also add or remove records
-     * using this function.
+     * Updates a collection of records in the specified zone. You can update one record or all records for the
+     * specified zone depending on the changes provided in the request body. You can also add or remove records
+     * using this function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When
+     * the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the
+     * viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -425,12 +799,12 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Replaces records in the specified zone at a domain with the records
-     * specified in the request body. If a specified record does not exist,
-     * it will be created. If the record exists, then it will be updated to
-     * represent the record in the body of the request. If a record in the zone
-     * does not exist in the request body, the record will be removed from the
-     * zone.
+     * Replaces records in the specified zone at a domain with the records specified in the request body. If a
+     * specified record does not exist, it will be created. If the record exists, then it will be updated to
+     * represent the record in the body of the request. If a record in the zone does not exist in the request body,
+     * the record will be removed from the zone. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -447,7 +821,10 @@ public interface DnsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Replaces records in the specified RRSet.
+     * Replaces records in the specified RRSet. For private zones, the scope query parameter is required with a
+     * value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+     * query parameter then the viewId query parameter is required.
+     *
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -459,6 +836,39 @@ public interface DnsAsync extends AutoCloseable {
     java.util.concurrent.Future<UpdateRRSetResponse> updateRRSet(
             UpdateRRSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<UpdateRRSetRequest, UpdateRRSetResponse> handler);
+
+    /**
+     * Updates the specified resolver with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateResolverResponse> updateResolver(
+            UpdateResolverRequest request,
+            com.oracle.bmc.responses.AsyncHandler<UpdateResolverRequest, UpdateResolverResponse>
+                    handler);
+
+    /**
+     * Updates the specified resolver endpoint with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateResolverEndpointResponse> updateResolverEndpoint(
+            UpdateResolverEndpointRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateResolverEndpointRequest, UpdateResolverEndpointResponse>
+                    handler);
 
     /**
      * Updates the configuration of the specified steering policy.
@@ -497,9 +907,42 @@ public interface DnsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Updates the specified secondary zone with your new external master
-     * server information. For more information about secondary zone, see
-     * [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+     * Updates the specified TSIG key.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateTsigKeyResponse> updateTsigKey(
+            UpdateTsigKeyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<UpdateTsigKeyRequest, UpdateTsigKeyResponse>
+                    handler);
+
+    /**
+     * Updates the specified view with your new information. Requires a `PRIVATE` scope query parameter.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateViewResponse> updateView(
+            UpdateViewRequest request,
+            com.oracle.bmc.responses.AsyncHandler<UpdateViewRequest, UpdateViewResponse> handler);
+
+    /**
+     * Updates the zone with the specified information. Global secondary zones may have their external masters updated.
+     * For more information about secondary zone, see [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+     * For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+     * provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+     * parameter is required.
      *
      *
      * @param request The request object containing the details to send
@@ -514,11 +957,12 @@ public interface DnsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<UpdateZoneRequest, UpdateZoneResponse> handler);
 
     /**
-     * Replaces records in the specified zone with the records specified in the
-     * request body. If a specified record does not exist, it will be created.
-     * If the record exists, then it will be updated to represent the record in
-     * the body of the request. If a record in the zone does not exist in the
-     * request body, the record will be removed from the zone.
+     * Replaces records in the specified zone with the records specified in the request body. If a specified record
+     * does not exist, it will be created. If the record exists, then it will be updated to represent the record in
+     * the body of the request. If a record in the zone does not exist in the request body, the record will be
+     * removed from the zone. For private zones, the scope query parameter is required with a value of `PRIVATE`.
+     * When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then
+     * the viewId query parameter is required.
      *
      *
      * @param request The request object containing the details to send

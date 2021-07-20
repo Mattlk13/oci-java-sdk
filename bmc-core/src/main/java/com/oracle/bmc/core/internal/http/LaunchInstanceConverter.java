@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class LaunchInstanceConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static LaunchInstanceRequest interceptRequest(LaunchInstanceRequest request) {
+    public static com.oracle.bmc.core.requests.LaunchInstanceRequest interceptRequest(
+            com.oracle.bmc.core.requests.LaunchInstanceRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, LaunchInstanceRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.LaunchInstanceRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getLaunchInstanceDetails(), "launchInstanceDetails is required");
 
@@ -37,19 +40,27 @@ public class LaunchInstanceConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, LaunchInstanceResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.core.responses.LaunchInstanceResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, LaunchInstanceResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.LaunchInstanceResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, LaunchInstanceResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.LaunchInstanceResponse>() {
                             @Override
-                            public LaunchInstanceResponse apply(
+                            public com.oracle.bmc.core.responses.LaunchInstanceResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for LaunchInstanceResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.core.responses.LaunchInstanceResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Instance>>
@@ -61,8 +72,12 @@ public class LaunchInstanceConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                LaunchInstanceResponse.Builder builder =
-                                        LaunchInstanceResponse.builder();
+                                com.oracle.bmc.core.responses.LaunchInstanceResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses.LaunchInstanceResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.instance(response.getItem());
 
@@ -99,7 +114,8 @@ public class LaunchInstanceConverter {
                                                     String.class));
                                 }
 
-                                LaunchInstanceResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.LaunchInstanceResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

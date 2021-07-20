@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager.internal.http;
 
@@ -15,13 +16,15 @@ public class GetJobTfConfigConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetJobTfConfigRequest interceptRequest(GetJobTfConfigRequest request) {
+    public static com.oracle.bmc.resourcemanager.requests.GetJobTfConfigRequest interceptRequest(
+            com.oracle.bmc.resourcemanager.requests.GetJobTfConfigRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetJobTfConfigRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.resourcemanager.requests.GetJobTfConfigRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getJobId(), "jobId must not be blank");
 
@@ -42,19 +45,28 @@ public class GetJobTfConfigConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetJobTfConfigResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetJobTfConfigResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetJobTfConfigResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse>() {
                             @Override
-                            public GetJobTfConfigResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetJobTfConfigResponse");
+                            public com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -68,8 +80,13 @@ public class GetJobTfConfigConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetJobTfConfigResponse.Builder builder =
-                                        GetJobTfConfigResponse.builder();
+                                com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.resourcemanager.responses
+                                                        .GetJobTfConfigResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.inputStream(response.getItem());
 
@@ -85,7 +102,8 @@ public class GetJobTfConfigConverter {
                                                     String.class));
                                 }
 
-                                GetJobTfConfigResponse responseWrapper = builder.build();
+                                com.oracle.bmc.resourcemanager.responses.GetJobTfConfigResponse
+                                        responseWrapper = builder.build();
 
                                 return responseWrapper;
                             }

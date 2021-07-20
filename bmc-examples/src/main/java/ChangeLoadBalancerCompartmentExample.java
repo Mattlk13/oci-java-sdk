@@ -1,6 +1,8 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.loadbalancer.LoadBalancerClient;
@@ -38,8 +40,14 @@ public class ChangeLoadBalancerCompartmentExample {
         }
         final String compartmentId = args[0];
 
-        AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(configurationFilePath, profile);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
+        final AuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         LoadBalancerClient loadBalancerClient = new LoadBalancerClient(provider);
 
@@ -56,9 +64,8 @@ public class ChangeLoadBalancerCompartmentExample {
      * @param targetCompartment   target compartment to which the LoadBalancer will be moved
      */
     private static void changeLoadBalancerCompartment(
-            LoadBalancerClient loadBalancerClient,
-            String loadBalancerId,
-            String targetCompartment) {
+            LoadBalancerClient loadBalancerClient, String loadBalancerId, String targetCompartment)
+            throws Exception {
         ChangeLoadBalancerCompartmentResponse response =
                 loadBalancerClient.changeLoadBalancerCompartment(
                         ChangeLoadBalancerCompartmentRequest.builder()
@@ -74,6 +81,7 @@ public class ChangeLoadBalancerCompartmentExample {
                 .forWorkRequest(
                         GetWorkRequestRequest.builder()
                                 .workRequestId(response.getOpcWorkRequestId())
-                                .build());
+                                .build())
+                .execute();
     }
 }

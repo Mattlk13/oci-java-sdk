@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.functions.model;
 
@@ -19,6 +20,7 @@ package com.oracle.bmc.functions.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Application.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Application {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -77,6 +79,24 @@ public class Application {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("syslogUrl")
+        private String syslogUrl;
+
+        public Builder syslogUrl(String syslogUrl) {
+            this.syslogUrl = syslogUrl;
+            this.__explicitlySet__.add("syslogUrl");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("traceConfig")
+        private ApplicationTraceConfig traceConfig;
+
+        public Builder traceConfig(ApplicationTraceConfig traceConfig) {
+            this.traceConfig = traceConfig;
+            this.__explicitlySet__.add("traceConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -126,6 +146,8 @@ public class Application {
                             lifecycleState,
                             config,
                             subnetIds,
+                            syslogUrl,
+                            traceConfig,
                             freeformTags,
                             definedTags,
                             timeCreated,
@@ -143,6 +165,8 @@ public class Application {
                             .lifecycleState(o.getLifecycleState())
                             .config(o.getConfig())
                             .subnetIds(o.getSubnetIds())
+                            .syslogUrl(o.getSyslogUrl())
+                            .traceConfig(o.getTraceConfig())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .timeCreated(o.getTimeCreated())
@@ -257,6 +281,20 @@ public class Application {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetIds")
     java.util.List<String> subnetIds;
+
+    /**
+     * A syslog URL to which to send all function logs. Supports tcp, udp, and tcp+tls.
+     * The syslog URL must be reachable from all of the subnets configured for the application.
+     * Note: If you enable the OCI Logging service for this application, the syslogUrl value is ignored. Function logs are sent to the OCI Logging service, and not to the syslog URL.
+     * <p>
+     * Example: `tcp://logserver.myserver:1234`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("syslogUrl")
+    String syslogUrl;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("traceConfig")
+    ApplicationTraceConfig traceConfig;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.transfer;
 
@@ -8,6 +9,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import javax.ws.rs.client.Invocation;
 
 import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.internal.ObjectStorageUtils;
@@ -15,6 +17,7 @@ import com.oracle.bmc.objectstorage.model.CommitMultipartUploadDetails;
 import com.oracle.bmc.objectstorage.model.CreateMultipartUploadDetails;
 import com.oracle.bmc.objectstorage.model.MultipartUpload;
 import com.oracle.bmc.objectstorage.model.MultipartUploadPartSummary;
+import com.oracle.bmc.objectstorage.model.StorageTier;
 import com.oracle.bmc.objectstorage.requests.AbortMultipartUploadRequest;
 import com.oracle.bmc.objectstorage.requests.CommitMultipartUploadRequest;
 import com.oracle.bmc.objectstorage.requests.CreateMultipartUploadRequest;
@@ -28,15 +31,12 @@ import com.oracle.bmc.objectstorage.responses.ListMultipartUploadPartsResponse;
 import com.oracle.bmc.objectstorage.responses.ListMultipartUploadsResponse;
 import com.oracle.bmc.objectstorage.transfer.internal.MultipartManifestImpl;
 import com.oracle.bmc.objectstorage.transfer.internal.MultipartTransferManager;
-import com.oracle.bmc.objectstorage.transfer.internal.SimpleRetry;
+import com.oracle.bmc.retrier.RetryConfiguration;
 import com.oracle.bmc.util.StreamUtils;
-
 import com.oracle.bmc.util.internal.Consumer;
 import lombok.Builder;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.ws.rs.client.Invocation;
 
 /**
  * MultiPartObjectAssembler provides a simplified interaction with uploading large
@@ -58,13 +58,18 @@ public class MultipartObjectAssembler {
     private final String namespaceName;
     private final String bucketName;
     private final String objectName;
+    private final StorageTier storageTier;
     private final Consumer<Invocation.Builder> invocationCallback;
     private final boolean allowOverwrite;
     private final ExecutorService executorService;
+    private final String cacheControl;
+    private final String contentDisposition;
 
     private MultipartTransferManager transferManager;
     private MultipartManifestImpl manifest;
     private boolean initialized = false;
+
+    private RetryConfiguration retryConfiguration;
 
     /**
      * The opcClientRequestId to send for all requests related to this multi-part upload.
@@ -95,10 +100,14 @@ public class MultipartObjectAssembler {
                 namespaceName,
                 bucketName,
                 objectName,
+                StorageTier.Standard,
                 allowOverwrite,
                 executorService,
                 null /* opcClientRequestId */,
-                null /* invocationCallback */);
+                null /* invocationCallback */,
+                UploadManager.RETRY_CONFIGURATION, /* backwards compatibility */
+                null /* cacheControl */,
+                null /* contentDisposition */);
     }
 
     @Builder
@@ -107,18 +116,26 @@ public class MultipartObjectAssembler {
             String namespaceName,
             String bucketName,
             String objectName,
+            StorageTier storageTier,
             boolean allowOverwrite,
             ExecutorService executorService,
             String opcClientRequestId,
-            Consumer<Invocation.Builder> invocationCallback) {
+            Consumer<Invocation.Builder> invocationCallback,
+            RetryConfiguration retryConfiguration,
+            String cacheControl,
+            String contentDisposition) {
         this.service = service;
         this.namespaceName = namespaceName;
         this.bucketName = bucketName;
         this.objectName = objectName;
+        this.storageTier = storageTier;
         this.allowOverwrite = allowOverwrite;
         this.executorService = executorService;
         this.opcClientRequestId = opcClientRequestId;
         this.invocationCallback = invocationCallback;
+        this.retryConfiguration = retryConfiguration;
+        this.cacheControl = cacheControl;
+        this.contentDisposition = contentDisposition;
     }
 
     /**
@@ -151,6 +168,9 @@ public class MultipartObjectAssembler {
                                                 .contentLanguage(contentLanguage)
                                                 .contentType(contentType)
                                                 .metadata(opcMeta)
+                                                .cacheControl(cacheControl)
+                                                .contentDisposition(contentDisposition)
+                                                .storageTier(storageTier)
                                                 .build())
                                 .opcClientRequestId(createClientRequestId("-create"))
                                 .build());
@@ -158,8 +178,7 @@ public class MultipartObjectAssembler {
         this.manifest =
                 new MultipartManifestImpl(createUploadResponse.getMultipartUpload().getUploadId());
         this.transferManager =
-                new MultipartTransferManager(
-                        executorService, this.manifest, new SimpleRetry(service));
+                new MultipartTransferManager(executorService, this.manifest, service);
 
         this.initialized = true;
         return this.manifest;
@@ -207,8 +226,7 @@ public class MultipartObjectAssembler {
         } while (nextPageToken != null);
         this.manifest = manifest;
         this.transferManager =
-                new MultipartTransferManager(
-                        executorService, this.manifest, new SimpleRetry(service));
+                new MultipartTransferManager(executorService, this.manifest, service);
 
         this.initialized = true;
         return manifest;
@@ -238,8 +256,8 @@ public class MultipartObjectAssembler {
     /**
      * Add the next part to the upload.  Parts will be committed in the order
      * submitted.
-     * <p>
-     * Calling this will set the ifNoneMatch value and will not allow overwriting existing parts.
+     *
+     * We allow part overwrites to facilitate retries.
      *
      * @param stream The stream to upload as the next part
      * @param contentLength The content length of the part
@@ -248,7 +266,7 @@ public class MultipartObjectAssembler {
      */
     public int addPart(InputStream stream, long contentLength, String md5) {
         int nextPartNumber = manifest.nextPartNumber();
-        return doUploadPart(stream, contentLength, md5, nextPartNumber, false);
+        return doUploadPart(stream, contentLength, md5, nextPartNumber);
     }
 
     /**
@@ -284,17 +302,11 @@ public class MultipartObjectAssembler {
      * @param partNum The part number to to assign to the part
      */
     public void setPart(InputStream stream, long contentLength, String md5, int partNum) {
-        doUploadPart(stream, contentLength, md5, partNum, true);
+        doUploadPart(stream, contentLength, md5, partNum);
     }
 
-    private int doUploadPart(
-            InputStream stream,
-            long contentLength,
-            String md5,
-            int partNumber,
-            boolean allowPartOverwrite) {
+    private int doUploadPart(InputStream stream, long contentLength, String md5, int partNumber) {
         validateState();
-        String ifNoneMatch = ObjectStorageUtils.getIfNoneMatchHeader(allowPartOverwrite);
         UploadPartRequest request =
                 UploadPartRequest.builder()
                         .invocationCallback(invocationCallback)
@@ -304,11 +316,13 @@ public class MultipartObjectAssembler {
                         .contentMD5(md5)
                         .contentLength(contentLength)
                         .uploadId(manifest.getUploadId())
-                        .ifNoneMatch(ifNoneMatch)
                         .uploadPartNum(partNumber)
                         .uploadPartBody(stream)
                         .opcClientRequestId(createClientRequestId("-" + partNumber))
                         .build();
+
+        request.setRetryConfiguration(this.retryConfiguration);
+
         transferManager.startTransfer(request);
         return partNumber;
     }
@@ -316,7 +330,7 @@ public class MultipartObjectAssembler {
     /**
      * Aborts the current multi-part assembly and all uploads
      * that are currently in progress.
-     * @return
+     * @return abort response
      */
     public AbortMultipartUploadResponse abort() {
         // allow aborted calls to call abort again (in case the first call

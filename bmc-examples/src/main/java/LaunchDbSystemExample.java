@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
@@ -55,8 +56,8 @@ import java.util.List;
  *   <li>Create a VCN and subnet for the DB system and its related resources</li>
  *   <li>
  *     Launch a DB system containing a single DB home and database. See:
- *       <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm">overview</a> and
- *       <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/launchingDB.htm">managing DB systems</a>
+ *       <a href="https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm">overview</a> and
+ *       <a href="https://docs.cloud.oracle.com/Content/Database/Tasks/launchingDB.htm">managing DB systems</a>
  *       for more information
  *   <li>Demonstrate listing and retrieving information on individual DB systems, DB homes and databases</li>
  *   <li>Demonstrate taking action on nodes</li>
@@ -76,10 +77,10 @@ public class LaunchDbSystemExample {
     private static final String CONFIG_LOCATION = "~/.oci/config";
     private static final String CONFIG_PROFILE = "DEFAULT";
     private static final String DB_VERSION = "12.1.0.2";
-    private static final int DB_SYSTEM_CPU_CORE_COUNT = 4;
+    private static final int DB_SYSTEM_CPU_CORE_COUNT = 1;
     private static final LaunchDbSystemDetails.DatabaseEdition DB_SYSTEM_DB_EDITION =
             LaunchDbSystemDetails.DatabaseEdition.EnterpriseEdition;
-    private static final String DB_SYSTEM_SHAPE = "BM.DenseIO1.36";
+    private static final String DB_SYSTEM_SHAPE = "VM.Standard2.1";
 
     /**
      * The entry point for the example.
@@ -105,8 +106,12 @@ public class LaunchDbSystemExample {
         String sshPublicKey =
                 "ssh-rsa AAAAB3NzaC1y...key shortened for example...fdK/ABqxgH7sy3AWgBjfj some description";
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
         final DatabaseClient databaseClient = new DatabaseClient(provider);
@@ -131,6 +136,8 @@ public class LaunchDbSystemExample {
                     LaunchDbSystemDetails.builder()
                             .availabilityDomain(availabilityDomain)
                             .compartmentId(compartmentId)
+                            .nodeCount(1)
+                            .initialDataStorageSizeInGB(256)
                             .cpuCoreCount(DB_SYSTEM_CPU_CORE_COUNT)
                             .databaseEdition(DB_SYSTEM_DB_EDITION)
                             .dbHome(

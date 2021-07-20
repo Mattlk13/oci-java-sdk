@@ -1,11 +1,15 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.limits;
 
 import com.oracle.bmc.limits.requests.*;
 import com.oracle.bmc.limits.responses.*;
 
+/**
+ * APIs that interact with the resource limits of a specific resource type.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20181025")
 public interface Quotas extends AutoCloseable {
 
@@ -14,6 +18,11 @@ public interface Quotas extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -41,6 +50,8 @@ public interface Quotas extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/CreateQuotaExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateQuota API.
      */
     CreateQuotaResponse createQuota(CreateQuotaRequest request);
 
@@ -49,6 +60,8 @@ public interface Quotas extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/DeleteQuotaExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteQuota API.
      */
     DeleteQuotaResponse deleteQuota(DeleteQuotaRequest request);
 
@@ -57,14 +70,18 @@ public interface Quotas extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/GetQuotaExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetQuota API.
      */
     GetQuotaResponse getQuota(GetQuotaRequest request);
 
     /**
-     * Lists all quotas on resources from the given compartment
+     * Lists all quotas on resources from the given compartment.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/ListQuotasExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListQuotas API.
      */
     ListQuotasResponse listQuotas(ListQuotasRequest request);
 
@@ -73,6 +90,8 @@ public interface Quotas extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/UpdateQuotaExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateQuota API.
      */
     UpdateQuotaResponse updateQuota(UpdateQuotaRequest request);
 

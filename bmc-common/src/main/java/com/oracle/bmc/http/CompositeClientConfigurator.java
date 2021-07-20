@@ -1,9 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http;
 
+import com.oracle.bmc.http.internal.WrappedInvocationBuilder;
+import com.oracle.bmc.requests.BmcRequest;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -45,6 +49,13 @@ public class CompositeClientConfigurator implements ClientConfigurator {
     public void customizeClient(Client client) {
         for (ClientConfigurator configurator : configurators) {
             configurator.customizeClient(client);
+        }
+    }
+
+    @Override
+    public void customizeRequest(BmcRequest<?> request, WrappedInvocationBuilder ib) {
+        for (ClientConfigurator configurator : configurators) {
+            configurator.customizeRequest(request, ib);
         }
     }
 

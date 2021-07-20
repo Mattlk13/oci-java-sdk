@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.objectstorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = ObjectSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ObjectSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -61,11 +63,56 @@ public class ObjectSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("etag")
+        private String etag;
+
+        public Builder etag(String etag) {
+            this.etag = etag;
+            this.__explicitlySet__.add("etag");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+        private StorageTier storageTier;
+
+        public Builder storageTier(StorageTier storageTier) {
+            this.storageTier = storageTier;
+            this.__explicitlySet__.add("storageTier");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("archivalState")
+        private ArchivalState archivalState;
+
+        public Builder archivalState(ArchivalState archivalState) {
+            this.archivalState = archivalState;
+            this.__explicitlySet__.add("archivalState");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeModified")
+        private java.util.Date timeModified;
+
+        public Builder timeModified(java.util.Date timeModified) {
+            this.timeModified = timeModified;
+            this.__explicitlySet__.add("timeModified");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public ObjectSummary build() {
-            ObjectSummary __instance__ = new ObjectSummary(name, size, md5, timeCreated);
+            ObjectSummary __instance__ =
+                    new ObjectSummary(
+                            name,
+                            size,
+                            md5,
+                            timeCreated,
+                            etag,
+                            storageTier,
+                            archivalState,
+                            timeModified);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -76,7 +123,11 @@ public class ObjectSummary {
                     name(o.getName())
                             .size(o.getSize())
                             .md5(o.getMd5())
-                            .timeCreated(o.getTimeCreated());
+                            .timeCreated(o.getTimeCreated())
+                            .etag(o.getEtag())
+                            .storageTier(o.getStorageTier())
+                            .archivalState(o.getArchivalState())
+                            .timeModified(o.getTimeModified());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -111,10 +162,34 @@ public class ObjectSummary {
     String md5;
 
     /**
-     * The date and time the object was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+     * The date and time the object was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * The current entity tag (ETag) for the object.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("etag")
+    String etag;
+
+    /**
+     * The storage tier that the object is stored in.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
+    StorageTier storageTier;
+
+    /**
+     * Archival state of an object. This field is set only for objects in Archive tier.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("archivalState")
+    ArchivalState archivalState;
+
+    /**
+     * The date and time the object was modified, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("timeModified")
+    java.util.Date timeModified;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -1,14 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.requests;
 
 import com.oracle.bmc.objectstorage.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/objectstorage/ListObjectsExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListObjectsRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The Object Storage namespace used for the request.
@@ -38,7 +47,10 @@ public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest {
     private String end;
 
     /**
-     * The maximum number of items to return.
+     * For list pagination. The maximum number of results per page, or items to return in a paginated
+     * \"List\" call. For important details about how pagination works, see
+     * [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+     *
      */
     private Integer limit;
 
@@ -53,10 +65,11 @@ public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest {
     private String delimiter;
 
     /**
-     * Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
-     * (object size in bytes), 'md5', and 'timeCreated' (object creation date and time) fields.
-     * Value of this parameter should be a comma-separated, case-insensitive list of those field names.
-     * For example 'name,timeCreated,md5'.
+     * Object summary by default includes only the 'name' field. Use this parameter to also
+     * include 'size' (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time),
+     * 'timeModified' (object modification date and time), 'storageTier' and 'archivalState' fields.
+     * Specify the value of this parameter as a comma-separated, case-insensitive list of those field names.
+     * For example 'name,etag,timeCreated,md5,timeModified,storageTier,archivalState'.
      *
      */
     private String fields;
@@ -66,7 +79,14 @@ public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest {
      */
     private String opcClientRequestId;
 
-    public static class Builder {
+    /**
+     * Object names returned by a list query must be greater than this parameter.
+     */
+    private String startAfter;
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListObjectsRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -108,6 +128,7 @@ public class ListObjectsRequest extends com.oracle.bmc.requests.BmcRequest {
             delimiter(o.getDelimiter());
             fields(o.getFields());
             opcClientRequestId(o.getOpcClientRequestId());
+            startAfter(o.getStartAfter());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

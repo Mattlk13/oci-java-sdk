@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc;
 
@@ -10,6 +11,7 @@ import java.util.Properties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class provides client info that will be sent to the servers as part of each request.
@@ -37,6 +39,8 @@ public class ClientRuntime {
      */
     @Getter private final String clientInfo;
 
+    private static final String ENV_VAR_USER_AGENT = "OCI_SDK_APPEND_USER_AGENT";
+
     private ClientRuntime() {
         String os = System.getProperty("os.name");
         String osVersion = System.getProperty("os.version");
@@ -44,6 +48,10 @@ public class ClientRuntime {
         String javaVmName = System.getProperty("java.vm.name");
         String javaVmVersion = System.getProperty("java.vm.version");
         String sdkVersion = sdkVersion();
+
+        String userAgentFromEnvVar = System.getenv(ENV_VAR_USER_AGENT);
+        String ociSdkAppendUserAgent =
+                StringUtils.isBlank(userAgentFromEnvVar) ? "" : " " + userAgentFromEnvVar.trim();
 
         final String clientInfoFormat = "Oracle-JavaSDK/%s";
         clientInfo = String.format(clientInfoFormat, sdkVersion);
@@ -55,7 +63,7 @@ public class ClientRuntime {
             additionalUserAgentFromClient = "";
         }
 
-        final String agentFormat = "%s (%s/%s; Java/%s; %s/%s)%s";
+        final String agentFormat = "%s (%s/%s; Java/%s; %s/%s)%s%s";
         userAgent =
                 String.format(
                         agentFormat,
@@ -65,7 +73,8 @@ public class ClientRuntime {
                         javaVersion,
                         javaVmName,
                         javaVmVersion,
-                        additionalUserAgentFromClient);
+                        additionalUserAgentFromClient,
+                        ociSdkAppendUserAgent);
         LOG.info("Using SDK: {}", clientInfo);
         LOG.info("User agent set to: {}", userAgent);
     }

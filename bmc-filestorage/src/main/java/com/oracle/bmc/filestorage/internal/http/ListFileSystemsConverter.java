@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.internal.http;
 
@@ -16,13 +17,15 @@ public class ListFileSystemsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListFileSystemsRequest interceptRequest(ListFileSystemsRequest request) {
+    public static com.oracle.bmc.filestorage.requests.ListFileSystemsRequest interceptRequest(
+            com.oracle.bmc.filestorage.requests.ListFileSystemsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListFileSystemsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.filestorage.requests.ListFileSystemsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
         Validate.notNull(request.getAvailabilityDomain(), "availabilityDomain is required");
@@ -82,6 +85,22 @@ public class ListFileSystemsConverter {
                                     request.getId()));
         }
 
+        if (request.getSourceSnapshotId() != null) {
+            target =
+                    target.queryParam(
+                            "sourceSnapshotId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getSourceSnapshotId()));
+        }
+
+        if (request.getParentFileSystemId() != null) {
+            target =
+                    target.queryParam(
+                            "parentFileSystemId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getParentFileSystemId()));
+        }
+
         if (request.getSortBy() != null) {
             target =
                     target.queryParam(
@@ -106,20 +125,28 @@ public class ListFileSystemsConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListFileSystemsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.filestorage.responses.ListFileSystemsResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListFileSystemsResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.filestorage.responses.ListFileSystemsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListFileSystemsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.filestorage.responses.ListFileSystemsResponse>() {
                             @Override
-                            public ListFileSystemsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for ListFileSystemsResponse");
+                            public com.oracle.bmc.filestorage.responses.ListFileSystemsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.filestorage.responses.ListFileSystemsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -136,8 +163,12 @@ public class ListFileSystemsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListFileSystemsResponse.Builder builder =
-                                        ListFileSystemsResponse.builder();
+                                com.oracle.bmc.filestorage.responses.ListFileSystemsResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.filestorage.responses
+                                                        .ListFileSystemsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -165,7 +196,8 @@ public class ListFileSystemsConverter {
                                                     String.class));
                                 }
 
-                                ListFileSystemsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.filestorage.responses.ListFileSystemsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

@@ -1,47 +1,29 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.http.ResteasyClientConfigurator;
-import com.oracle.bmc.identity.IdentityAsyncClient;
-import com.oracle.bmc.identity.IdentityClient;
-import com.oracle.bmc.identity.model.AvailabilityDomain;
-import com.oracle.bmc.identity.model.CreateUserDetails;
-import com.oracle.bmc.identity.model.UpdateUserDetails;
-import com.oracle.bmc.identity.requests.CreateUserRequest;
-import com.oracle.bmc.identity.requests.DeleteUserRequest;
-import com.oracle.bmc.identity.requests.GetUserRequest;
-import com.oracle.bmc.identity.requests.ListAvailabilityDomainsRequest;
-import com.oracle.bmc.identity.requests.UpdateUserRequest;
-import com.oracle.bmc.identity.responses.CreateUserResponse;
-import com.oracle.bmc.identity.responses.GetUserResponse;
-import com.oracle.bmc.identity.responses.ListAvailabilityDomainsResponse;
-import com.oracle.bmc.identity.responses.UpdateUserResponse;
 import com.oracle.bmc.objectstorage.ObjectStorage;
-import com.oracle.bmc.objectstorage.ObjectStorageAsync;
 import com.oracle.bmc.objectstorage.ObjectStorageAsyncClient;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
-import com.oracle.bmc.objectstorage.model.BucketSummary;
 import com.oracle.bmc.objectstorage.model.CreateBucketDetails;
 import com.oracle.bmc.objectstorage.requests.CreateBucketRequest;
 import com.oracle.bmc.objectstorage.requests.DeleteBucketRequest;
 import com.oracle.bmc.objectstorage.requests.DeleteObjectRequest;
 import com.oracle.bmc.objectstorage.requests.GetNamespaceRequest;
 import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
-import com.oracle.bmc.objectstorage.requests.ListBucketsRequest;
 import com.oracle.bmc.objectstorage.requests.PutObjectRequest;
 import com.oracle.bmc.objectstorage.responses.CreateBucketResponse;
 import com.oracle.bmc.objectstorage.responses.DeleteBucketResponse;
 import com.oracle.bmc.objectstorage.responses.DeleteObjectResponse;
 import com.oracle.bmc.objectstorage.responses.GetNamespaceResponse;
 import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
-import com.oracle.bmc.objectstorage.responses.ListBucketsResponse;
 import com.oracle.bmc.objectstorage.responses.PutObjectResponse;
 import com.oracle.bmc.responses.AsyncHandler;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.client.ClientBuilder;
 import java.io.ByteArrayInputStream;
@@ -51,8 +33,11 @@ import java.util.concurrent.Future;
 
 /**
  * An example to demonstrate how to use resteasy client with JavaSDK.
+ *
+ * When running this example, comment out the following line in the bmc-examples/pom.xml file:
+ *
+ * <scope>provided</scope> <!-- When running the Resteasy examples, comment out this line. -->
  */
-@Slf4j
 public class ResteasyClientWithObjectStorageExample {
     private static final String CONFIG_LOCATION = "~/.oci/config";
     private static final String CONFIG_PROFILE = "DEFAULT";
@@ -61,14 +46,18 @@ public class ResteasyClientWithObjectStorageExample {
 
         final String compartmentId = args[0];
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
 
-        // The following line is only necessary for this example because we the configuration in
-        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder. If you are using Resteasy by default, this line
-        // is not necessary
+        // The following line is only necessary for this example because of our configuration in
+        // resources/META-INF/services/javax.ws.rs.client.ClientBuilder
+        // which enables Jersey by default. If you are using Resteasy by default, this line is not necessary
         System.setProperty(
                 ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY,
                 "org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder");

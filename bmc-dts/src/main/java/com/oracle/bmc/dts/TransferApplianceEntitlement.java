@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dts;
 
 import com.oracle.bmc.dts.requests.*;
 import com.oracle.bmc.dts.responses.*;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.009")
+/**
+ * Data Transfer Service API Specification
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.015")
 public interface TransferApplianceEntitlement extends AutoCloseable {
 
     /**
@@ -14,6 +18,11 @@ public interface TransferApplianceEntitlement extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -37,10 +46,12 @@ public interface TransferApplianceEntitlement extends AutoCloseable {
     void setRegion(String regionId);
 
     /**
-     * Create the Transfer Appliance Entitlement that allows customers to use Transfer Appliance
+     * Create the Entitlement to use a Transfer Appliance. It requires some offline process of review and signatures before request is granted.
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dts/CreateTransferApplianceEntitlementExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateTransferApplianceEntitlement API.
      */
     CreateTransferApplianceEntitlementResponse createTransferApplianceEntitlement(
             CreateTransferApplianceEntitlementRequest request);
@@ -50,7 +61,27 @@ public interface TransferApplianceEntitlement extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dts/GetTransferApplianceEntitlementExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetTransferApplianceEntitlement API.
      */
     GetTransferApplianceEntitlementResponse getTransferApplianceEntitlement(
             GetTransferApplianceEntitlementRequest request);
+
+    /**
+     * Lists Transfer Transfer Appliance Entitlement
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dts/ListTransferApplianceEntitlementExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListTransferApplianceEntitlement API.
+     */
+    ListTransferApplianceEntitlementResponse listTransferApplianceEntitlement(
+            ListTransferApplianceEntitlementRequest request);
+
+    /**
+     * Gets the pre-configured waiters available for resources for this service.
+     *
+     * @return The service waiters.
+     */
+    TransferApplianceEntitlementWaiters getWaiters();
 }

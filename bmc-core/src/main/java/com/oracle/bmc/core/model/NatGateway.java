@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -7,16 +8,13 @@ package com.oracle.bmc.core.model;
  * A NAT (Network Address Translation) gateway, which represents a router that lets instances
  * without public IPs contact the public internet without exposing the instance to inbound
  * internet traffic. For more information, see
- * [NAT Gateway](https://docs.cloud.oracle.com/Content/Network/Tasks/NATgateway.htm).
+ * [NAT Gateway](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/NATgateway.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an
  * IAM policy. If you are not authorized, talk to an
  * administrator. If you are an administrator who needs to write
  * policies to give users access, see [Getting Started with
- * Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
- * <p>
- **Warning:** Oracle recommends that you avoid using any confidential information when you
- * supply string values using the API.
+ * Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -31,6 +29,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = NatGateway.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class NatGateway {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -126,6 +125,15 @@ public class NatGateway {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("publicIpId")
+        private String publicIpId;
+
+        public Builder publicIpId(String publicIpId) {
+            this.publicIpId = publicIpId;
+            this.__explicitlySet__.add("publicIpId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -141,7 +149,8 @@ public class NatGateway {
                             lifecycleState,
                             natIp,
                             timeCreated,
-                            vcnId);
+                            vcnId,
+                            publicIpId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -158,7 +167,8 @@ public class NatGateway {
                             .lifecycleState(o.getLifecycleState())
                             .natIp(o.getNatIp())
                             .timeCreated(o.getTimeCreated())
-                            .vcnId(o.getVcnId());
+                            .vcnId(o.getVcnId())
+                            .publicIpId(o.getPublicIpId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -173,7 +183,7 @@ public class NatGateway {
     }
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains
      * the NAT gateway.
      *
      **/
@@ -182,7 +192,7 @@ public class NatGateway {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -200,7 +210,7 @@ public class NatGateway {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -209,7 +219,9 @@ public class NatGateway {
     java.util.Map<String, String> freeformTags;
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the NAT gateway.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * NAT gateway.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -284,7 +296,7 @@ public class NatGateway {
     String natIp;
 
     /**
-     * The date and time the NAT gateway was created, in the format defined by RFC3339.
+     * The date and time the NAT gateway was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
@@ -293,12 +305,19 @@ public class NatGateway {
     java.util.Date timeCreated;
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN the NAT gateway
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the NAT gateway
      * belongs to.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("vcnId")
     String vcnId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP address associated with the NAT gateway.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("publicIpId")
+    String publicIpId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

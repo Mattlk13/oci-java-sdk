@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DatabaseSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DatabaseSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,6 +71,24 @@ public class DatabaseSummary {
         public Builder dbHomeId(String dbHomeId) {
             this.dbHomeId = dbHomeId;
             this.__explicitlySet__.add("dbHomeId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dbSystemId")
+        private String dbSystemId;
+
+        public Builder dbSystemId(String dbSystemId) {
+            this.dbSystemId = dbSystemId;
+            this.__explicitlySet__.add("dbSystemId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("vmClusterId")
+        private String vmClusterId;
+
+        public Builder vmClusterId(String vmClusterId) {
+            this.vmClusterId = vmClusterId;
+            this.__explicitlySet__.add("vmClusterId");
             return this;
         }
 
@@ -135,6 +155,15 @@ public class DatabaseSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("lastBackupTimestamp")
+        private java.util.Date lastBackupTimestamp;
+
+        public Builder lastBackupTimestamp(java.util.Date lastBackupTimestamp) {
+            this.lastBackupTimestamp = lastBackupTimestamp;
+            this.__explicitlySet__.add("lastBackupTimestamp");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("dbBackupConfig")
         private DbBackupConfig dbBackupConfig;
 
@@ -172,6 +201,35 @@ public class DatabaseSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceDatabasePointInTimeRecoveryTimestamp")
+        private java.util.Date sourceDatabasePointInTimeRecoveryTimestamp;
+
+        public Builder sourceDatabasePointInTimeRecoveryTimestamp(
+                java.util.Date sourceDatabasePointInTimeRecoveryTimestamp) {
+            this.sourceDatabasePointInTimeRecoveryTimestamp =
+                    sourceDatabasePointInTimeRecoveryTimestamp;
+            this.__explicitlySet__.add("sourceDatabasePointInTimeRecoveryTimestamp");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -183,6 +241,8 @@ public class DatabaseSummary {
                             characterSet,
                             ncharacterSet,
                             dbHomeId,
+                            dbSystemId,
+                            vmClusterId,
                             dbName,
                             pdbName,
                             dbWorkload,
@@ -190,10 +250,14 @@ public class DatabaseSummary {
                             lifecycleDetails,
                             lifecycleState,
                             timeCreated,
+                            lastBackupTimestamp,
                             dbBackupConfig,
                             freeformTags,
                             definedTags,
-                            connectionStrings);
+                            connectionStrings,
+                            kmsKeyId,
+                            sourceDatabasePointInTimeRecoveryTimestamp,
+                            databaseSoftwareImageId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -206,6 +270,8 @@ public class DatabaseSummary {
                             .characterSet(o.getCharacterSet())
                             .ncharacterSet(o.getNcharacterSet())
                             .dbHomeId(o.getDbHomeId())
+                            .dbSystemId(o.getDbSystemId())
+                            .vmClusterId(o.getVmClusterId())
                             .dbName(o.getDbName())
                             .pdbName(o.getPdbName())
                             .dbWorkload(o.getDbWorkload())
@@ -213,10 +279,15 @@ public class DatabaseSummary {
                             .lifecycleDetails(o.getLifecycleDetails())
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
+                            .lastBackupTimestamp(o.getLastBackupTimestamp())
                             .dbBackupConfig(o.getDbBackupConfig())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
-                            .connectionStrings(o.getConnectionStrings());
+                            .connectionStrings(o.getConnectionStrings())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .sourceDatabasePointInTimeRecoveryTimestamp(
+                                    o.getSourceDatabasePointInTimeRecoveryTimestamp())
+                            .databaseSoftwareImageId(o.getDatabaseSoftwareImageId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -255,10 +326,22 @@ public class DatabaseSummary {
     String ncharacterSet;
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database home.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("dbHomeId")
     String dbHomeId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dbSystemId")
+    String dbSystemId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VM cluster.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vmClusterId")
+    String vmClusterId;
 
     /**
      * The database name.
@@ -267,7 +350,7 @@ public class DatabaseSummary {
     String dbName;
 
     /**
-     * The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
+     * The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of thirty alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("pdbName")
     String pdbName;
@@ -286,7 +369,7 @@ public class DatabaseSummary {
     String dbUniqueName;
 
     /**
-     * Additional information about the current lifecycleState.
+     * Additional information about the current lifecycle state.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
     String lifecycleDetails;
@@ -299,6 +382,7 @@ public class DatabaseSummary {
         Available("AVAILABLE"),
         Updating("UPDATING"),
         BackupInProgress("BACKUP_IN_PROGRESS"),
+        Upgrading("UPGRADING"),
         Terminating("TERMINATING"),
         Terminated("TERMINATED"),
         RestoreFailed("RESTORE_FAILED"),
@@ -354,6 +438,12 @@ public class DatabaseSummary {
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
 
+    /**
+     * The date and time when the latest database backup was created.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lastBackupTimestamp")
+    java.util.Date lastBackupTimestamp;
+
     @com.fasterxml.jackson.annotation.JsonProperty("dbBackupConfig")
     DbBackupConfig dbBackupConfig;
 
@@ -370,8 +460,6 @@ public class DatabaseSummary {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
@@ -382,6 +470,24 @@ public class DatabaseSummary {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("connectionStrings")
     DatabaseConnectionStrings connectionStrings;
+
+    /**
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    /**
+     * Point in time recovery timeStamp of the source database at which cloned database system is cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceDatabasePointInTimeRecoveryTimestamp")
+    java.util.Date sourceDatabasePointInTimeRecoveryTimestamp;
+
+    /**
+     * The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+    String databaseSoftwareImageId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

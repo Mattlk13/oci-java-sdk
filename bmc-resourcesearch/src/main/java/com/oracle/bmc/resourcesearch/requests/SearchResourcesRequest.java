@@ -1,17 +1,27 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcesearch.requests;
 
 import com.oracle.bmc.resourcesearch.model.*;
-
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 0.0.4")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/resourcesearch/SearchResourcesExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use SearchResourcesRequest.
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180409")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class SearchResourcesRequest extends com.oracle.bmc.requests.BmcRequest {
+public class SearchResourcesRequest extends com.oracle.bmc.requests.BmcRequest<SearchDetails> {
 
     /**
-     * Request parameters that describe query criteria.
+     * Request parameters that describe query criteria. For more information, see {@link #searchDetails(SearchDetailsRequest) searchDetails}.
+     *
      */
     private SearchDetails searchDetails;
 
@@ -26,13 +36,31 @@ public class SearchResourcesRequest extends com.oracle.bmc.requests.BmcRequest {
     private String page;
 
     /**
+     * The tenancy ID, which can be used to specify a different tenancy (for cross-tenancy authorization) when searching for resources in a different tenancy.
+     *
+     */
+    private String tenantId;
+
+    /**
      * The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular
      * request, please provide the complete request ID.
      *
      */
     private String opcRequestId;
 
-    public static class Builder {
+    /**
+     * Alternative accessor for the body parameter.
+     * @return body parameter
+     */
+    @Override
+    @com.oracle.bmc.InternalSdk
+    public SearchDetails getBody$() {
+        return searchDetails;
+    }
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    SearchResourcesRequest, SearchDetails> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -68,6 +96,7 @@ public class SearchResourcesRequest extends com.oracle.bmc.requests.BmcRequest {
             searchDetails(o.getSearchDetails());
             limit(o.getLimit());
             page(o.getPage());
+            tenantId(o.getTenantId());
             opcRequestId(o.getOpcRequestId());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
@@ -89,6 +118,17 @@ public class SearchResourcesRequest extends com.oracle.bmc.requests.BmcRequest {
             request.setInvocationCallback(invocationCallback);
             request.setRetryConfiguration(retryConfiguration);
             return request;
+        }
+
+        /**
+         * Alternative setter for the body parameter.
+         * @param body the body parameter
+         * @return this builder instance
+         */
+        @com.oracle.bmc.InternalSdk
+        public Builder body$(SearchDetails body) {
+            searchDetails(body);
+            return this;
         }
     }
 }

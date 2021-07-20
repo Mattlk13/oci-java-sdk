@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.budget.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.budget.model;
     builder = UpdateBudgetDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateBudgetDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -48,6 +50,16 @@ public class UpdateBudgetDetails {
         public Builder amount(java.math.BigDecimal amount) {
             this.amount = amount;
             this.__explicitlySet__.add("amount");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("budgetProcessingPeriodStartOffset")
+        private Integer budgetProcessingPeriodStartOffset;
+
+        public Builder budgetProcessingPeriodStartOffset(
+                Integer budgetProcessingPeriodStartOffset) {
+            this.budgetProcessingPeriodStartOffset = budgetProcessingPeriodStartOffset;
+            this.__explicitlySet__.add("budgetProcessingPeriodStartOffset");
             return this;
         }
 
@@ -88,6 +100,7 @@ public class UpdateBudgetDetails {
                             displayName,
                             description,
                             amount,
+                            budgetProcessingPeriodStartOffset,
                             resetPeriod,
                             freeformTags,
                             definedTags);
@@ -101,6 +114,8 @@ public class UpdateBudgetDetails {
                     displayName(o.getDisplayName())
                             .description(o.getDescription())
                             .amount(o.getAmount())
+                            .budgetProcessingPeriodStartOffset(
+                                    o.getBudgetProcessingPeriodStartOffset())
                             .resetPeriod(o.getResetPeriod())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
@@ -135,6 +150,12 @@ public class UpdateBudgetDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("amount")
     java.math.BigDecimal amount;
+
+    /**
+     * The number of days offset from the first day of the month, at which the budget processing period starts. In months that have fewer days than this value, processing will begin on the last day of that month. For example, for a value of 12, processing starts every month on the 12th at midnight.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("budgetProcessingPeriodStartOffset")
+    Integer budgetProcessingPeriodStartOffset;
 
     /**
      * The reset period for the budget.

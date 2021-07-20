@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * Either instanceId or imageSourceDetails must be provided in addition to other required parameters.
+ *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
  * that are {@code null} because they are unset from fields that are explicitly set to {@code null}. This is done in
@@ -20,6 +22,7 @@ package com.oracle.bmc.core.model;
     builder = CreateImageDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateImageDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -129,14 +132,14 @@ public class CreateImageDetails {
     }
 
     /**
-     * The OCID of the compartment containing the instance you want to use as the basis for the image.
+     * The OCID of the compartment you want the image to be created in.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -148,7 +151,7 @@ public class CreateImageDetails {
      * A user-friendly name for the image. It does not have to be unique, and it's changeable.
      * Avoid entering confidential information.
      * <p>
-     * You cannot use an Oracle-provided image name as a custom image name.
+     * You cannot use a platform image name as a custom image name.
      * <p>
      * Example: `My Oracle Linux image`
      *
@@ -158,7 +161,7 @@ public class CreateImageDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -166,22 +169,20 @@ public class CreateImageDetails {
     @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
     java.util.Map<String, String> freeformTags;
 
-    /**
-     * Details for creating an image through import
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("imageSourceDetails")
     ImageSourceDetails imageSourceDetails;
 
     /**
      * The OCID of the instance you want to use as the basis for the image.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("instanceId")
     String instanceId;
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with paravirtualized boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with paravirtualized boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/
@@ -216,14 +217,14 @@ public class CreateImageDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid LaunchMode: " + key);
+            throw new IllegalArgumentException("Invalid LaunchMode: " + key);
         }
     };
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with paravirtualized boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with paravirtualized boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/

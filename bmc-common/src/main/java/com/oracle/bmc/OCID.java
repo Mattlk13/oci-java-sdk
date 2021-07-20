@@ -1,14 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;
 
 /**
  * Oracle Cloud Infrastructure unique ID.
  * <p>
- * See <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/concepts.htm#ocid">documentation</a>.
+ * See <a href="https://docs.cloud.oracle.com/Content/GSG/Concepts/concepts.htm#ocid">documentation</a>.
  */
 @InternalSdk
 public class OCID {
@@ -24,6 +27,7 @@ public class OCID {
      * @return true if it matches teh pattern, false if not.
      */
     public static boolean isValid(String ocid) {
+        if (StringUtils.isBlank(ocid)) return false;
         return OCID_PATTERN.matcher(ocid).matches();
     }
 }

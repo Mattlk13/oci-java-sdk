@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcesearch.internal.http;
 
@@ -9,20 +10,22 @@ import com.oracle.bmc.resourcesearch.requests.*;
 import com.oracle.bmc.resourcesearch.responses.*;
 import org.apache.commons.lang3.Validate;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 0.0.4")
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180409")
 @lombok.extern.slf4j.Slf4j
 public class SearchResourcesConverter {
     private static final com.oracle.bmc.http.internal.ResponseConversionFunctionFactory
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static SearchResourcesRequest interceptRequest(SearchResourcesRequest request) {
+    public static com.oracle.bmc.resourcesearch.requests.SearchResourcesRequest interceptRequest(
+            com.oracle.bmc.resourcesearch.requests.SearchResourcesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, SearchResourcesRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.resourcesearch.requests.SearchResourcesRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getSearchDetails(), "searchDetails is required");
 
@@ -45,6 +48,14 @@ public class SearchResourcesConverter {
                                     request.getPage()));
         }
 
+        if (request.getTenantId() != null) {
+            target =
+                    target.queryParam(
+                            "tenantId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getTenantId()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
@@ -53,20 +64,28 @@ public class SearchResourcesConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, SearchResourcesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, SearchResourcesResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, SearchResourcesResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse>() {
                             @Override
-                            public SearchResourcesResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for SearchResourcesResponse");
+                            public com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -80,8 +99,13 @@ public class SearchResourcesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                SearchResourcesResponse.Builder builder =
-                                        SearchResourcesResponse.builder();
+                                com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.resourcesearch.responses
+                                                        .SearchResourcesResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.resourceSummaryCollection(response.getItem());
 
@@ -109,7 +133,8 @@ public class SearchResourcesConverter {
                                                     String.class));
                                 }
 
-                                SearchResourcesResponse responseWrapper = builder.build();
+                                com.oracle.bmc.resourcesearch.responses.SearchResourcesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

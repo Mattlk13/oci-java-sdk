@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.ons.model;
 
 /**
- * The subscription's configuration.
+ * The subscription's configuration. For general information about subscriptions, see
+ * [Notifications Overview](https://docs.cloud.oracle.com/iaas/Content/Notification/Concepts/notificationoverview.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -19,6 +21,7 @@ package com.oracle.bmc.ons.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Subscription.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Subscription {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -186,14 +189,27 @@ public class Subscription {
     String topicId;
 
     /**
+     * The protocol used for the subscription.
+     * <p>
+     * Allowed values:
+     *   * `CUSTOM_HTTPS`
+     *   * `EMAIL`
+     *   * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+     *   * `ORACLE_FUNCTIONS`
+     *   * `PAGERDUTY`
+     *   * `SLACK`
+     *   * `SMS`
+     * <p>
+     * For information about subscription protocols, see
+     * [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("protocol")
     String protocol;
 
     /**
-     * The endpoint of the subscription. Valid values depend on the protocol.
-     * For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
+     * A locator that corresponds to the subscription protocol.
+     * For example, an email address for a subscription that uses the `EMAIL` protocol, or a URL for a subscription that uses an HTTP-based protocol.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("endpoint")

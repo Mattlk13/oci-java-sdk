@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.announcementsservice.model;
 
 /**
- * Summary representation of an announcement.
+ * A summary representation of an announcement.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -27,6 +28,7 @@ package com.oracle.bmc.announcementsservice.model;
     property = "type"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AnnouncementSummary extends BaseAnnouncement {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -67,6 +69,15 @@ public class AnnouncementSummary extends BaseAnnouncement {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("timeOneType")
+        private TimeOneType timeOneType;
+
+        public Builder timeOneType(TimeOneType timeOneType) {
+            this.timeOneType = timeOneType;
+            this.__explicitlySet__.add("timeOneType");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("timeOneValue")
         private java.util.Date timeOneValue;
 
@@ -82,6 +93,15 @@ public class AnnouncementSummary extends BaseAnnouncement {
         public Builder timeTwoTitle(String timeTwoTitle) {
             this.timeTwoTitle = timeTwoTitle;
             this.__explicitlySet__.add("timeTwoTitle");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeTwoType")
+        private TimeTwoType timeTwoType;
+
+        public Builder timeTwoType(TimeTwoType timeTwoType) {
+            this.timeTwoType = timeTwoType;
+            this.__explicitlySet__.add("timeTwoType");
             return this;
         }
 
@@ -167,8 +187,10 @@ public class AnnouncementSummary extends BaseAnnouncement {
                             referenceTicketNumber,
                             summary,
                             timeOneTitle,
+                            timeOneType,
                             timeOneValue,
                             timeTwoTitle,
+                            timeTwoType,
                             timeTwoValue,
                             services,
                             affectedRegions,
@@ -188,8 +210,10 @@ public class AnnouncementSummary extends BaseAnnouncement {
                             .referenceTicketNumber(o.getReferenceTicketNumber())
                             .summary(o.getSummary())
                             .timeOneTitle(o.getTimeOneTitle())
+                            .timeOneType(o.getTimeOneType())
                             .timeOneValue(o.getTimeOneValue())
                             .timeTwoTitle(o.getTimeTwoTitle())
+                            .timeTwoType(o.getTimeTwoType())
                             .timeTwoValue(o.getTimeTwoValue())
                             .services(o.getServices())
                             .affectedRegions(o.getAffectedRegions())
@@ -217,8 +241,10 @@ public class AnnouncementSummary extends BaseAnnouncement {
             String referenceTicketNumber,
             String summary,
             String timeOneTitle,
+            TimeOneType timeOneType,
             java.util.Date timeOneValue,
             String timeTwoTitle,
+            TimeTwoType timeTwoType,
             java.util.Date timeTwoValue,
             java.util.List<String> services,
             java.util.List<String> affectedRegions,
@@ -232,8 +258,10 @@ public class AnnouncementSummary extends BaseAnnouncement {
                 referenceTicketNumber,
                 summary,
                 timeOneTitle,
+                timeOneType,
                 timeOneValue,
                 timeTwoTitle,
+                timeTwoType,
                 timeTwoValue,
                 services,
                 affectedRegions,

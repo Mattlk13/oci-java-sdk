@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.model;
 
@@ -21,6 +22,7 @@ package com.oracle.bmc.filestorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Snapshot.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Snapshot {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -70,6 +72,33 @@ public class Snapshot {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("provenanceId")
+        private String provenanceId;
+
+        public Builder provenanceId(String provenanceId) {
+            this.provenanceId = provenanceId;
+            this.__explicitlySet__.add("provenanceId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isCloneSource")
+        private Boolean isCloneSource;
+
+        public Builder isCloneSource(Boolean isCloneSource) {
+            this.isCloneSource = isCloneSource;
+            this.__explicitlySet__.add("isCloneSource");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+        private String lifecycleDetails;
+
+        public Builder lifecycleDetails(String lifecycleDetails) {
+            this.lifecycleDetails = lifecycleDetails;
+            this.__explicitlySet__.add("lifecycleDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -100,6 +129,9 @@ public class Snapshot {
                             lifecycleState,
                             name,
                             timeCreated,
+                            provenanceId,
+                            isCloneSource,
+                            lifecycleDetails,
                             freeformTags,
                             definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
@@ -114,6 +146,9 @@ public class Snapshot {
                             .lifecycleState(o.getLifecycleState())
                             .name(o.getName())
                             .timeCreated(o.getTimeCreated())
+                            .provenanceId(o.getProvenanceId())
+                            .isCloneSource(o.getIsCloneSource())
+                            .lifecycleDetails(o.getLifecycleDetails())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -130,7 +165,7 @@ public class Snapshot {
     }
 
     /**
-     * The OCID of the file system from which the snapshot
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system from which the snapshot
      * was created.
      *
      **/
@@ -138,7 +173,7 @@ public class Snapshot {
     String fileSystemId;
 
     /**
-     * The OCID of the snapshot.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -216,6 +251,30 @@ public class Snapshot {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * An [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) identifying the parent from which this snapshot was cloned.
+     * If this snapshot was not cloned, then the `provenanceId` is the same as the snapshot `id` value.
+     * If this snapshot was cloned, then the `provenanceId` value is the parent's `provenanceId`.
+     * See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("provenanceId")
+    String provenanceId;
+
+    /**
+     * Specifies whether the snapshot has been cloned.
+     * See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isCloneSource")
+    Boolean isCloneSource;
+
+    /**
+     * Additional information about the current 'lifecycleState'.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+    String lifecycleDetails;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair

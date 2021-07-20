@@ -1,8 +1,10 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.auth.internal;
 
+import java.net.URI;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,6 +13,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.oracle.bmc.auth.SessionKeySupplier;
 import com.oracle.bmc.auth.X509CertificateSupplier;
+import com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration;
 import com.oracle.bmc.http.ClientConfigurator;
 import com.oracle.bmc.http.internal.ResponseConversionFunctionFactory;
 import com.oracle.bmc.http.internal.RestClient;
@@ -45,6 +48,7 @@ public class X509FederationClient implements FederationClient {
     private static final Function<Response, WithHeaders<SecurityToken>> SECURITY_TOKEN_FN =
             new ResponseConversionFunctionFactory().create(SecurityToken.class);
     private static final String DEFAULT_PURPOSE = "DEFAULT";
+    private static final String DEFAULT_FINGERPRINT = "SHA256";
 
     @Getter private final X509CertificateSupplier leafCertificateSupplier;
     @Getter private String tenancyId;
@@ -69,7 +73,8 @@ public class X509FederationClient implements FederationClient {
             SessionKeySupplier sessionKeySupplier,
             Set<X509CertificateSupplier> intermediateCertificateSuppliers,
             ClientConfigurator clientConfigurator,
-            List<ClientConfigurator> additionalClientConfigurators) {
+            List<ClientConfigurator> additionalClientConfigurators,
+            CircuitBreakerConfiguration circuitBreakerConfig) {
         this(
                 federationEndpoint,
                 tenancyId,
@@ -78,6 +83,7 @@ public class X509FederationClient implements FederationClient {
                 intermediateCertificateSuppliers,
                 clientConfigurator,
                 additionalClientConfigurators,
+                circuitBreakerConfig,
                 DEFAULT_PURPOSE);
     }
 
@@ -100,6 +106,7 @@ public class X509FederationClient implements FederationClient {
             Set<X509CertificateSupplier> intermediateCertificateSuppliers,
             ClientConfigurator clientConfigurator,
             List<ClientConfigurator> additionalClientConfigurators,
+            CircuitBreakerConfiguration circuitBreakerConfig,
             String purpose) {
         this.leafCertificateSupplier = Preconditions.checkNotNull(leafCertificateSupplier);
         this.sessionKeySupplier = Preconditions.checkNotNull(sessionKeySupplier);
@@ -110,7 +117,8 @@ public class X509FederationClient implements FederationClient {
                         federationEndpoint,
                         clientConfigurator,
                         additionalClientConfigurators,
-                        this);
+                        this,
+                        circuitBreakerConfig);
         this.securityTokenAdapter = new SecurityTokenAdapter(null, sessionKeySupplier);
         this.purpose = Preconditions.checkNotNull(purpose);
     }
@@ -167,15 +175,19 @@ public class X509FederationClient implements FederationClient {
                         throw new BmcException(
                                 false, "Can't refresh the leaf certification!", ex, null);
                     }
-                    String newTenancyId =
-                            AuthUtils.getTenantIdFromCertificate(
-                                    leafCertificateSupplier
-                                            .getCertificateAndKeyPair()
-                                            .getCertificate());
+                    // When using default purpose (ex, instance principals), the token request should always be signed with the same tenant id as the certificate.
+                    // For other purposes, the tenant id can be different.
+                    if (this.purpose.equals(DEFAULT_PURPOSE)) {
+                        String newTenancyId =
+                                AuthUtils.getTenantIdFromCertificate(
+                                        leafCertificateSupplier
+                                                .getCertificateAndKeyPair()
+                                                .getCertificate());
 
-                    if (!this.tenancyId.equals(newTenancyId)) {
-                        throw new IllegalArgumentException(
-                                "The tenancy id should never be changed in cert file!");
+                        if (!this.tenancyId.equals(newTenancyId)) {
+                            throw new IllegalArgumentException(
+                                    "The tenancy id should never be changed in cert file!");
+                        }
                     }
                 }
 
@@ -259,13 +271,15 @@ public class X509FederationClient implements FederationClient {
                             AuthUtils.base64EncodeNoChunking(publicKey),
                             AuthUtils.base64EncodeNoChunking(leafCertificate),
                             intermediateStrings,
-                            purpose);
+                            purpose,
+                            DEFAULT_FINGERPRINT);
 
             WebTarget target = federationHttpClient.getBaseTarget().path("v1").path("x509");
             Builder ib = target.request();
+            URI requestUri = target.getUri();
 
             // Make a call and get back the security token
-            Response response = makeCall(ib, federationRequest);
+            Response response = makeCall(ib, requestUri, federationRequest);
             SecurityToken securityToken = SECURITY_TOKEN_FN.apply(response).getItem();
             return new SecurityTokenAdapter(securityToken.getToken(), sessionKeySupplier);
         } catch (BmcException e) {
@@ -278,10 +292,10 @@ public class X509FederationClient implements FederationClient {
 
     // really simple retry until the SDK supports internal retries
     @VisibleForTesting
-    Response makeCall(Builder ib, X509FederationRequest federationRequest) {
+    Response makeCall(Builder ib, URI requestUri, X509FederationRequest federationRequest) {
         BmcException lastException = null;
         // Keeping one instance of the WrappedInvocationBuilder in order to preserve the request ID on retries.
-        final WrappedInvocationBuilder wrappedIb = new WrappedInvocationBuilder(ib);
+        final WrappedInvocationBuilder wrappedIb = new WrappedInvocationBuilder(ib, requestUri);
         for (int retry = 0; retry < 5; retry++) {
             try {
                 return federationHttpClient.post(wrappedIb, federationRequest, new BmcRequest());
@@ -311,16 +325,19 @@ public class X509FederationClient implements FederationClient {
         private final String certificate;
         private final String publicKey;
         private final String purpose;
+        private final String fingerprintAlgorithm;
 
         public X509FederationRequest(
                 String publicKey,
                 String certificate,
                 Set<String> intermediateCertificates,
-                String purpose) {
+                String purpose,
+                String fingerprintAlgorithm) {
             this.certificate = Preconditions.checkNotNull(certificate);
             this.publicKey = Preconditions.checkNotNull(publicKey);
             this.intermediateCertificates = intermediateCertificates;
             this.purpose = purpose;
+            this.fingerprintAlgorithm = fingerprintAlgorithm;
         }
     }
 

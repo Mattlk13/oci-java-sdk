@@ -1,17 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.model.BmcException;
 import com.oracle.bmc.resourcemanager.ResourceManagerClient;
-import com.oracle.bmc.resourcemanager.model.ApplyJobPlanResolution;
+import com.oracle.bmc.resourcemanager.model.CreateApplyJobOperationDetails;
+import com.oracle.bmc.resourcemanager.model.CreateDestroyJobOperationDetails;
+import com.oracle.bmc.resourcemanager.model.CreateImportTfStateJobOperationDetails;
+import com.oracle.bmc.resourcemanager.model.CreatePlanJobOperationDetails;
 import com.oracle.bmc.resourcemanager.model.CreateJobDetails;
+import com.oracle.bmc.resourcemanager.model.CreateJobOperationDetails;
 import com.oracle.bmc.resourcemanager.model.CreateStackDetails;
 import com.oracle.bmc.resourcemanager.model.CreateZipUploadConfigSourceDetails;
+import com.oracle.bmc.resourcemanager.model.ApplyJobOperationDetails;
+import com.oracle.bmc.resourcemanager.model.DestroyJobOperationDetails;
 import com.oracle.bmc.resourcemanager.model.Job.LifecycleState;
-import com.oracle.bmc.resourcemanager.model.Job.Operation;
 import com.oracle.bmc.resourcemanager.requests.CreateJobRequest;
 import com.oracle.bmc.resourcemanager.requests.CreateStackRequest;
 import com.oracle.bmc.resourcemanager.requests.DeleteStackRequest;
@@ -30,13 +36,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import lombok.extern.slf4j.Slf4j;
 import net.jodah.failsafe.Failsafe;
 import net.jodah.failsafe.RetryPolicy;
 import net.jodah.failsafe.function.Predicate;
 import org.apache.commons.codec.binary.Base64;
 
-@Slf4j
 public class ResourceManagerExample {
 
     private static final String CONFIG_LOCATION = "~/.oci/config";
@@ -90,8 +94,12 @@ public class ResourceManagerExample {
         compartmentId = args[0];
         zipFilePath = args[1];
 
-        final ConfigFileReader.ConfigFile configFile =
-                ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configFile);
 
@@ -114,6 +122,12 @@ public class ResourceManagerExample {
                 resourceManagerClient.createStack(createStackRequest);
         System.out.println("Created Stack : " + createStackResponse.getStack());
         final String stackId = createStackResponse.getStack().getId();
+
+        // Provide initial state file
+        CreateJobResponse createImportStateJobResponse =
+                createImportStateJob(resourceManagerClient, stackId);
+        final String importStateJobId = createImportStateJobResponse.getJob().getId();
+        waitForJobToComplete(resourceManagerClient, importStateJobId);
 
         // Create Plan Job
         CreateJobResponse createPlanJobResponse = createPlanJob(resourceManagerClient, stackId);
@@ -191,10 +205,31 @@ public class ResourceManagerExample {
                         });
     }
 
+    private static CreateJobResponse createImportStateJob(
+            ResourceManagerClient resourceManagerClient, String stackId) {
+        CreateJobOperationDetails operationDetails =
+                CreateImportTfStateJobOperationDetails.builder()
+                        .tfStateBase64Encoded(new byte[] {})
+                        .build();
+        CreateJobDetails createImportStateJobDetails =
+                CreateJobDetails.builder()
+                        .stackId(stackId)
+                        .jobOperationDetails(operationDetails)
+                        .build();
+        CreateJobRequest createImportStateJobRequest =
+                CreateJobRequest.builder().createJobDetails(createImportStateJobDetails).build();
+        return resourceManagerClient.createJob(createImportStateJobRequest);
+    }
+
     private static CreateJobResponse createPlanJob(
             ResourceManagerClient resourceManagerClient, String stackId) {
+        CreateJobOperationDetails operationDetails =
+                CreatePlanJobOperationDetails.builder().build();
         CreateJobDetails createPlanJobDetails =
-                CreateJobDetails.builder().stackId(stackId).operation(Operation.Plan).build();
+                CreateJobDetails.builder()
+                        .stackId(stackId)
+                        .jobOperationDetails(operationDetails)
+                        .build();
         CreateJobRequest createPlanJobRequest =
                 CreateJobRequest.builder().createJobDetails(createPlanJobDetails).build();
         return resourceManagerClient.createJob(createPlanJobRequest);
@@ -202,31 +237,36 @@ public class ResourceManagerExample {
 
     private static CreateJobResponse createApplyJob(
             ResourceManagerClient resourceManagerClient, String stackId, String planJobId) {
-        ApplyJobPlanResolution applyJobPlanResolution =
-                ApplyJobPlanResolution.builder().planJobId(planJobId).build();
-        CreateJobDetails createPlanJobDetails =
+        CreateJobOperationDetails operationDetails =
+                CreateApplyJobOperationDetails.builder()
+                        .executionPlanStrategy(
+                                ApplyJobOperationDetails.ExecutionPlanStrategy.FromPlanJobId)
+                        .executionPlanJobId(planJobId)
+                        .build();
+        CreateJobDetails createApplyJobDetails =
                 CreateJobDetails.builder()
                         .stackId(stackId)
-                        .operation(Operation.Apply)
-                        .applyJobPlanResolution(applyJobPlanResolution)
+                        .jobOperationDetails(operationDetails)
                         .build();
-        CreateJobRequest createPlanJobRequest =
-                CreateJobRequest.builder().createJobDetails(createPlanJobDetails).build();
-        return resourceManagerClient.createJob(createPlanJobRequest);
+        CreateJobRequest createApplyJobRequest =
+                CreateJobRequest.builder().createJobDetails(createApplyJobDetails).build();
+        return resourceManagerClient.createJob(createApplyJobRequest);
     }
 
     private static CreateJobResponse createDestroyJob(
             ResourceManagerClient resourceManagerClient, String stackId) {
-        ApplyJobPlanResolution applyJobPlanResolution =
-                ApplyJobPlanResolution.builder().isAutoApproved(true).build();
-        CreateJobDetails createPlanJobDetails =
+        CreateJobOperationDetails operationDetails =
+                CreateDestroyJobOperationDetails.builder()
+                        .executionPlanStrategy(
+                                DestroyJobOperationDetails.ExecutionPlanStrategy.AutoApproved)
+                        .build();
+        CreateJobDetails createDestroyJobDetails =
                 CreateJobDetails.builder()
                         .stackId(stackId)
-                        .operation(Operation.Destroy)
-                        .applyJobPlanResolution(applyJobPlanResolution)
+                        .jobOperationDetails(operationDetails)
                         .build();
         CreateJobRequest createPlanJobRequest =
-                CreateJobRequest.builder().createJobDetails(createPlanJobDetails).build();
+                CreateJobRequest.builder().createJobDetails(createDestroyJobDetails).build();
         return resourceManagerClient.createJob(createPlanJobRequest);
     }
 }

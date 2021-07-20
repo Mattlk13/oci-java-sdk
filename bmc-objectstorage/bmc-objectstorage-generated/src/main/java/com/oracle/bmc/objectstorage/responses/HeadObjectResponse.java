@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.responses;
 
@@ -7,8 +8,14 @@ import com.oracle.bmc.objectstorage.model.*;
 
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
 @lombok.Builder(builderClassName = "Builder")
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode
 @lombok.Getter
 public class HeadObjectResponse {
+    /**
+     * HTTP status code returned by the operation.
+     */
+    private final int __httpStatusCode__;
 
     /**
      * Echoes back the value passed in the opc-client-request-id header, for use by clients when debugging.
@@ -38,7 +45,7 @@ public class HeadObjectResponse {
     private Long contentLength;
 
     /**
-     * Content-MD5 header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.15.
+     * Content-MD5 header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.15).
      * Unavailable for objects uploaded using multipart upload.
      *
      */
@@ -55,34 +62,54 @@ public class HeadObjectResponse {
     private String opcMultipartMd5;
 
     /**
-     * Content-Type header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.17.
+     * Content-Type header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.17).
      */
     private String contentType;
 
     /**
-     * Content-Language header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.12.
+     * Content-Language header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.12).
      */
     private String contentLanguage;
 
     /**
-     * Content-Encoding header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.11.
+     * Content-Encoding header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.11).
      */
     private String contentEncoding;
 
     /**
-     * The object modification time, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+     * Cache-Control header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.9).
+     */
+    private String cacheControl;
+
+    /**
+     * Content-Disposition header, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-19.5.1).
+     */
+    private String contentDisposition;
+
+    /**
+     * The object modification time, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
      */
     private java.util.Date lastModified;
 
     /**
-     * The current state of the object.
+     * The storage tier that the object is stored in.
      */
-    private String archivalState;
+    private StorageTier storageTier;
+
+    /**
+     * Archival state of an object. This field is set only for objects in Archive tier.
+     */
+    private ArchivalState archivalState;
 
     /**
      * Time that the object is returned to the archived state. This field is only present for restored objects.
      */
     private java.util.Date timeOfArchival;
+
+    /**
+     * VersionId of the object requested
+     */
+    private String versionId;
 
     /**
      * Flag to indicate whether or not the object was modified.  If this is true,
@@ -98,6 +125,7 @@ public class HeadObjectResponse {
          * @return this builder instance
          */
         public Builder copy(HeadObjectResponse o) {
+            __httpStatusCode__(o.get__httpStatusCode__());
             opcClientRequestId(o.getOpcClientRequestId());
             opcRequestId(o.getOpcRequestId());
             eTag(o.getETag());
@@ -108,9 +136,13 @@ public class HeadObjectResponse {
             contentType(o.getContentType());
             contentLanguage(o.getContentLanguage());
             contentEncoding(o.getContentEncoding());
+            cacheControl(o.getCacheControl());
+            contentDisposition(o.getContentDisposition());
             lastModified(o.getLastModified());
+            storageTier(o.getStorageTier());
             archivalState(o.getArchivalState());
             timeOfArchival(o.getTimeOfArchival());
+            versionId(o.getVersionId());
 
             isNotModified(o.isNotModified());
             return this;

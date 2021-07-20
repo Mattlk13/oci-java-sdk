@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdatePathRouteSetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdatePathRouteSetRequest interceptRequest(UpdatePathRouteSetRequest request) {
+    public static com.oracle.bmc.loadbalancer.requests.UpdatePathRouteSetRequest interceptRequest(
+            com.oracle.bmc.loadbalancer.requests.UpdatePathRouteSetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdatePathRouteSetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.loadbalancer.requests.UpdatePathRouteSetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(
                 request.getUpdatePathRouteSetDetails(), "updatePathRouteSetDetails is required");
@@ -53,21 +56,29 @@ public class UpdatePathRouteSetConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdatePathRouteSetResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UpdatePathRouteSetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdatePathRouteSetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.loadbalancer.responses
+                                        .UpdatePathRouteSetResponse>() {
                             @Override
-                            public UpdatePathRouteSetResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdatePathRouteSetResponse");
+                                        "Transform function invoked for com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -78,8 +89,13 @@ public class UpdatePathRouteSetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdatePathRouteSetResponse.Builder builder =
-                                        UpdatePathRouteSetResponse.builder();
+                                com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.loadbalancer.responses
+                                                        .UpdatePathRouteSetResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcWorkRequestIdHeader =
@@ -105,7 +121,8 @@ public class UpdatePathRouteSetConverter {
                                                     String.class));
                                 }
 
-                                UpdatePathRouteSetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.loadbalancer.responses.UpdatePathRouteSetResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

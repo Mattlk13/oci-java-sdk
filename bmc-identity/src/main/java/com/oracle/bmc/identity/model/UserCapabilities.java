@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.identity.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = UserCapabilities.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UserCapabilities {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -67,6 +69,15 @@ public class UserCapabilities {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("canUseOAuth2ClientCredentials")
+        private Boolean canUseOAuth2ClientCredentials;
+
+        public Builder canUseOAuth2ClientCredentials(Boolean canUseOAuth2ClientCredentials) {
+            this.canUseOAuth2ClientCredentials = canUseOAuth2ClientCredentials;
+            this.__explicitlySet__.add("canUseOAuth2ClientCredentials");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -77,7 +88,8 @@ public class UserCapabilities {
                             canUseApiKeys,
                             canUseAuthTokens,
                             canUseSmtpCredentials,
-                            canUseCustomerSecretKeys);
+                            canUseCustomerSecretKeys,
+                            canUseOAuth2ClientCredentials);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -89,7 +101,8 @@ public class UserCapabilities {
                             .canUseApiKeys(o.getCanUseApiKeys())
                             .canUseAuthTokens(o.getCanUseAuthTokens())
                             .canUseSmtpCredentials(o.getCanUseSmtpCredentials())
-                            .canUseCustomerSecretKeys(o.getCanUseCustomerSecretKeys());
+                            .canUseCustomerSecretKeys(o.getCanUseCustomerSecretKeys())
+                            .canUseOAuth2ClientCredentials(o.getCanUseOAuth2ClientCredentials());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -132,6 +145,13 @@ public class UserCapabilities {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("canUseCustomerSecretKeys")
     Boolean canUseCustomerSecretKeys;
+
+    /**
+     * Indicates if the user can use OAuth2 credentials and tokens.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("canUseOAuth2ClientCredentials")
+    Boolean canUseOAuth2ClientCredentials;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

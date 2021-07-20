@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcesearch;
 
 import com.oracle.bmc.resourcesearch.requests.*;
 import com.oracle.bmc.resourcesearch.responses.*;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 0.0.4")
+/**
+ * Search for resources in your cloud network.
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180409")
 public interface ResourceSearchAsync extends AutoCloseable {
 
     /**
@@ -14,6 +18,11 @@ public interface ResourceSearchAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -70,7 +79,7 @@ public interface ResourceSearchAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Queries any and all compartments in the tenancy to find resources that match the specified criteria.
+     * Queries any and all compartments in the specified tenancy to find resources that match the specified criteria.
      * Results include resources that you have permission to view and can span different resource types.
      * You can also sort results based on a specified resource attribute.
      *

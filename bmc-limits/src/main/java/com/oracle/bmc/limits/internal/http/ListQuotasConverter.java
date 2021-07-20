@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.limits.internal.http;
 
@@ -16,18 +17,20 @@ public class ListQuotasConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListQuotasRequest interceptRequest(ListQuotasRequest request) {
+    public static com.oracle.bmc.limits.requests.ListQuotasRequest interceptRequest(
+            com.oracle.bmc.limits.requests.ListQuotasRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListQuotasRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.limits.requests.ListQuotasRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
-                client.getBaseTarget().path("/20181025").path("quotas");
+                client.getBaseTarget().path("/").path("20181025").path("quotas");
 
         target =
                 target.queryParam(
@@ -91,18 +94,27 @@ public class ListQuotasConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, ListQuotasResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.limits.responses.ListQuotasResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListQuotasResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.limits.responses.ListQuotasResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListQuotasResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.limits.responses.ListQuotasResponse>() {
                             @Override
-                            public ListQuotasResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for ListQuotasResponse");
+                            public com.oracle.bmc.limits.responses.ListQuotasResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.limits.responses.ListQuotasResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -118,21 +130,11 @@ public class ListQuotasConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListQuotasResponse.Builder builder = ListQuotasResponse.builder();
+                                com.oracle.bmc.limits.responses.ListQuotasResponse.Builder builder =
+                                        com.oracle.bmc.limits.responses.ListQuotasResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.items(response.getItem());
-
-                                com.google.common.base.Optional<java.util.List<String>>
-                                        opcRequestIdHeader =
-                                                com.oracle.bmc.http.internal.HeaderUtils.get(
-                                                        headers, "opc-request-id");
-                                if (opcRequestIdHeader.isPresent()) {
-                                    builder.opcRequestId(
-                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
-                                                    "opc-request-id",
-                                                    opcRequestIdHeader.get().get(0),
-                                                    String.class));
-                                }
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcNextPageHeader =
@@ -146,7 +148,20 @@ public class ListQuotasConverter {
                                                     String.class));
                                 }
 
-                                ListQuotasResponse responseWrapper = builder.build();
+                                com.google.common.base.Optional<java.util.List<String>>
+                                        opcRequestIdHeader =
+                                                com.oracle.bmc.http.internal.HeaderUtils.get(
+                                                        headers, "opc-request-id");
+                                if (opcRequestIdHeader.isPresent()) {
+                                    builder.opcRequestId(
+                                            com.oracle.bmc.http.internal.HeaderUtils.toValue(
+                                                    "opc-request-id",
+                                                    opcRequestIdHeader.get().get(0),
+                                                    String.class));
+                                }
+
+                                com.oracle.bmc.limits.responses.ListQuotasResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.loadbalancer.model;
     builder = CreateLoadBalancerDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateLoadBalancerDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -54,6 +56,15 @@ public class CreateLoadBalancerDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("shapeDetails")
+        private ShapeDetails shapeDetails;
+
+        public Builder shapeDetails(ShapeDetails shapeDetails) {
+            this.shapeDetails = shapeDetails;
+            this.__explicitlySet__.add("shapeDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("isPrivate")
         private Boolean isPrivate;
 
@@ -69,6 +80,15 @@ public class CreateLoadBalancerDetails {
         public Builder ipMode(IpMode ipMode) {
             this.ipMode = ipMode;
             this.__explicitlySet__.add("ipMode");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("reservedIps")
+        private java.util.List<ReservedIP> reservedIps;
+
+        public Builder reservedIps(java.util.List<ReservedIP> reservedIps) {
+            this.reservedIps = reservedIps;
+            this.__explicitlySet__.add("reservedIps");
             return this;
         }
 
@@ -126,6 +146,16 @@ public class CreateLoadBalancerDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("sslCipherSuites")
+        private java.util.Map<String, SSLCipherSuiteDetails> sslCipherSuites;
+
+        public Builder sslCipherSuites(
+                java.util.Map<String, SSLCipherSuiteDetails> sslCipherSuites) {
+            this.sslCipherSuites = sslCipherSuites;
+            this.__explicitlySet__.add("sslCipherSuites");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("pathRouteSets")
         private java.util.Map<String, PathRouteSetDetails> pathRouteSets;
 
@@ -172,14 +202,17 @@ public class CreateLoadBalancerDetails {
                             compartmentId,
                             displayName,
                             shapeName,
+                            shapeDetails,
                             isPrivate,
                             ipMode,
+                            reservedIps,
                             listeners,
                             hostnames,
                             backendSets,
                             networkSecurityGroupIds,
                             subnetIds,
                             certificates,
+                            sslCipherSuites,
                             pathRouteSets,
                             freeformTags,
                             definedTags,
@@ -194,14 +227,17 @@ public class CreateLoadBalancerDetails {
                     compartmentId(o.getCompartmentId())
                             .displayName(o.getDisplayName())
                             .shapeName(o.getShapeName())
+                            .shapeDetails(o.getShapeDetails())
                             .isPrivate(o.getIsPrivate())
                             .ipMode(o.getIpMode())
+                            .reservedIps(o.getReservedIps())
                             .listeners(o.getListeners())
                             .hostnames(o.getHostnames())
                             .backendSets(o.getBackendSets())
                             .networkSecurityGroupIds(o.getNetworkSecurityGroupIds())
                             .subnetIds(o.getSubnetIds())
                             .certificates(o.getCertificates())
+                            .sslCipherSuites(o.getSslCipherSuites())
                             .pathRouteSets(o.getPathRouteSets())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
@@ -245,6 +281,13 @@ public class CreateLoadBalancerDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("shapeName")
     String shapeName;
+
+    /**
+     * The configuration details to create load balancer using Flexible shape. This is required only if shapeName is `Flexible`.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shapeDetails")
+    ShapeDetails shapeDetails;
 
     /**
      * Whether the load balancer has a VCN-local (private) IP address.
@@ -301,7 +344,7 @@ public class CreateLoadBalancerDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid IpMode: " + key);
+            throw new IllegalArgumentException("Invalid IpMode: " + key);
         }
     };
     /**
@@ -317,6 +360,13 @@ public class CreateLoadBalancerDetails {
     @com.fasterxml.jackson.annotation.JsonProperty("ipMode")
     IpMode ipMode;
 
+    /**
+     * An array of reserved Ips.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("reservedIps")
+    java.util.List<ReservedIP> reservedIps;
+
     @com.fasterxml.jackson.annotation.JsonProperty("listeners")
     java.util.Map<String, ListenerDetails> listeners;
 
@@ -327,7 +377,18 @@ public class CreateLoadBalancerDetails {
     java.util.Map<String, BackendSetDetails> backendSets;
 
     /**
-     * The array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) to be used by this Load Balancer.
+     * An array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this load balancer.
+     * <p>
+     * During the load balancer's creation, the service adds the new load balancer to the specified NSGs.
+     * <p>
+     * The benefits of using NSGs with the load balancer include:
+     * <p>
+     *  NSGs define network security rules to govern ingress and egress traffic for the load balancer.
+     * <p>
+     *  The network security rules of other resources can reference the NSGs associated with the load balancer
+     *    to ensure access.
+     * <p>
+     * Example: `[\"ocid1.nsg.oc1.phx.unique_ID\"]`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("networkSecurityGroupIds")
@@ -341,6 +402,9 @@ public class CreateLoadBalancerDetails {
 
     @com.fasterxml.jackson.annotation.JsonProperty("certificates")
     java.util.Map<String, CertificateDetails> certificates;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("sslCipherSuites")
+    java.util.Map<String, SSLCipherSuiteDetails> sslCipherSuites;
 
     @com.fasterxml.jackson.annotation.JsonProperty("pathRouteSets")
     java.util.Map<String, PathRouteSetDetails> pathRouteSets;

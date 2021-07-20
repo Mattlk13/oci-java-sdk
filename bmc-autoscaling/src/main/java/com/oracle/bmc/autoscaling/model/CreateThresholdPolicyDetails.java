@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.autoscaling.model;
 
@@ -30,6 +31,7 @@ package com.oracle.bmc.autoscaling.model;
     property = "policyType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateThresholdPolicyDetails extends CreateAutoScalingPolicyDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -52,6 +54,15 @@ public class CreateThresholdPolicyDetails extends CreateAutoScalingPolicyDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
+        private Boolean isEnabled;
+
+        public Builder isEnabled(Boolean isEnabled) {
+            this.isEnabled = isEnabled;
+            this.__explicitlySet__.add("isEnabled");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("rules")
         private java.util.List<CreateConditionDetails> rules;
 
@@ -66,7 +77,7 @@ public class CreateThresholdPolicyDetails extends CreateAutoScalingPolicyDetails
 
         public CreateThresholdPolicyDetails build() {
             CreateThresholdPolicyDetails __instance__ =
-                    new CreateThresholdPolicyDetails(capacity, displayName, rules);
+                    new CreateThresholdPolicyDetails(capacity, displayName, isEnabled, rules);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -74,7 +85,10 @@ public class CreateThresholdPolicyDetails extends CreateAutoScalingPolicyDetails
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(CreateThresholdPolicyDetails o) {
             Builder copiedBuilder =
-                    capacity(o.getCapacity()).displayName(o.getDisplayName()).rules(o.getRules());
+                    capacity(o.getCapacity())
+                            .displayName(o.getDisplayName())
+                            .isEnabled(o.getIsEnabled())
+                            .rules(o.getRules());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -90,8 +104,11 @@ public class CreateThresholdPolicyDetails extends CreateAutoScalingPolicyDetails
 
     @Deprecated
     public CreateThresholdPolicyDetails(
-            Capacity capacity, String displayName, java.util.List<CreateConditionDetails> rules) {
-        super(capacity, displayName);
+            Capacity capacity,
+            String displayName,
+            Boolean isEnabled,
+            java.util.List<CreateConditionDetails> rules) {
+        super(capacity, displayName, isEnabled);
         this.rules = rules;
     }
 

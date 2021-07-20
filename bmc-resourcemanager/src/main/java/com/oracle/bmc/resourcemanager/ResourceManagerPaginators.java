@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager;
 
@@ -140,6 +141,134 @@ public class ResourceManagerPaginators {
     }
 
     /**
+     * Creates a new iterable which will iterate over the responses received from the listConfigurationSourceProviders operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListConfigurationSourceProvidersResponse>
+            listConfigurationSourceProvidersResponseIterator(
+                    final ListConfigurationSourceProvidersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListConfigurationSourceProvidersRequest.Builder,
+                ListConfigurationSourceProvidersRequest, ListConfigurationSourceProvidersResponse>(
+                new com.google.common.base.Supplier<
+                        ListConfigurationSourceProvidersRequest.Builder>() {
+                    @Override
+                    public ListConfigurationSourceProvidersRequest.Builder get() {
+                        return ListConfigurationSourceProvidersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListConfigurationSourceProvidersResponse, String>() {
+                    @Override
+                    public String apply(ListConfigurationSourceProvidersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListConfigurationSourceProvidersRequest.Builder>,
+                        ListConfigurationSourceProvidersRequest>() {
+                    @Override
+                    public ListConfigurationSourceProvidersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListConfigurationSourceProvidersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListConfigurationSourceProvidersRequest,
+                        ListConfigurationSourceProvidersResponse>() {
+                    @Override
+                    public ListConfigurationSourceProvidersResponse apply(
+                            ListConfigurationSourceProvidersRequest request) {
+                        return client.listConfigurationSourceProviders(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.resourcemanager.model.ConfigurationSourceProviderSummary} objects
+     * contained in responses from the listConfigurationSourceProviders operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.resourcemanager.model.ConfigurationSourceProviderSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.resourcemanager.model.ConfigurationSourceProviderSummary>
+            listConfigurationSourceProvidersRecordIterator(
+                    final ListConfigurationSourceProvidersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListConfigurationSourceProvidersRequest.Builder,
+                ListConfigurationSourceProvidersRequest, ListConfigurationSourceProvidersResponse,
+                com.oracle.bmc.resourcemanager.model.ConfigurationSourceProviderSummary>(
+                new com.google.common.base.Supplier<
+                        ListConfigurationSourceProvidersRequest.Builder>() {
+                    @Override
+                    public ListConfigurationSourceProvidersRequest.Builder get() {
+                        return ListConfigurationSourceProvidersRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListConfigurationSourceProvidersResponse, String>() {
+                    @Override
+                    public String apply(ListConfigurationSourceProvidersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListConfigurationSourceProvidersRequest.Builder>,
+                        ListConfigurationSourceProvidersRequest>() {
+                    @Override
+                    public ListConfigurationSourceProvidersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListConfigurationSourceProvidersRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListConfigurationSourceProvidersRequest,
+                        ListConfigurationSourceProvidersResponse>() {
+                    @Override
+                    public ListConfigurationSourceProvidersResponse apply(
+                            ListConfigurationSourceProvidersRequest request) {
+                        return client.listConfigurationSourceProviders(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListConfigurationSourceProvidersResponse,
+                        java.util.List<
+                                com.oracle.bmc.resourcemanager.model
+                                        .ConfigurationSourceProviderSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.resourcemanager.model
+                                            .ConfigurationSourceProviderSummary>
+                            apply(ListConfigurationSourceProvidersResponse response) {
+                        return response.getConfigurationSourceProviderCollection().getItems();
+                    }
+                });
+    }
+
+    /**
      * Creates a new iterable which will iterate over the responses received from the listJobs operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -244,6 +373,132 @@ public class ResourceManagerPaginators {
                     public java.util.List<com.oracle.bmc.resourcemanager.model.JobSummary> apply(
                             ListJobsResponse response) {
                         return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listStackResourceDriftDetails operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListStackResourceDriftDetailsResponse>
+            listStackResourceDriftDetailsResponseIterator(
+                    final ListStackResourceDriftDetailsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListStackResourceDriftDetailsRequest.Builder, ListStackResourceDriftDetailsRequest,
+                ListStackResourceDriftDetailsResponse>(
+                new com.google.common.base.Supplier<
+                        ListStackResourceDriftDetailsRequest.Builder>() {
+                    @Override
+                    public ListStackResourceDriftDetailsRequest.Builder get() {
+                        return ListStackResourceDriftDetailsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListStackResourceDriftDetailsResponse, String>() {
+                    @Override
+                    public String apply(ListStackResourceDriftDetailsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListStackResourceDriftDetailsRequest.Builder>,
+                        ListStackResourceDriftDetailsRequest>() {
+                    @Override
+                    public ListStackResourceDriftDetailsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListStackResourceDriftDetailsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListStackResourceDriftDetailsRequest,
+                        ListStackResourceDriftDetailsResponse>() {
+                    @Override
+                    public ListStackResourceDriftDetailsResponse apply(
+                            ListStackResourceDriftDetailsRequest request) {
+                        return client.listStackResourceDriftDetails(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary} objects
+     * contained in responses from the listStackResourceDriftDetails operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary>
+            listStackResourceDriftDetailsRecordIterator(
+                    final ListStackResourceDriftDetailsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListStackResourceDriftDetailsRequest.Builder, ListStackResourceDriftDetailsRequest,
+                ListStackResourceDriftDetailsResponse,
+                com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary>(
+                new com.google.common.base.Supplier<
+                        ListStackResourceDriftDetailsRequest.Builder>() {
+                    @Override
+                    public ListStackResourceDriftDetailsRequest.Builder get() {
+                        return ListStackResourceDriftDetailsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListStackResourceDriftDetailsResponse, String>() {
+                    @Override
+                    public String apply(ListStackResourceDriftDetailsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListStackResourceDriftDetailsRequest.Builder>,
+                        ListStackResourceDriftDetailsRequest>() {
+                    @Override
+                    public ListStackResourceDriftDetailsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListStackResourceDriftDetailsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListStackResourceDriftDetailsRequest,
+                        ListStackResourceDriftDetailsResponse>() {
+                    @Override
+                    public ListStackResourceDriftDetailsResponse apply(
+                            ListStackResourceDriftDetailsRequest request) {
+                        return client.listStackResourceDriftDetails(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListStackResourceDriftDetailsResponse,
+                        java.util.List<
+                                com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.resourcemanager.model.StackResourceDriftSummary>
+                            apply(ListStackResourceDriftDetailsResponse response) {
+                        return response.getStackResourceDriftCollection().getItems();
                     }
                 });
     }
@@ -354,6 +609,116 @@ public class ResourceManagerPaginators {
                     public java.util.List<com.oracle.bmc.resourcemanager.model.StackSummary> apply(
                             ListStacksResponse response) {
                         return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listTemplates operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListTemplatesResponse> listTemplatesResponseIterator(
+            final ListTemplatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListTemplatesRequest.Builder, ListTemplatesRequest, ListTemplatesResponse>(
+                new com.google.common.base.Supplier<ListTemplatesRequest.Builder>() {
+                    @Override
+                    public ListTemplatesRequest.Builder get() {
+                        return ListTemplatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListTemplatesResponse, String>() {
+                    @Override
+                    public String apply(ListTemplatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListTemplatesRequest.Builder>,
+                        ListTemplatesRequest>() {
+                    @Override
+                    public ListTemplatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListTemplatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListTemplatesRequest, ListTemplatesResponse>() {
+                    @Override
+                    public ListTemplatesResponse apply(ListTemplatesRequest request) {
+                        return client.listTemplates(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.resourcemanager.model.TemplateSummary} objects
+     * contained in responses from the listTemplates operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.resourcemanager.model.TemplateSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.resourcemanager.model.TemplateSummary>
+            listTemplatesRecordIterator(final ListTemplatesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListTemplatesRequest.Builder, ListTemplatesRequest, ListTemplatesResponse,
+                com.oracle.bmc.resourcemanager.model.TemplateSummary>(
+                new com.google.common.base.Supplier<ListTemplatesRequest.Builder>() {
+                    @Override
+                    public ListTemplatesRequest.Builder get() {
+                        return ListTemplatesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListTemplatesResponse, String>() {
+                    @Override
+                    public String apply(ListTemplatesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListTemplatesRequest.Builder>,
+                        ListTemplatesRequest>() {
+                    @Override
+                    public ListTemplatesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListTemplatesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListTemplatesRequest, ListTemplatesResponse>() {
+                    @Override
+                    public ListTemplatesResponse apply(ListTemplatesRequest request) {
+                        return client.listTemplates(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListTemplatesResponse,
+                        java.util.List<com.oracle.bmc.resourcemanager.model.TemplateSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.resourcemanager.model.TemplateSummary>
+                            apply(ListTemplatesResponse response) {
+                        return response.getTemplateSummaryCollection().getItems();
                     }
                 });
     }

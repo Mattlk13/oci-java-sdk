@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DbSystem.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbSystem {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -121,6 +123,15 @@ public class DbSystem {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("dbSystemOptions")
+        private DbSystemOptions dbSystemOptions;
+
+        public Builder dbSystemOptions(DbSystemOptions dbSystemOptions) {
+            this.dbSystemOptions = dbSystemOptions;
+            this.__explicitlySet__.add("dbSystemOptions");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sshPublicKeys")
         private java.util.List<String> sshPublicKeys;
 
@@ -154,6 +165,15 @@ public class DbSystem {
         public Builder domain(String domain) {
             this.domain = domain;
             this.__explicitlySet__.add("domain");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
             return this;
         }
 
@@ -292,6 +312,24 @@ public class DbSystem {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("scanDnsName")
+        private String scanDnsName;
+
+        public Builder scanDnsName(String scanDnsName) {
+            this.scanDnsName = scanDnsName;
+            this.__explicitlySet__.add("scanDnsName");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
+        private String zoneId;
+
+        public Builder zoneId(String zoneId) {
+            this.zoneId = zoneId;
+            this.__explicitlySet__.add("zoneId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("dataStorageSizeInGBs")
         private Integer dataStorageSizeInGBs;
 
@@ -328,6 +366,33 @@ public class DbSystem {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindow")
+        private MaintenanceWindow maintenanceWindow;
+
+        public Builder maintenanceWindow(MaintenanceWindow maintenanceWindow) {
+            this.maintenanceWindow = maintenanceWindow;
+            this.__explicitlySet__.add("maintenanceWindow");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("lastMaintenanceRunId")
+        private String lastMaintenanceRunId;
+
+        public Builder lastMaintenanceRunId(String lastMaintenanceRunId) {
+            this.lastMaintenanceRunId = lastMaintenanceRunId;
+            this.__explicitlySet__.add("lastMaintenanceRunId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nextMaintenanceRunId")
+        private String nextMaintenanceRunId;
+
+        public Builder nextMaintenanceRunId(String nextMaintenanceRunId) {
+            this.nextMaintenanceRunId = nextMaintenanceRunId;
+            this.__explicitlySet__.add("nextMaintenanceRunId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -344,6 +409,25 @@ public class DbSystem {
                 java.util.Map<String, java.util.Map<String, Object>> definedTags) {
             this.definedTags = definedTags;
             this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceDbSystemId")
+        private String sourceDbSystemId;
+
+        public Builder sourceDbSystemId(String sourceDbSystemId) {
+            this.sourceDbSystemId = sourceDbSystemId;
+            this.__explicitlySet__.add("sourceDbSystemId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("pointInTimeDataDiskCloneTimestamp")
+        private java.util.Date pointInTimeDataDiskCloneTimestamp;
+
+        public Builder pointInTimeDataDiskCloneTimestamp(
+                java.util.Date pointInTimeDataDiskCloneTimestamp) {
+            this.pointInTimeDataDiskCloneTimestamp = pointInTimeDataDiskCloneTimestamp;
+            this.__explicitlySet__.add("pointInTimeDataDiskCloneTimestamp");
             return this;
         }
 
@@ -364,10 +448,12 @@ public class DbSystem {
                             nsgIds,
                             backupNetworkNsgIds,
                             shape,
+                            dbSystemOptions,
                             sshPublicKeys,
                             timeZone,
                             hostname,
                             domain,
+                            kmsKeyId,
                             version,
                             cpuCoreCount,
                             clusterName,
@@ -383,12 +469,19 @@ public class DbSystem {
                             scanIpIds,
                             vipIds,
                             scanDnsRecordId,
+                            scanDnsName,
+                            zoneId,
                             dataStorageSizeInGBs,
                             recoStorageSizeInGB,
                             nodeCount,
                             licenseModel,
+                            maintenanceWindow,
+                            lastMaintenanceRunId,
+                            nextMaintenanceRunId,
                             freeformTags,
-                            definedTags);
+                            definedTags,
+                            sourceDbSystemId,
+                            pointInTimeDataDiskCloneTimestamp);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -407,10 +500,12 @@ public class DbSystem {
                             .nsgIds(o.getNsgIds())
                             .backupNetworkNsgIds(o.getBackupNetworkNsgIds())
                             .shape(o.getShape())
+                            .dbSystemOptions(o.getDbSystemOptions())
                             .sshPublicKeys(o.getSshPublicKeys())
                             .timeZone(o.getTimeZone())
                             .hostname(o.getHostname())
                             .domain(o.getDomain())
+                            .kmsKeyId(o.getKmsKeyId())
                             .version(o.getVersion())
                             .cpuCoreCount(o.getCpuCoreCount())
                             .clusterName(o.getClusterName())
@@ -426,12 +521,20 @@ public class DbSystem {
                             .scanIpIds(o.getScanIpIds())
                             .vipIds(o.getVipIds())
                             .scanDnsRecordId(o.getScanDnsRecordId())
+                            .scanDnsName(o.getScanDnsName())
+                            .zoneId(o.getZoneId())
                             .dataStorageSizeInGBs(o.getDataStorageSizeInGBs())
                             .recoStorageSizeInGB(o.getRecoStorageSizeInGB())
                             .nodeCount(o.getNodeCount())
                             .licenseModel(o.getLicenseModel())
+                            .maintenanceWindow(o.getMaintenanceWindow())
+                            .lastMaintenanceRunId(o.getLastMaintenanceRunId())
+                            .nextMaintenanceRunId(o.getNextMaintenanceRunId())
                             .freeformTags(o.getFreeformTags())
-                            .definedTags(o.getDefinedTags());
+                            .definedTags(o.getDefinedTags())
+                            .sourceDbSystemId(o.getSourceDbSystemId())
+                            .pointInTimeDataDiskCloneTimestamp(
+                                    o.getPointInTimeDataDiskCloneTimestamp());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -503,14 +606,16 @@ public class DbSystem {
     String backupSubnetId;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     * **NsgIds restrictions:**
+     * - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
     java.util.List<String> nsgIds;
 
     /**
-     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
+     * A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata systems.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("backupNetworkNsgIds")
@@ -524,6 +629,9 @@ public class DbSystem {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("shape")
     String shape;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("dbSystemOptions")
+    DbSystemOptions dbSystemOptions;
 
     /**
      * The public key portion of one or more key pairs used for SSH access to the DB system.
@@ -550,6 +658,12 @@ public class DbSystem {
     String domain;
 
     /**
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    /**
      * The Oracle Database version of the DB system.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("version")
@@ -562,7 +676,7 @@ public class DbSystem {
     Integer cpuCoreCount;
 
     /**
-     * The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+     * The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("clusterName")
@@ -653,6 +767,9 @@ public class DbSystem {
         Terminating("TERMINATING"),
         Terminated("TERMINATED"),
         Failed("FAILED"),
+        Migrated("MIGRATED"),
+        MaintenanceInProgress("MAINTENANCE_IN_PROGRESS"),
+        NeedsAttention("NEEDS_ATTENTION"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -705,7 +822,7 @@ public class DbSystem {
     java.util.Date timeCreated;
 
     /**
-     * Additional information about the current lifecycleState.
+     * Additional information about the current lifecycle state.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
     String lifecycleDetails;
@@ -804,6 +921,20 @@ public class DbSystem {
     String scanDnsRecordId;
 
     /**
+     * The FQDN of the DNS record for the SCAN IP addresses that are associated with the DB system.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("scanDnsName")
+    String scanDnsName;
+
+    /**
+     * The OCID of the zone the DB system is associated with.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
+    String zoneId;
+
+    /**
      * The data storage size, in gigabytes, that is currently available to the DB system. Applies only for virtual machine DB systems.
      *
      **/
@@ -877,6 +1008,21 @@ public class DbSystem {
     @com.fasterxml.jackson.annotation.JsonProperty("licenseModel")
     LicenseModel licenseModel;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindow")
+    MaintenanceWindow maintenanceWindow;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last maintenance run.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lastMaintenanceRunId")
+    String lastMaintenanceRunId;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next maintenance run.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nextMaintenanceRunId")
+    String nextMaintenanceRunId;
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -890,12 +1036,22 @@ public class DbSystem {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceDbSystemId")
+    String sourceDbSystemId;
+
+    /**
+     * The point in time for a cloned database system when the data disks were cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("pointInTimeDataDiskCloneTimestamp")
+    java.util.Date pointInTimeDataDiskCloneTimestamp;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

@@ -1,15 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * A detachable boot volume device that contains the image used to boot a Compute instance. For more information, see
- * [Overview of Boot Volumes](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumes.htm).
+ * [Overview of Boot Volumes](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumes.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -27,6 +28,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = BootVolume.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class BootVolume {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -56,6 +58,15 @@ public class BootVolume {
                 java.util.Map<String, java.util.Map<String, Object>> definedTags) {
             this.definedTags = definedTags;
             this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+        private java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+        public Builder systemTags(java.util.Map<String, java.util.Map<String, Object>> systemTags) {
+            this.systemTags = systemTags;
+            this.__explicitlySet__.add("systemTags");
             return this;
         }
 
@@ -101,6 +112,15 @@ public class BootVolume {
         public Builder isHydrated(Boolean isHydrated) {
             this.isHydrated = isHydrated;
             this.__explicitlySet__.add("isHydrated");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+        private Long vpusPerGB;
+
+        public Builder vpusPerGB(Long vpusPerGB) {
+            this.vpusPerGB = vpusPerGB;
+            this.__explicitlySet__.add("vpusPerGB");
             return this;
         }
 
@@ -167,6 +187,34 @@ public class BootVolume {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+        private Boolean isAutoTuneEnabled;
+
+        public Builder isAutoTuneEnabled(Boolean isAutoTuneEnabled) {
+            this.isAutoTuneEnabled = isAutoTuneEnabled;
+            this.__explicitlySet__.add("isAutoTuneEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("autoTunedVpusPerGB")
+        private Long autoTunedVpusPerGB;
+
+        public Builder autoTunedVpusPerGB(Long autoTunedVpusPerGB) {
+            this.autoTunedVpusPerGB = autoTunedVpusPerGB;
+            this.__explicitlySet__.add("autoTunedVpusPerGB");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+        private java.util.List<BootVolumeReplicaInfo> bootVolumeReplicas;
+
+        public Builder bootVolumeReplicas(
+                java.util.List<BootVolumeReplicaInfo> bootVolumeReplicas) {
+            this.bootVolumeReplicas = bootVolumeReplicas;
+            this.__explicitlySet__.add("bootVolumeReplicas");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -176,18 +224,23 @@ public class BootVolume {
                             availabilityDomain,
                             compartmentId,
                             definedTags,
+                            systemTags,
                             displayName,
                             freeformTags,
                             id,
                             imageId,
                             isHydrated,
+                            vpusPerGB,
                             lifecycleState,
                             sizeInGBs,
                             sizeInMBs,
                             sourceDetails,
                             timeCreated,
                             volumeGroupId,
-                            kmsKeyId);
+                            kmsKeyId,
+                            isAutoTuneEnabled,
+                            autoTunedVpusPerGB,
+                            bootVolumeReplicas);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -198,18 +251,23 @@ public class BootVolume {
                     availabilityDomain(o.getAvailabilityDomain())
                             .compartmentId(o.getCompartmentId())
                             .definedTags(o.getDefinedTags())
+                            .systemTags(o.getSystemTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
                             .id(o.getId())
                             .imageId(o.getImageId())
                             .isHydrated(o.getIsHydrated())
+                            .vpusPerGB(o.getVpusPerGB())
                             .lifecycleState(o.getLifecycleState())
                             .sizeInGBs(o.getSizeInGBs())
                             .sizeInMBs(o.getSizeInMBs())
                             .sourceDetails(o.getSourceDetails())
                             .timeCreated(o.getTimeCreated())
                             .volumeGroupId(o.getVolumeGroupId())
-                            .kmsKeyId(o.getKmsKeyId());
+                            .kmsKeyId(o.getKmsKeyId())
+                            .isAutoTuneEnabled(o.getIsAutoTuneEnabled())
+                            .autoTunedVpusPerGB(o.getAutoTunedVpusPerGB())
+                            .bootVolumeReplicas(o.getBootVolumeReplicas());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -240,13 +298,21 @@ public class BootVolume {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * System tags for this resource. Each key is predefined and scoped to a namespace.
+     * Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+    java.util.Map<String, java.util.Map<String, Object>> systemTags;
 
     /**
      * A user-friendly name. Does not have to be unique, and it's changeable.
@@ -258,7 +324,7 @@ public class BootVolume {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -279,10 +345,27 @@ public class BootVolume {
     String imageId;
 
     /**
-     * Specifies whether the boot volume's data has finished copying from the source boot volume or boot volume backup.
+     * Specifies whether the boot volume's data has finished copying
+     * from the source boot volume or boot volume backup.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isHydrated")
     Boolean isHydrated;
+
+    /**
+     * The number of volume performance units (VPUs) that will be applied to this boot volume per GB,
+     * representing the Block Volume service's elastic performance options.
+     * See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+     * <p>
+     * Allowed values:
+     * <p>
+     * `10`: Represents Balanced option.
+     * <p>
+     * `20`: Represents Higher Performance option.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vpusPerGB")
+    Long vpusPerGB;
     /**
      * The current state of a boot volume.
      **/
@@ -353,16 +436,13 @@ public class BootVolume {
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInMBs")
     Long sizeInMBs;
 
-    /**
-     * The boot volume source, either an existing boot volume in the same availability domain or a boot volume backup.
-     * If null, this means that the boot volume was created from an image.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
     BootVolumeSourceDetails sourceDetails;
 
     /**
-     * The date and time the boot volume was created. Format defined by RFC3339.
+     * The date and time the boot volume was created. Format defined
+     * by [RFC3339](https://tools.ietf.org/html/rfc3339).
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
@@ -374,10 +454,30 @@ public class BootVolume {
     String volumeGroupId;
 
     /**
-     * The OCID of the KMS key which is the master encryption key for the boot volume.
+     * The OCID of the Key Management master encryption key assigned to the boot volume.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
     String kmsKeyId;
+
+    /**
+     * Specifies whether the auto-tune performance is enabled for this boot volume.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isAutoTuneEnabled")
+    Boolean isAutoTuneEnabled;
+
+    /**
+     * The number of Volume Performance Units per GB that this boot volume is effectively tuned to when it's idle.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autoTunedVpusPerGB")
+    Long autoTunedVpusPerGB;
+
+    /**
+     * The list of boot volume replicas of this boot volume
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeReplicas")
+    java.util.List<BootVolumeReplicaInfo> bootVolumeReplicas;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

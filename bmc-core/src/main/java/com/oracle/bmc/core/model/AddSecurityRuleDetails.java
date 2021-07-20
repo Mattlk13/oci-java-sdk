@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = AddSecurityRuleDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class AddSecurityRuleDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -172,7 +174,7 @@ public class AddSecurityRuleDetails {
     }
 
     /**
-     * An optional description of your choice for the rule.
+     * An optional description of your choice for the rule. Avoid entering confidential information.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("description")
@@ -185,6 +187,8 @@ public class AddSecurityRuleDetails {
      * Allowed values:
      * <p>
      * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+     *     IPv6 addressing is supported for all commercial and government regions. See
+     *     [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * The `cidrBlock` value for a {@link Service}, if you're
      *     setting up a security rule for traffic destined for a particular `Service` through
@@ -242,7 +246,7 @@ public class AddSecurityRuleDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid DestinationType: " + key);
+            throw new IllegalArgumentException("Invalid DestinationType: " + key);
         }
     };
     /**
@@ -263,7 +267,9 @@ public class AddSecurityRuleDetails {
     @com.fasterxml.jackson.annotation.JsonProperty("destinationType")
     DestinationType destinationType;
     /**
-     * Direction of the security rule. Set to `EGRESS` for rules to allow outbound IP packets, or `INGRESS` for rules to allow inbound IP packets.
+     * Direction of the security rule. Set to `EGRESS` for rules to allow outbound IP packets,
+     * or `INGRESS` for rules to allow inbound IP packets.
+     *
      **/
     public enum Direction {
         Egress("EGRESS"),
@@ -294,28 +300,17 @@ public class AddSecurityRuleDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid Direction: " + key);
+            throw new IllegalArgumentException("Invalid Direction: " + key);
         }
     };
     /**
-     * Direction of the security rule. Set to `EGRESS` for rules to allow outbound IP packets, or `INGRESS` for rules to allow inbound IP packets.
+     * Direction of the security rule. Set to `EGRESS` for rules to allow outbound IP packets,
+     * or `INGRESS` for rules to allow inbound IP packets.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("direction")
     Direction direction;
 
-    /**
-     * Optional and valid only for ICMP and ICMPv6. Use to specify a particular ICMP type and code
-     * as defined in:
-     * - [ICMP Parameters](http://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
-     * - [ICMPv6 Parameters](https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml)
-     * <p>
-     * If you specify ICMP or ICMPv6 as the protocol but omit this object, then all ICMP types and
-     * codes are allowed. If you do provide this object, the type is required and the code is optional.
-     * To enable MTU negotiation for ingress internet traffic via IPv4, make sure to allow type 3 (\"Destination
-     * Unreachable\") code 4 (\"Fragmentation Needed and Don't Fragment was Set\"). If you need to specify
-     * multiple codes for a single type, create a separate security list rule for each.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("icmpOptions")
     IcmpOptions icmpOptions;
 
@@ -347,6 +342,8 @@ public class AddSecurityRuleDetails {
      * Allowed values:
      * <p>
      * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+     *     IPv6 addressing is supported for all commercial and government regions. See
+     *     [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * The `cidrBlock` value for a {@link Service}, if you're
      *     setting up a security rule for traffic coming from a particular `Service` through
@@ -368,7 +365,7 @@ public class AddSecurityRuleDetails {
      *     {@link Service} (the rule is for traffic coming from a
      *     particular `Service` through a service gateway).
      * <p>
-     * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the OCID of a
+     * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the OCID of a
      *     {@link NetworkSecurityGroup}.
      *
      **/
@@ -402,7 +399,7 @@ public class AddSecurityRuleDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SourceType: " + key);
+            throw new IllegalArgumentException("Invalid SourceType: " + key);
         }
     };
     /**
@@ -414,26 +411,16 @@ public class AddSecurityRuleDetails {
      *     {@link Service} (the rule is for traffic coming from a
      *     particular `Service` through a service gateway).
      * <p>
-     * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the OCID of a
+     * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the OCID of a
      *     {@link NetworkSecurityGroup}.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
     SourceType sourceType;
 
-    /**
-     * Optional and valid only for TCP. Use to specify particular destination ports for TCP rules.
-     * If you specify TCP as the protocol but omit this object, then all destination ports are allowed.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("tcpOptions")
     TcpOptions tcpOptions;
 
-    /**
-     * Optional and valid only for UDP. Use to specify particular destination ports for UDP rules.
-     * If you specify UDP as the protocol but omit this object, then all destination ports are allowed.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("udpOptions")
     UdpOptions udpOptions;
 

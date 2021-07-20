@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.email.internal.http;
 
@@ -16,13 +17,15 @@ public class ListSendersConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListSendersRequest interceptRequest(ListSendersRequest request) {
+    public static com.oracle.bmc.email.requests.ListSendersRequest interceptRequest(
+            com.oracle.bmc.email.requests.ListSendersRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListSendersRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.email.requests.ListSendersRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
 
@@ -41,6 +44,14 @@ public class ListSendersConverter {
                             "lifecycleState",
                             com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
                                     request.getLifecycleState().getValue()));
+        }
+
+        if (request.getDomain() != null) {
+            target =
+                    target.queryParam(
+                            "domain",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getDomain()));
         }
 
         if (request.getEmailAddress() != null) {
@@ -91,19 +102,27 @@ public class ListSendersConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, ListSendersResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.email.responses.ListSendersResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, ListSendersResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.email.responses.ListSendersResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListSendersResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.email.responses.ListSendersResponse>() {
                             @Override
-                            public ListSendersResponse apply(
+                            public com.oracle.bmc.email.responses.ListSendersResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for ListSendersResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.email.responses.ListSendersResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -120,7 +139,9 @@ public class ListSendersConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListSendersResponse.Builder builder = ListSendersResponse.builder();
+                                com.oracle.bmc.email.responses.ListSendersResponse.Builder builder =
+                                        com.oracle.bmc.email.responses.ListSendersResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -172,7 +193,8 @@ public class ListSendersConverter {
                                                     Integer.class));
                                 }
 
-                                ListSendersResponse responseWrapper = builder.build();
+                                com.oracle.bmc.email.responses.ListSendersResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

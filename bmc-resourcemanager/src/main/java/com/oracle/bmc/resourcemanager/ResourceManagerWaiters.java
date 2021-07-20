@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcemanager;
 
@@ -17,6 +18,123 @@ import com.oracle.bmc.resourcemanager.responses.*;
 public class ResourceManagerWaiters {
     private final java.util.concurrent.ExecutorService executorService;
     private final ResourceManager client;
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @param targetStates the desired states to wait for. If multiple states are provided then the waiter will return once the resource reaches any of the provided states
+     * @return a new {@code Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetConfigurationSourceProviderRequest, GetConfigurationSourceProviderResponse>
+            forConfigurationSourceProvider(
+                    GetConfigurationSourceProviderRequest request,
+                    com.oracle.bmc.resourcemanager.model.ConfigurationSourceProvider
+                                    .LifecycleState...
+                            targetStates) {
+        org.apache.commons.lang3.Validate.notEmpty(
+                targetStates, "At least one targetState must be provided");
+        org.apache.commons.lang3.Validate.noNullElements(
+                targetStates, "Null targetState values are not permitted");
+
+        return forConfigurationSourceProvider(
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_WAITER, request, targetStates);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param targetState the desired state to wait for
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetConfigurationSourceProviderRequest, GetConfigurationSourceProviderResponse>
+            forConfigurationSourceProvider(
+                    GetConfigurationSourceProviderRequest request,
+                    com.oracle.bmc.resourcemanager.model.ConfigurationSourceProvider.LifecycleState
+                            targetState,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        org.apache.commons.lang3.Validate.notNull(targetState, "The targetState cannot be null");
+
+        return forConfigurationSourceProvider(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetState);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @param targetStates the desired states to wait for. The waiter will return once the resource reaches any of the provided states
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetConfigurationSourceProviderRequest, GetConfigurationSourceProviderResponse>
+            forConfigurationSourceProvider(
+                    GetConfigurationSourceProviderRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy,
+                    com.oracle.bmc.resourcemanager.model.ConfigurationSourceProvider
+                                    .LifecycleState...
+                            targetStates) {
+        org.apache.commons.lang3.Validate.notEmpty(
+                targetStates, "At least one target state must be provided");
+        org.apache.commons.lang3.Validate.noNullElements(
+                targetStates, "Null target states are not permitted");
+
+        return forConfigurationSourceProvider(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetStates);
+    }
+
+    // Helper method to create a new Waiter for ConfigurationSourceProvider.
+    private com.oracle.bmc.waiter.Waiter<
+                    GetConfigurationSourceProviderRequest, GetConfigurationSourceProviderResponse>
+            forConfigurationSourceProvider(
+                    com.oracle.bmc.waiter.BmcGenericWaiter waiter,
+                    final GetConfigurationSourceProviderRequest request,
+                    final com.oracle.bmc.resourcemanager.model.ConfigurationSourceProvider
+                                    .LifecycleState...
+                            targetStates) {
+        final java.util.Set<
+                        com.oracle.bmc.resourcemanager.model.ConfigurationSourceProvider
+                                .LifecycleState>
+                targetStatesSet = new java.util.HashSet<>(java.util.Arrays.asList(targetStates));
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                waiter.toCallable(
+                        com.google.common.base.Suppliers.ofInstance(request),
+                        new com.google.common.base.Function<
+                                GetConfigurationSourceProviderRequest,
+                                GetConfigurationSourceProviderResponse>() {
+                            @Override
+                            public GetConfigurationSourceProviderResponse apply(
+                                    GetConfigurationSourceProviderRequest request) {
+                                return client.getConfigurationSourceProvider(request);
+                            }
+                        },
+                        new com.google.common.base.Predicate<
+                                GetConfigurationSourceProviderResponse>() {
+                            @Override
+                            public boolean apply(GetConfigurationSourceProviderResponse response) {
+                                return targetStatesSet.contains(
+                                        response.getConfigurationSourceProvider()
+                                                .getLifecycleState());
+                            }
+                        },
+                        false),
+                request);
+    }
 
     /**
      * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
@@ -205,6 +323,102 @@ public class ResourceManagerWaiters {
                         },
                         targetStatesSet.contains(
                                 com.oracle.bmc.resourcemanager.model.Stack.LifecycleState.Deleted)),
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @param targetStates the desired states to wait for. If multiple states are provided then the waiter will return once the resource reaches any of the provided states
+     * @return a new {@code Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<GetTemplateRequest, GetTemplateResponse> forTemplate(
+            GetTemplateRequest request,
+            com.oracle.bmc.resourcemanager.model.Template.LifecycleState... targetStates) {
+        org.apache.commons.lang3.Validate.notEmpty(
+                targetStates, "At least one targetState must be provided");
+        org.apache.commons.lang3.Validate.noNullElements(
+                targetStates, "Null targetState values are not permitted");
+
+        return forTemplate(
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_WAITER, request, targetStates);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param targetState the desired state to wait for
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<GetTemplateRequest, GetTemplateResponse> forTemplate(
+            GetTemplateRequest request,
+            com.oracle.bmc.resourcemanager.model.Template.LifecycleState targetState,
+            com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+            com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        org.apache.commons.lang3.Validate.notNull(targetState, "The targetState cannot be null");
+
+        return forTemplate(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetState);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @param targetStates the desired states to wait for. The waiter will return once the resource reaches any of the provided states
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<GetTemplateRequest, GetTemplateResponse> forTemplate(
+            GetTemplateRequest request,
+            com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+            com.oracle.bmc.waiter.DelayStrategy delayStrategy,
+            com.oracle.bmc.resourcemanager.model.Template.LifecycleState... targetStates) {
+        org.apache.commons.lang3.Validate.notEmpty(
+                targetStates, "At least one target state must be provided");
+        org.apache.commons.lang3.Validate.noNullElements(
+                targetStates, "Null target states are not permitted");
+
+        return forTemplate(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetStates);
+    }
+
+    // Helper method to create a new Waiter for Template.
+    private com.oracle.bmc.waiter.Waiter<GetTemplateRequest, GetTemplateResponse> forTemplate(
+            com.oracle.bmc.waiter.BmcGenericWaiter waiter,
+            final GetTemplateRequest request,
+            final com.oracle.bmc.resourcemanager.model.Template.LifecycleState... targetStates) {
+        final java.util.Set<com.oracle.bmc.resourcemanager.model.Template.LifecycleState>
+                targetStatesSet = new java.util.HashSet<>(java.util.Arrays.asList(targetStates));
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                waiter.toCallable(
+                        com.google.common.base.Suppliers.ofInstance(request),
+                        new com.google.common.base.Function<
+                                GetTemplateRequest, GetTemplateResponse>() {
+                            @Override
+                            public GetTemplateResponse apply(GetTemplateRequest request) {
+                                return client.getTemplate(request);
+                            }
+                        },
+                        new com.google.common.base.Predicate<GetTemplateResponse>() {
+                            @Override
+                            public boolean apply(GetTemplateResponse response) {
+                                return targetStatesSet.contains(
+                                        response.getTemplate().getLifecycleState());
+                            }
+                        },
+                        false),
                 request);
     }
 

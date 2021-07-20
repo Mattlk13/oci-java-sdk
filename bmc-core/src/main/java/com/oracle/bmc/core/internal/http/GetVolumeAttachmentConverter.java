@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class GetVolumeAttachmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetVolumeAttachmentRequest interceptRequest(GetVolumeAttachmentRequest request) {
+    public static com.oracle.bmc.core.requests.GetVolumeAttachmentRequest interceptRequest(
+            com.oracle.bmc.core.requests.GetVolumeAttachmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetVolumeAttachmentRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.GetVolumeAttachmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getVolumeAttachmentId(), "volumeAttachmentId must not be blank");
 
@@ -38,22 +41,28 @@ public class GetVolumeAttachmentConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetVolumeAttachmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.GetVolumeAttachmentResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, GetVolumeAttachmentResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.GetVolumeAttachmentResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetVolumeAttachmentResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.GetVolumeAttachmentResponse>() {
                             @Override
-                            public GetVolumeAttachmentResponse apply(
+                            public com.oracle.bmc.core.responses.GetVolumeAttachmentResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetVolumeAttachmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.GetVolumeAttachmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -67,8 +76,12 @@ public class GetVolumeAttachmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetVolumeAttachmentResponse.Builder builder =
-                                        GetVolumeAttachmentResponse.builder();
+                                com.oracle.bmc.core.responses.GetVolumeAttachmentResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .GetVolumeAttachmentResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.volumeAttachment(response.getItem());
 
@@ -93,7 +106,8 @@ public class GetVolumeAttachmentConverter {
                                                     String.class));
                                 }
 
-                                GetVolumeAttachmentResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.GetVolumeAttachmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

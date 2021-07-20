@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.limits.model;
 
 /**
- * Entails a subset of all the properties of the corresponding Quota and is recommended to be used in cases requiring
- * security of quota details and slightly better API performance.
+ * Consists of a subset of all the properties of the corresponding quota, and is recommended to be used in cases requiring
+ * security of quota details, and for slightly better API performance.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -20,6 +21,7 @@ package com.oracle.bmc.limits.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = QuotaSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class QuotaSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -167,7 +169,7 @@ public class QuotaSummary {
     String description;
 
     /**
-     * Date and time the quota was created, in the format defined by RFC3339.
+     * Date and time the quota was created, in the format defined by RFC 3339.
      * Example: `2016-08-25T21:10:29.600Z`
      *
      **/

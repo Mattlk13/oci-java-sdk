@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = UpdateBootVolumeKmsKeyDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateBootVolumeKmsKeyDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -60,9 +62,9 @@ public class UpdateBootVolumeKmsKeyDetails {
     }
 
     /**
-     * The OCID of the new KMS key which will be used to protect the specified volume.
-     * This key has to be a valid KMS key OCID, and the user must have key delegation policy to allow them to access this key.
-     * Even if the new KMS key is the same as the previous KMS key ID, the Block Volume service will use it to regenerate a new volume encryption key.
+     * The OCID of the new Key Management key to assign to protect the specified volume.
+     * This key has to be a valid Key Management key, and policies must exist to allow the user and the Block Volume service to access this key.
+     * If you specify the same OCID as the previous key's OCID, the Block Volume service will use it to regenerate a volume encryption key.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")

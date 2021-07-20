@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
- * Optional object to specify ports for a UDP rule. If you specify UDP as the
- * protocol but omit this object, then all ports are allowed.
+ * Optional and valid only for UDP. Use to specify particular destination ports for UDP rules.
+ * If you specify UDP as the protocol but omit this object, then all destination ports are allowed.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = UdpOptions.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UdpOptions {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,19 +71,9 @@ public class UdpOptions {
         return new Builder();
     }
 
-    /**
-     * An inclusive range of allowed destination ports. Use the same number for the min and max
-     * to indicate a single port. Defaults to all ports if not specified.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("destinationPortRange")
     PortRange destinationPortRange;
 
-    /**
-     * An inclusive range of allowed source ports. Use the same number for the min and max to
-     * indicate a single port. Defaults to all ports if not specified.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("sourcePortRange")
     PortRange sourcePortRange;
 

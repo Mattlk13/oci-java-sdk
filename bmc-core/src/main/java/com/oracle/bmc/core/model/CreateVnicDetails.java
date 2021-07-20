@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -7,7 +8,7 @@ package com.oracle.bmc.core.model;
  * Contains properties for a VNIC. You use this object when creating the
  * primary VNIC during instance launch or when creating a secondary VNIC.
  * For more information about VNICs, see
- * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+ * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -24,6 +25,7 @@ package com.oracle.bmc.core.model;
     builder = CreateVnicDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateVnicDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -34,6 +36,15 @@ public class CreateVnicDetails {
         public Builder assignPublicIp(Boolean assignPublicIp) {
             this.assignPublicIp = assignPublicIp;
             this.__explicitlySet__.add("assignPublicIp");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("assignPrivateDnsRecord")
+        private Boolean assignPrivateDnsRecord;
+
+        public Builder assignPrivateDnsRecord(Boolean assignPrivateDnsRecord) {
+            this.assignPrivateDnsRecord = assignPrivateDnsRecord;
+            this.__explicitlySet__.add("assignPrivateDnsRecord");
             return this;
         }
 
@@ -110,6 +121,15 @@ public class CreateVnicDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("vlanId")
+        private String vlanId;
+
+        public Builder vlanId(String vlanId) {
+            this.vlanId = vlanId;
+            this.__explicitlySet__.add("vlanId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -117,6 +137,7 @@ public class CreateVnicDetails {
             CreateVnicDetails __instance__ =
                     new CreateVnicDetails(
                             assignPublicIp,
+                            assignPrivateDnsRecord,
                             definedTags,
                             displayName,
                             freeformTags,
@@ -124,7 +145,8 @@ public class CreateVnicDetails {
                             nsgIds,
                             privateIp,
                             skipSourceDestCheck,
-                            subnetId);
+                            subnetId,
+                            vlanId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -133,6 +155,7 @@ public class CreateVnicDetails {
         public Builder copy(CreateVnicDetails o) {
             Builder copiedBuilder =
                     assignPublicIp(o.getAssignPublicIp())
+                            .assignPrivateDnsRecord(o.getAssignPrivateDnsRecord())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
@@ -140,7 +163,8 @@ public class CreateVnicDetails {
                             .nsgIds(o.getNsgIds())
                             .privateIp(o.getPrivateIp())
                             .skipSourceDestCheck(o.getSkipSourceDestCheck())
-                            .subnetId(o.getSubnetId());
+                            .subnetId(o.getSubnetId())
+                            .vlanId(o.getVlanId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -165,24 +189,38 @@ public class CreateVnicDetails {
      * <p>
      **Note:** This public IP address is associated with the primary private IP
      * on the VNIC. For more information, see
-     * [IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPaddresses.htm).
+     * [IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingIPaddresses.htm).
      * <p>
      **Note:** There's a limit to the number of {@link PublicIp}
      * a VNIC or instance can have. If you try to create a secondary VNIC
      * with an assigned public IP for an instance that has already
      * reached its public IP limit, an error is returned. For information
      * about the public IP limits, see
-     * [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
+     * [Public IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingpublicIPs.htm).
      * <p>
      * Example: `false`
+     * <p>
+     * If you specify a `vlanId`, then `assignPublicIp` must be set to false. See
+     * {@link Vlan}.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("assignPublicIp")
     Boolean assignPublicIp;
 
     /**
+     * Whether the VNIC should be assigned a DNS record. If set to false, there will be no DNS record
+     * registration for the VNIC. If set to true, the DNS record will be registered. The default
+     * value is true.
+     * <p>
+     * If you specify a `hostnameLabel`, then `assignPrivateDnsRecord` must be set to true.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("assignPrivateDnsRecord")
+    Boolean assignPrivateDnsRecord;
+
+    /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -200,7 +238,7 @@ public class CreateVnicDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -221,7 +259,7 @@ public class CreateVnicDetails {
      * {@link #getPrivateIp(GetPrivateIpRequest) getPrivateIp}.
      * <p>
      * For more information, see
-     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
      * <p>
      * When launching an instance, use this `hostnameLabel` instead
      * of the deprecated `hostnameLabel` in
@@ -229,6 +267,9 @@ public class CreateVnicDetails {
      * If you provide both, the values must match.
      * <p>
      * Example: `bminstance-1`
+     * <p>
+     * If you specify a `vlanId`, the `hostnameLabel` cannot be specified. VNICs on a VLAN
+     * can not be assigned a hostname. See {@link Vlan}.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("hostnameLabel")
@@ -238,6 +279,11 @@ public class CreateVnicDetails {
      * A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. For more
      * information about NSGs, see
      * {@link NetworkSecurityGroup}.
+     * <p>
+     * If a `vlanId` is specified, the `nsgIds` cannot be specified. The `vlanId`
+     * indicates that the VNIC will belong to a VLAN instead of a subnet. With VLANs,
+     * all VNICs in the VLAN belong to the NSGs that are associated with the VLAN.
+     * See {@link Vlan}.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
@@ -253,6 +299,10 @@ public class CreateVnicDetails {
      * {@link #listPrivateIps(ListPrivateIpsRequest) listPrivateIps} and
      * {@link #getPrivateIp(GetPrivateIpRequest) getPrivateIp}.
      * <p>
+     *
+     * If you specify a `vlanId`, the `privateIp` cannot be specified.
+     * See {@link Vlan}.
+     * <p>
      * Example: `10.0.3.3`
      *
      **/
@@ -263,7 +313,12 @@ public class CreateVnicDetails {
      * Whether the source/destination check is disabled on the VNIC.
      * Defaults to `false`, which means the check is performed. For information
      * about why you would skip the source/destination check, see
-     * [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip).
+     * [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm#privateip).
+     * <p>
+     *
+     * If you specify a `vlanId`, the `skipSourceDestCheck` cannot be specified because the
+     * source/destination check is always disabled for VNICs in a VLAN. See
+     * {@link Vlan}.
      * <p>
      * Example: `true`
      *
@@ -276,10 +331,26 @@ public class CreateVnicDetails {
      * use this `subnetId` instead of the deprecated `subnetId` in
      * {@link #launchInstanceDetails(LaunchInstanceDetailsRequest) launchInstanceDetails}.
      * At least one of them is required; if you provide both, the values must match.
+     * <p>
+     * If you are an Oracle Cloud VMware Solution customer and creating a secondary
+     * VNIC in a VLAN instead of a subnet, provide a `vlanId` instead of a `subnetId`.
+     * If you provide both a `vlanId` and `subnetId`, the request fails.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
     String subnetId;
+
+    /**
+     * Provide this attribute only if you are an Oracle Cloud VMware Solution
+     * customer and creating a secondary VNIC in a VLAN. The value is the OCID of the VLAN.
+     * See {@link Vlan}.
+     * <p>
+     * Provide a `vlanId` instead of a `subnetId`. If you provide both a
+     * `vlanId` and `subnetId`, the request fails.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vlanId")
+    String vlanId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

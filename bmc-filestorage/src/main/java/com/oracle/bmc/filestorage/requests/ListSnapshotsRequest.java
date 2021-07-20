@@ -1,29 +1,38 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.requests;
 
 import com.oracle.bmc.filestorage.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/filestorage/ListSnapshotsExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListSnapshotsRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20171215")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
-     * The OCID of the file system.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
      */
     private String fileSystemId;
 
     /**
      * For list pagination. The maximum number of results per page,
      * or items to return in a paginated \"List\" call.
-     * 1 is the minimum, 1000 is the maximum.
+     * 1 is the minimum, 100 is the maximum.
      * <p>
      * For important details about how pagination works,
      * see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
      * <p>
-     * Example: `500`
+     * Example: `100`
      *
      */
     private Integer limit;
@@ -82,12 +91,11 @@ public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid LifecycleState: " + key);
+            throw new IllegalArgumentException("Invalid LifecycleState: " + key);
         }
     };
-
     /**
-     * Filter results by OCID. Must be an OCID of the correct type for
+     * Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
      * the resouce type.
      *
      */
@@ -95,14 +103,16 @@ public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest {
 
     /**
      * The sort order to use, either 'asc' or 'desc', where 'asc' is
-     * ascending and 'desc' is descending.
+     * ascending and 'desc' is descending. The default order is 'desc'
+     * except for numeric values.
      *
      */
     private SortOrder sortOrder;
 
     /**
      * The sort order to use, either 'asc' or 'desc', where 'asc' is
-     * ascending and 'desc' is descending.
+     * ascending and 'desc' is descending. The default order is 'desc'
+     * except for numeric values.
      *
      **/
     public enum SortOrder {
@@ -134,10 +144,9 @@ public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortOrder: " + key);
+            throw new IllegalArgumentException("Invalid SortOrder: " + key);
         }
     };
-
     /**
      * Unique identifier for the request.
      * If you need to contact Oracle about a particular request, please provide the request ID.
@@ -145,7 +154,9 @@ public class ListSnapshotsRequest extends com.oracle.bmc.requests.BmcRequest {
      */
     private String opcRequestId;
 
-    public static class Builder {
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListSnapshotsRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;

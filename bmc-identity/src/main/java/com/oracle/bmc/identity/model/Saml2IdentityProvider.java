@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
@@ -29,6 +30,7 @@ package com.oracle.bmc.identity.model;
     property = "protocol"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Saml2IdentityProvider extends IdentityProvider {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -133,6 +135,15 @@ public class Saml2IdentityProvider extends IdentityProvider {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("metadata")
+        private String metadata;
+
+        public Builder metadata(String metadata) {
+            this.metadata = metadata;
+            this.__explicitlySet__.add("metadata");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("signingCertificate")
         private String signingCertificate;
 
@@ -177,6 +188,7 @@ public class Saml2IdentityProvider extends IdentityProvider {
                             freeformTags,
                             definedTags,
                             metadataUrl,
+                            metadata,
                             signingCertificate,
                             redirectUrl,
                             freeformAttributes);
@@ -198,6 +210,7 @@ public class Saml2IdentityProvider extends IdentityProvider {
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .metadataUrl(o.getMetadataUrl())
+                            .metadata(o.getMetadata())
                             .signingCertificate(o.getSigningCertificate())
                             .redirectUrl(o.getRedirectUrl())
                             .freeformAttributes(o.getFreeformAttributes());
@@ -227,6 +240,7 @@ public class Saml2IdentityProvider extends IdentityProvider {
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             String metadataUrl,
+            String metadata,
             String signingCertificate,
             String redirectUrl,
             java.util.Map<String, String> freeformAttributes) {
@@ -242,6 +256,7 @@ public class Saml2IdentityProvider extends IdentityProvider {
                 freeformTags,
                 definedTags);
         this.metadataUrl = metadataUrl;
+        this.metadata = metadata;
         this.signingCertificate = signingCertificate;
         this.redirectUrl = redirectUrl;
         this.freeformAttributes = freeformAttributes;
@@ -254,6 +269,13 @@ public class Saml2IdentityProvider extends IdentityProvider {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("metadataUrl")
     String metadataUrl;
+
+    /**
+     * The XML that contains the information required for federating Identity with SAML2 Identity Provider.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("metadata")
+    String metadata;
 
     /**
      * The identity provider's signing certificate used by the IAM Service

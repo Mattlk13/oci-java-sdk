@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.keymanagement.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = EncryptedData.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class EncryptedData {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,18 +33,50 @@ public class EncryptedData {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("keyId")
+        private String keyId;
+
+        public Builder keyId(String keyId) {
+            this.keyId = keyId;
+            this.__explicitlySet__.add("keyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("keyVersionId")
+        private String keyVersionId;
+
+        public Builder keyVersionId(String keyVersionId) {
+            this.keyVersionId = keyVersionId;
+            this.__explicitlySet__.add("keyVersionId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionAlgorithm")
+        private EncryptionAlgorithm encryptionAlgorithm;
+
+        public Builder encryptionAlgorithm(EncryptionAlgorithm encryptionAlgorithm) {
+            this.encryptionAlgorithm = encryptionAlgorithm;
+            this.__explicitlySet__.add("encryptionAlgorithm");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public EncryptedData build() {
-            EncryptedData __instance__ = new EncryptedData(ciphertext);
+            EncryptedData __instance__ =
+                    new EncryptedData(ciphertext, keyId, keyVersionId, encryptionAlgorithm);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(EncryptedData o) {
-            Builder copiedBuilder = ciphertext(o.getCiphertext());
+            Builder copiedBuilder =
+                    ciphertext(o.getCiphertext())
+                            .keyId(o.getKeyId())
+                            .keyVersionId(o.getKeyVersionId())
+                            .encryptionAlgorithm(o.getEncryptionAlgorithm());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -61,6 +95,82 @@ public class EncryptedData {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("ciphertext")
     String ciphertext;
+
+    /**
+     * The OCID of the key used to encrypt the ciphertext.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("keyId")
+    String keyId;
+
+    /**
+     * The OCID of the key version used to encrypt the ciphertext.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("keyVersionId")
+    String keyVersionId;
+    /**
+     * The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+     * `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+     * that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+     * key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+     * `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+     * and uses OAEP.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum EncryptionAlgorithm {
+        Aes256Gcm("AES_256_GCM"),
+        RsaOaepSha1("RSA_OAEP_SHA_1"),
+        RsaOaepSha256("RSA_OAEP_SHA_256"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, EncryptionAlgorithm> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (EncryptionAlgorithm v : EncryptionAlgorithm.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        EncryptionAlgorithm(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static EncryptionAlgorithm create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'EncryptionAlgorithm', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+     * `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+     * that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+     * key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+     * `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+     * and uses OAEP.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionAlgorithm")
+    EncryptionAlgorithm encryptionAlgorithm;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

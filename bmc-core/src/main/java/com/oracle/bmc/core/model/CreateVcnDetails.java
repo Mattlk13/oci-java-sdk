@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = CreateVcnDetails.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateVcnDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -31,21 +33,21 @@ public class CreateVcnDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("cidrBlocks")
+        private java.util.List<String> cidrBlocks;
+
+        public Builder cidrBlocks(java.util.List<String> cidrBlocks) {
+            this.cidrBlocks = cidrBlocks;
+            this.__explicitlySet__.add("cidrBlocks");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
         private String compartmentId;
 
         public Builder compartmentId(String compartmentId) {
             this.compartmentId = compartmentId;
             this.__explicitlySet__.add("compartmentId");
-            return this;
-        }
-
-        @com.fasterxml.jackson.annotation.JsonProperty("ipv6CidrBlock")
-        private String ipv6CidrBlock;
-
-        public Builder ipv6CidrBlock(String ipv6CidrBlock) {
-            this.ipv6CidrBlock = ipv6CidrBlock;
-            this.__explicitlySet__.add("ipv6CidrBlock");
             return this;
         }
 
@@ -102,8 +104,8 @@ public class CreateVcnDetails {
             CreateVcnDetails __instance__ =
                     new CreateVcnDetails(
                             cidrBlock,
+                            cidrBlocks,
                             compartmentId,
-                            ipv6CidrBlock,
                             definedTags,
                             displayName,
                             dnsLabel,
@@ -117,8 +119,8 @@ public class CreateVcnDetails {
         public Builder copy(CreateVcnDetails o) {
             Builder copiedBuilder =
                     cidrBlock(o.getCidrBlock())
+                            .cidrBlocks(o.getCidrBlocks())
                             .compartmentId(o.getCompartmentId())
-                            .ipv6CidrBlock(o.getIpv6CidrBlock())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .dnsLabel(o.getDnsLabel())
@@ -138,13 +140,24 @@ public class CreateVcnDetails {
     }
 
     /**
-     * The CIDR IP address block of the VCN.
-     * <p>
-     * Example: `172.16.0.0/16`
+     * **Deprecated.** Do *not* set this value. Use `cidrBlocks` instead.
+     * Example: `10.0.0.0/16`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("cidrBlock")
     String cidrBlock;
+
+    /**
+     * The list of one or more IPv4 CIDR blocks for the VCN that meet the following criteria:
+     * - The CIDR blocks must be valid.
+     * - They must not overlap with each other or with the on-premises network CIDR block.
+     * - The number of CIDR blocks must not exceed the limit of CIDR blocks allowed per VCN.
+     * <p>
+     **Important:** Do *not* specify a value for `cidrBlock`. Use this parameter instead.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("cidrBlocks")
+    java.util.List<String> cidrBlocks;
 
     /**
      * The OCID of the compartment to contain the VCN.
@@ -153,34 +166,8 @@ public class CreateVcnDetails {
     String compartmentId;
 
     /**
-     * If you enable IPv6 for the VCN (see `isIpv6Enabled`), you may optionally provide an IPv6
-     * /48 CIDR block from the supported ranges (see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
-     * The addresses in this block will be considered private and cannot be accessed
-     * from the internet. The documentation refers to this as a *custom CIDR* for the VCN.
-     * <p>
-     * If you don't provide a custom CIDR for the VCN, Oracle assigns the VCN's IPv6 /48 CIDR block.
-     * <p>
-     * Regardless of whether you or Oracle assigns the `ipv6CidrBlock`,
-     * Oracle *also* assigns the VCN an IPv6 CIDR block for the VCN's public IP address space
-     * (see the `ipv6PublicCidrBlock` of the {@link Vcn} object). If you do
-     * not assign a custom CIDR, Oracle uses the *same* Oracle-assigned CIDR for both the private
-     * IP address space (`ipv6CidrBlock` in the `Vcn` object) and the public IP addreses space
-     * (`ipv6PublicCidrBlock` in the `Vcn` object). This means that a given VNIC might use the same
-     * IPv6 IP address for both private and public (internet) communication. You control whether
-     * an IPv6 address can be used for internet communication by using the `isInternetAccessAllowed`
-     * attribute in the {@link Ipv6} object.
-     * <p>
-     * For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
-     * <p>
-     * Example: `2001:0db8:0123::/48`
-     *
-     **/
-    @com.fasterxml.jackson.annotation.JsonProperty("ipv6CidrBlock")
-    String ipv6CidrBlock;
-
-    /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -189,7 +176,9 @@ public class CreateVcnDetails {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+     * A user-friendly name. Does not have to be unique, and it's changeable.
+     * Avoid entering confidential information.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
@@ -207,7 +196,7 @@ public class CreateVcnDetails {
      * will not work.
      * <p>
      * For more information, see
-     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+     * [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
      * <p>
      * Example: `vcn1`
      *
@@ -217,7 +206,7 @@ public class CreateVcnDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -226,8 +215,9 @@ public class CreateVcnDetails {
     java.util.Map<String, String> freeformTags;
 
     /**
-     * Whether IPv6 is enabled for the VCN. Default is `false`. You cannot change this later.
-     * For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+     * Whether IPv6 is enabled for the VCN. Default is `false`.
+     * If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block.
+     * For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
      * <p>
      * Example: `true`
      *

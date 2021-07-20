@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,14 +17,15 @@ public class ListIdentityProvidersConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListIdentityProvidersRequest interceptRequest(
-            ListIdentityProvidersRequest request) {
+    public static com.oracle.bmc.identity.requests.ListIdentityProvidersRequest interceptRequest(
+            com.oracle.bmc.identity.requests.ListIdentityProvidersRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListIdentityProvidersRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.ListIdentityProvidersRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getProtocol(), "protocol is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
@@ -59,26 +61,64 @@ public class ListIdentityProvidersConverter {
                                     request.getLimit()));
         }
 
+        if (request.getName() != null) {
+            target =
+                    target.queryParam(
+                            "name",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getName()));
+        }
+
+        if (request.getSortBy() != null) {
+            target =
+                    target.queryParam(
+                            "sortBy",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getSortBy().getValue()));
+        }
+
+        if (request.getSortOrder() != null) {
+            target =
+                    target.queryParam(
+                            "sortOrder",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getSortOrder().getValue()));
+        }
+
+        if (request.getLifecycleState() != null) {
+            target =
+                    target.queryParam(
+                            "lifecycleState",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getLifecycleState().getValue()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListIdentityProvidersResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.ListIdentityProvidersResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListIdentityProvidersResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.ListIdentityProvidersResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListIdentityProvidersResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses.ListIdentityProvidersResponse>() {
                             @Override
-                            public ListIdentityProvidersResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.identity.responses.ListIdentityProvidersResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListIdentityProvidersResponse");
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.ListIdentityProvidersResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -95,8 +135,13 @@ public class ListIdentityProvidersConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListIdentityProvidersResponse.Builder builder =
-                                        ListIdentityProvidersResponse.builder();
+                                com.oracle.bmc.identity.responses.ListIdentityProvidersResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .ListIdentityProvidersResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -124,7 +169,8 @@ public class ListIdentityProvidersConverter {
                                                     String.class));
                                 }
 
-                                ListIdentityProvidersResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.ListIdentityProvidersResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

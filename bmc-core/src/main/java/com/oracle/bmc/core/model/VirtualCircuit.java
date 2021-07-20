@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -10,7 +11,7 @@ package com.oracle.bmc.core.model;
  * network connections to provide a single, logical connection between the edge router
  * on the customer's existing network and Oracle Cloud Infrastructure. *Private*
  * virtual circuits support private peering, and *public* virtual circuits support
- * public peering. For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+ * public peering. For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
  * <p>
  * Each virtual circuit is made up of information shared between a customer, Oracle,
  * and a provider (if the customer is using FastConnect via a provider). Who fills in
@@ -22,10 +23,7 @@ package com.oracle.bmc.core.model;
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
- * <p>
- **Warning:** Oracle recommends that you avoid using any confidential information when you
- * supply string values using the API.
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -40,6 +38,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = VirtualCircuit.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class VirtualCircuit {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -71,6 +70,15 @@ public class VirtualCircuit {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("bgpIpv6SessionState")
+        private BgpIpv6SessionState bgpIpv6SessionState;
+
+        public Builder bgpIpv6SessionState(BgpIpv6SessionState bgpIpv6SessionState) {
+            this.bgpIpv6SessionState = bgpIpv6SessionState;
+            this.__explicitlySet__.add("bgpIpv6SessionState");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
         private String compartmentId;
 
@@ -90,12 +98,30 @@ public class VirtualCircuit {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("routingPolicy")
+        private java.util.List<RoutingPolicy> routingPolicy;
+
+        public Builder routingPolicy(java.util.List<RoutingPolicy> routingPolicy) {
+            this.routingPolicy = routingPolicy;
+            this.__explicitlySet__.add("routingPolicy");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
         private Integer customerBgpAsn;
 
         public Builder customerBgpAsn(Integer customerBgpAsn) {
             this.customerBgpAsn = customerBgpAsn;
             this.__explicitlySet__.add("customerBgpAsn");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("customerAsn")
+        private Long customerAsn;
+
+        public Builder customerAsn(Long customerAsn) {
+            this.customerAsn = customerAsn;
+            this.__explicitlySet__.add("customerAsn");
             return this;
         }
 
@@ -271,9 +297,12 @@ public class VirtualCircuit {
                             bandwidthShapeName,
                             bgpManagement,
                             bgpSessionState,
+                            bgpIpv6SessionState,
                             compartmentId,
                             crossConnectMappings,
+                            routingPolicy,
                             customerBgpAsn,
+                            customerAsn,
                             definedTags,
                             displayName,
                             freeformTags,
@@ -302,9 +331,12 @@ public class VirtualCircuit {
                     bandwidthShapeName(o.getBandwidthShapeName())
                             .bgpManagement(o.getBgpManagement())
                             .bgpSessionState(o.getBgpSessionState())
+                            .bgpIpv6SessionState(o.getBgpIpv6SessionState())
                             .compartmentId(o.getCompartmentId())
                             .crossConnectMappings(o.getCrossConnectMappings())
+                            .routingPolicy(o.getRoutingPolicy())
                             .customerBgpAsn(o.getCustomerBgpAsn())
+                            .customerAsn(o.getCustomerAsn())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
@@ -337,7 +369,7 @@ public class VirtualCircuit {
     }
 
     /**
-     * The provisioned data rate of the connection.  To get a list of the
+     * The provisioned data rate of the connection. To get a list of the
      * available bandwidth levels (that is, shapes), see
      * {@link #listFastConnectProviderVirtualCircuitBandwidthShapes(ListFastConnectProviderVirtualCircuitBandwidthShapesRequest) listFastConnectProviderVirtualCircuitBandwidthShapes}.
      * <p>
@@ -403,7 +435,7 @@ public class VirtualCircuit {
     @com.fasterxml.jackson.annotation.JsonProperty("bgpManagement")
     BgpManagement bgpManagement;
     /**
-     * The state of the BGP session associated with the virtual circuit.
+     * The state of the Ipv4 BGP session associated with the virtual circuit.
      **/
     @lombok.extern.slf4j.Slf4j
     public enum BgpSessionState {
@@ -449,10 +481,61 @@ public class VirtualCircuit {
         }
     };
     /**
-     * The state of the BGP session associated with the virtual circuit.
+     * The state of the Ipv4 BGP session associated with the virtual circuit.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("bgpSessionState")
     BgpSessionState bgpSessionState;
+    /**
+     * The state of the Ipv6 BGP session associated with the virtual circuit.
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum BgpIpv6SessionState {
+        Up("UP"),
+        Down("DOWN"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, BgpIpv6SessionState> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (BgpIpv6SessionState v : BgpIpv6SessionState.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        BgpIpv6SessionState(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static BgpIpv6SessionState create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'BgpIpv6SessionState', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The state of the Ipv6 BGP session associated with the virtual circuit.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("bgpIpv6SessionState")
+    BgpIpv6SessionState bgpIpv6SessionState;
 
     /**
      * The OCID of the compartment containing the virtual circuit.
@@ -468,6 +551,70 @@ public class VirtualCircuit {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("crossConnectMappings")
     java.util.List<CrossConnectMapping> crossConnectMappings;
+    /**
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum RoutingPolicy {
+        OracleServiceNetwork("ORACLE_SERVICE_NETWORK"),
+        Regional("REGIONAL"),
+        MarketLevel("MARKET_LEVEL"),
+        Global("GLOBAL"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, RoutingPolicy> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (RoutingPolicy v : RoutingPolicy.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        RoutingPolicy(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static RoutingPolicy create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'RoutingPolicy', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The routing policy sets how routing information about the Oracle cloud is shared over a public virtual circuit.
+     * Policies available are: `ORACLE_SERVICE_NETWORK`, `REGIONAL`, `MARKET_LEVEL`, and `GLOBAL`.
+     * See [Route Filtering](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/routingonprem.htm#route_filtering) for details.
+     * By default, routing information is shared for all routes in the same market.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("routingPolicy")
+    java.util.List<RoutingPolicy> routingPolicy;
+
+    /**
+     * Deprecated. Instead use `customerAsn`.
+     * If you specify values for both, the request will be rejected.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
+    Integer customerBgpAsn;
 
     /**
      * The BGP ASN of the network at the other end of the BGP
@@ -475,14 +622,15 @@ public class VirtualCircuit {
      * edge router and Oracle, the value is the customer's ASN. If the BGP
      * session is between the provider's edge router and Oracle, the value
      * is the provider's ASN.
+     * Can be a 2-byte or 4-byte ASN. Uses \"asplain\" format.
      *
      **/
-    @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
-    Integer customerBgpAsn;
+    @com.fasterxml.jackson.annotation.JsonProperty("customerAsn")
+    Long customerAsn;
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -500,7 +648,7 @@ public class VirtualCircuit {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -524,7 +672,7 @@ public class VirtualCircuit {
     /**
      * The virtual circuit's current state. For information about
      * the different states, see
-     * [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+     * [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -579,7 +727,7 @@ public class VirtualCircuit {
     /**
      * The virtual circuit's current state. For information about
      * the different states, see
-     * [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+     * [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
@@ -682,7 +830,7 @@ public class VirtualCircuit {
 
     /**
      * For a public virtual circuit. The public IP prefixes (CIDRs) the customer wants to
-     * advertise across the connection. Each prefix must be /31 or less specific.
+     * advertise across the connection. All prefix sizes are allowed.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("publicPrefixes")
@@ -760,7 +908,7 @@ public class VirtualCircuit {
 
     /**
      * The date and time the virtual circuit was created,
-     * in the format defined by RFC3339.
+     * in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
@@ -769,7 +917,7 @@ public class VirtualCircuit {
     java.util.Date timeCreated;
     /**
      * Whether the virtual circuit supports private or public peering. For more information,
-     * see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+     * see [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -816,7 +964,7 @@ public class VirtualCircuit {
     };
     /**
      * Whether the virtual circuit supports private or public peering. For more information,
-     * see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+     * see [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("type")

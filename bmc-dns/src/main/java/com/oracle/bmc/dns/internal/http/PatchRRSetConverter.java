@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.internal.http;
 
@@ -16,13 +17,15 @@ public class PatchRRSetConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static PatchRRSetRequest interceptRequest(PatchRRSetRequest request) {
+    public static com.oracle.bmc.dns.requests.PatchRRSetRequest interceptRequest(
+            com.oracle.bmc.dns.requests.PatchRRSetRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, PatchRRSetRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.dns.requests.PatchRRSetRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getZoneNameOrId(), "zoneNameOrId must not be blank");
         Validate.notBlank(request.getDomain(), "domain must not be blank");
@@ -44,6 +47,22 @@ public class PatchRRSetConverter {
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
                                         request.getRtype()));
 
+        if (request.getScope() != null) {
+            target =
+                    target.queryParam(
+                            "scope",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getScope().getValue()));
+        }
+
+        if (request.getViewId() != null) {
+            target =
+                    target.queryParam(
+                            "viewId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getViewId()));
+        }
+
         if (request.getCompartmentId() != null) {
             target =
                     target.queryParam(
@@ -64,18 +83,30 @@ public class PatchRRSetConverter {
             ib.header("If-Unmodified-Since", request.getIfUnmodifiedSince());
         }
 
+        if (request.getOpcRequestId() != null) {
+            ib.header("opc-request-id", request.getOpcRequestId());
+        }
+
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, PatchRRSetResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.dns.responses.PatchRRSetResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, PatchRRSetResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response, com.oracle.bmc.dns.responses.PatchRRSetResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, PatchRRSetResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.dns.responses.PatchRRSetResponse>() {
                             @Override
-                            public PatchRRSetResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for PatchRRSetResponse");
+                            public com.oracle.bmc.dns.responses.PatchRRSetResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.dns.responses.PatchRRSetResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -89,7 +120,9 @@ public class PatchRRSetConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                PatchRRSetResponse.Builder builder = PatchRRSetResponse.builder();
+                                com.oracle.bmc.dns.responses.PatchRRSetResponse.Builder builder =
+                                        com.oracle.bmc.dns.responses.PatchRRSetResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.recordCollection(response.getItem());
 
@@ -138,7 +171,8 @@ public class PatchRRSetConverter {
                                                     "ETag", eTagHeader.get().get(0), String.class));
                                 }
 
-                                PatchRRSetResponse responseWrapper = builder.build();
+                                com.oracle.bmc.dns.responses.PatchRRSetResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

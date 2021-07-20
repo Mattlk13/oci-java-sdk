@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.transfer.internal;
 
@@ -30,6 +31,7 @@ public class MultipartManifestImpl implements MultipartManifest {
 
     private final Map<Integer, PartAndStatus> parts = new HashMap<>();
     private final AtomicInteger nextPartNumber = new AtomicInteger(1);
+    private final Map<PartAndStatus, Exception> partFailureDetails = new HashMap<>();
 
     private boolean isAborted = false;
 
@@ -98,8 +100,20 @@ public class MultipartManifestImpl implements MultipartManifest {
      * @param partNumber The failed part number
      */
     public synchronized void registerFailure(int partNumber) {
+        registerFailure(partNumber, null);
+    }
+
+    /**
+     * Register a failed upload and the failure cause.
+     * <p>
+     * Must have called {@link #registerTransfer(int)} first.
+     *
+     * @param partNumber The failed part number
+     */
+    public synchronized void registerFailure(int partNumber, Exception failureException) {
         PartAndStatus partAndStatus = parts.get(partNumber);
         partAndStatus.complete = true;
+        partFailureDetails.put(partAndStatus, failureException);
     }
 
     @Override
@@ -153,6 +167,21 @@ public class MultipartManifestImpl implements MultipartManifest {
             }
         }
         return todoParts;
+    }
+
+    @Override
+    public synchronized List<MultipartUploadFailedPartDetails> listFailedPartsDetails() {
+        List<MultipartUploadFailedPartDetails> failedPartsDetails = new ArrayList<>(parts.size());
+        for (Entry<Integer, PartAndStatus> part : parts.entrySet()) {
+            if (part.getValue().complete
+                    && part.getValue().details == null
+                    && partFailureDetails.get(part.getValue()) != null) {
+                failedPartsDetails.add(
+                        new MultipartUploadFailedPartDetails(
+                                part.getKey(), partFailureDetails.get(part.getValue())));
+            }
+        }
+        return failedPartsDetails;
     }
 
     @Override

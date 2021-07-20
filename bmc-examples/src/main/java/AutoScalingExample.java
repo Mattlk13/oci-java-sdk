@@ -1,7 +1,9 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import com.google.common.collect.ImmutableList;
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.autoscaling.AutoScalingClient;
@@ -40,6 +42,11 @@ import com.oracle.bmc.core.requests.GetInstancePoolRequest;
 import com.oracle.bmc.core.requests.TerminateInstancePoolRequest;
 import com.oracle.bmc.core.responses.CreateInstanceConfigurationResponse;
 import com.oracle.bmc.core.responses.CreateInstancePoolResponse;
+import com.oracle.bmc.identity.IdentityClient;
+import com.oracle.bmc.identity.model.TagDefaultSummary;
+import com.oracle.bmc.identity.requests.DeleteTagDefaultRequest;
+import com.oracle.bmc.identity.requests.ListTagDefaultsRequest;
+import com.oracle.bmc.identity.responses.ListTagDefaultsResponse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,11 +93,30 @@ public class AutoScalingExample {
         final String subnetId = args[2];
         final String imageId = args[3];
 
-        AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(CONFIG_LOCATION, CONFIG_PROFILE);
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
+        final AuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         ComputeManagementClient client = new ComputeManagementClient(provider);
         AutoScalingClient autoScalingClient = new AutoScalingClient(provider);
+
+        IdentityClient identityClient = new IdentityClient(provider);
+
+        // This step will delete all tag defaults
+        ListTagDefaultsResponse listTagDefaultsResponse =
+                identityClient.listTagDefaults(
+                        ListTagDefaultsRequest.builder().compartmentId(compartmentId).build());
+        for (TagDefaultSummary tagDefault : listTagDefaultsResponse.getItems()) {
+            identityClient.deleteTagDefault(
+                    DeleteTagDefaultRequest.builder().tagDefaultId(tagDefault.getId()).build());
+            System.out.println(
+                    "Tag Default: " + tagDefault.getTagDefinitionName() + " was deleted");
+        }
 
         InstanceConfiguration instanceConfiguration =
                 createInstanceConfiguration(client, imageId, compartmentId);

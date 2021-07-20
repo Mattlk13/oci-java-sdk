@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -21,10 +22,20 @@ package com.oracle.bmc.database.model;
     builder = GenerateAutonomousDatabaseWalletDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class GenerateAutonomousDatabaseWalletDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("generateType")
+        private GenerateType generateType;
+
+        public Builder generateType(GenerateType generateType) {
+            this.generateType = generateType;
+            this.__explicitlySet__.add("generateType");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("password")
         private String password;
 
@@ -39,14 +50,14 @@ public class GenerateAutonomousDatabaseWalletDetails {
 
         public GenerateAutonomousDatabaseWalletDetails build() {
             GenerateAutonomousDatabaseWalletDetails __instance__ =
-                    new GenerateAutonomousDatabaseWalletDetails(password);
+                    new GenerateAutonomousDatabaseWalletDetails(generateType, password);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(GenerateAutonomousDatabaseWalletDetails o) {
-            Builder copiedBuilder = password(o.getPassword());
+            Builder copiedBuilder = generateType(o.getGenerateType()).password(o.getPassword());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -59,6 +70,61 @@ public class GenerateAutonomousDatabaseWalletDetails {
     public static Builder builder() {
         return new Builder();
     }
+
+    /**
+     * The type of wallet to generate.
+     * <p>
+     **Shared Exadata infrastructure usage:**
+     * * `SINGLE` - used to generate a wallet for a single database
+     * * `ALL` - used to generate wallet for all databases in the region
+     * <p>
+     **Dedicated Exadata infrastructure usage:** Value must be `NULL` if attribute is used.
+     *
+     **/
+    public enum GenerateType {
+        All("ALL"),
+        Single("SINGLE"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, GenerateType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (GenerateType v : GenerateType.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        GenerateType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static GenerateType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid GenerateType: " + key);
+        }
+    };
+    /**
+     * The type of wallet to generate.
+     * <p>
+     **Shared Exadata infrastructure usage:**
+     * * `SINGLE` - used to generate a wallet for a single database
+     * * `ALL` - used to generate wallet for all databases in the region
+     * <p>
+     **Dedicated Exadata infrastructure usage:** Value must be `NULL` if attribute is used.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("generateType")
+    GenerateType generateType;
 
     /**
      * The password to encrypt the keys inside the wallet. The password must be at least 8 characters long and must include at least 1 letter and either 1 numeric character or 1 special character.

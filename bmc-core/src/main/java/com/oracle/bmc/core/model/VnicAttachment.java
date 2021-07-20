@@ -1,11 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * Represents an attachment between a VNIC and an instance. For more information, see
- * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+ * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -23,6 +24,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = VnicAttachment.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class VnicAttachment {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -99,6 +101,15 @@ public class VnicAttachment {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("vlanId")
+        private String vlanId;
+
+        public Builder vlanId(String vlanId) {
+            this.vlanId = vlanId;
+            this.__explicitlySet__.add("vlanId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
         private java.util.Date timeCreated;
 
@@ -140,6 +151,7 @@ public class VnicAttachment {
                             lifecycleState,
                             nicIndex,
                             subnetId,
+                            vlanId,
                             timeCreated,
                             vlanTag,
                             vnicId);
@@ -158,6 +170,7 @@ public class VnicAttachment {
                             .lifecycleState(o.getLifecycleState())
                             .nicIndex(o.getNicIndex())
                             .subnetId(o.getSubnetId())
+                            .vlanId(o.getVlanId())
                             .timeCreated(o.getTimeCreated())
                             .vlanTag(o.getVlanTag())
                             .vnicId(o.getVnicId());
@@ -269,20 +282,31 @@ public class VnicAttachment {
      * Certain bare metal instance shapes have two active physical NICs (0 and 1). If
      * you add a secondary VNIC to one of these instances, you can specify which NIC
      * the VNIC will use. For more information, see
-     * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+     * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nicIndex")
     Integer nicIndex;
 
     /**
-     * The OCID of the VNIC's subnet.
+     * The OCID of the subnet to create the VNIC in.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
     String subnetId;
 
     /**
-     * The date and time the VNIC attachment was created, in the format defined by RFC3339.
+     * The OCID of the VLAN to create the VNIC in. Creating the VNIC in a VLAN (instead
+     * of a subnet) is possible only if you are an Oracle Cloud VMware Solution customer.
+     * See {@link Vlan}.
+     * <p>
+     * An error is returned if the instance already has a VNIC attached to it from this VLAN.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vlanId")
+    String vlanId;
+
+    /**
+     * The date and time the VNIC attachment was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
@@ -294,6 +318,10 @@ public class VnicAttachment {
      * The Oracle-assigned VLAN tag of the attached VNIC. Available after the
      * attachment process is complete.
      * <p>
+     * However, if the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution,
+     * the `vlanTag` value is instead the value of the `vlanTag` attribute for the VLAN.
+     * See {@link Vlan}.
+     * <p>
      * Example: `0`
      *
      **/
@@ -302,6 +330,7 @@ public class VnicAttachment {
 
     /**
      * The OCID of the VNIC. Available after the attachment process is complete.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("vnicId")
     String vnicId;

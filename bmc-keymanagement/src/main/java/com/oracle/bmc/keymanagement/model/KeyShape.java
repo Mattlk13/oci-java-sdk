@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.keymanagement.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = KeyShape.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class KeyShape {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,18 +42,28 @@ public class KeyShape {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("curveId")
+        private CurveId curveId;
+
+        public Builder curveId(CurveId curveId) {
+            this.curveId = curveId;
+            this.__explicitlySet__.add("curveId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public KeyShape build() {
-            KeyShape __instance__ = new KeyShape(algorithm, length);
+            KeyShape __instance__ = new KeyShape(algorithm, length, curveId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(KeyShape o) {
-            Builder copiedBuilder = algorithm(o.getAlgorithm()).length(o.getLength());
+            Builder copiedBuilder =
+                    algorithm(o.getAlgorithm()).length(o.getLength()).curveId(o.getCurveId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -66,11 +78,13 @@ public class KeyShape {
     }
 
     /**
-     * The algorithm used by a key's KeyVersions to encrypt or decrypt.
+     * The algorithm used by a key's key versions to encrypt or decrypt.
      **/
     @lombok.extern.slf4j.Slf4j
     public enum Algorithm {
         Aes("AES"),
+        Rsa("RSA"),
+        Ecdsa("ECDSA"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -111,17 +125,72 @@ public class KeyShape {
         }
     };
     /**
-     * The algorithm used by a key's KeyVersions to encrypt or decrypt.
+     * The algorithm used by a key's key versions to encrypt or decrypt.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("algorithm")
     Algorithm algorithm;
 
     /**
-     * The length of the key, expressed as an integer. Values of 16, 24, or 32 are supported.
+     * The length of the key in bytes, expressed as an integer. Supported values include the following:
+     *   - AES: 16, 24, or 32
+     *   - RSA: 256, 384, or 512
+     *   - ECDSA: 32, 48, or 66
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("length")
     Integer length;
+    /**
+     * Supported curve IDs for ECDSA keys.
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum CurveId {
+        NistP256("NIST_P256"),
+        NistP384("NIST_P384"),
+        NistP521("NIST_P521"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, CurveId> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (CurveId v : CurveId.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        CurveId(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static CurveId create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'CurveId', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Supported curve IDs for ECDSA keys.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("curveId")
+    CurveId curveId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

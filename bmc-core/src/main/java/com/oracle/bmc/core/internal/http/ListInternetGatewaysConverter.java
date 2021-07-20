@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,17 +17,17 @@ public class ListInternetGatewaysConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListInternetGatewaysRequest interceptRequest(
-            ListInternetGatewaysRequest request) {
+    public static com.oracle.bmc.core.requests.ListInternetGatewaysRequest interceptRequest(
+            com.oracle.bmc.core.requests.ListInternetGatewaysRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListInternetGatewaysRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.ListInternetGatewaysRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notNull(request.getCompartmentId(), "compartmentId is required");
-        Validate.notNull(request.getVcnId(), "vcnId is required");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
                 client.getBaseTarget().path("/20160918").path("internetGateways");
@@ -37,11 +38,13 @@ public class ListInternetGatewaysConverter {
                         com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
                                 request.getCompartmentId()));
 
-        target =
-                target.queryParam(
-                        "vcnId",
-                        com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
-                                request.getVcnId()));
+        if (request.getVcnId() != null) {
+            target =
+                    target.queryParam(
+                            "vcnId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getVcnId()));
+        }
 
         if (request.getLimit() != null) {
             target =
@@ -95,22 +98,28 @@ public class ListInternetGatewaysConverter {
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListInternetGatewaysResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ListInternetGatewaysResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListInternetGatewaysResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ListInternetGatewaysResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListInternetGatewaysResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.ListInternetGatewaysResponse>() {
                             @Override
-                            public ListInternetGatewaysResponse apply(
+                            public com.oracle.bmc.core.responses.ListInternetGatewaysResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListInternetGatewaysResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ListInternetGatewaysResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -127,8 +136,12 @@ public class ListInternetGatewaysConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListInternetGatewaysResponse.Builder builder =
-                                        ListInternetGatewaysResponse.builder();
+                                com.oracle.bmc.core.responses.ListInternetGatewaysResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ListInternetGatewaysResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -156,7 +169,8 @@ public class ListInternetGatewaysConverter {
                                                     String.class));
                                 }
 
-                                ListInternetGatewaysResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.ListInternetGatewaysResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

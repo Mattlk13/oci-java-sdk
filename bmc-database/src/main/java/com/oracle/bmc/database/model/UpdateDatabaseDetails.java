@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.database.model;
     builder = UpdateDatabaseDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateDatabaseDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -33,6 +35,42 @@ public class UpdateDatabaseDetails {
         public Builder dbBackupConfig(DbBackupConfig dbBackupConfig) {
             this.dbBackupConfig = dbBackupConfig;
             this.__explicitlySet__.add("dbBackupConfig");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dbHomeId")
+        private String dbHomeId;
+
+        public Builder dbHomeId(String dbHomeId) {
+            this.dbHomeId = dbHomeId;
+            this.__explicitlySet__.add("dbHomeId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("newAdminPassword")
+        private String newAdminPassword;
+
+        public Builder newAdminPassword(String newAdminPassword) {
+            this.newAdminPassword = newAdminPassword;
+            this.__explicitlySet__.add("newAdminPassword");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("oldTdeWalletPassword")
+        private String oldTdeWalletPassword;
+
+        public Builder oldTdeWalletPassword(String oldTdeWalletPassword) {
+            this.oldTdeWalletPassword = oldTdeWalletPassword;
+            this.__explicitlySet__.add("oldTdeWalletPassword");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("newTdeWalletPassword")
+        private String newTdeWalletPassword;
+
+        public Builder newTdeWalletPassword(String newTdeWalletPassword) {
+            this.newTdeWalletPassword = newTdeWalletPassword;
+            this.__explicitlySet__.add("newTdeWalletPassword");
             return this;
         }
 
@@ -60,7 +98,14 @@ public class UpdateDatabaseDetails {
 
         public UpdateDatabaseDetails build() {
             UpdateDatabaseDetails __instance__ =
-                    new UpdateDatabaseDetails(dbBackupConfig, freeformTags, definedTags);
+                    new UpdateDatabaseDetails(
+                            dbBackupConfig,
+                            dbHomeId,
+                            newAdminPassword,
+                            oldTdeWalletPassword,
+                            newTdeWalletPassword,
+                            freeformTags,
+                            definedTags);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -69,6 +114,10 @@ public class UpdateDatabaseDetails {
         public Builder copy(UpdateDatabaseDetails o) {
             Builder copiedBuilder =
                     dbBackupConfig(o.getDbBackupConfig())
+                            .dbHomeId(o.getDbHomeId())
+                            .newAdminPassword(o.getNewAdminPassword())
+                            .oldTdeWalletPassword(o.getOldTdeWalletPassword())
+                            .newTdeWalletPassword(o.getNewTdeWalletPassword())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
 
@@ -88,6 +137,30 @@ public class UpdateDatabaseDetails {
     DbBackupConfig dbBackupConfig;
 
     /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dbHomeId")
+    String dbHomeId;
+
+    /**
+     * A new strong password for SYS, SYSTEM, and the plugbable database ADMIN user. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("newAdminPassword")
+    String newAdminPassword;
+
+    /**
+     * The existing TDE wallet password. You must provide the existing password in order to set a new TDE wallet password.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("oldTdeWalletPassword")
+    String oldTdeWalletPassword;
+
+    /**
+     * The new password to open the TDE wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("newTdeWalletPassword")
+    String newTdeWalletPassword;
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
      * <p>
@@ -100,8 +173,6 @@ public class UpdateDatabaseDetails {
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a namespace.
      * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-     * <p>
-     * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -7,11 +8,11 @@ package com.oracle.bmc.core.model;
  * A compute host. The image used to launch the instance determines its operating system and other
  * software. The shape specified during the launch process determines the number of CPUs and memory
  * allocated to the instance. For more information, see
- * [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+ * [Overview of the Compute Service](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm).
  * <p>
  * To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
  * talk to an administrator. If you're an administrator who needs to write policies to give users access, see
- * [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -29,6 +30,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Instance.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Instance {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -42,12 +44,30 @@ public class Instance {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("capacityReservationId")
+        private String capacityReservationId;
+
+        public Builder capacityReservationId(String capacityReservationId) {
+            this.capacityReservationId = capacityReservationId;
+            this.__explicitlySet__.add("capacityReservationId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
         private String compartmentId;
 
         public Builder compartmentId(String compartmentId) {
             this.compartmentId = compartmentId;
             this.__explicitlySet__.add("compartmentId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("dedicatedVmHostId")
+        private String dedicatedVmHostId;
+
+        public Builder dedicatedVmHostId(String dedicatedVmHostId) {
+            this.dedicatedVmHostId = dedicatedVmHostId;
+            this.__explicitlySet__.add("dedicatedVmHostId");
             return this;
         }
 
@@ -142,6 +162,34 @@ public class Instance {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("instanceOptions")
+        private InstanceOptions instanceOptions;
+
+        public Builder instanceOptions(InstanceOptions instanceOptions) {
+            this.instanceOptions = instanceOptions;
+            this.__explicitlySet__.add("instanceOptions");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("availabilityConfig")
+        private InstanceAvailabilityConfig availabilityConfig;
+
+        public Builder availabilityConfig(InstanceAvailabilityConfig availabilityConfig) {
+            this.availabilityConfig = availabilityConfig;
+            this.__explicitlySet__.add("availabilityConfig");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("preemptibleInstanceConfig")
+        private PreemptibleInstanceConfigDetails preemptibleInstanceConfig;
+
+        public Builder preemptibleInstanceConfig(
+                PreemptibleInstanceConfigDetails preemptibleInstanceConfig) {
+            this.preemptibleInstanceConfig = preemptibleInstanceConfig;
+            this.__explicitlySet__.add("preemptibleInstanceConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
         private LifecycleState lifecycleState;
 
@@ -178,12 +226,30 @@ public class Instance {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("shapeConfig")
+        private InstanceShapeConfig shapeConfig;
+
+        public Builder shapeConfig(InstanceShapeConfig shapeConfig) {
+            this.shapeConfig = shapeConfig;
+            this.__explicitlySet__.add("shapeConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
         private InstanceSourceDetails sourceDetails;
 
         public Builder sourceDetails(InstanceSourceDetails sourceDetails) {
             this.sourceDetails = sourceDetails;
             this.__explicitlySet__.add("sourceDetails");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+        private java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+        public Builder systemTags(java.util.Map<String, java.util.Map<String, Object>> systemTags) {
+            this.systemTags = systemTags;
+            this.__explicitlySet__.add("systemTags");
             return this;
         }
 
@@ -214,6 +280,15 @@ public class Instance {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("platformConfig")
+        private PlatformConfig platformConfig;
+
+        public Builder platformConfig(PlatformConfig platformConfig) {
+            this.platformConfig = platformConfig;
+            this.__explicitlySet__.add("platformConfig");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -221,7 +296,9 @@ public class Instance {
             Instance __instance__ =
                     new Instance(
                             availabilityDomain,
+                            capacityReservationId,
                             compartmentId,
+                            dedicatedVmHostId,
                             definedTags,
                             displayName,
                             extendedMetadata,
@@ -232,14 +309,20 @@ public class Instance {
                             ipxeScript,
                             launchMode,
                             launchOptions,
+                            instanceOptions,
+                            availabilityConfig,
+                            preemptibleInstanceConfig,
                             lifecycleState,
                             metadata,
                             region,
                             shape,
+                            shapeConfig,
                             sourceDetails,
+                            systemTags,
                             timeCreated,
                             agentConfig,
-                            timeMaintenanceRebootDue);
+                            timeMaintenanceRebootDue,
+                            platformConfig);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -248,7 +331,9 @@ public class Instance {
         public Builder copy(Instance o) {
             Builder copiedBuilder =
                     availabilityDomain(o.getAvailabilityDomain())
+                            .capacityReservationId(o.getCapacityReservationId())
                             .compartmentId(o.getCompartmentId())
+                            .dedicatedVmHostId(o.getDedicatedVmHostId())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .extendedMetadata(o.getExtendedMetadata())
@@ -259,14 +344,20 @@ public class Instance {
                             .ipxeScript(o.getIpxeScript())
                             .launchMode(o.getLaunchMode())
                             .launchOptions(o.getLaunchOptions())
+                            .instanceOptions(o.getInstanceOptions())
+                            .availabilityConfig(o.getAvailabilityConfig())
+                            .preemptibleInstanceConfig(o.getPreemptibleInstanceConfig())
                             .lifecycleState(o.getLifecycleState())
                             .metadata(o.getMetadata())
                             .region(o.getRegion())
                             .shape(o.getShape())
+                            .shapeConfig(o.getShapeConfig())
                             .sourceDetails(o.getSourceDetails())
+                            .systemTags(o.getSystemTags())
                             .timeCreated(o.getTimeCreated())
                             .agentConfig(o.getAgentConfig())
-                            .timeMaintenanceRebootDue(o.getTimeMaintenanceRebootDue());
+                            .timeMaintenanceRebootDue(o.getTimeMaintenanceRebootDue())
+                            .platformConfig(o.getPlatformConfig());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -290,14 +381,30 @@ public class Instance {
     String availabilityDomain;
 
     /**
+     * The OCID of the compute capacity reservation this instance is launched under.
+     * When this field contains an empty string or is null, the instance is not currently in a capacity reservation.
+     * For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("capacityReservationId")
+    String capacityReservationId;
+
+    /**
      * The OCID of the compartment that contains the instance.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
     /**
+     * The OCID of dedicated VM host.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dedicatedVmHostId")
+    String dedicatedVmHostId;
+
+    /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -316,9 +423,11 @@ public class Instance {
     String displayName;
 
     /**
-     * Additional metadata key/value pairs that you provide. They serve the same purpose and functionality as fields in the 'metadata' object.
+     * Additional metadata key/value pairs that you provide. They serve the same purpose and functionality
+     * as fields in the `metadata` object.
      * <p>
-     * They are distinguished from 'metadata' fields in that these can be nested JSON objects (whereas 'metadata' fields are string/string maps only).
+     * They are distinguished from `metadata` fields in that these can be nested JSON objects (whereas `metadata`
+     * fields are string/string maps only).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("extendedMetadata")
@@ -333,8 +442,7 @@ public class Instance {
      * A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
      * instances in other fault domains.
      * <p>
-     * If you do not specify the fault domain, the system selects one for you. To change the fault
-     * domain for an instance, terminate it and launch a new instance in the preferred fault domain.
+     * If you do not specify the fault domain, the system selects one for you.
      * <p>
      * Example: `FAULT-DOMAIN-1`
      *
@@ -344,7 +452,7 @@ public class Instance {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -385,7 +493,7 @@ public class Instance {
      * <p>
      * For more information about the Bring Your Own Image feature of
      * Oracle Cloud Infrastructure, see
-     * [Bring Your Own Image](https://docs.cloud.oracle.com/Content/Compute/References/bringyourownimage.htm).
+     * [Bring Your Own Image](https://docs.cloud.oracle.com/iaas/Content/Compute/References/bringyourownimage.htm).
      * <p>
      * For more information about iPXE, see http://ipxe.org.
      *
@@ -394,9 +502,9 @@ public class Instance {
     String ipxeScript;
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/
@@ -447,9 +555,9 @@ public class Instance {
     };
     /**
      * Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+     * * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for platform images.
      * * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+     * * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
      * * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
      *
      **/
@@ -458,6 +566,15 @@ public class Instance {
 
     @com.fasterxml.jackson.annotation.JsonProperty("launchOptions")
     LaunchOptions launchOptions;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("instanceOptions")
+    InstanceOptions instanceOptions;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("availabilityConfig")
+    InstanceAvailabilityConfig availabilityConfig;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("preemptibleInstanceConfig")
+    PreemptibleInstanceConfigDetails preemptibleInstanceConfig;
     /**
      * The current state of the instance.
      **/
@@ -544,14 +661,22 @@ public class Instance {
     @com.fasterxml.jackson.annotation.JsonProperty("shape")
     String shape;
 
-    /**
-     * Details for creating an instance
-     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shapeConfig")
+    InstanceShapeConfig shapeConfig;
+
     @com.fasterxml.jackson.annotation.JsonProperty("sourceDetails")
     InstanceSourceDetails sourceDetails;
 
     /**
-     * The date and time the instance was created, in the format defined by RFC3339.
+     * System tags for this resource. Each key is predefined and scoped to a namespace.
+     * Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+    java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+    /**
+     * The date and time the instance was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
@@ -563,7 +688,7 @@ public class Instance {
     InstanceAgentConfig agentConfig;
 
     /**
-     * The date and time the instance is expected to be stopped / started,  in the format defined by RFC3339.
+     * The date and time the instance is expected to be stopped / started,  in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * After that time if instance hasn't been rebooted, Oracle will reboot the instance within 24 hours of the due time.
      * Regardless of how the instance was stopped, the flag will be reset to empty as soon as instance reaches Stopped state.
      * Example: `2018-05-25T21:10:29.600Z`
@@ -571,6 +696,9 @@ public class Instance {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeMaintenanceRebootDue")
     java.util.Date timeMaintenanceRebootDue;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("platformConfig")
+    PlatformConfig platformConfig;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

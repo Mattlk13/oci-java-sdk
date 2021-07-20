@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.internal.http;
 
@@ -16,13 +17,16 @@ public class GetNodePoolOptionsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetNodePoolOptionsRequest interceptRequest(GetNodePoolOptionsRequest request) {
+    public static com.oracle.bmc.containerengine.requests.GetNodePoolOptionsRequest
+            interceptRequest(
+                    com.oracle.bmc.containerengine.requests.GetNodePoolOptionsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetNodePoolOptionsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.containerengine.requests.GetNodePoolOptionsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getNodePoolOptionId(), "nodePoolOptionId must not be blank");
 
@@ -34,6 +38,14 @@ public class GetNodePoolOptionsConverter {
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
                                         request.getNodePoolOptionId()));
 
+        if (request.getCompartmentId() != null) {
+            target =
+                    target.queryParam(
+                            "compartmentId",
+                            com.oracle.bmc.util.internal.HttpUtils.attemptEncodeQueryParam(
+                                    request.getCompartmentId()));
+        }
+
         com.oracle.bmc.http.internal.WrappedInvocationBuilder ib = target.request();
 
         ib.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
@@ -42,21 +54,30 @@ public class GetNodePoolOptionsConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, GetNodePoolOptionsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.containerengine.responses.GetNodePoolOptionsResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetNodePoolOptionsResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.containerengine.responses.GetNodePoolOptionsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetNodePoolOptionsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.containerengine.responses
+                                        .GetNodePoolOptionsResponse>() {
                             @Override
-                            public GetNodePoolOptionsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.containerengine.responses
+                                            .GetNodePoolOptionsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for GetNodePoolOptionsResponse");
+                                        "Transform function invoked for com.oracle.bmc.containerengine.responses.GetNodePoolOptionsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -70,8 +91,13 @@ public class GetNodePoolOptionsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetNodePoolOptionsResponse.Builder builder =
-                                        GetNodePoolOptionsResponse.builder();
+                                com.oracle.bmc.containerengine.responses.GetNodePoolOptionsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.containerengine.responses
+                                                        .GetNodePoolOptionsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.nodePoolOptions(response.getItem());
 
@@ -87,7 +113,8 @@ public class GetNodePoolOptionsConverter {
                                                     String.class));
                                 }
 
-                                GetNodePoolOptionsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.containerengine.responses.GetNodePoolOptionsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

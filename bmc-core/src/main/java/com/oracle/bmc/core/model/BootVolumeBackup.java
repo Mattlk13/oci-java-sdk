@@ -1,16 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
 /**
  * A point-in-time copy of a boot volume that can then be used to create
  * a new boot volume or recover a boot volume. For more information, see [Overview
- * of Boot Volume Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumebackups.htm)
+ * of Boot Volume Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumebackups.htm)
  * To use any of the API operations, you must be authorized in an IAM policy.
  * If you're not authorized, talk to an administrator. If you're an administrator
  * who needs to write policies to give users access, see [Getting Started with
- * Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+ * Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
  * <p>
  **Warning:** Oracle recommends that you avoid using any confidential information when you
  * supply string values using the API.
@@ -28,6 +29,7 @@ package com.oracle.bmc.core.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = BootVolumeBackup.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class BootVolumeBackup {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -57,6 +59,15 @@ public class BootVolumeBackup {
                 java.util.Map<String, java.util.Map<String, Object>> definedTags) {
             this.definedTags = definedTags;
             this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+        private java.util.Map<String, java.util.Map<String, Object>> systemTags;
+
+        public Builder systemTags(java.util.Map<String, java.util.Map<String, Object>> systemTags) {
+            this.systemTags = systemTags;
+            this.__explicitlySet__.add("systemTags");
             return this;
         }
 
@@ -132,6 +143,15 @@ public class BootVolumeBackup {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("sourceBootVolumeBackupId")
+        private String sourceBootVolumeBackupId;
+
+        public Builder sourceBootVolumeBackupId(String sourceBootVolumeBackupId) {
+            this.sourceBootVolumeBackupId = sourceBootVolumeBackupId;
+            this.__explicitlySet__.add("sourceBootVolumeBackupId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
         private SourceType sourceType;
 
@@ -186,6 +206,7 @@ public class BootVolumeBackup {
                             bootVolumeId,
                             compartmentId,
                             definedTags,
+                            systemTags,
                             displayName,
                             expirationTime,
                             freeformTags,
@@ -194,6 +215,7 @@ public class BootVolumeBackup {
                             kmsKeyId,
                             lifecycleState,
                             sizeInGBs,
+                            sourceBootVolumeBackupId,
                             sourceType,
                             timeCreated,
                             timeRequestReceived,
@@ -209,6 +231,7 @@ public class BootVolumeBackup {
                     bootVolumeId(o.getBootVolumeId())
                             .compartmentId(o.getCompartmentId())
                             .definedTags(o.getDefinedTags())
+                            .systemTags(o.getSystemTags())
                             .displayName(o.getDisplayName())
                             .expirationTime(o.getExpirationTime())
                             .freeformTags(o.getFreeformTags())
@@ -217,6 +240,7 @@ public class BootVolumeBackup {
                             .kmsKeyId(o.getKmsKeyId())
                             .lifecycleState(o.getLifecycleState())
                             .sizeInGBs(o.getSizeInGBs())
+                            .sourceBootVolumeBackupId(o.getSourceBootVolumeBackupId())
                             .sourceType(o.getSourceType())
                             .timeCreated(o.getTimeCreated())
                             .timeRequestReceived(o.getTimeRequestReceived())
@@ -249,13 +273,21 @@ public class BootVolumeBackup {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * System tags for this resource. Each key is predefined and scoped to a namespace.
+     * Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("systemTags")
+    java.util.Map<String, java.util.Map<String, Object>> systemTags;
 
     /**
      * A user-friendly name for the boot volume backup. Does not have to be unique and it's changeable.
@@ -267,7 +299,7 @@ public class BootVolumeBackup {
 
     /**
      * The date and time the volume backup will expire and be automatically deleted.
-     * Format defined by RFC3339. This parameter will always be present for backups that
+     * Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339). This parameter will always be present for backups that
      * were created automatically by a scheduled-backup policy. For manually created backups,
      * it will be absent, signifying that there is no expiration time and the backup will
      * last forever until manually deleted.
@@ -278,7 +310,7 @@ public class BootVolumeBackup {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -294,15 +326,16 @@ public class BootVolumeBackup {
 
     /**
      * The image OCID used to create the boot volume the backup is taken from.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("imageId")
     String imageId;
 
     /**
-     * The OCID of the KMS key which is the master encryption key for the boot volume backup.
+     * The OCID of the Key Management master encryption assigned to the boot volume backup.
      * For more information about the Key Management service and encryption keys, see
-     * [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
-     * [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).
+     * [Overview of Key Management](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Concepts/keyoverview.htm) and
+     * [Using Keys](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Tasks/usingkeys.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
@@ -369,8 +402,15 @@ public class BootVolumeBackup {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sizeInGBs")
     Long sizeInGBs;
+
+    /**
+     * The OCID of the source boot volume backup.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("sourceBootVolumeBackupId")
+    String sourceBootVolumeBackupId;
     /**
      * Specifies whether the backup was created manually, or via scheduled backup policy.
+     *
      **/
     @lombok.extern.slf4j.Slf4j
     public enum SourceType {
@@ -417,20 +457,21 @@ public class BootVolumeBackup {
     };
     /**
      * Specifies whether the backup was created manually, or via scheduled backup policy.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sourceType")
     SourceType sourceType;
 
     /**
      * The date and time the boot volume backup was created. This is the time the actual point-in-time image
-     * of the volume data was taken. Format defined by RFC3339.
+     * of the volume data was taken. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
 
     /**
-     * The date and time the request to create the boot volume backup was received. Format defined by RFC3339.
+     * The date and time the request to create the boot volume backup was received. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeRequestReceived")

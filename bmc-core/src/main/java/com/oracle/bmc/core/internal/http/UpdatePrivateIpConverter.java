@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,13 +17,15 @@ public class UpdatePrivateIpConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdatePrivateIpRequest interceptRequest(UpdatePrivateIpRequest request) {
+    public static com.oracle.bmc.core.requests.UpdatePrivateIpRequest interceptRequest(
+            com.oracle.bmc.core.requests.UpdatePrivateIpRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdatePrivateIpRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.core.requests.UpdatePrivateIpRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getPrivateIpId(), "privateIpId must not be blank");
         Validate.notNull(request.getUpdatePrivateIpDetails(), "updatePrivateIpDetails is required");
@@ -43,20 +46,28 @@ public class UpdatePrivateIpConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdatePrivateIpResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.UpdatePrivateIpResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, UpdatePrivateIpResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.UpdatePrivateIpResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdatePrivateIpResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.UpdatePrivateIpResponse>() {
                             @Override
-                            public UpdatePrivateIpResponse apply(
+                            public com.oracle.bmc.core.responses.UpdatePrivateIpResponse apply(
                                     javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for UpdatePrivateIpResponse");
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.core.responses.UpdatePrivateIpResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<PrivateIp>>
@@ -68,8 +79,12 @@ public class UpdatePrivateIpConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdatePrivateIpResponse.Builder builder =
-                                        UpdatePrivateIpResponse.builder();
+                                com.oracle.bmc.core.responses.UpdatePrivateIpResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .UpdatePrivateIpResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.privateIp(response.getItem());
 
@@ -94,7 +109,8 @@ public class UpdatePrivateIpConverter {
                                                     String.class));
                                 }
 
-                                UpdatePrivateIpResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.UpdatePrivateIpResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.budget.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.budget.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = BudgetSummary.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class BudgetSummary {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -82,6 +84,16 @@ public class BudgetSummary {
         public Builder resetPeriod(ResetPeriod resetPeriod) {
             this.resetPeriod = resetPeriod;
             this.__explicitlySet__.add("resetPeriod");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("budgetProcessingPeriodStartOffset")
+        private Integer budgetProcessingPeriodStartOffset;
+
+        public Builder budgetProcessingPeriodStartOffset(
+                Integer budgetProcessingPeriodStartOffset) {
+            this.budgetProcessingPeriodStartOffset = budgetProcessingPeriodStartOffset;
+            this.__explicitlySet__.add("budgetProcessingPeriodStartOffset");
             return this;
         }
 
@@ -207,6 +219,7 @@ public class BudgetSummary {
                             description,
                             amount,
                             resetPeriod,
+                            budgetProcessingPeriodStartOffset,
                             targetType,
                             targets,
                             lifecycleState,
@@ -233,6 +246,8 @@ public class BudgetSummary {
                             .description(o.getDescription())
                             .amount(o.getAmount())
                             .resetPeriod(o.getResetPeriod())
+                            .budgetProcessingPeriodStartOffset(
+                                    o.getBudgetProcessingPeriodStartOffset())
                             .targetType(o.getTargetType())
                             .targets(o.getTargets())
                             .lifecycleState(o.getLifecycleState())
@@ -306,6 +321,12 @@ public class BudgetSummary {
     ResetPeriod resetPeriod;
 
     /**
+     * The number of days offset from the first day of the month, at which the budget processing period starts. In months that have fewer days than this value, processing will begin on the last day of that month. For example, for a value of 12, processing starts every month on the 12th at midnight.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("budgetProcessingPeriodStartOffset")
+    Integer budgetProcessingPeriodStartOffset;
+
+    /**
      * The type of target on which the budget is applied.
      *
      **/
@@ -315,7 +336,7 @@ public class BudgetSummary {
     /**
      * The list of targets on which the budget is applied.
      *   If targetType is \"COMPARTMENT\", targets contains list of compartment OCIDs.
-     *   If targetType is \"TAG\", targets contains list of tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
+     *   If targetType is \"TAG\", targets contains list of cost tracking tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("targets")

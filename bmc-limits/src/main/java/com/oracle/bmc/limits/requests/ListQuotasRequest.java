@@ -1,14 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.limits.requests;
 
 import com.oracle.bmc.limits.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/limits/ListQuotasExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListQuotasRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20181025")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
@@ -34,12 +43,12 @@ public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
     private String name;
 
     /**
-     * Filters returned quotas based on whether the given state.
+     * Filters returned quotas based on the given state.
      */
     private LifecycleState lifecycleState;
 
     /**
-     * Filters returned quotas based on whether the given state.
+     * Filters returned quotas based on the given state.
      **/
     public enum LifecycleState {
         Active("ACTIVE"),
@@ -69,17 +78,18 @@ public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid LifecycleState: " + key);
+            throw new IllegalArgumentException("Invalid LifecycleState: " + key);
         }
     };
-
     /**
-     * The sort order to use, either 'asc' or 'desc'.
+     * The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
+     *
      */
     private SortOrder sortOrder;
 
     /**
-     * The sort order to use, either 'asc' or 'desc'.
+     * The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
+     *
      **/
     public enum SortOrder {
         Asc("ASC"),
@@ -110,18 +120,17 @@ public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortOrder: " + key);
+            throw new IllegalArgumentException("Invalid SortOrder: " + key);
         }
     };
-
     /**
-     * The field to sort by. Only one sort order may be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
+     * The field to sort by. Only one sort order can be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
      *
      */
     private SortBy sortBy;
 
     /**
-     * The field to sort by. Only one sort order may be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
+     * The field to sort by. Only one sort order can be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
      *
      **/
     public enum SortBy {
@@ -153,10 +162,9 @@ public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortBy: " + key);
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
         }
     };
-
     /**
      * Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
      * particular request, please provide the request ID.
@@ -164,7 +172,9 @@ public class ListQuotasRequest extends com.oracle.bmc.requests.BmcRequest {
      */
     private String opcRequestId;
 
-    public static class Builder {
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListQuotasRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;

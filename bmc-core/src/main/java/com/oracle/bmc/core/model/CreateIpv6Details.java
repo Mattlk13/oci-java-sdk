@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = CreateIpv6Details.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateIpv6Details {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -61,15 +63,6 @@ public class CreateIpv6Details {
             return this;
         }
 
-        @com.fasterxml.jackson.annotation.JsonProperty("isInternetAccessAllowed")
-        private Boolean isInternetAccessAllowed;
-
-        public Builder isInternetAccessAllowed(Boolean isInternetAccessAllowed) {
-            this.isInternetAccessAllowed = isInternetAccessAllowed;
-            this.__explicitlySet__.add("isInternetAccessAllowed");
-            return this;
-        }
-
         @com.fasterxml.jackson.annotation.JsonProperty("vnicId")
         private String vnicId;
 
@@ -85,12 +78,7 @@ public class CreateIpv6Details {
         public CreateIpv6Details build() {
             CreateIpv6Details __instance__ =
                     new CreateIpv6Details(
-                            definedTags,
-                            displayName,
-                            freeformTags,
-                            ipAddress,
-                            isInternetAccessAllowed,
-                            vnicId);
+                            definedTags, displayName, freeformTags, ipAddress, vnicId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -102,7 +90,6 @@ public class CreateIpv6Details {
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
                             .ipAddress(o.getIpAddress())
-                            .isInternetAccessAllowed(o.getIsInternetAccessAllowed())
                             .vnicId(o.getVnicId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
@@ -119,7 +106,7 @@ public class CreateIpv6Details {
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -137,7 +124,7 @@ public class CreateIpv6Details {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -151,28 +138,14 @@ public class CreateIpv6Details {
      * assigns an IPv6 address from the subnet. The subnet is the one that
      * contains the VNIC you specify in `vnicId`.
      * <p>
-     * Example: `2001:0db8:0123:1111:abcd:ef01:2345:6789`
+     * Example: `2001:DB8::`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("ipAddress")
     String ipAddress;
 
     /**
-     * Whether the IPv6 can be used for internet communication. Allowed by default for an IPv6 in
-     * a public subnet. Never allowed for an IPv6 in a private subnet. If the value is `true`, the
-     * IPv6 uses its public IP address for internet communication.
-     * <p>
-     * If `isInternetAccessAllowed` is set to `false`, the resulting `publicIpAddress` attribute
-     * for the Ipv6 is null.
-     * <p>
-     * Example: `true`
-     *
-     **/
-    @com.fasterxml.jackson.annotation.JsonProperty("isInternetAccessAllowed")
-    Boolean isInternetAccessAllowed;
-
-    /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VNIC to assign the IPv6 to. The
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VNIC to assign the IPv6 to. The
      * IPv6 will be in the VNIC's subnet.
      *
      **/

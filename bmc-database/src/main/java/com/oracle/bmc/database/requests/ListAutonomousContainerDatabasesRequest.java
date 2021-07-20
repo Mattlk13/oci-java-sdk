@@ -1,14 +1,24 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.requests;
 
 import com.oracle.bmc.database.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/ListAutonomousContainerDatabasesExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListAutonomousContainerDatabasesRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListAutonomousContainerDatabasesRequest
+        extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -19,6 +29,16 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
      * The Autonomous Exadata Infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
      */
     private String autonomousExadataInfrastructureId;
+
+    /**
+     * The Autonomous VM Cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+     */
+    private String autonomousVmClusterId;
+
+    /**
+     * A filter to return only resources that match the given Infrastructure Type.
+     */
+    private AutonomousContainerDatabaseSummary.InfrastructureType infrastructureType;
 
     /**
      * The maximum number of items to return per page.
@@ -73,10 +93,9 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortBy: " + key);
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
         }
     };
-
     /**
      * The sort order to use, either ascending (`ASC`) or descending (`DESC`).
      */
@@ -114,10 +133,9 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortOrder: " + key);
+            throw new IllegalArgumentException("Invalid SortOrder: " + key);
         }
     };
-
     /**
      * A filter to return only resources that match the given lifecycle state exactly.
      */
@@ -133,7 +151,14 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
      */
     private String displayName;
 
-    public static class Builder {
+    /**
+     * A filter to return only resources that match the given service-level agreement type exactly.
+     */
+    private String serviceLevelAgreementType;
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListAutonomousContainerDatabasesRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -168,6 +193,8 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
         public Builder copy(ListAutonomousContainerDatabasesRequest o) {
             compartmentId(o.getCompartmentId());
             autonomousExadataInfrastructureId(o.getAutonomousExadataInfrastructureId());
+            autonomousVmClusterId(o.getAutonomousVmClusterId());
+            infrastructureType(o.getInfrastructureType());
             limit(o.getLimit());
             page(o.getPage());
             sortBy(o.getSortBy());
@@ -175,6 +202,7 @@ public class ListAutonomousContainerDatabasesRequest extends com.oracle.bmc.requ
             lifecycleState(o.getLifecycleState());
             availabilityDomain(o.getAvailabilityDomain());
             displayName(o.getDisplayName());
+            serviceLevelAgreementType(o.getServiceLevelAgreementType());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

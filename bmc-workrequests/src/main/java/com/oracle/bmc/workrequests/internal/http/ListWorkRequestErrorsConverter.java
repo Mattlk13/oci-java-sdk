@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.workrequests.internal.http;
 
@@ -16,14 +17,16 @@ public class ListWorkRequestErrorsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ListWorkRequestErrorsRequest interceptRequest(
-            ListWorkRequestErrorsRequest request) {
+    public static com.oracle.bmc.workrequests.requests.ListWorkRequestErrorsRequest
+            interceptRequest(
+                    com.oracle.bmc.workrequests.requests.ListWorkRequestErrorsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, ListWorkRequestErrorsRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.workrequests.requests.ListWorkRequestErrorsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getWorkRequestId(), "workRequestId must not be blank");
 
@@ -68,22 +71,30 @@ public class ListWorkRequestErrorsConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ListWorkRequestErrorsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.workrequests.responses.ListWorkRequestErrorsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ListWorkRequestErrorsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.workrequests.responses.ListWorkRequestErrorsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ListWorkRequestErrorsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.workrequests.responses
+                                        .ListWorkRequestErrorsResponse>() {
                             @Override
-                            public ListWorkRequestErrorsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.workrequests.responses
+                                            .ListWorkRequestErrorsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ListWorkRequestErrorsResponse");
+                                        "Transform function invoked for com.oracle.bmc.workrequests.responses.ListWorkRequestErrorsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<
@@ -100,8 +111,13 @@ public class ListWorkRequestErrorsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ListWorkRequestErrorsResponse.Builder builder =
-                                        ListWorkRequestErrorsResponse.builder();
+                                com.oracle.bmc.workrequests.responses.ListWorkRequestErrorsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.workrequests.responses
+                                                        .ListWorkRequestErrorsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.items(response.getItem());
 
@@ -129,7 +145,8 @@ public class ListWorkRequestErrorsConverter {
                                                     String.class));
                                 }
 
-                                ListWorkRequestErrorsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.workrequests.responses.ListWorkRequestErrorsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

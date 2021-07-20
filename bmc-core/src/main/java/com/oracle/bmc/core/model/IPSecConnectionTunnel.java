@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.core.model;
     builder = IPSecConnectionTunnel.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class IPSecConnectionTunnel {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -72,6 +74,15 @@ public class IPSecConnectionTunnel {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("ikeVersion")
+        private IkeVersion ikeVersion;
+
+        public Builder ikeVersion(IkeVersion ikeVersion) {
+            this.ikeVersion = ikeVersion;
+            this.__explicitlySet__.add("ikeVersion");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
         private LifecycleState lifecycleState;
 
@@ -96,6 +107,15 @@ public class IPSecConnectionTunnel {
         public Builder bgpSessionInfo(BgpSessionInfo bgpSessionInfo) {
             this.bgpSessionInfo = bgpSessionInfo;
             this.__explicitlySet__.add("bgpSessionInfo");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionDomainConfig")
+        private EncryptionDomainConfig encryptionDomainConfig;
+
+        public Builder encryptionDomainConfig(EncryptionDomainConfig encryptionDomainConfig) {
+            this.encryptionDomainConfig = encryptionDomainConfig;
+            this.__explicitlySet__.add("encryptionDomainConfig");
             return this;
         }
 
@@ -137,9 +157,11 @@ public class IPSecConnectionTunnel {
                             vpnIp,
                             cpeIp,
                             status,
+                            ikeVersion,
                             lifecycleState,
                             displayName,
                             bgpSessionInfo,
+                            encryptionDomainConfig,
                             routing,
                             timeCreated,
                             timeStatusUpdated);
@@ -155,9 +177,11 @@ public class IPSecConnectionTunnel {
                             .vpnIp(o.getVpnIp())
                             .cpeIp(o.getCpeIp())
                             .status(o.getStatus())
+                            .ikeVersion(o.getIkeVersion())
                             .lifecycleState(o.getLifecycleState())
                             .displayName(o.getDisplayName())
                             .bgpSessionInfo(o.getBgpSessionInfo())
+                            .encryptionDomainConfig(o.getEncryptionDomainConfig())
                             .routing(o.getRouting())
                             .timeCreated(o.getTimeCreated())
                             .timeStatusUpdated(o.getTimeStatusUpdated());
@@ -175,14 +199,14 @@ public class IPSecConnectionTunnel {
     }
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the tunnel.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the tunnel.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+     * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -190,7 +214,7 @@ public class IPSecConnectionTunnel {
     /**
      * The IP address of Oracle's VPN headend.
      * <p>
-     * Example: `192.0.2.5`
+     * Example: `203.0.113.21`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("vpnIp")
@@ -199,7 +223,7 @@ public class IPSecConnectionTunnel {
     /**
      * The IP address of the CPE's VPN headend.
      * <p>
-     * Example: `192.0.2.157`
+     * Example: `203.0.113.22`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("cpeIp")
@@ -212,6 +236,7 @@ public class IPSecConnectionTunnel {
         Up("UP"),
         Down("DOWN"),
         DownForMaintenance("DOWN_FOR_MAINTENANCE"),
+        PartialUp("PARTIAL_UP"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -256,6 +281,59 @@ public class IPSecConnectionTunnel {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("status")
     Status status;
+    /**
+     * Internet Key Exchange protocol version.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum IkeVersion {
+        V1("V1"),
+        V2("V2"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, IkeVersion> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (IkeVersion v : IkeVersion.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        IkeVersion(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static IkeVersion create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'IkeVersion', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Internet Key Exchange protocol version.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("ikeVersion")
+    IkeVersion ikeVersion;
     /**
      * The tunnel's lifecycle state.
      **/
@@ -318,12 +396,11 @@ public class IPSecConnectionTunnel {
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
 
-    /**
-     * Information for establishing the tunnel's BGP session.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("bgpSessionInfo")
     BgpSessionInfo bgpSessionInfo;
+
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionDomainConfig")
+    EncryptionDomainConfig encryptionDomainConfig;
     /**
      * The type of routing used for this tunnel (either BGP dynamic routing or static routing).
      *
@@ -332,6 +409,7 @@ public class IPSecConnectionTunnel {
     public enum Routing {
         Bgp("BGP"),
         Static("STATIC"),
+        Policy("POLICY"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by this
@@ -379,7 +457,7 @@ public class IPSecConnectionTunnel {
     Routing routing;
 
     /**
-     * The date and time the IPSec connection tunnel was created, in the format defined by RFC3339.
+     * The date and time the IPSec connection tunnel was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *
@@ -388,7 +466,7 @@ public class IPSecConnectionTunnel {
     java.util.Date timeCreated;
 
     /**
-     * When the status of the tunnel last changed, in the format defined by RFC3339.
+     * When the status of the tunnel last changed, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
      * <p>
      * Example: `2016-08-25T21:10:29.600Z`
      *

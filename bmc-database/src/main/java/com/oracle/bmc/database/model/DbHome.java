@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.database.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = DbHome.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class DbHome {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -76,6 +78,15 @@ public class DbHome {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("vmClusterId")
+        private String vmClusterId;
+
+        public Builder vmClusterId(String vmClusterId) {
+            this.vmClusterId = vmClusterId;
+            this.__explicitlySet__.add("vmClusterId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("dbVersion")
         private String dbVersion;
 
@@ -85,12 +96,76 @@ public class DbHome {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("dbHomeLocation")
+        private String dbHomeLocation;
+
+        public Builder dbHomeLocation(String dbHomeLocation) {
+            this.dbHomeLocation = dbHomeLocation;
+            this.__explicitlySet__.add("dbHomeLocation");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+        private String lifecycleDetails;
+
+        public Builder lifecycleDetails(String lifecycleDetails) {
+            this.lifecycleDetails = lifecycleDetails;
+            this.__explicitlySet__.add("lifecycleDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
         private java.util.Date timeCreated;
 
         public Builder timeCreated(java.util.Date timeCreated) {
             this.timeCreated = timeCreated;
             this.__explicitlySet__.add("timeCreated");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+        private String kmsKeyId;
+
+        public Builder kmsKeyId(String kmsKeyId) {
+            this.kmsKeyId = kmsKeyId;
+            this.__explicitlySet__.add("kmsKeyId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("oneOffPatches")
+        private java.util.List<String> oneOffPatches;
+
+        public Builder oneOffPatches(java.util.List<String> oneOffPatches) {
+            this.oneOffPatches = oneOffPatches;
+            this.__explicitlySet__.add("oneOffPatches");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
+        private java.util.Map<String, String> freeformTags;
+
+        public Builder freeformTags(java.util.Map<String, String> freeformTags) {
+            this.freeformTags = freeformTags;
+            this.__explicitlySet__.add("freeformTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
+        private java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+        public Builder definedTags(
+                java.util.Map<String, java.util.Map<String, Object>> definedTags) {
+            this.definedTags = definedTags;
+            this.__explicitlySet__.add("definedTags");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+        private String databaseSoftwareImageId;
+
+        public Builder databaseSoftwareImageId(String databaseSoftwareImageId) {
+            this.databaseSoftwareImageId = databaseSoftwareImageId;
+            this.__explicitlySet__.add("databaseSoftwareImageId");
             return this;
         }
 
@@ -106,8 +181,16 @@ public class DbHome {
                             lastPatchHistoryEntryId,
                             lifecycleState,
                             dbSystemId,
+                            vmClusterId,
                             dbVersion,
-                            timeCreated);
+                            dbHomeLocation,
+                            lifecycleDetails,
+                            timeCreated,
+                            kmsKeyId,
+                            oneOffPatches,
+                            freeformTags,
+                            definedTags,
+                            databaseSoftwareImageId);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -121,8 +204,16 @@ public class DbHome {
                             .lastPatchHistoryEntryId(o.getLastPatchHistoryEntryId())
                             .lifecycleState(o.getLifecycleState())
                             .dbSystemId(o.getDbSystemId())
+                            .vmClusterId(o.getVmClusterId())
                             .dbVersion(o.getDbVersion())
-                            .timeCreated(o.getTimeCreated());
+                            .dbHomeLocation(o.getDbHomeLocation())
+                            .lifecycleDetails(o.getLifecycleDetails())
+                            .timeCreated(o.getTimeCreated())
+                            .kmsKeyId(o.getKmsKeyId())
+                            .oneOffPatches(o.getOneOffPatches())
+                            .freeformTags(o.getFreeformTags())
+                            .definedTags(o.getDefinedTags())
+                            .databaseSoftwareImageId(o.getDatabaseSoftwareImageId());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -137,7 +228,7 @@ public class DbHome {
     }
 
     /**
-     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database home.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -149,7 +240,7 @@ public class DbHome {
     String compartmentId;
 
     /**
-     * The user-provided name for the database home. The name does not need to be unique.
+     * The user-provided name for the Database Home. The name does not need to be unique.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("displayName")
     String displayName;
@@ -160,7 +251,7 @@ public class DbHome {
     @com.fasterxml.jackson.annotation.JsonProperty("lastPatchHistoryEntryId")
     String lastPatchHistoryEntryId;
     /**
-     * The current state of the database home.
+     * The current state of the Database Home.
      **/
     @lombok.extern.slf4j.Slf4j
     public enum LifecycleState {
@@ -210,7 +301,7 @@ public class DbHome {
         }
     };
     /**
-     * The current state of the database home.
+     * The current state of the Database Home.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     LifecycleState lifecycleState;
@@ -222,16 +313,70 @@ public class DbHome {
     String dbSystemId;
 
     /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VM cluster.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("vmClusterId")
+    String vmClusterId;
+
+    /**
      * The Oracle Database version.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("dbVersion")
     String dbVersion;
 
     /**
-     * The date and time the database home was created.
+     * The location of the Oracle Database Home.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("dbHomeLocation")
+    String dbHomeLocation;
+
+    /**
+     * Additional information about the current lifecycle state.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
+    String lifecycleDetails;
+
+    /**
+     * The date and time the Database Home was created.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
+
+    /**
+     * The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
+    String kmsKeyId;
+
+    /**
+     * List of one-off patches for Database Homes.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("oneOffPatches")
+    java.util.List<String> oneOffPatches;
+
+    /**
+     * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * <p>
+     * Example: `{\"Department\": \"Finance\"}`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
+    java.util.Map<String, String> freeformTags;
+
+    /**
+     * Defined tags for this resource. Each key is predefined and scoped to a namespace.
+     * For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("definedTags")
+    java.util.Map<String, java.util.Map<String, Object>> definedTags;
+
+    /**
+     * The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseSoftwareImageId")
+    String databaseSoftwareImageId;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

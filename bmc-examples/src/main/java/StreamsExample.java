@@ -1,9 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.google.common.util.concurrent.Uninterruptibles;
+import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.streaming.StreamAdminClient;
@@ -54,11 +56,17 @@ public class StreamsExample {
         final String configurationFilePath = "~/.oci/config";
         final String profile = "DEFAULT";
 
+        // Configuring the AuthenticationDetailsProvider. It's assuming there is a default OCI config file
+        // "~/.oci/config", and a profile in that config with the name "DEFAULT". Make changes to the following
+        // line if needed and use ConfigFileReader.parse(CONFIG_LOCATION, CONFIG_PROFILE);
+
+        final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parseDefault();
+
         final AuthenticationDetailsProvider provider =
-                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+                new ConfigFileAuthenticationDetailsProvider(configFile);
 
         // Create an admin-client for the phoenix region.
-        final StreamAdminClient adminClient = new StreamAdminClient(provider);
+        final StreamAdminClient adminClient = StreamAdminClient.builder().build(provider);
 
         if (args.length < 1) {
             throw new IllegalArgumentException(
@@ -76,8 +84,7 @@ public class StreamsExample {
 
         // Streams are assigned a specific endpoint url based on where they are provisioned.
         // Create a stream client using the provided message endpoint.
-        StreamClient streamClient = new StreamClient(provider);
-        streamClient.setEndpoint(stream.getMessagesEndpoint());
+        StreamClient streamClient = StreamClient.builder().stream(stream).build(provider);
 
         String streamId = stream.getId();
 

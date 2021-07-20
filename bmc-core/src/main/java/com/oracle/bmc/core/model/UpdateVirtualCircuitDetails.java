@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = UpdateVirtualCircuitDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateVirtualCircuitDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -43,12 +45,30 @@ public class UpdateVirtualCircuitDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("routingPolicy")
+        private java.util.List<RoutingPolicy> routingPolicy;
+
+        public Builder routingPolicy(java.util.List<RoutingPolicy> routingPolicy) {
+            this.routingPolicy = routingPolicy;
+            this.__explicitlySet__.add("routingPolicy");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
         private Integer customerBgpAsn;
 
         public Builder customerBgpAsn(Integer customerBgpAsn) {
             this.customerBgpAsn = customerBgpAsn;
             this.__explicitlySet__.add("customerBgpAsn");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("customerAsn")
+        private Long customerAsn;
+
+        public Builder customerAsn(Long customerAsn) {
+            this.customerAsn = customerAsn;
+            this.__explicitlySet__.add("customerAsn");
             return this;
         }
 
@@ -124,7 +144,9 @@ public class UpdateVirtualCircuitDetails {
                     new UpdateVirtualCircuitDetails(
                             bandwidthShapeName,
                             crossConnectMappings,
+                            routingPolicy,
                             customerBgpAsn,
+                            customerAsn,
                             definedTags,
                             displayName,
                             freeformTags,
@@ -141,7 +163,9 @@ public class UpdateVirtualCircuitDetails {
             Builder copiedBuilder =
                     bandwidthShapeName(o.getBandwidthShapeName())
                             .crossConnectMappings(o.getCrossConnectMappings())
+                            .routingPolicy(o.getRoutingPolicy())
                             .customerBgpAsn(o.getCustomerBgpAsn())
+                            .customerAsn(o.getCustomerAsn())
                             .definedTags(o.getDefinedTags())
                             .displayName(o.getDisplayName())
                             .freeformTags(o.getFreeformTags())
@@ -183,6 +207,59 @@ public class UpdateVirtualCircuitDetails {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("crossConnectMappings")
     java.util.List<CrossConnectMapping> crossConnectMappings;
+    /**
+     **/
+    public enum RoutingPolicy {
+        OracleServiceNetwork("ORACLE_SERVICE_NETWORK"),
+        Regional("REGIONAL"),
+        MarketLevel("MARKET_LEVEL"),
+        Global("GLOBAL"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, RoutingPolicy> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (RoutingPolicy v : RoutingPolicy.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        RoutingPolicy(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static RoutingPolicy create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid RoutingPolicy: " + key);
+        }
+    };
+    /**
+     * The routing policy sets how routing information about the Oracle cloud is shared over a public virtual circuit.
+     * Policies available are: `ORACLE_SERVICE_NETWORK`, `REGIONAL`, `MARKET_LEVEL`, and `GLOBAL`.
+     * See [Route Filtering](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/routingonprem.htm#route_filtering) for details.
+     * By default, routing information is shared for all routes in the same market.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("routingPolicy")
+    java.util.List<RoutingPolicy> routingPolicy;
+
+    /**
+     * Deprecated. Instead use `customerAsn`.
+     * If you specify values for both, the request will be rejected.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
+    Integer customerBgpAsn;
 
     /**
      * The BGP ASN of the network at the other end of the BGP
@@ -195,14 +272,16 @@ public class UpdateVirtualCircuitDetails {
      * If the BGP session is from the provider's edge router to Oracle, the
      * required value is the provider's ASN, and it can be updated only
      * by the provider.
+     * <p>
+     * Can be a 2-byte or 4-byte ASN. Uses \"asplain\" format.
      *
      **/
-    @com.fasterxml.jackson.annotation.JsonProperty("customerBgpAsn")
-    Integer customerBgpAsn;
+    @com.fasterxml.jackson.annotation.JsonProperty("customerAsn")
+    Long customerAsn;
 
     /**
      * Defined tags for this resource. Each key is predefined and scoped to a
-     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
      *
@@ -222,7 +301,7 @@ public class UpdateVirtualCircuitDetails {
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no
-     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+     * predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
      * <p>
      * Example: `{\"Department\": \"Finance\"}`
      *
@@ -241,7 +320,7 @@ public class UpdateVirtualCircuitDetails {
     String gatewayId;
     /**
      * The provider's state in relation to this virtual circuit. Relevant only
-     * if the customer is using FastConnect via a provider.  ACTIVE
+     * if the customer is using FastConnect via a provider. ACTIVE
      * means the provider has provisioned the virtual circuit from their
      * end. INACTIVE means the provider has not yet provisioned the virtual
      * circuit, or has de-provisioned it.
@@ -278,12 +357,12 @@ public class UpdateVirtualCircuitDetails {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ProviderState: " + key);
+            throw new IllegalArgumentException("Invalid ProviderState: " + key);
         }
     };
     /**
      * The provider's state in relation to this virtual circuit. Relevant only
-     * if the customer is using FastConnect via a provider.  ACTIVE
+     * if the customer is using FastConnect via a provider. ACTIVE
      * means the provider has provisioned the virtual circuit from their
      * end. INACTIVE means the provider has not yet provisioned the virtual
      * circuit, or has de-provisioned it.

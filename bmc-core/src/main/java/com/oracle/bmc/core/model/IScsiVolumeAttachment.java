@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -26,6 +27,7 @@ package com.oracle.bmc.core.model;
     property = "attachmentType"
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class IScsiVolumeAttachment extends VolumeAttachment {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -93,6 +95,15 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isShareable")
+        private Boolean isShareable;
+
+        public Builder isShareable(Boolean isShareable) {
+            this.isShareable = isShareable;
+            this.__explicitlySet__.add("isShareable");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
         private LifecycleState lifecycleState;
 
@@ -126,6 +137,24 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
         public Builder isPvEncryptionInTransitEnabled(Boolean isPvEncryptionInTransitEnabled) {
             this.isPvEncryptionInTransitEnabled = isPvEncryptionInTransitEnabled;
             this.__explicitlySet__.add("isPvEncryptionInTransitEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isMultipath")
+        private Boolean isMultipath;
+
+        public Builder isMultipath(Boolean isMultipath) {
+            this.isMultipath = isMultipath;
+            this.__explicitlySet__.add("isMultipath");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("iscsiLoginState")
+        private IscsiLoginState iscsiLoginState;
+
+        public Builder iscsiLoginState(IscsiLoginState iscsiLoginState) {
+            this.iscsiLoginState = iscsiLoginState;
+            this.__explicitlySet__.add("iscsiLoginState");
             return this;
         }
 
@@ -174,6 +203,24 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("multipathDevices")
+        private java.util.List<MultipathDevice> multipathDevices;
+
+        public Builder multipathDevices(java.util.List<MultipathDevice> multipathDevices) {
+            this.multipathDevices = multipathDevices;
+            this.__explicitlySet__.add("multipathDevices");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("encryptionInTransitType")
+        private EncryptionInTransitType encryptionInTransitType;
+
+        public Builder encryptionInTransitType(EncryptionInTransitType encryptionInTransitType) {
+            this.encryptionInTransitType = encryptionInTransitType;
+            this.__explicitlySet__.add("encryptionInTransitType");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -187,15 +234,20 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
                             id,
                             instanceId,
                             isReadOnly,
+                            isShareable,
                             lifecycleState,
                             timeCreated,
                             volumeId,
                             isPvEncryptionInTransitEnabled,
+                            isMultipath,
+                            iscsiLoginState,
                             chapSecret,
                             chapUsername,
                             ipv4,
                             iqn,
-                            port);
+                            port,
+                            multipathDevices,
+                            encryptionInTransitType);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -210,15 +262,20 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
                             .id(o.getId())
                             .instanceId(o.getInstanceId())
                             .isReadOnly(o.getIsReadOnly())
+                            .isShareable(o.getIsShareable())
                             .lifecycleState(o.getLifecycleState())
                             .timeCreated(o.getTimeCreated())
                             .volumeId(o.getVolumeId())
                             .isPvEncryptionInTransitEnabled(o.getIsPvEncryptionInTransitEnabled())
+                            .isMultipath(o.getIsMultipath())
+                            .iscsiLoginState(o.getIscsiLoginState())
                             .chapSecret(o.getChapSecret())
                             .chapUsername(o.getChapUsername())
                             .ipv4(o.getIpv4())
                             .iqn(o.getIqn())
-                            .port(o.getPort());
+                            .port(o.getPort())
+                            .multipathDevices(o.getMultipathDevices())
+                            .encryptionInTransitType(o.getEncryptionInTransitType());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -241,15 +298,20 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
             String id,
             String instanceId,
             Boolean isReadOnly,
+            Boolean isShareable,
             LifecycleState lifecycleState,
             java.util.Date timeCreated,
             String volumeId,
             Boolean isPvEncryptionInTransitEnabled,
+            Boolean isMultipath,
+            IscsiLoginState iscsiLoginState,
             String chapSecret,
             String chapUsername,
             String ipv4,
             String iqn,
-            Integer port) {
+            Integer port,
+            java.util.List<MultipathDevice> multipathDevices,
+            EncryptionInTransitType encryptionInTransitType) {
         super(
                 availabilityDomain,
                 compartmentId,
@@ -258,31 +320,36 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
                 id,
                 instanceId,
                 isReadOnly,
+                isShareable,
                 lifecycleState,
                 timeCreated,
                 volumeId,
-                isPvEncryptionInTransitEnabled);
+                isPvEncryptionInTransitEnabled,
+                isMultipath,
+                iscsiLoginState);
         this.chapSecret = chapSecret;
         this.chapUsername = chapUsername;
         this.ipv4 = ipv4;
         this.iqn = iqn;
         this.port = port;
+        this.multipathDevices = multipathDevices;
+        this.encryptionInTransitType = encryptionInTransitType;
     }
 
     /**
-     * The Challenge-Handshake-Authentication-Protocol (CHAP) secret valid for the associated CHAP user name.
+     * The Challenge-Handshake-Authentication-Protocol (CHAP) secret
+     * valid for the associated CHAP user name.
      * (Also called the \"CHAP password\".)
-     * <p>
-     * Example: `d6866c0d-298b-48ba-95af-309b4faux45e`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("chapSecret")
     String chapSecret;
 
     /**
-     * The volume's system-generated Challenge-Handshake-Authentication-Protocol (CHAP) user name.
+     * The volume's system-generated Challenge-Handshake-Authentication-Protocol
+     * (CHAP) user name. See [RFC 1994](https://tools.ietf.org/html/rfc1994) for more on CHAP.
      * <p>
-     * Example: `ocid1.volume.oc1.phx.abyhqljrgvttnlx73nmrwfaux7kcvzfs3s66izvxf2h4lgvyndsdsnoiwr5q`
+     * Example: `ocid1.volume.oc1.phx.<unique_ID>`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("chapUsername")
@@ -298,22 +365,37 @@ public class IScsiVolumeAttachment extends VolumeAttachment {
     String ipv4;
 
     /**
-     * The target volume's iSCSI Qualified Name in the format defined by RFC 3720.
+     * The target volume's iSCSI Qualified Name in the format defined
+     * by [RFC 3720](https://tools.ietf.org/html/rfc3720#page-32).
      * <p>
-     * Example: `iqn.2015-12.us.oracle.com:456b0391-17b8-4122-bbf1-f85fc0bb97d9`
+     * Example: `iqn.2015-12.us.oracle.com:<CHAP_username>`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("iqn")
     String iqn;
 
     /**
-     * The volume's iSCSI port.
+     * The volume's iSCSI port, usually port 860 or 3260.
      * <p>
      * Example: `3260`
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("port")
     Integer port;
+
+    /**
+     * A list of secondary multipath devices
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("multipathDevices")
+    java.util.List<MultipathDevice> multipathDevices;
+
+    /**
+     * Refer the top-level definition of encryptionInTransitType.
+     * The default value is NONE.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("encryptionInTransitType")
+    EncryptionInTransitType encryptionInTransitType;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

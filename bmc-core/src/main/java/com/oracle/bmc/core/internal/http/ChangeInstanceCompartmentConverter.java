@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.internal.http;
 
@@ -16,15 +17,15 @@ public class ChangeInstanceCompartmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ChangeInstanceCompartmentRequest interceptRequest(
-            ChangeInstanceCompartmentRequest request) {
+    public static com.oracle.bmc.core.requests.ChangeInstanceCompartmentRequest interceptRequest(
+            com.oracle.bmc.core.requests.ChangeInstanceCompartmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ChangeInstanceCompartmentRequest request) {
+            com.oracle.bmc.core.requests.ChangeInstanceCompartmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getInstanceId(), "instanceId must not be blank");
         Validate.notNull(
@@ -57,22 +58,28 @@ public class ChangeInstanceCompartmentConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ChangeInstanceCompartmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ChangeInstanceCompartmentResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, ChangeInstanceCompartmentResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse>() {
                             @Override
-                            public ChangeInstanceCompartmentResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ChangeInstanceCompartmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -83,8 +90,13 @@ public class ChangeInstanceCompartmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ChangeInstanceCompartmentResponse.Builder builder =
-                                        ChangeInstanceCompartmentResponse.builder();
+                                com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.core.responses
+                                                        .ChangeInstanceCompartmentResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>> etagHeader =
                                         com.oracle.bmc.http.internal.HeaderUtils.get(
@@ -119,7 +131,8 @@ public class ChangeInstanceCompartmentConverter {
                                                     String.class));
                                 }
 
-                                ChangeInstanceCompartmentResponse responseWrapper = builder.build();
+                                com.oracle.bmc.core.responses.ChangeInstanceCompartmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

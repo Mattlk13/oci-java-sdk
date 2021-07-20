@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -18,6 +19,7 @@ package com.oracle.bmc.containerengine.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Node.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Node {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -37,6 +39,15 @@ public class Node {
         public Builder name(String name) {
             this.name = name;
             this.__explicitlySet__.add("name");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("kubernetesVersion")
+        private String kubernetesVersion;
+
+        public Builder kubernetesVersion(String kubernetesVersion) {
+            this.kubernetesVersion = kubernetesVersion;
+            this.__explicitlySet__.add("kubernetesVersion");
             return this;
         }
 
@@ -64,6 +75,24 @@ public class Node {
         public Builder nodePoolId(String nodePoolId) {
             this.nodePoolId = nodePoolId;
             this.__explicitlySet__.add("nodePoolId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("faultDomain")
+        private String faultDomain;
+
+        public Builder faultDomain(String faultDomain) {
+            this.faultDomain = faultDomain;
+            this.__explicitlySet__.add("faultDomain");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
+        private String privateIp;
+
+        public Builder privateIp(String privateIp) {
+            this.privateIp = privateIp;
+            this.__explicitlySet__.add("privateIp");
             return this;
         }
 
@@ -111,9 +140,12 @@ public class Node {
                     new Node(
                             id,
                             name,
+                            kubernetesVersion,
                             availabilityDomain,
                             subnetId,
                             nodePoolId,
+                            faultDomain,
+                            privateIp,
                             publicIp,
                             nodeError,
                             lifecycleState,
@@ -127,9 +159,12 @@ public class Node {
             Builder copiedBuilder =
                     id(o.getId())
                             .name(o.getName())
+                            .kubernetesVersion(o.getKubernetesVersion())
                             .availabilityDomain(o.getAvailabilityDomain())
                             .subnetId(o.getSubnetId())
                             .nodePoolId(o.getNodePoolId())
+                            .faultDomain(o.getFaultDomain())
+                            .privateIp(o.getPrivateIp())
                             .publicIp(o.getPublicIp())
                             .nodeError(o.getNodeError())
                             .lifecycleState(o.getLifecycleState())
@@ -160,6 +195,12 @@ public class Node {
     String name;
 
     /**
+     * The version of Kubernetes this node is running.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("kubernetesVersion")
+    String kubernetesVersion;
+
+    /**
      * The name of the availability domain in which this node is placed.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("availabilityDomain")
@@ -176,6 +217,18 @@ public class Node {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodePoolId")
     String nodePoolId;
+
+    /**
+     * The fault domain of this node.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("faultDomain")
+    String faultDomain;
+
+    /**
+     * The private IP address of this node.
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
+    String privateIp;
 
     /**
      * The public IP address of this node.

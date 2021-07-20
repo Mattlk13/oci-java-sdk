@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dts;
 
 import com.oracle.bmc.dts.requests.*;
 import com.oracle.bmc.dts.responses.*;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.009")
+/**
+ * Data Transfer Service API Specification
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 1.0.015")
 public interface TransferApplianceEntitlementAsync extends AutoCloseable {
 
     /**
@@ -14,6 +18,11 @@ public interface TransferApplianceEntitlementAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -37,7 +46,7 @@ public interface TransferApplianceEntitlementAsync extends AutoCloseable {
     void setRegion(String regionId);
 
     /**
-     * Create the Transfer Appliance Entitlement that allows customers to use Transfer Appliance
+     * Create the Entitlement to use a Transfer Appliance. It requires some offline process of review and signatures before request is granted.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -70,5 +79,23 @@ public interface TransferApplianceEntitlementAsync extends AutoCloseable {
                     com.oracle.bmc.responses.AsyncHandler<
                                     GetTransferApplianceEntitlementRequest,
                                     GetTransferApplianceEntitlementResponse>
+                            handler);
+
+    /**
+     * Lists Transfer Transfer Appliance Entitlement
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListTransferApplianceEntitlementResponse>
+            listTransferApplianceEntitlement(
+                    ListTransferApplianceEntitlementRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListTransferApplianceEntitlementRequest,
+                                    ListTransferApplianceEntitlementResponse>
                             handler);
 }

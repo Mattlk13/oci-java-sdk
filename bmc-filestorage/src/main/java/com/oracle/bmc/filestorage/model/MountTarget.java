@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.filestorage.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.filestorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = MountTarget.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class MountTarget {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -108,6 +110,15 @@ public class MountTarget {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+        private java.util.List<String> nsgIds;
+
+        public Builder nsgIds(java.util.List<String> nsgIds) {
+            this.nsgIds = nsgIds;
+            this.__explicitlySet__.add("nsgIds");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
         private java.util.Date timeCreated;
 
@@ -151,6 +162,7 @@ public class MountTarget {
                             lifecycleState,
                             privateIpIds,
                             subnetId,
+                            nsgIds,
                             timeCreated,
                             freeformTags,
                             definedTags);
@@ -170,6 +182,7 @@ public class MountTarget {
                             .lifecycleState(o.getLifecycleState())
                             .privateIpIds(o.getPrivateIpIds())
                             .subnetId(o.getSubnetId())
+                            .nsgIds(o.getNsgIds())
                             .timeCreated(o.getTimeCreated())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags());
@@ -197,7 +210,7 @@ public class MountTarget {
     String availabilityDomain;
 
     /**
-     * The OCID of the compartment that contains the mount target.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the mount target.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("compartmentId")
     String compartmentId;
@@ -213,7 +226,7 @@ public class MountTarget {
     String displayName;
 
     /**
-     * The OCID of the associated export set. Controls what file
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated export set. Controls what file
      * systems will be exported through Network File System (NFS) protocol on this
      * mount target.
      *
@@ -222,7 +235,7 @@ public class MountTarget {
     String exportSetId;
 
     /**
-     * The OCID of the mount target.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;
@@ -294,10 +307,20 @@ public class MountTarget {
     java.util.List<String> privateIpIds;
 
     /**
-     * The OCID of the subnet the mount target is in.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the mount target is in.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetId")
     String subnetId;
+
+    /**
+     * A list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this mount target.
+     * A maximum of 5 is allowed.
+     * Setting this to an empty array after the list is created removes the mount target from all NSGs.
+     * For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nsgIds")
+    java.util.List<String> nsgIds;
 
     /**
      * The date and time the mount target was created, expressed

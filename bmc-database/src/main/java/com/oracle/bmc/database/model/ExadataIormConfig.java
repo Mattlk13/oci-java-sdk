@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.model;
 
 /**
- * Response details which has IORM Settings for this Exadata System
+ * The IORM settings of the Exadata DB system.
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -21,6 +22,7 @@ package com.oracle.bmc.database.model;
     builder = ExadataIormConfig.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ExadataIormConfig {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -92,7 +94,7 @@ public class ExadataIormConfig {
     }
 
     /**
-     * The current config state of IORM settings for this Exadata System.
+     * The current state of IORM configuration for the Exadata DB system.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -142,21 +144,21 @@ public class ExadataIormConfig {
         }
     };
     /**
-     * The current config state of IORM settings for this Exadata System.
+     * The current state of IORM configuration for the Exadata DB system.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     LifecycleState lifecycleState;
 
     /**
-     * Additional information about the current lifecycleState.
+     * Additional information about the current `lifecycleState`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleDetails")
     String lifecycleDetails;
     /**
-     * Value for the IORM objective
-     * Default is \"Auto\"
+     * The current value for the IORM objective.
+     * The default is `AUTO`.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -206,16 +208,16 @@ public class ExadataIormConfig {
         }
     };
     /**
-     * Value for the IORM objective
-     * Default is \"Auto\"
+     * The current value for the IORM objective.
+     * The default is `AUTO`.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("objective")
     Objective objective;
 
     /**
-     * Array of IORM Setting for all the database in
-     * this Exadata DB System
+     * An array of IORM settings for all the database in
+     * the Exadata DB system.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("dbPlans")

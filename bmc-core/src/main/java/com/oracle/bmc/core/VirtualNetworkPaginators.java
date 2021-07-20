@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core;
 
@@ -28,6 +29,460 @@ import com.oracle.bmc.core.responses.*;
 @lombok.RequiredArgsConstructor
 public class VirtualNetworkPaginators {
     private final VirtualNetwork client;
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the getAllDrgAttachments operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<GetAllDrgAttachmentsResponse> getAllDrgAttachmentsResponseIterator(
+            final GetAllDrgAttachmentsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                GetAllDrgAttachmentsRequest.Builder, GetAllDrgAttachmentsRequest,
+                GetAllDrgAttachmentsResponse>(
+                new com.google.common.base.Supplier<GetAllDrgAttachmentsRequest.Builder>() {
+                    @Override
+                    public GetAllDrgAttachmentsRequest.Builder get() {
+                        return GetAllDrgAttachmentsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<GetAllDrgAttachmentsResponse, String>() {
+                    @Override
+                    public String apply(GetAllDrgAttachmentsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                GetAllDrgAttachmentsRequest.Builder>,
+                        GetAllDrgAttachmentsRequest>() {
+                    @Override
+                    public GetAllDrgAttachmentsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            GetAllDrgAttachmentsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        GetAllDrgAttachmentsRequest, GetAllDrgAttachmentsResponse>() {
+                    @Override
+                    public GetAllDrgAttachmentsResponse apply(GetAllDrgAttachmentsRequest request) {
+                        return client.getAllDrgAttachments(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DrgAttachmentInfo} objects
+     * contained in responses from the getAllDrgAttachments operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DrgAttachmentInfo} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DrgAttachmentInfo> getAllDrgAttachmentsRecordIterator(
+            final GetAllDrgAttachmentsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                GetAllDrgAttachmentsRequest.Builder, GetAllDrgAttachmentsRequest,
+                GetAllDrgAttachmentsResponse, com.oracle.bmc.core.model.DrgAttachmentInfo>(
+                new com.google.common.base.Supplier<GetAllDrgAttachmentsRequest.Builder>() {
+                    @Override
+                    public GetAllDrgAttachmentsRequest.Builder get() {
+                        return GetAllDrgAttachmentsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<GetAllDrgAttachmentsResponse, String>() {
+                    @Override
+                    public String apply(GetAllDrgAttachmentsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                GetAllDrgAttachmentsRequest.Builder>,
+                        GetAllDrgAttachmentsRequest>() {
+                    @Override
+                    public GetAllDrgAttachmentsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            GetAllDrgAttachmentsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        GetAllDrgAttachmentsRequest, GetAllDrgAttachmentsResponse>() {
+                    @Override
+                    public GetAllDrgAttachmentsResponse apply(GetAllDrgAttachmentsRequest request) {
+                        return client.getAllDrgAttachments(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        GetAllDrgAttachmentsResponse,
+                        java.util.List<com.oracle.bmc.core.model.DrgAttachmentInfo>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DrgAttachmentInfo> apply(
+                            GetAllDrgAttachmentsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listByoipAllocatedRanges operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListByoipAllocatedRangesResponse> listByoipAllocatedRangesResponseIterator(
+            final ListByoipAllocatedRangesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListByoipAllocatedRangesRequest.Builder, ListByoipAllocatedRangesRequest,
+                ListByoipAllocatedRangesResponse>(
+                new com.google.common.base.Supplier<ListByoipAllocatedRangesRequest.Builder>() {
+                    @Override
+                    public ListByoipAllocatedRangesRequest.Builder get() {
+                        return ListByoipAllocatedRangesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListByoipAllocatedRangesResponse, String>() {
+                    @Override
+                    public String apply(ListByoipAllocatedRangesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListByoipAllocatedRangesRequest.Builder>,
+                        ListByoipAllocatedRangesRequest>() {
+                    @Override
+                    public ListByoipAllocatedRangesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListByoipAllocatedRangesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipAllocatedRangesRequest, ListByoipAllocatedRangesResponse>() {
+                    @Override
+                    public ListByoipAllocatedRangesResponse apply(
+                            ListByoipAllocatedRangesRequest request) {
+                        return client.listByoipAllocatedRanges(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ByoipAllocatedRangeSummary} objects
+     * contained in responses from the listByoipAllocatedRanges operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ByoipAllocatedRangeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ByoipAllocatedRangeSummary>
+            listByoipAllocatedRangesRecordIterator(final ListByoipAllocatedRangesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListByoipAllocatedRangesRequest.Builder, ListByoipAllocatedRangesRequest,
+                ListByoipAllocatedRangesResponse,
+                com.oracle.bmc.core.model.ByoipAllocatedRangeSummary>(
+                new com.google.common.base.Supplier<ListByoipAllocatedRangesRequest.Builder>() {
+                    @Override
+                    public ListByoipAllocatedRangesRequest.Builder get() {
+                        return ListByoipAllocatedRangesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListByoipAllocatedRangesResponse, String>() {
+                    @Override
+                    public String apply(ListByoipAllocatedRangesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListByoipAllocatedRangesRequest.Builder>,
+                        ListByoipAllocatedRangesRequest>() {
+                    @Override
+                    public ListByoipAllocatedRangesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListByoipAllocatedRangesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipAllocatedRangesRequest, ListByoipAllocatedRangesResponse>() {
+                    @Override
+                    public ListByoipAllocatedRangesResponse apply(
+                            ListByoipAllocatedRangesRequest request) {
+                        return client.listByoipAllocatedRanges(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipAllocatedRangesResponse,
+                        java.util.List<com.oracle.bmc.core.model.ByoipAllocatedRangeSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.ByoipAllocatedRangeSummary>
+                            apply(ListByoipAllocatedRangesResponse response) {
+                        return response.getByoipAllocatedRangeCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listByoipRanges operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListByoipRangesResponse> listByoipRangesResponseIterator(
+            final ListByoipRangesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListByoipRangesRequest.Builder, ListByoipRangesRequest, ListByoipRangesResponse>(
+                new com.google.common.base.Supplier<ListByoipRangesRequest.Builder>() {
+                    @Override
+                    public ListByoipRangesRequest.Builder get() {
+                        return ListByoipRangesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListByoipRangesResponse, String>() {
+                    @Override
+                    public String apply(ListByoipRangesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListByoipRangesRequest.Builder>,
+                        ListByoipRangesRequest>() {
+                    @Override
+                    public ListByoipRangesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListByoipRangesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipRangesRequest, ListByoipRangesResponse>() {
+                    @Override
+                    public ListByoipRangesResponse apply(ListByoipRangesRequest request) {
+                        return client.listByoipRanges(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ByoipRangeSummary} objects
+     * contained in responses from the listByoipRanges operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ByoipRangeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ByoipRangeSummary> listByoipRangesRecordIterator(
+            final ListByoipRangesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListByoipRangesRequest.Builder, ListByoipRangesRequest, ListByoipRangesResponse,
+                com.oracle.bmc.core.model.ByoipRangeSummary>(
+                new com.google.common.base.Supplier<ListByoipRangesRequest.Builder>() {
+                    @Override
+                    public ListByoipRangesRequest.Builder get() {
+                        return ListByoipRangesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListByoipRangesResponse, String>() {
+                    @Override
+                    public String apply(ListByoipRangesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListByoipRangesRequest.Builder>,
+                        ListByoipRangesRequest>() {
+                    @Override
+                    public ListByoipRangesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListByoipRangesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipRangesRequest, ListByoipRangesResponse>() {
+                    @Override
+                    public ListByoipRangesResponse apply(ListByoipRangesRequest request) {
+                        return client.listByoipRanges(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListByoipRangesResponse,
+                        java.util.List<com.oracle.bmc.core.model.ByoipRangeSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.ByoipRangeSummary> apply(
+                            ListByoipRangesResponse response) {
+                        return response.getByoipRangeCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listCpeDeviceShapes operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListCpeDeviceShapesResponse> listCpeDeviceShapesResponseIterator(
+            final ListCpeDeviceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCpeDeviceShapesRequest.Builder, ListCpeDeviceShapesRequest,
+                ListCpeDeviceShapesResponse>(
+                new com.google.common.base.Supplier<ListCpeDeviceShapesRequest.Builder>() {
+                    @Override
+                    public ListCpeDeviceShapesRequest.Builder get() {
+                        return ListCpeDeviceShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCpeDeviceShapesResponse, String>() {
+                    @Override
+                    public String apply(ListCpeDeviceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCpeDeviceShapesRequest.Builder>,
+                        ListCpeDeviceShapesRequest>() {
+                    @Override
+                    public ListCpeDeviceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCpeDeviceShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCpeDeviceShapesRequest, ListCpeDeviceShapesResponse>() {
+                    @Override
+                    public ListCpeDeviceShapesResponse apply(ListCpeDeviceShapesRequest request) {
+                        return client.listCpeDeviceShapes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.CpeDeviceShapeSummary} objects
+     * contained in responses from the listCpeDeviceShapes operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.CpeDeviceShapeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.CpeDeviceShapeSummary>
+            listCpeDeviceShapesRecordIterator(final ListCpeDeviceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCpeDeviceShapesRequest.Builder, ListCpeDeviceShapesRequest,
+                ListCpeDeviceShapesResponse, com.oracle.bmc.core.model.CpeDeviceShapeSummary>(
+                new com.google.common.base.Supplier<ListCpeDeviceShapesRequest.Builder>() {
+                    @Override
+                    public ListCpeDeviceShapesRequest.Builder get() {
+                        return ListCpeDeviceShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListCpeDeviceShapesResponse, String>() {
+                    @Override
+                    public String apply(ListCpeDeviceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCpeDeviceShapesRequest.Builder>,
+                        ListCpeDeviceShapesRequest>() {
+                    @Override
+                    public ListCpeDeviceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCpeDeviceShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCpeDeviceShapesRequest, ListCpeDeviceShapesResponse>() {
+                    @Override
+                    public ListCpeDeviceShapesResponse apply(ListCpeDeviceShapesRequest request) {
+                        return client.listCpeDeviceShapes(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListCpeDeviceShapesResponse,
+                        java.util.List<com.oracle.bmc.core.model.CpeDeviceShapeSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.CpeDeviceShapeSummary> apply(
+                            ListCpeDeviceShapesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
 
     /**
      * Creates a new iterable which will iterate over the responses received from the listCpes operation. This iterable
@@ -825,6 +1280,474 @@ public class VirtualNetworkPaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.core.model.DrgAttachment> apply(
                             ListDrgAttachmentsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDrgRouteDistributionStatements operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDrgRouteDistributionStatementsResponse>
+            listDrgRouteDistributionStatementsResponseIterator(
+                    final ListDrgRouteDistributionStatementsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDrgRouteDistributionStatementsRequest.Builder,
+                ListDrgRouteDistributionStatementsRequest,
+                ListDrgRouteDistributionStatementsResponse>(
+                new com.google.common.base.Supplier<
+                        ListDrgRouteDistributionStatementsRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsRequest.Builder get() {
+                        return ListDrgRouteDistributionStatementsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionStatementsResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteDistributionStatementsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteDistributionStatementsRequest.Builder>,
+                        ListDrgRouteDistributionStatementsRequest>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteDistributionStatementsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionStatementsRequest,
+                        ListDrgRouteDistributionStatementsResponse>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsResponse apply(
+                            ListDrgRouteDistributionStatementsRequest request) {
+                        return client.listDrgRouteDistributionStatements(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DrgRouteDistributionStatement} objects
+     * contained in responses from the listDrgRouteDistributionStatements operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DrgRouteDistributionStatement} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DrgRouteDistributionStatement>
+            listDrgRouteDistributionStatementsRecordIterator(
+                    final ListDrgRouteDistributionStatementsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDrgRouteDistributionStatementsRequest.Builder,
+                ListDrgRouteDistributionStatementsRequest,
+                ListDrgRouteDistributionStatementsResponse,
+                com.oracle.bmc.core.model.DrgRouteDistributionStatement>(
+                new com.google.common.base.Supplier<
+                        ListDrgRouteDistributionStatementsRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsRequest.Builder get() {
+                        return ListDrgRouteDistributionStatementsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionStatementsResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteDistributionStatementsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteDistributionStatementsRequest.Builder>,
+                        ListDrgRouteDistributionStatementsRequest>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteDistributionStatementsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionStatementsRequest,
+                        ListDrgRouteDistributionStatementsResponse>() {
+                    @Override
+                    public ListDrgRouteDistributionStatementsResponse apply(
+                            ListDrgRouteDistributionStatementsRequest request) {
+                        return client.listDrgRouteDistributionStatements(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionStatementsResponse,
+                        java.util.List<com.oracle.bmc.core.model.DrgRouteDistributionStatement>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DrgRouteDistributionStatement>
+                            apply(ListDrgRouteDistributionStatementsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDrgRouteDistributions operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDrgRouteDistributionsResponse> listDrgRouteDistributionsResponseIterator(
+            final ListDrgRouteDistributionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDrgRouteDistributionsRequest.Builder, ListDrgRouteDistributionsRequest,
+                ListDrgRouteDistributionsResponse>(
+                new com.google.common.base.Supplier<ListDrgRouteDistributionsRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteDistributionsRequest.Builder get() {
+                        return ListDrgRouteDistributionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteDistributionsResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteDistributionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteDistributionsRequest.Builder>,
+                        ListDrgRouteDistributionsRequest>() {
+                    @Override
+                    public ListDrgRouteDistributionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteDistributionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionsRequest, ListDrgRouteDistributionsResponse>() {
+                    @Override
+                    public ListDrgRouteDistributionsResponse apply(
+                            ListDrgRouteDistributionsRequest request) {
+                        return client.listDrgRouteDistributions(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DrgRouteDistribution} objects
+     * contained in responses from the listDrgRouteDistributions operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DrgRouteDistribution} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DrgRouteDistribution>
+            listDrgRouteDistributionsRecordIterator(
+                    final ListDrgRouteDistributionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDrgRouteDistributionsRequest.Builder, ListDrgRouteDistributionsRequest,
+                ListDrgRouteDistributionsResponse, com.oracle.bmc.core.model.DrgRouteDistribution>(
+                new com.google.common.base.Supplier<ListDrgRouteDistributionsRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteDistributionsRequest.Builder get() {
+                        return ListDrgRouteDistributionsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteDistributionsResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteDistributionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteDistributionsRequest.Builder>,
+                        ListDrgRouteDistributionsRequest>() {
+                    @Override
+                    public ListDrgRouteDistributionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteDistributionsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionsRequest, ListDrgRouteDistributionsResponse>() {
+                    @Override
+                    public ListDrgRouteDistributionsResponse apply(
+                            ListDrgRouteDistributionsRequest request) {
+                        return client.listDrgRouteDistributions(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteDistributionsResponse,
+                        java.util.List<com.oracle.bmc.core.model.DrgRouteDistribution>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DrgRouteDistribution> apply(
+                            ListDrgRouteDistributionsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDrgRouteRules operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDrgRouteRulesResponse> listDrgRouteRulesResponseIterator(
+            final ListDrgRouteRulesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDrgRouteRulesRequest.Builder, ListDrgRouteRulesRequest,
+                ListDrgRouteRulesResponse>(
+                new com.google.common.base.Supplier<ListDrgRouteRulesRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteRulesRequest.Builder get() {
+                        return ListDrgRouteRulesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteRulesResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteRulesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteRulesRequest.Builder>,
+                        ListDrgRouteRulesRequest>() {
+                    @Override
+                    public ListDrgRouteRulesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteRulesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteRulesRequest, ListDrgRouteRulesResponse>() {
+                    @Override
+                    public ListDrgRouteRulesResponse apply(ListDrgRouteRulesRequest request) {
+                        return client.listDrgRouteRules(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DrgRouteRule} objects
+     * contained in responses from the listDrgRouteRules operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DrgRouteRule} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DrgRouteRule> listDrgRouteRulesRecordIterator(
+            final ListDrgRouteRulesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDrgRouteRulesRequest.Builder, ListDrgRouteRulesRequest,
+                ListDrgRouteRulesResponse, com.oracle.bmc.core.model.DrgRouteRule>(
+                new com.google.common.base.Supplier<ListDrgRouteRulesRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteRulesRequest.Builder get() {
+                        return ListDrgRouteRulesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteRulesResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteRulesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteRulesRequest.Builder>,
+                        ListDrgRouteRulesRequest>() {
+                    @Override
+                    public ListDrgRouteRulesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteRulesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteRulesRequest, ListDrgRouteRulesResponse>() {
+                    @Override
+                    public ListDrgRouteRulesResponse apply(ListDrgRouteRulesRequest request) {
+                        return client.listDrgRouteRules(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteRulesResponse,
+                        java.util.List<com.oracle.bmc.core.model.DrgRouteRule>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DrgRouteRule> apply(
+                            ListDrgRouteRulesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDrgRouteTables operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDrgRouteTablesResponse> listDrgRouteTablesResponseIterator(
+            final ListDrgRouteTablesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDrgRouteTablesRequest.Builder, ListDrgRouteTablesRequest,
+                ListDrgRouteTablesResponse>(
+                new com.google.common.base.Supplier<ListDrgRouteTablesRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteTablesRequest.Builder get() {
+                        return ListDrgRouteTablesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteTablesResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteTablesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteTablesRequest.Builder>,
+                        ListDrgRouteTablesRequest>() {
+                    @Override
+                    public ListDrgRouteTablesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteTablesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteTablesRequest, ListDrgRouteTablesResponse>() {
+                    @Override
+                    public ListDrgRouteTablesResponse apply(ListDrgRouteTablesRequest request) {
+                        return client.listDrgRouteTables(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DrgRouteTable} objects
+     * contained in responses from the listDrgRouteTables operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DrgRouteTable} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DrgRouteTable> listDrgRouteTablesRecordIterator(
+            final ListDrgRouteTablesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDrgRouteTablesRequest.Builder, ListDrgRouteTablesRequest,
+                ListDrgRouteTablesResponse, com.oracle.bmc.core.model.DrgRouteTable>(
+                new com.google.common.base.Supplier<ListDrgRouteTablesRequest.Builder>() {
+                    @Override
+                    public ListDrgRouteTablesRequest.Builder get() {
+                        return ListDrgRouteTablesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDrgRouteTablesResponse, String>() {
+                    @Override
+                    public String apply(ListDrgRouteTablesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDrgRouteTablesRequest.Builder>,
+                        ListDrgRouteTablesRequest>() {
+                    @Override
+                    public ListDrgRouteTablesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDrgRouteTablesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteTablesRequest, ListDrgRouteTablesResponse>() {
+                    @Override
+                    public ListDrgRouteTablesResponse apply(ListDrgRouteTablesRequest request) {
+                        return client.listDrgRouteTables(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDrgRouteTablesResponse,
+                        java.util.List<com.oracle.bmc.core.model.DrgRouteTable>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DrgRouteTable> apply(
+                            ListDrgRouteTablesResponse response) {
                         return response.getItems();
                     }
                 });
@@ -2357,6 +3280,119 @@ public class VirtualNetworkPaginators {
     }
 
     /**
+     * Creates a new iterable which will iterate over the responses received from the listPublicIpPools operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListPublicIpPoolsResponse> listPublicIpPoolsResponseIterator(
+            final ListPublicIpPoolsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListPublicIpPoolsRequest.Builder, ListPublicIpPoolsRequest,
+                ListPublicIpPoolsResponse>(
+                new com.google.common.base.Supplier<ListPublicIpPoolsRequest.Builder>() {
+                    @Override
+                    public ListPublicIpPoolsRequest.Builder get() {
+                        return ListPublicIpPoolsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListPublicIpPoolsResponse, String>() {
+                    @Override
+                    public String apply(ListPublicIpPoolsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListPublicIpPoolsRequest.Builder>,
+                        ListPublicIpPoolsRequest>() {
+                    @Override
+                    public ListPublicIpPoolsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListPublicIpPoolsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPublicIpPoolsRequest, ListPublicIpPoolsResponse>() {
+                    @Override
+                    public ListPublicIpPoolsResponse apply(ListPublicIpPoolsRequest request) {
+                        return client.listPublicIpPools(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.PublicIpPoolSummary} objects
+     * contained in responses from the listPublicIpPools operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.PublicIpPoolSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.PublicIpPoolSummary> listPublicIpPoolsRecordIterator(
+            final ListPublicIpPoolsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListPublicIpPoolsRequest.Builder, ListPublicIpPoolsRequest,
+                ListPublicIpPoolsResponse, com.oracle.bmc.core.model.PublicIpPoolSummary>(
+                new com.google.common.base.Supplier<ListPublicIpPoolsRequest.Builder>() {
+                    @Override
+                    public ListPublicIpPoolsRequest.Builder get() {
+                        return ListPublicIpPoolsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListPublicIpPoolsResponse, String>() {
+                    @Override
+                    public String apply(ListPublicIpPoolsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListPublicIpPoolsRequest.Builder>,
+                        ListPublicIpPoolsRequest>() {
+                    @Override
+                    public ListPublicIpPoolsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListPublicIpPoolsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPublicIpPoolsRequest, ListPublicIpPoolsResponse>() {
+                    @Override
+                    public ListPublicIpPoolsResponse apply(ListPublicIpPoolsRequest request) {
+                        return client.listPublicIpPools(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListPublicIpPoolsResponse,
+                        java.util.List<com.oracle.bmc.core.model.PublicIpPoolSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.PublicIpPoolSummary> apply(
+                            ListPublicIpPoolsResponse response) {
+                        return response.getPublicIpPoolCollection().getItems();
+                    }
+                });
+    }
+
+    /**
      * Creates a new iterable which will iterate over the responses received from the listPublicIps operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -3485,6 +4521,114 @@ public class VirtualNetworkPaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.core.model.VirtualCircuit> apply(
                             ListVirtualCircuitsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listVlans operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListVlansResponse> listVlansResponseIterator(final ListVlansRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListVlansRequest.Builder, ListVlansRequest, ListVlansResponse>(
+                new com.google.common.base.Supplier<ListVlansRequest.Builder>() {
+                    @Override
+                    public ListVlansRequest.Builder get() {
+                        return ListVlansRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVlansResponse, String>() {
+                    @Override
+                    public String apply(ListVlansResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVlansRequest.Builder>,
+                        ListVlansRequest>() {
+                    @Override
+                    public ListVlansRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVlansRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListVlansRequest, ListVlansResponse>() {
+                    @Override
+                    public ListVlansResponse apply(ListVlansRequest request) {
+                        return client.listVlans(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.Vlan} objects
+     * contained in responses from the listVlans operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.Vlan} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.Vlan> listVlansRecordIterator(
+            final ListVlansRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListVlansRequest.Builder, ListVlansRequest, ListVlansResponse,
+                com.oracle.bmc.core.model.Vlan>(
+                new com.google.common.base.Supplier<ListVlansRequest.Builder>() {
+                    @Override
+                    public ListVlansRequest.Builder get() {
+                        return ListVlansRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListVlansResponse, String>() {
+                    @Override
+                    public String apply(ListVlansResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListVlansRequest.Builder>,
+                        ListVlansRequest>() {
+                    @Override
+                    public ListVlansRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListVlansRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<ListVlansRequest, ListVlansResponse>() {
+                    @Override
+                    public ListVlansResponse apply(ListVlansRequest request) {
+                        return client.listVlans(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListVlansResponse, java.util.List<com.oracle.bmc.core.model.Vlan>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.Vlan> apply(
+                            ListVlansResponse response) {
                         return response.getItems();
                     }
                 });

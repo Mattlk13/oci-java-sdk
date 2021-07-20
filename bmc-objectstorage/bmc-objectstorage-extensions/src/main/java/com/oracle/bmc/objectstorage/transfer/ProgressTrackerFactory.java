@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.transfer;
 
@@ -68,7 +69,7 @@ abstract class ProgressTrackerFactory {
         }
 
         /**
-         * This progress tracker is threadsafe as updates to the aggregate root progress tracker is synchronized.
+         * This progress tracker is thread-safe as updates to the aggregate root progress tracker is synchronized.
          */
         @ThreadSafe
         private class SubProgressTracker extends ProgressTracker {
@@ -81,6 +82,14 @@ abstract class ProgressTrackerFactory {
                 super.onBytesRead(bytesRead);
                 synchronized (rootProgressTracker) {
                     rootProgressTracker.onBytesRead(bytesRead);
+                }
+            }
+
+            @Override
+            protected void invalidateBytesRead(long invalidByteCount) {
+                super.invalidateBytesRead(invalidByteCount);
+                synchronized (rootProgressTracker) {
+                    rootProgressTracker.invalidateBytesRead(invalidByteCount);
                 }
             }
 

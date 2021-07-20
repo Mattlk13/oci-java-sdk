@@ -1,9 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.auth;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
 import com.oracle.bmc.InternalSdk;
 import com.oracle.bmc.Realm;
 import com.oracle.bmc.Region;
@@ -11,13 +14,17 @@ import com.oracle.bmc.auth.internal.AuthUtils;
 import com.oracle.bmc.auth.internal.FederationClient;
 import com.oracle.bmc.auth.internal.X509FederationClient;
 
+import com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration;
+import com.oracle.bmc.util.CircuitBreakerUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyPair;
@@ -26,6 +33,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Abstract builder base class for authentication details provider extending
@@ -52,17 +60,34 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
     /**
      * Default base url of metadata service.
      */
-    protected static final String METADATA_SERVICE_BASE_URL = "http://169.254.169.254/opc/v1/";
+    public static final String METADATA_SERVICE_BASE_URL = "http://169.254.169.254/opc/v2/";
+
+    /**
+     * Fallback url of metadata service.
+     */
+    protected static final String FALLBACK_METADATA_SERVICE_URL = "http://169.254.169.254/opc/v1/";
+
+    /**
+     * The Authorization header value to be sent for requests to the metadata service.
+     */
+    public static final String AUTHORIZATION_HEADER_VALUE = "Bearer Oracle";
+
+    private static final String REGION_PATH_LITERAL = "region";
 
     /**
      * Base url of metadata service.
      */
-    @Getter protected String metadataBaseUrl = METADATA_SERVICE_BASE_URL;
+    @Getter protected volatile String metadataBaseUrl = METADATA_SERVICE_BASE_URL;
 
     /**
      * The federation endpoint url.
      */
     @Getter protected String federationEndpoint;
+
+    /**
+     * Flag to ensure fallback logic executed only once.
+     */
+    private volatile boolean wasFallbackCheckExecuted = false;
 
     /**
      * The leaf certificate, or null if detecting from instance metadata.
@@ -74,6 +99,11 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
      */
     @Getter protected String tenancyId;
 
+    /**
+     * The configuration for the circuit breaker.
+     */
+    private CircuitBreakerConfiguration circuitBreakerConfiguration;
+
     private String purpose = null;
 
     /**
@@ -83,6 +113,8 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
 
     /**
      * Configure the metadata endpoint to use when retrieving the instance data and principal for federation.
+     * @param metadataBaseUrl the metadata base url
+     * @return this builder
      */
     public B metadataBaseUrl(String metadataBaseUrl) {
         this.metadataBaseUrl = metadataBaseUrl;
@@ -94,6 +126,8 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
 
     /**
      * Configures the custom federationEndpoint to use.
+     * @param federationEndpoint the federation endpoint
+     * @return this builder
      */
     public B federationEndpoint(String federationEndpoint) {
         this.federationEndpoint = federationEndpoint;
@@ -102,24 +136,46 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
 
     /**
      * Configures the custom leafCertificateSupplier to use.
+     * @param leafCertificateSupplier
+     * @return this builder
      */
     public B leafCertificateSupplier(X509CertificateSupplier leafCertificateSupplier) {
         this.leafCertificateSupplier = leafCertificateSupplier;
         return (B) this;
     }
 
+    /**
+     * Configures the tenancy id to use.
+     * @param tenancyId the tenancy OCID
+     * @return this builder
+     */
     public B tenancyId(String tenancyId) {
         this.tenancyId = tenancyId;
         return (B) this;
     }
 
+    /**
+     * Configure the purpose to be used.
+     * @param purpose the purpose string
+     * @return this builder
+     */
     protected B purpose(String purpose) {
         this.purpose = purpose;
         return (B) this;
     }
 
     /**
-     * Build a new AuthenticationDetailsProvider that uses the FederationCLient.
+     * Configures the Circuit Breaker to use, if any.
+     * @param circuitBreakerConfiguration the circuit breaker to use
+     * @return this builder
+     */
+    public B circuitBreakerConfigurator(CircuitBreakerConfiguration circuitBreakerConfiguration) {
+        this.circuitBreakerConfiguration = circuitBreakerConfiguration;
+        return (B) this;
+    }
+
+    /**
+     * Build a new AuthenticationDetailsProvider that uses the FederationClient.
      *
      * @return A new provider instance.
      */
@@ -132,7 +188,18 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
         return buildProvider(sessionKeySupplierToUse);
     }
 
+    /**
+     * Create the federation client.
+     * @param sessionKeySupplier the session key supplier
+     * @return the federation client
+     */
     protected FederationClient createFederationClient(SessionKeySupplier sessionKeySupplier) {
+
+        CircuitBreakerConfiguration circuitBreakerConfig =
+                circuitBreakerConfiguration != null
+                        ? circuitBreakerConfiguration
+                        : CircuitBreakerUtils.getDefaultCircuitBreakerConfig();
+
         if (purpose != null) {
             return new X509FederationClient(
                     federationEndpoint,
@@ -142,6 +209,7 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
                     intermediateCertificateSuppliers,
                     federationClientConfigurator,
                     additionalFederationClientConfigurators,
+                    circuitBreakerConfig,
                     purpose);
         } else {
             return new X509FederationClient(
@@ -151,7 +219,8 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
                     sessionKeySupplier,
                     intermediateCertificateSuppliers,
                     federationClientConfigurator,
-                    additionalFederationClientConfigurators);
+                    additionalFederationClientConfigurators,
+                    circuitBreakerConfig);
         }
     }
 
@@ -170,9 +239,22 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
      */
     protected String autoDetectEndpointUsingMetadataUrl() {
         if (federationEndpoint == null) {
-            Client client = ClientBuilder.newClient();
-            WebTarget base = client.target(getMetadataBaseUrl() + "instance/");
-            String regionStr = base.path("region").request(MediaType.TEXT_PLAIN).get(String.class);
+
+            executeInstanceFallback();
+            String regionStr =
+                    simpleRetry(
+                            base -> {
+                                String region =
+                                        base.path(REGION_PATH_LITERAL)
+                                                .request(MediaType.TEXT_PLAIN)
+                                                .header(
+                                                        HttpHeaders.AUTHORIZATION,
+                                                        AUTHORIZATION_HEADER_VALUE)
+                                                .get(String.class);
+                                return region;
+                            },
+                            getMetadataBaseUrl(),
+                            REGION_PATH_LITERAL);
             LOG.info("Looking up region for {}", regionStr);
 
             try {
@@ -207,11 +289,19 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
      */
     protected void autoDetectCertificatesUsingMetadataUrl() {
         try {
+
+            if (!wasFallbackCheckExecuted) {
+                LOG.info(
+                        " Executing fallback check for certificates as federation endpoint was already set to {}",
+                        getFederationEndpoint());
+                executeInstanceFallback();
+            }
+
             if (leafCertificateSupplier == null) {
                 leafCertificateSupplier =
                         new URLBasedX509CertificateSupplier(
-                                new URL(getMetadataBaseUrl() + "identity/cert.pem"),
-                                new URL(getMetadataBaseUrl() + "identity/key.pem"),
+                                getMetadataResourceDetails("identity/cert.pem"),
+                                getMetadataResourceDetails("identity/key.pem"),
                                 (char[]) null);
             }
 
@@ -228,7 +318,7 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
 
                 intermediateCertificateSuppliers.add(
                         new URLBasedX509CertificateSupplier(
-                                new URL(getMetadataBaseUrl() + "identity/intermediate.pem"),
+                                getMetadataResourceDetails("identity/intermediate.pem"),
                                 null,
                                 (char[]) null));
             }
@@ -238,8 +328,58 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
     }
 
     /**
+     * Checks and falls back to V1 endpoint for both federation endpoint detection & certificates if necessary.
+     */
+    private void executeInstanceFallback() {
+        try {
+            Response response =
+                    simpleRetry(
+                            base -> {
+                                Response fallbackResponse =
+                                        base.path(REGION_PATH_LITERAL)
+                                                .request(MediaType.TEXT_PLAIN)
+                                                .header(
+                                                        HttpHeaders.AUTHORIZATION,
+                                                        AUTHORIZATION_HEADER_VALUE)
+                                                .get();
+                                return fallbackResponse;
+                            },
+                            getMetadataBaseUrl(),
+                            REGION_PATH_LITERAL);
+            LOG.info(
+                    "Rest call to verify if v2 endpoint exists, response from v2 was {}",
+                    response.getStatus());
+
+            //fallback to v1 if v2 endpoint throws resource not found else raise exception
+            if (response.getStatus() == 404) {
+                LOG.warn("Falling back to v1, response from v2 was {}", response.getStatus());
+                this.metadataBaseUrl = FALLBACK_METADATA_SERVICE_URL;
+            } else if (!Response.Status.Family.SUCCESSFUL.equals(
+                    response.getStatusInfo().getFamily())) {
+                throw new RuntimeException(
+                        "Rest call to v2 endpoint failed : HTTP error code : "
+                                + response.getStatus());
+            }
+            wasFallbackCheckExecuted = true;
+            LOG.info(
+                    " Metadata base url on executing instance fallback is {}",
+                    getMetadataBaseUrl());
+        } catch (RuntimeException e) {
+            LOG.warn("Rest call to v2 endpoint failed & cannot fallback as it's not 404 ", e);
+        }
+    }
+
+    private URLBasedX509CertificateSupplier.ResourceDetails getMetadataResourceDetails(
+            final String path) throws MalformedURLException {
+        return URLBasedX509CertificateSupplier.ResourceDetails.builder()
+                .url(new URL(getMetadataBaseUrl() + path))
+                .headers(ImmutableMap.of(HttpHeaders.AUTHORIZATION, AUTHORIZATION_HEADER_VALUE))
+                .build();
+    }
+
+    /**
      * Build the actual provider.
-     * @param sessionKeySupplierToUse
+     * @param sessionKeySupplierToUse the session key supplier to use
      * @return authentication details provider
      */
     protected abstract P buildProvider(SessionKeySupplier sessionKeySupplierToUse);
@@ -250,7 +390,7 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
      * The thread safety of this class is ensured through the Caching class above
      * which synchronizes on all methods.
      */
-    private static class SessionKeySupplierImpl implements SessionKeySupplier {
+    static class SessionKeySupplierImpl implements SessionKeySupplier {
         private final static KeyPairGenerator GENERATOR;
         private KeyPair keyPair = null;
 
@@ -263,7 +403,7 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
             }
         }
 
-        private SessionKeySupplierImpl() {
+        SessionKeySupplierImpl() {
             this.keyPair = GENERATOR.generateKeyPair();
         }
 
@@ -298,5 +438,44 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
         public void refreshKeys() {
             this.keyPair = GENERATOR.generateKeyPair();
         }
+    }
+
+    public static <T> T simpleRetry(
+            Function<WebTarget, T> retryOperation,
+            final String metadataServiceUrl,
+            final String endpoint) {
+
+        final int MAX_RETRIES = 3;
+        RuntimeException lastException = null;
+        Client client = null;
+        for (int retry = 0; retry < MAX_RETRIES; retry++) {
+            try {
+                client = ClientBuilder.newClient();
+                WebTarget base = client.target(metadataServiceUrl + "instance/");
+                return retryOperation.apply(base);
+            } catch (RuntimeException e) {
+                LOG.warn(
+                        "Attempt {} - Rest call to get "
+                                + endpoint
+                                + " from metadata service failed ",
+                        (retry + 1),
+                        e);
+                lastException = e;
+                try {
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+                } catch (InterruptedException interruptedException) {
+                    LOG.debug(
+                            "Thread interrupted while waiting to make next call to get "
+                                    + endpoint
+                                    + " from instance metadata service",
+                            interruptedException);
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            } finally {
+                client.close();
+            }
+        }
+        throw lastException;
     }
 }

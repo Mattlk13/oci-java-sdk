@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.auth;
 
@@ -7,15 +8,22 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.security.auth.Refreshable;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 import org.apache.commons.io.IOUtils;
 
 import com.oracle.bmc.auth.internal.X509CertificateWithOriginalPem;
@@ -42,6 +50,20 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
         LOG.info("suppressX509Workaround flag set to {}", EXPERIMENTAL_SUPPRESS_X509_WORKAROUND);
     }
 
+    @Builder
+    @Data
+    public static class ResourceDetails {
+        /**
+         * The url of the resource
+         */
+        private final URL url;
+
+        /**
+         * Headers to be sent along with the resource fetch request
+         */
+        private final Map<String, String> headers;
+    }
+
     /**
      * The certificate and the private key of certificate.
      */
@@ -49,19 +71,36 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
             new AtomicReference<>(null);
 
     /**
-     * The url of certificate.
+     * The resource details of certificate.
      */
-    private final URL certificateUrl;
+    private final ResourceDetails certificateDetails;
 
     /**
-     * The url of private key.
+     * The resource details of private key.
      */
-    private final URL privateKeyUrl;
+    private final ResourceDetails privateKeyDetails;
 
     /**
      * The passphrase of private key.
      */
     private final char[] privateKeyPassphraseCharacters;
+
+    /**
+     * Constructor.
+     * @param certificateResourceDetails The certificate resource details
+     * @param privateKeyResourceDetails The private key resource details, may be null for intermediate certificates
+     * @param privateKeyPassphraseCharacters The private key passphrase, may be null for unencrypted private keys
+     */
+    public URLBasedX509CertificateSupplier(
+            ResourceDetails certificateResourceDetails,
+            ResourceDetails privateKeyResourceDetails,
+            char[] privateKeyPassphraseCharacters) {
+        this.certificateDetails = certificateResourceDetails;
+        this.privateKeyDetails = privateKeyResourceDetails;
+        this.privateKeyPassphraseCharacters = privateKeyPassphraseCharacters;
+
+        refresh();
+    }
 
     /**
      * Constructor.
@@ -71,11 +110,10 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
      */
     public URLBasedX509CertificateSupplier(
             URL certificateUrl, URL privateKeyUrl, char[] privateKeyPassphraseCharacters) {
-        this.certificateUrl = certificateUrl;
-        this.privateKeyUrl = privateKeyUrl;
-        this.privateKeyPassphraseCharacters = privateKeyPassphraseCharacters;
-
-        refresh();
+        this(
+                ResourceDetails.builder().url(certificateUrl).build(),
+                ResourceDetails.builder().url(privateKeyUrl).build(),
+                privateKeyPassphraseCharacters);
     }
 
     /**
@@ -89,12 +127,10 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
     @Deprecated
     public URLBasedX509CertificateSupplier(
             URL certificateUrl, URL privateKeyUrl, String privateKeyPassphrase) {
-        this.certificateUrl = certificateUrl;
-        this.privateKeyUrl = privateKeyUrl;
-        this.privateKeyPassphraseCharacters =
-                privateKeyPassphrase != null ? privateKeyPassphrase.toCharArray() : null;
-
-        refresh();
+        this(
+                certificateUrl,
+                privateKeyUrl,
+                privateKeyPassphrase != null ? privateKeyPassphrase.toCharArray() : null);
     }
 
     /**
@@ -113,9 +149,10 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
      */
     @Override
     public void refresh() {
-        String rawCertificate = readRawCertificate(certificateUrl);
+        String rawCertificate = readRawCertificate(certificateDetails);
         X509Certificate certificate = readCertificate(rawCertificate);
-        RSAPrivateKey privateKey = readPrivateKey(privateKeyUrl, privateKeyPassphraseCharacters);
+        RSAPrivateKey privateKey =
+                readPrivateKey(privateKeyDetails, privateKeyPassphraseCharacters);
         if (EXPERIMENTAL_SUPPRESS_X509_WORKAROUND) {
             this.certificateAndKeyPair.set(
                     new CertificateAndPrivateKeyPair(certificate, privateKey));
@@ -151,33 +188,74 @@ public class URLBasedX509CertificateSupplier implements X509CertificateSupplier,
         }
     }
 
-    private static String readRawCertificate(URL certificateUrl) {
-        try (InputStream is = certificateUrl.openStream()) {
-            return IOUtils.toString(is, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Open stream of certificate failed.", e);
+    private static String readRawCertificate(final ResourceDetails certificateResourceDetails) {
+        final int MAX_RETRIES = 3;
+        IOException lastException = null;
+        for (int retry = 0; retry < MAX_RETRIES; retry++) {
+            try (InputStream is = getResourceStream(certificateResourceDetails)) {
+                return IOUtils.toString(is, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                LOG.info("Attempt {} to open stream of certificate failed.", (retry + 1), e);
+                lastException = e;
+                try {
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+                } catch (InterruptedException interruptedException) {
+                    LOG.debug(
+                            "Thread interrupted while waiting to make next readRawCertificate call to instance metadata service",
+                            interruptedException);
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
         }
+        throw new IllegalArgumentException("Open stream of certificate failed.", lastException);
+    }
+
+    private static InputStream getResourceStream(@NonNull final ResourceDetails resourceDetails)
+            throws IOException {
+        Objects.requireNonNull(resourceDetails.getUrl(), "Resource url cannot be null.");
+        final URLConnection urlConnection = resourceDetails.getUrl().openConnection();
+        if (resourceDetails.getHeaders() != null) {
+            resourceDetails.getHeaders().forEach(urlConnection::setRequestProperty);
+        }
+        return urlConnection.getInputStream();
     }
 
     /**
      * Read the private key from url.
-     * @param privateKeyUrl the private key url.
+     * @param privateKeyResourceDetails the private key resource details.
      * @param privateKeyPassphrase the private key passhprase
      * @return the private key
      */
-    private static RSAPrivateKey readPrivateKey(URL privateKeyUrl, char[] privateKeyPassphrase) {
-        if (privateKeyUrl == null) {
+    private static RSAPrivateKey readPrivateKey(
+            final ResourceDetails privateKeyResourceDetails, char[] privateKeyPassphrase) {
+        if (privateKeyResourceDetails == null || privateKeyResourceDetails.getUrl() == null) {
             return null;
         }
 
-        try {
-            return new PEMFileRSAPrivateKeySupplier(
-                            privateKeyUrl.openStream(), privateKeyPassphrase)
-                    .getKey(null)
-                    .orNull();
-        } catch (IOException e) {
-            throw new IllegalArgumentException("No file for private key", e);
+        final int MAX_RETRIES = 3;
+        Exception lastException = null;
+        for (int retry = 0; retry < MAX_RETRIES; retry++) {
+            try (InputStream inputStream = getResourceStream(privateKeyResourceDetails)) {
+                return new PEMFileRSAPrivateKeySupplier(inputStream, privateKeyPassphrase)
+                        .getKey(null)
+                        .orNull();
+            } catch (IOException
+                    | PEMFileRSAPrivateKeySupplier.PEMFileRSAPrivateKeySupplierException e) {
+                LOG.info("Attempt {} to read private key failed. ", (retry + 1), e);
+                lastException = e;
+                try {
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+                } catch (InterruptedException interruptedException) {
+                    LOG.debug(
+                            "Thread interrupted while waiting to make next readPrivateKey call to instance metadata service ",
+                            interruptedException);
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
         }
+        throw new IllegalArgumentException("No file for private key ", lastException);
     }
 
     /**

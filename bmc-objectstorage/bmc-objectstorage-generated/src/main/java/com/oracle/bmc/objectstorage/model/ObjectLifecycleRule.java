@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.objectstorage.model;
     builder = ObjectLifecycleRule.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class ObjectLifecycleRule {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -33,6 +35,15 @@ public class ObjectLifecycleRule {
         public Builder name(String name) {
             this.name = name;
             this.__explicitlySet__.add("name");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("target")
+        private String target;
+
+        public Builder target(String target) {
+            this.target = target;
+            this.__explicitlySet__.add("target");
             return this;
         }
 
@@ -87,7 +98,13 @@ public class ObjectLifecycleRule {
         public ObjectLifecycleRule build() {
             ObjectLifecycleRule __instance__ =
                     new ObjectLifecycleRule(
-                            name, action, timeAmount, timeUnit, isEnabled, objectNameFilter);
+                            name,
+                            target,
+                            action,
+                            timeAmount,
+                            timeUnit,
+                            isEnabled,
+                            objectNameFilter);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -96,6 +113,7 @@ public class ObjectLifecycleRule {
         public Builder copy(ObjectLifecycleRule o) {
             Builder copiedBuilder =
                     name(o.getName())
+                            .target(o.getTarget())
                             .action(o.getAction())
                             .timeAmount(o.getTimeAmount())
                             .timeUnit(o.getTimeUnit())
@@ -121,10 +139,28 @@ public class ObjectLifecycleRule {
     String name;
 
     /**
-     * The action of the object lifecycle policy rule. Rules using the action 'ARCHIVE' move objects into the
-     * [Archive Storage tier](https://docs.cloud.oracle.com/Content/Archive/Concepts/archivestorageoverview.htm). Rules using the action
-     * 'DELETE' permanently delete objects from buckets. 'ARCHIVE' and 'DELETE' are the only two supported
-     * actions at this time.
+     * The target of the object lifecycle policy rule. The values of target can be either \"objects\",
+     * \"multipart-uploads\" or \"previous-object-versions\".
+     * This field when declared as \"objects\" is used to specify ARCHIVE, INFREQUENT_ACCESS
+     * or DELETE rule for objects.
+     * This field when declared as \"previous-object-versions\" is used to specify ARCHIVE,
+     * INFREQUENT_ACCESS or DELETE rule for previous versions of existing objects.
+     * This field when declared as \"multipart-uploads\" is used to specify the ABORT (only) rule for
+     * uncommitted multipart-uploads.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("target")
+    String target;
+
+    /**
+     * The action of the object lifecycle policy rule.
+     * Rules using the action 'ARCHIVE' move objects from Standard and InfrequentAccess storage tiers
+     * into the [Archive storage tier](https://docs.cloud.oracle.com/Content/Archive/Concepts/archivestorageoverview.htm).
+     * Rules using the action 'INFREQUENT_ACCESS' move objects from Standard storage tier into the
+     * Infrequent Access Storage tier. Objects that are already in InfrequentAccess tier or in Archive
+     * tier are left untouched.
+     * Rules using the action 'DELETE' permanently delete objects from buckets.
+     * Rules using 'ABORT' abort the uncommitted multipart-uploads and permanently delete their parts from buckets.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("action")
@@ -194,14 +230,11 @@ public class ObjectLifecycleRule {
     TimeUnit timeUnit;
 
     /**
-     * A boolean that determines whether this rule is currently enabled.
+     * A Boolean that determines whether this rule is currently enabled.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     Boolean isEnabled;
 
-    /**
-     * A filter limiting object names that the rule will apply to.
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("objectNameFilter")
     ObjectNameFilter objectNameFilter;
 

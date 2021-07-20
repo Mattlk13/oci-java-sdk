@@ -1,10 +1,14 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.http;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Request;
+
+import com.oracle.bmc.requests.BmcRequest;
 
 /**
  * Configurator allowing SDK users to customize the underlying REST client.
@@ -26,4 +30,14 @@ public interface ClientConfigurator {
      *            The client.
      */
     void customizeClient(Client client);
+
+    /**
+     * Customize a request before it is made.
+     * @param request The request
+     * @param ib the invocation builder
+     */
+    default void customizeRequest(
+            BmcRequest<?> request, com.oracle.bmc.http.internal.WrappedInvocationBuilder ib) {
+        // by default, do nothing
+    }
 }

@@ -1,19 +1,36 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.dns.requests;
 
 import com.oracle.bmc.dns.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/dns/ListZonesExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListZonesRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180115")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The OCID of the compartment the resource belongs to.
      */
     private String compartmentId;
+
+    /**
+     * Unique Oracle-assigned identifier for the request. If you need
+     * to contact Oracle about a particular request, please provide
+     * the request ID.
+     *
+     */
+    private String opcRequestId;
 
     /**
      * The maximum number of items to return in a page of the collection.
@@ -82,10 +99,9 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid ZoneType: " + key);
+            throw new IllegalArgumentException("Invalid ZoneType: " + key);
         }
     };
-
     /**
      * An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
      * all returned resources were created on or after the indicated time.
@@ -114,6 +130,7 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
         Deleted("DELETED"),
         Deleting("DELETING"),
         Failed("FAILED"),
+        Updating("UPDATING"),
         ;
 
         private final String value;
@@ -140,10 +157,9 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid LifecycleState: " + key);
+            throw new IllegalArgumentException("Invalid LifecycleState: " + key);
         }
     };
-
     /**
      * The field by which to sort zones.
      */
@@ -182,17 +198,35 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortBy: " + key);
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
         }
     };
-
     /**
      * The order to sort the resources.
      *
      */
     private com.oracle.bmc.dns.model.SortOrder sortOrder;
 
-    public static class Builder {
+    /**
+     * Specifies to operate only on resources that have a matching DNS scope.
+     *
+     */
+    private com.oracle.bmc.dns.model.Scope scope;
+
+    /**
+     * The OCID of the view the resource is associated with.
+     */
+    private String viewId;
+
+    /**
+     * Search for zones that are associated with a TSIG key.
+     *
+     */
+    private String tsigKeyId;
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListZonesRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -226,6 +260,7 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
          */
         public Builder copy(ListZonesRequest o) {
             compartmentId(o.getCompartmentId());
+            opcRequestId(o.getOpcRequestId());
             limit(o.getLimit());
             page(o.getPage());
             name(o.getName());
@@ -236,6 +271,9 @@ public class ListZonesRequest extends com.oracle.bmc.requests.BmcRequest {
             lifecycleState(o.getLifecycleState());
             sortBy(o.getSortBy());
             sortOrder(o.getSortOrder());
+            scope(o.getScope());
+            viewId(o.getViewId());
+            tsigKeyId(o.getTsigKeyId());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

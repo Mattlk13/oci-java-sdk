@@ -1,14 +1,23 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.keymanagement.requests;
 
 import com.oracle.bmc.keymanagement.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/keymanagement/ListKeysExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListKeysRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: release")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The OCID of the compartment.
@@ -38,7 +47,7 @@ public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
 
     /**
      * The field to sort by. You can specify only one sort order. The default
-     * order for TIMECREATED is descending. The default order for DISPLAYNAME
+     * order for `TIMECREATED` is descending. The default order for `DISPLAYNAME`
      * is ascending.
      *
      */
@@ -46,7 +55,7 @@ public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
 
     /**
      * The field to sort by. You can specify only one sort order. The default
-     * order for TIMECREATED is descending. The default order for DISPLAYNAME
+     * order for `TIMECREATED` is descending. The default order for `DISPLAYNAME`
      * is ascending.
      *
      **/
@@ -79,10 +88,9 @@ public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortBy: " + key);
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
         }
     };
-
     /**
      * The sort order to use, either ascending (`ASC`) or descending (`DESC`).
      *
@@ -122,11 +130,154 @@ public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortOrder: " + key);
+            throw new IllegalArgumentException("Invalid SortOrder: " + key);
+        }
+    };
+    /**
+     * A key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed. A
+     * protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are
+     * performed inside the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's
+     * RSA wrapping key which persists on the HSM. All cryptographic operations that use a key with a protection mode of
+     * `SOFTWARE` are performed on the server.
+     *
+     */
+    private ProtectionMode protectionMode;
+
+    /**
+     * A key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed. A
+     * protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are
+     * performed inside the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's
+     * RSA wrapping key which persists on the HSM. All cryptographic operations that use a key with a protection mode of
+     * `SOFTWARE` are performed on the server.
+     *
+     **/
+    public enum ProtectionMode {
+        Hsm("HSM"),
+        Software("SOFTWARE"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, ProtectionMode> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (ProtectionMode v : ProtectionMode.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        ProtectionMode(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static ProtectionMode create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid ProtectionMode: " + key);
+        }
+    };
+    /**
+     * The algorithm used by a key's key versions to encrypt or decrypt data. Currently, support includes AES, RSA, and ECDSA algorithms.
+     *
+     */
+    private Algorithm algorithm;
+
+    /**
+     * The algorithm used by a key's key versions to encrypt or decrypt data. Currently, support includes AES, RSA, and ECDSA algorithms.
+     *
+     **/
+    public enum Algorithm {
+        Aes("AES"),
+        Rsa("RSA"),
+        Ecdsa("ECDSA"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, Algorithm> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Algorithm v : Algorithm.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        Algorithm(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Algorithm create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid Algorithm: " + key);
+        }
+    };
+    /**
+     * The length of the key in bytes, expressed as an integer. Supported values include 16, 24, or 32.
+     *
+     */
+    private Integer length;
+
+    /**
+     * The curve ID of the keys. (This pertains only to ECDSA keys.)
+     *
+     */
+    private CurveId curveId;
+
+    /**
+     * The curve ID of the keys. (This pertains only to ECDSA keys.)
+     *
+     **/
+    public enum CurveId {
+        NistP256("NIST_P256"),
+        NistP384("NIST_P384"),
+        NistP521("NIST_P521"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, CurveId> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (CurveId v : CurveId.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        CurveId(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static CurveId create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid CurveId: " + key);
         }
     };
 
-    public static class Builder {
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<ListKeysRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -165,6 +316,10 @@ public class ListKeysRequest extends com.oracle.bmc.requests.BmcRequest {
             opcRequestId(o.getOpcRequestId());
             sortBy(o.getSortBy());
             sortOrder(o.getSortOrder());
+            protectionMode(o.getProtectionMode());
+            algorithm(o.getAlgorithm());
+            length(o.getLength());
+            curveId(o.getCurveId());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

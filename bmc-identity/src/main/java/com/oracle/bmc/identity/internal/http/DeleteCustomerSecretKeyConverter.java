@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,15 +17,15 @@ public class DeleteCustomerSecretKeyConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static DeleteCustomerSecretKeyRequest interceptRequest(
-            DeleteCustomerSecretKeyRequest request) {
+    public static com.oracle.bmc.identity.requests.DeleteCustomerSecretKeyRequest interceptRequest(
+            com.oracle.bmc.identity.requests.DeleteCustomerSecretKeyRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            DeleteCustomerSecretKeyRequest request) {
+            com.oracle.bmc.identity.requests.DeleteCustomerSecretKeyRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getUserId(), "userId must not be blank");
         Validate.notBlank(
@@ -50,22 +51,29 @@ public class DeleteCustomerSecretKeyConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, DeleteCustomerSecretKeyResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, DeleteCustomerSecretKeyResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, DeleteCustomerSecretKeyResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses
+                                        .DeleteCustomerSecretKeyResponse>() {
                             @Override
-                            public DeleteCustomerSecretKeyResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for DeleteCustomerSecretKeyResponse");
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -76,8 +84,13 @@ public class DeleteCustomerSecretKeyConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                DeleteCustomerSecretKeyResponse.Builder builder =
-                                        DeleteCustomerSecretKeyResponse.builder();
+                                com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .DeleteCustomerSecretKeyResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -91,7 +104,8 @@ public class DeleteCustomerSecretKeyConverter {
                                                     String.class));
                                 }
 
-                                DeleteCustomerSecretKeyResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.DeleteCustomerSecretKeyResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

@@ -1,11 +1,17 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.loadbalancer;
 
 import com.oracle.bmc.loadbalancer.requests.*;
 import com.oracle.bmc.loadbalancer.responses.*;
 
+/**
+ * API for the Load Balancing service. Use this API to manage load balancers, backend sets, and related items. For more
+ * information, see [Overview of Load Balancing](https://docs.cloud.oracle.com/iaas/Content/Balance/Concepts/balanceoverview.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20170115")
 public interface LoadBalancerAsync extends AutoCloseable {
 
@@ -14,6 +20,11 @@ public interface LoadBalancerAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -196,6 +207,24 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Adds a routing policy to a load balancer. For more information, see
+     * [Managing Request Routing](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrequest.htm).
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateRoutingPolicyResponse> createRoutingPolicy(
+            CreateRoutingPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateRoutingPolicyRequest, CreateRoutingPolicyResponse>
+                    handler);
+
+    /**
      * Creates a new rule set associated with the specified load balancer. For more information, see
      * [Managing Rule Sets](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrulesets.htm).
      *
@@ -210,6 +239,22 @@ public interface LoadBalancerAsync extends AutoCloseable {
     java.util.concurrent.Future<CreateRuleSetResponse> createRuleSet(
             CreateRuleSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<CreateRuleSetRequest, CreateRuleSetResponse>
+                    handler);
+
+    /**
+     * Creates a custom SSL cipher suite.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateSSLCipherSuiteResponse> createSSLCipherSuite(
+            CreateSSLCipherSuiteRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateSSLCipherSuiteRequest, CreateSSLCipherSuiteResponse>
                     handler);
 
     /**
@@ -329,6 +374,26 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Deletes a routing policy from the specified load balancer.
+     * <p>
+     * To delete a routing rule from a routing policy, use the
+     * {@link #updateRoutingPolicy(UpdateRoutingPolicyRequest, Consumer, Consumer) updateRoutingPolicy} operation.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteRoutingPolicyResponse> deleteRoutingPolicy(
+            DeleteRoutingPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteRoutingPolicyRequest, DeleteRoutingPolicyResponse>
+                    handler);
+
+    /**
      * Deletes a rule set from the specified load balancer.
      * <p>
      * To delete a rule from a rule set, use the
@@ -345,6 +410,22 @@ public interface LoadBalancerAsync extends AutoCloseable {
     java.util.concurrent.Future<DeleteRuleSetResponse> deleteRuleSet(
             DeleteRuleSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<DeleteRuleSetRequest, DeleteRuleSetResponse>
+                    handler);
+
+    /**
+     * Deletes an SSL cipher suite from a load balancer.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteSSLCipherSuiteResponse> deleteSSLCipherSuite(
+            DeleteSSLCipherSuiteRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteSSLCipherSuiteRequest, DeleteSSLCipherSuiteResponse>
                     handler);
 
     /**
@@ -483,6 +564,21 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Gets the specified routing policy.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetRoutingPolicyResponse> getRoutingPolicy(
+            GetRoutingPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetRoutingPolicyRequest, GetRoutingPolicyResponse>
+                    handler);
+
+    /**
      * Gets the specified set of rules.
      *
      * @param request The request object containing the details to send
@@ -495,6 +591,22 @@ public interface LoadBalancerAsync extends AutoCloseable {
     java.util.concurrent.Future<GetRuleSetResponse> getRuleSet(
             GetRuleSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetRuleSetRequest, GetRuleSetResponse> handler);
+
+    /**
+     * Gets the specified SSL cipher suite's configuration information.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<GetSSLCipherSuiteResponse> getSSLCipherSuite(
+            GetSSLCipherSuiteRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetSSLCipherSuiteRequest, GetSSLCipherSuiteResponse>
+                    handler);
 
     /**
      * Gets the details of a work request.
@@ -673,6 +785,22 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Lists all routing policies associated with the specified load balancer.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListRoutingPoliciesResponse> listRoutingPolicies(
+            ListRoutingPoliciesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListRoutingPoliciesRequest, ListRoutingPoliciesResponse>
+                    handler);
+
+    /**
      * Lists all rule sets associated with the specified load balancer.
      *
      * @param request The request object containing the details to send
@@ -685,6 +813,22 @@ public interface LoadBalancerAsync extends AutoCloseable {
     java.util.concurrent.Future<ListRuleSetsResponse> listRuleSets(
             ListRuleSetsRequest request,
             com.oracle.bmc.responses.AsyncHandler<ListRuleSetsRequest, ListRuleSetsResponse>
+                    handler);
+
+    /**
+     * Lists all SSL cipher suites associated with the specified load balancer.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<ListSSLCipherSuitesResponse> listSSLCipherSuites(
+            ListSSLCipherSuitesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListSSLCipherSuitesRequest, ListSSLCipherSuitesResponse>
                     handler);
 
     /**
@@ -811,7 +955,29 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the network security groups to be used by a load balancer.
+     * Update the shape of a load balancer. The new shape can be larger or smaller compared to existing shape of the
+     * LB. The service will try to perform this operation in the least disruptive way to existing connections, but
+     * there is a possibility that they might be lost during the LB resizing process. The new shape becomes effective
+     * as soon as the related work request completes successfully, i.e. when reshaping to a larger shape, the LB will
+     * start accepting larger bandwidth and when reshaping to a smaller one, the LB will be accepting smaller
+     * bandwidth.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateLoadBalancerShapeResponse> updateLoadBalancerShape(
+            UpdateLoadBalancerShapeRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateLoadBalancerShapeRequest, UpdateLoadBalancerShapeResponse>
+                    handler);
+
+    /**
+     * Updates the network security groups associated with the specified load balancer.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -849,6 +1015,26 @@ public interface LoadBalancerAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Overwrites an existing routing policy on the specified load balancer. Use this operation to add, delete, or alter
+     * routing policy rules in a routing policy.
+     * <p>
+     * To add a new routing rule to a routing policy, the body must include both the new routing rule to add and the existing rules to retain.
+     *
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateRoutingPolicyResponse> updateRoutingPolicy(
+            UpdateRoutingPolicyRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateRoutingPolicyRequest, UpdateRoutingPolicyResponse>
+                    handler);
+
+    /**
      * Overwrites an existing set of rules on the specified load balancer. Use this operation to add or alter
      * the rules in a rule set.
      * <p>
@@ -865,5 +1051,21 @@ public interface LoadBalancerAsync extends AutoCloseable {
     java.util.concurrent.Future<UpdateRuleSetResponse> updateRuleSet(
             UpdateRuleSetRequest request,
             com.oracle.bmc.responses.AsyncHandler<UpdateRuleSetRequest, UpdateRuleSetResponse>
+                    handler);
+
+    /**
+     * Updates an existing SSL cipher suite for the specified load balancer.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was
+     *         provided. Note, if you provide an AsyncHandler and use the Future, some
+     *         types of responses (like java.io.InputStream) may not be able to be read in
+     *         both places as the underlying stream may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateSSLCipherSuiteResponse> updateSSLCipherSuite(
+            UpdateSSLCipherSuiteRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateSSLCipherSuiteRequest, UpdateSSLCipherSuiteResponse>
                     handler);
 }

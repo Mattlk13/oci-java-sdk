@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.core.model;
     builder = InstanceConfigurationAttachVnicDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class InstanceConfigurationAttachVnicDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -81,10 +83,6 @@ public class InstanceConfigurationAttachVnicDetails {
         return new Builder();
     }
 
-    /**
-     * Details for creating a new VNIC.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("createVnicDetails")
     InstanceConfigurationCreateVnicDetails createVnicDetails;
 
@@ -100,7 +98,7 @@ public class InstanceConfigurationAttachVnicDetails {
      * Certain bare metal instance shapes have two active physical NICs (0 and 1). If
      * you add a secondary VNIC to one of these instances, you can specify which NIC
      * the VNIC will use. For more information, see
-     * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+     * [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nicIndex")

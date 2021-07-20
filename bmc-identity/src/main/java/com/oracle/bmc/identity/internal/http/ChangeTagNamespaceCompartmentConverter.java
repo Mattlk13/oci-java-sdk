@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,15 +17,16 @@ public class ChangeTagNamespaceCompartmentConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static ChangeTagNamespaceCompartmentRequest interceptRequest(
-            ChangeTagNamespaceCompartmentRequest request) {
+    public static com.oracle.bmc.identity.requests.ChangeTagNamespaceCompartmentRequest
+            interceptRequest(
+                    com.oracle.bmc.identity.requests.ChangeTagNamespaceCompartmentRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            ChangeTagNamespaceCompartmentRequest request) {
+            com.oracle.bmc.identity.requests.ChangeTagNamespaceCompartmentRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getTagNamespaceId(), "tagNamespaceId must not be blank");
         Validate.notNull(
@@ -49,23 +51,30 @@ public class ChangeTagNamespaceCompartmentConverter {
             ib.header("opc-retry-token", request.getOpcRetryToken());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, ChangeTagNamespaceCompartmentResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.ChangeTagNamespaceCompartmentResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, ChangeTagNamespaceCompartmentResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.ChangeTagNamespaceCompartmentResponse>
                 transformer =
                         new com.google.common.base.Function<
                                 javax.ws.rs.core.Response,
-                                ChangeTagNamespaceCompartmentResponse>() {
+                                com.oracle.bmc.identity.responses
+                                        .ChangeTagNamespaceCompartmentResponse>() {
                             @Override
-                            public ChangeTagNamespaceCompartmentResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.identity.responses
+                                            .ChangeTagNamespaceCompartmentResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for ChangeTagNamespaceCompartmentResponse");
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.ChangeTagNamespaceCompartmentResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -76,8 +85,14 @@ public class ChangeTagNamespaceCompartmentConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                ChangeTagNamespaceCompartmentResponse.Builder builder =
-                                        ChangeTagNamespaceCompartmentResponse.builder();
+                                com.oracle.bmc.identity.responses
+                                                .ChangeTagNamespaceCompartmentResponse.Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .ChangeTagNamespaceCompartmentResponse
+                                                        .builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -91,8 +106,9 @@ public class ChangeTagNamespaceCompartmentConverter {
                                                     String.class));
                                 }
 
-                                ChangeTagNamespaceCompartmentResponse responseWrapper =
-                                        builder.build();
+                                com.oracle.bmc.identity.responses
+                                                .ChangeTagNamespaceCompartmentResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

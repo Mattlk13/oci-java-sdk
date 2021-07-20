@@ -1,14 +1,24 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.database.requests;
 
 import com.oracle.bmc.database.model.*;
-
+/**
+ * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/ListAutonomousDatabasesExample.java.html" target="_blank" rel="noopener noreferrer">here</a> to see how to use ListAutonomousDatabasesRequest.
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20160918")
-@lombok.Builder(builderClassName = "Builder", buildMethodName = "buildWithoutInvocationCallback")
+@lombok.Builder(
+    builderClassName = "Builder",
+    buildMethodName = "buildWithoutInvocationCallback",
+    toBuilder = true
+)
+@lombok.ToString(callSuper = true)
+@lombok.EqualsAndHashCode(callSuper = true)
 @lombok.Getter
-public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcRequest {
+public class ListAutonomousDatabasesRequest
+        extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
     /**
      * The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -73,10 +83,9 @@ public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcR
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortBy: " + key);
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
         }
     };
-
     /**
      * The sort order to use, either ascending (`ASC`) or descending (`DESC`).
      */
@@ -114,9 +123,13 @@ public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcR
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new RuntimeException("Invalid SortOrder: " + key);
+            throw new IllegalArgumentException("Invalid SortOrder: " + key);
         }
     };
+    /**
+     * A filter to return only resources that match the given Infrastructure Type.
+     */
+    private AutonomousDatabaseSummary.InfrastructureType infrastructureType;
 
     /**
      * A filter to return only resources that match the given lifecycle state exactly.
@@ -129,6 +142,18 @@ public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcR
     private AutonomousDatabaseSummary.DbWorkload dbWorkload;
 
     /**
+     * A filter to return only autonomous database resources that match the specified dbVersion.
+     */
+    private String dbVersion;
+
+    /**
+     * Filter on the value of the resource's 'isFreeTier' property. A value of `true` returns only Always Free resources.
+     * A value of `false` excludes Always Free resources from the returned results. Omitting this parameter returns both Always Free and paid resources.
+     *
+     */
+    private Boolean isFreeTier;
+
+    /**
      * A filter to return only resources that match the entire display name given. The match is not case sensitive.
      */
     private String displayName;
@@ -139,7 +164,21 @@ public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcR
      */
     private String opcRequestId;
 
-    public static class Builder {
+    /**
+     * Filter on the value of the resource's 'isRefreshableClone' property. A value of `true` returns only refreshable clones.
+     * A value of `false` excludes refreshable clones from the returned results. Omitting this parameter returns both refreshable clones and databases that are not refreshable clones.
+     *
+     */
+    private Boolean isRefreshableClone;
+
+    /**
+     * A filter to return only resources that have Data Guard enabled.
+     */
+    private Boolean isDataGuardEnabled;
+
+    public static class Builder
+            implements com.oracle.bmc.requests.BmcRequest.Builder<
+                    ListAutonomousDatabasesRequest, java.lang.Void> {
         private com.oracle.bmc.util.internal.Consumer<javax.ws.rs.client.Invocation.Builder>
                 invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
@@ -178,10 +217,15 @@ public class ListAutonomousDatabasesRequest extends com.oracle.bmc.requests.BmcR
             page(o.getPage());
             sortBy(o.getSortBy());
             sortOrder(o.getSortOrder());
+            infrastructureType(o.getInfrastructureType());
             lifecycleState(o.getLifecycleState());
             dbWorkload(o.getDbWorkload());
+            dbVersion(o.getDbVersion());
+            isFreeTier(o.getIsFreeTier());
             displayName(o.getDisplayName());
             opcRequestId(o.getOpcRequestId());
+            isRefreshableClone(o.getIsRefreshableClone());
+            isDataGuardEnabled(o.getIsDataGuardEnabled());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;

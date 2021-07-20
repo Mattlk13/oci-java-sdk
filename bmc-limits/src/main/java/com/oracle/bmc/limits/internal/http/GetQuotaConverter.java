@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.limits.internal.http;
 
@@ -16,19 +17,22 @@ public class GetQuotaConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static GetQuotaRequest interceptRequest(GetQuotaRequest request) {
+    public static com.oracle.bmc.limits.requests.GetQuotaRequest interceptRequest(
+            com.oracle.bmc.limits.requests.GetQuotaRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, GetQuotaRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.limits.requests.GetQuotaRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getQuotaId(), "quotaId must not be blank");
 
         com.oracle.bmc.http.internal.WrappedWebTarget target =
                 client.getBaseTarget()
-                        .path("/20181025")
+                        .path("/")
+                        .path("20181025")
                         .path("quotas")
                         .path(
                                 com.oracle.bmc.util.internal.HttpUtils.encodePathSegment(
@@ -42,18 +46,26 @@ public class GetQuotaConverter {
             ib.header("opc-request-id", request.getOpcRequestId());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
-    public static com.google.common.base.Function<javax.ws.rs.core.Response, GetQuotaResponse>
+    public static com.google.common.base.Function<
+                    javax.ws.rs.core.Response, com.oracle.bmc.limits.responses.GetQuotaResponse>
             fromResponse() {
-        final com.google.common.base.Function<javax.ws.rs.core.Response, GetQuotaResponse>
+        final com.google.common.base.Function<
+                        javax.ws.rs.core.Response, com.oracle.bmc.limits.responses.GetQuotaResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, GetQuotaResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.limits.responses.GetQuotaResponse>() {
                             @Override
-                            public GetQuotaResponse apply(javax.ws.rs.core.Response rawResponse) {
-                                LOG.trace("Transform function invoked for GetQuotaResponse");
+                            public com.oracle.bmc.limits.responses.GetQuotaResponse apply(
+                                    javax.ws.rs.core.Response rawResponse) {
+                                LOG.trace(
+                                        "Transform function invoked for com.oracle.bmc.limits.responses.GetQuotaResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Quota>>
@@ -65,7 +77,9 @@ public class GetQuotaConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                GetQuotaResponse.Builder builder = GetQuotaResponse.builder();
+                                com.oracle.bmc.limits.responses.GetQuotaResponse.Builder builder =
+                                        com.oracle.bmc.limits.responses.GetQuotaResponse.builder()
+                                                .__httpStatusCode__(rawResponse.getStatus());
 
                                 builder.quota(response.getItem());
 
@@ -90,7 +104,8 @@ public class GetQuotaConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                GetQuotaResponse responseWrapper = builder.build();
+                                com.oracle.bmc.limits.responses.GetQuotaResponse responseWrapper =
+                                        builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

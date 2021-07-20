@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.autoscaling.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.autoscaling.model;
     builder = UpdateAutoScalingConfigurationDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateAutoScalingConfigurationDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -135,11 +137,6 @@ public class UpdateAutoScalingConfigurationDetails {
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     Boolean isEnabled;
 
-    /**
-     * The minimum period of time to wait between scaling actions. The cooldown period gives the system time
-     * to stabilize before rescaling. The minimum value is 300 seconds, which is also the default.
-     *
-     **/
     @com.fasterxml.jackson.annotation.JsonProperty("coolDownInSeconds")
     Integer coolDownInSeconds;
 

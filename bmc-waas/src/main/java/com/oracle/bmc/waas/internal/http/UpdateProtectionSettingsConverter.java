@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.waas.internal.http;
 
@@ -16,15 +17,15 @@ public class UpdateProtectionSettingsConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateProtectionSettingsRequest interceptRequest(
-            UpdateProtectionSettingsRequest request) {
+    public static com.oracle.bmc.waas.requests.UpdateProtectionSettingsRequest interceptRequest(
+            com.oracle.bmc.waas.requests.UpdateProtectionSettingsRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
             com.oracle.bmc.http.internal.RestClient client,
-            UpdateProtectionSettingsRequest request) {
+            com.oracle.bmc.waas.requests.UpdateProtectionSettingsRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getWaasPolicyId(), "waasPolicyId must not be blank");
         Validate.notNull(
@@ -57,22 +58,28 @@ public class UpdateProtectionSettingsConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdateProtectionSettingsResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, UpdateProtectionSettingsResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateProtectionSettingsResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse>() {
                             @Override
-                            public UpdateProtectionSettingsResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdateProtectionSettingsResponse");
+                                        "Transform function invoked for com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -83,8 +90,13 @@ public class UpdateProtectionSettingsConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateProtectionSettingsResponse.Builder builder =
-                                        UpdateProtectionSettingsResponse.builder();
+                                com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.waas.responses
+                                                        .UpdateProtectionSettingsResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -110,7 +122,8 @@ public class UpdateProtectionSettingsConverter {
                                                     String.class));
                                 }
 
-                                UpdateProtectionSettingsResponse responseWrapper = builder.build();
+                                com.oracle.bmc.waas.responses.UpdateProtectionSettingsResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

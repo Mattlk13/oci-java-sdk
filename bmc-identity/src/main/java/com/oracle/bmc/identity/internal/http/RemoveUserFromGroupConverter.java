@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,13 +17,15 @@ public class RemoveUserFromGroupConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static RemoveUserFromGroupRequest interceptRequest(RemoveUserFromGroupRequest request) {
+    public static com.oracle.bmc.identity.requests.RemoveUserFromGroupRequest interceptRequest(
+            com.oracle.bmc.identity.requests.RemoveUserFromGroupRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, RemoveUserFromGroupRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.RemoveUserFromGroupRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(
                 request.getUserGroupMembershipId(), "userGroupMembershipId must not be blank");
@@ -43,22 +46,28 @@ public class RemoveUserFromGroupConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, RemoveUserFromGroupResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, RemoveUserFromGroupResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, RemoveUserFromGroupResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse>() {
                             @Override
-                            public RemoveUserFromGroupResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for RemoveUserFromGroupResponse");
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<Void>>
@@ -69,8 +78,13 @@ public class RemoveUserFromGroupConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                RemoveUserFromGroupResponse.Builder builder =
-                                        RemoveUserFromGroupResponse.builder();
+                                com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .RemoveUserFromGroupResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 com.google.common.base.Optional<java.util.List<String>>
                                         opcRequestIdHeader =
@@ -84,7 +98,8 @@ public class RemoveUserFromGroupConverter {
                                                     String.class));
                                 }
 
-                                RemoveUserFromGroupResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.RemoveUserFromGroupResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

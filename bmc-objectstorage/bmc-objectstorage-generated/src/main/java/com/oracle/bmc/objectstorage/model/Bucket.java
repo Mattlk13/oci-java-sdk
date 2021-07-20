@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.objectstorage.model;
 
@@ -25,6 +26,7 @@ package com.oracle.bmc.objectstorage.model;
 @lombok.Value
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(builder = Bucket.Builder.class)
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class Bucket {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -110,6 +112,15 @@ public class Bucket {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("objectEventsEnabled")
+        private Boolean objectEventsEnabled;
+
+        public Builder objectEventsEnabled(Boolean objectEventsEnabled) {
+            this.objectEventsEnabled = objectEventsEnabled;
+            this.__explicitlySet__.add("objectEventsEnabled");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -165,6 +176,51 @@ public class Bucket {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("replicationEnabled")
+        private Boolean replicationEnabled;
+
+        public Builder replicationEnabled(Boolean replicationEnabled) {
+            this.replicationEnabled = replicationEnabled;
+            this.__explicitlySet__.add("replicationEnabled");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("isReadOnly")
+        private Boolean isReadOnly;
+
+        public Builder isReadOnly(Boolean isReadOnly) {
+            this.isReadOnly = isReadOnly;
+            this.__explicitlySet__.add("isReadOnly");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("id")
+        private String id;
+
+        public Builder id(String id) {
+            this.id = id;
+            this.__explicitlySet__.add("id");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("versioning")
+        private Versioning versioning;
+
+        public Builder versioning(Versioning versioning) {
+            this.versioning = versioning;
+            this.__explicitlySet__.add("versioning");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("autoTiering")
+        private AutoTiering autoTiering;
+
+        public Builder autoTiering(AutoTiering autoTiering) {
+            this.autoTiering = autoTiering;
+            this.__explicitlySet__.add("autoTiering");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -180,12 +236,18 @@ public class Bucket {
                             etag,
                             publicAccessType,
                             storageTier,
+                            objectEventsEnabled,
                             freeformTags,
                             definedTags,
                             kmsKeyId,
                             objectLifecyclePolicyEtag,
                             approximateCount,
-                            approximateSize);
+                            approximateSize,
+                            replicationEnabled,
+                            isReadOnly,
+                            id,
+                            versioning,
+                            autoTiering);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -202,12 +264,18 @@ public class Bucket {
                             .etag(o.getEtag())
                             .publicAccessType(o.getPublicAccessType())
                             .storageTier(o.getStorageTier())
+                            .objectEventsEnabled(o.getObjectEventsEnabled())
                             .freeformTags(o.getFreeformTags())
                             .definedTags(o.getDefinedTags())
                             .kmsKeyId(o.getKmsKeyId())
                             .objectLifecyclePolicyEtag(o.getObjectLifecyclePolicyEtag())
                             .approximateCount(o.getApproximateCount())
-                            .approximateSize(o.getApproximateSize());
+                            .approximateSize(o.getApproximateSize())
+                            .replicationEnabled(o.getReplicationEnabled())
+                            .isReadOnly(o.getIsReadOnly())
+                            .id(o.getId())
+                            .versioning(o.getVersioning())
+                            .autoTiering(o.getAutoTiering());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -222,7 +290,7 @@ public class Bucket {
     }
 
     /**
-     * The Object Storage namespace in which the bucket lives.
+     * The Object Storage namespace in which the bucket resides.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("namespace")
     String namespace;
@@ -248,13 +316,13 @@ public class Bucket {
     java.util.Map<String, String> metadata;
 
     /**
-     * The OCID of the user who created the bucket.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the user who created the bucket.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("createdBy")
     String createdBy;
 
     /**
-     * The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+     * The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
     java.util.Date timeCreated;
@@ -327,10 +395,10 @@ public class Bucket {
     @com.fasterxml.jackson.annotation.JsonProperty("publicAccessType")
     PublicAccessType publicAccessType;
     /**
-     * The storage tier type assigned to the bucket. A bucket is set to 'Standard' tier by default, which means
-     * objects uploaded or copied to the bucket will be in the standard storage tier. When the 'Archive' tier type
+     * The storage tier type assigned to the bucket. A bucket is set to `Standard` tier by default, which means
+     * objects uploaded or copied to the bucket will be in the standard storage tier. When the `Archive` tier type
      * is set explicitly for a bucket, objects uploaded or copied to the bucket will be stored in archive storage.
-     * The 'storageTier' property is immutable after bucket is created.
+     * The `storageTier` property is immutable after bucket is created.
      *
      **/
     @lombok.extern.slf4j.Slf4j
@@ -377,14 +445,23 @@ public class Bucket {
         }
     };
     /**
-     * The storage tier type assigned to the bucket. A bucket is set to 'Standard' tier by default, which means
-     * objects uploaded or copied to the bucket will be in the standard storage tier. When the 'Archive' tier type
+     * The storage tier type assigned to the bucket. A bucket is set to `Standard` tier by default, which means
+     * objects uploaded or copied to the bucket will be in the standard storage tier. When the `Archive` tier type
      * is set explicitly for a bucket, objects uploaded or copied to the bucket will be stored in archive storage.
-     * The 'storageTier' property is immutable after bucket is created.
+     * The `storageTier` property is immutable after bucket is created.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("storageTier")
     StorageTier storageTier;
+
+    /**
+     * Whether or not events are emitted for object state changes in this bucket. By default, `objectEventsEnabled` is
+     * set to `false`. Set `objectEventsEnabled` to `true` to emit events for object state changes. For more information
+     * about events, see [Overview of Events](https://docs.cloud.oracle.com/Content/Events/Concepts/eventsoverview.htm).
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("objectEventsEnabled")
+    Boolean objectEventsEnabled;
 
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
@@ -405,7 +482,8 @@ public class Bucket {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * The OCID of a KMS key id used to call KMS to generate data key or decrypt the encrypted data key.
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key Management
+     * service to generate a data encryption key or to encrypt or decrypt a data encryption key.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("kmsKeyId")
@@ -432,6 +510,142 @@ public class Bucket {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("approximateSize")
     Long approximateSize;
+
+    /**
+     * Whether or not this bucket is a replication source. By default, `replicationEnabled` is set to `false`. This will
+     * be set to 'true' when you create a replication policy for the bucket.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("replicationEnabled")
+    Boolean replicationEnabled;
+
+    /**
+     * Whether or not this bucket is read only. By default, `isReadOnly` is set to `false`. This will
+     * be set to 'true' when this bucket is configured as a destination in a replication policy.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("isReadOnly")
+    Boolean isReadOnly;
+
+    /**
+     * The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the bucket.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("id")
+    String id;
+    /**
+     * The versioning status on the bucket. A bucket is created with versioning `Disabled` by default.
+     * For versioning `Enabled`, objects are protected from overwrites and deletes, by maintaining their version history. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum Versioning {
+        Enabled("Enabled"),
+        Suspended("Suspended"),
+        Disabled("Disabled"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, Versioning> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (Versioning v : Versioning.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        Versioning(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static Versioning create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'Versioning', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The versioning status on the bucket. A bucket is created with versioning `Disabled` by default.
+     * For versioning `Enabled`, objects are protected from overwrites and deletes, by maintaining their version history. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("versioning")
+    Versioning versioning;
+    /**
+     * The auto tiering status on the bucket. A bucket is created with auto tiering `Disabled` by default.
+     * For auto tiering `InfrequentAccess`, objects are transitioned automatically between the 'Standard'
+     * and 'InfrequentAccess' tiers based on the access pattern of the objects.
+     *
+     **/
+    @lombok.extern.slf4j.Slf4j
+    public enum AutoTiering {
+        Disabled("Disabled"),
+        InfrequentAccess("InfrequentAccess"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by this
+         * version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private final String value;
+        private static java.util.Map<String, AutoTiering> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (AutoTiering v : AutoTiering.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        AutoTiering(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static AutoTiering create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'AutoTiering', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * The auto tiering status on the bucket. A bucket is created with auto tiering `Disabled` by default.
+     * For auto tiering `InfrequentAccess`, objects are transitioned automatically between the 'Standard'
+     * and 'InfrequentAccess' tiers based on the access pattern of the objects.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("autoTiering")
+    AutoTiering autoTiering;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

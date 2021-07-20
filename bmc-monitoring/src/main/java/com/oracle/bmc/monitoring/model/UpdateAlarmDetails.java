@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.monitoring.model;
 
@@ -23,6 +24,7 @@ package com.oracle.bmc.monitoring.model;
     builder = UpdateAlarmDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class UpdateAlarmDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -69,6 +71,15 @@ public class UpdateAlarmDetails {
         public Builder namespace(String namespace) {
             this.namespace = namespace;
             this.__explicitlySet__.add("namespace");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+        private String resourceGroup;
+
+        public Builder resourceGroup(String resourceGroup) {
+            this.resourceGroup = resourceGroup;
+            this.__explicitlySet__.add("resourceGroup");
             return this;
         }
 
@@ -183,6 +194,7 @@ public class UpdateAlarmDetails {
                             metricCompartmentId,
                             metricCompartmentIdInSubtree,
                             namespace,
+                            resourceGroup,
                             query,
                             resolution,
                             pendingDuration,
@@ -206,6 +218,7 @@ public class UpdateAlarmDetails {
                             .metricCompartmentId(o.getMetricCompartmentId())
                             .metricCompartmentIdInSubtree(o.getMetricCompartmentIdInSubtree())
                             .namespace(o.getNamespace())
+                            .resourceGroup(o.getResourceGroup())
                             .query(o.getQuery())
                             .resolution(o.getResolution())
                             .pendingDuration(o.getPendingDuration())
@@ -280,6 +293,17 @@ public class UpdateAlarmDetails {
     String namespace;
 
     /**
+     * Resource group that you want to use as a filter. The alarm retrieves metric data associated with the specified resource group only. Only one resource group can be applied per metric.
+     * A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+     * Avoid entering confidential information.
+     * <p>
+     * Example: `frontend-fleet`
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceGroup")
+    String resourceGroup;
+
+    /**
      * The Monitoring Query Language (MQL) expression to evaluate for the alarm. The Alarms feature of
      * the Monitoring service interprets results for each returned time series as Boolean values,
      * where zero represents false and a non-zero value represents true. A true value means that the trigger
@@ -319,17 +343,18 @@ public class UpdateAlarmDetails {
 
     /**
      * The period of time that the condition defined in the alarm must persist before the alarm state
-     * changes from \"OK\" to \"FIRING\" or vice versa. For example, a value of 5 minutes means that the
+     * changes from \"OK\" to \"FIRING\". For example, a value of 5 minutes means that the
      * alarm must persist in breaching the condition for five minutes before the alarm updates its
-     * state to \"FIRING\"; likewise, the alarm must persist in not breaching the condition for five
-     * minutes before the alarm updates its state to \"OK.\"
+     * state to \"FIRING\".
      * <p>
      * The duration is specified as a string in ISO 8601 format (`PT10M` for ten minutes or `PT1H`
      * for one hour). Minimum: PT1M. Maximum: PT1H. Default: PT1M.
      * <p>
      * Under the default value of PT1M, the first evaluation that breaches the alarm updates the
-     * state to \"FIRING\" and the first evaluation that does not breach the alarm updates the state
-     * to \"OK\".
+     * state to \"FIRING\".
+     * <p>
+     * The alarm updates its status to \"OK\" when the breaching condition has been clear for
+     * the most recent minute.
      * <p>
      * Example: `PT5M`
      *

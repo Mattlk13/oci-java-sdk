@@ -2,6 +2,945 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
+
+## 2.3.0 - 2021-07-20
+### Added
+- Support for schedules, schedule tasks, REST tasks, operators, S3, and Fusion Apps in the Data Integration service
+- Support for getting available updates and update histories for VM clusters in the Database service
+- Support for downloading network validation reports for Exadata network resources in the Database service
+- Support for patch and upgrade of Grid Infrastructure (GI), and update of DomU OS software for VM clusters in the Database service
+- Support for updating data guard associations in the Database service
+
+### Breaking Changes
+- Return type of method `public java.lang.String getType()` has been changed to `java.lang.Object` in the model `com.oracle.bmc.dataintegration.model.NativeShapeField` in the Data Integration service
+- Removed field `RestOperator` from the model `com.oracle.bmc.dataintegration.model.Operator$ModelType` in the Data Integration service
+- Method `public java.lang.String getBucketName()` has been removed from the model `com.oracle.bmc.dataintegration.model.OracleAdwcWriteAttributes` in the Data Integration service
+- Method `public java.lang.String getBucketName()` has been removed from the model `com.oracle.bmc.dataintegration.model.OracleAtpWriteAttributes` in the Data Integration service
+- Return type of method `public com.oracle.bmc.dataintegration.model.BaseType getType()` has been changed to `java.lang.Object` in the model `com.oracle.bmc.dataintegration.model.Parameter` in the Data Integration service
+- Return type of method `public java.lang.String getType()` has been changed to `java.lang.Object` in the model `com.oracle.bmc.dataintegration.model.ShapeField` in the Data Integration service
+- Return type of method `public com.oracle.bmc.dataintegration.requests.ListWorkspacesRequest$LifecycleState getLifecycleState()` has been changed to `com.oracle.bmc.dataintegration.model.Workspace$LifecycleState` in the Data Integration service
+- Class `com.oracle.bmc.dataintegration.requests.ListWorkspacesRequest$LifecycleState` has been removed in the Data Integration service
+
+## 2.2.0 - 2021-07-13
+### Added
+- Support for the AI Anomaly Detection service
+- Support for retrieving a DNS zone as a zone file in the DNS service
+- Support for querying manual adjustments in the Usage service
+- Support for searching Marketplace listings in the Marketplace service
+- Support for new cluster type `ODH` in the Big Data service
+- Support for availability domain as an optional parameter when creating VLANs in the Networking service
+- Support for search domain type on DHCP options, to support multi-level domain search in the Networking service
+
+### Breaking Changes
+- Method `public com.oracle.bmc.dns.model.TSIG getTsig()` has been removed from the model `com.oracle.bmc.dns.model.ExternalMaster` in the DNS service
+- Class `com.oracle.bmc.dns.model.TSIG` has been removed in the DNS service
+- Class `com.oracle.bmc.usageapi.model.CreateCustomTableDetails` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.CreateScheduleReportDetails` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.CustomTable` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.CustomTableCollection` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.CustomTableSummary` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.SavedScheduleReport` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.SavedScheduleReport$NotificationType` has been removed from the model `com.oracle.bmc.usageapi.model.SavedScheduleReport` in the Usage service
+- Class `com.oracle.bmc.usageapi.model.ScheduleReport` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.ScheduleReportCollection` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.ScheduleReportSummary` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.UpdateCustomTableDetails` has been removed in the Usage service
+- Class `com.oracle.bmc.usageapi.model.UpdateScheduleReportDetails` has been removed in the Usage service
+
+## 2.1.1 - 2021-07-06
+### Added
+- Support for order activation in the Organizations service
+- Support for resource principal authorization on Enterprise Manager bridge resources in the Operations Insights service
+- Support for the starter edition license type in the Content and Experience service
+- Support for the Generic Artifacts service's new domain name
+
+## 2.1.0 - 2021-06-29
+### Added
+- Support for the DevOps service
+- Support for configuring network security groups for node pools in the Container Engine for Kubernetes service
+- Support for optionally specifying CPU core count and data storage size when creating autonomous databases in the Database service
+- Support for metastore and initial data asset import/export in the Data Catalog service
+- Support for associating domain names to emails and managing email domain names / DKIM in the Email Delivery service
+- Support for email domain names on senders and suppressions in the Email Delivery service
+
+### Breaking Changes
+- Return type of method `getSortOrder()` in `com.oracle.bmc.email.requests.ListSendersRequest` has been changed to `com.oracle.bmc.email.model.SortOrder` in the Email Delivery service
+- Class `com.oracle.bmc.email.requests.ListSendersRequest$SortOrder` has been removed from `com.oracle.bmc.email.requests.ListSendersRequest` in the Email Delivery service
+- Return type of method `getSortOrder()` in `com.oracle.bmc.email.requests.ListSuppressionsRequest` has been changed to `com.oracle.bmc.email.model.SortOrder` in the Email Delivery service
+- Class `com.oracle.bmc.email.requests.ListSuppressionsRequest$SortOrder` has been removed from `com.oracle.bmc.email.requests.ListSuppressionsRequest` in the Email Delivery service
+- Removed field `Displayname` from `com.oracle.bmc.datacatalog.requests.ListJobExecutionsRequest$SortBy` in the Data Catalog service
+
+## 2.0.2 - 2021-06-22
+### Added
+- Support for virtual machine and bare metal pluggable databases in the Database service
+
+## 2.0.0 - 2021-06-15
+### Added
+- Support for elastic storage on Exadata Infrastructure resources for Cloud at Customer in the Database service
+- Support for registration and management of target databases in the Data Safe service
+- Support for config on metadata in the Management Dashboard service
+- Support for a new work request operation type for node pool reconciliation events in the Container Engine for Kubernetes service
+- Support for migrating clusters with a public Kubernetes API endpoint which are not integrated with a customer's VCN to a VCN-native cluster in the Container Engine for Kubernetes service
+- Support for getting the spark version of applications, and filtering applications by spark version, in the Data Flow service
+
+### Breaking Changes
+- Usage of Jersey's `ApacheConnectorProvider` by default to send requests to the service. For switching back to Jersey's default `HttpUrlConnectorProvider`, see "ApacheConnector-README"
+- Performance issues for APIs that return binary/stream response due to upgrade to Jersey's `ApacheConnectorProvider`. For more details, see "ApacheConnector-README"
+- Auto-close behavior for response streams on full-read for APIs that return binary/stream response. For more details, see "ApacheConnector-README"
+- Method `public java.util.Map getDefinedTags()` has been removed from the model `com.oracle.bmc.managementdashboard.model.ManagementDashboardExportDetails` in the Management Dashboard service
+- Method `public java.util.Map getFreeformTags()` has been removed from the model `com.oracle.bmc.managementdashboard.model.ManagementDashboardExportDetails` in the Management Dashboard service
+
+## 1.37.2 - 2021-06-08
+### Added
+- Support for Java Management service
+- Support for resource principals for the Enterprise Manager bridge resource in Operations Insights service
+- Support for encryptionInTransitType in BootVolumeAttachment and IScsiVolumeAttachment in Core service
+- Support for updating iscsiLoginState for VolumeAttachment in Core service
+- Support for a new type of Source called Import for use with the Export tool in Application Migration service
+
+## 1.37.1 - 2021-06-01
+### Added
+- Support for configuration of autonomous database KMS keys in the Database service
+- Support for creating database software images with any supported RUs in the Database service
+- Support for creating database software images from an existing database home in the Database service
+- Support for listing all NSGs associated with a given VLAN in the Networking service
+- Support for a duration windows, task failure reasons, and next execution times on scheduled tasks in the Logging Analytics service
+- Support for calling Oracle Cloud Infrastructure services in the sa-vinhedo-1 region
+
+## 1.37.0 - 2021-05-25
+### Added
+- Support for the Generic Artifacts service
+- Support for the Bastion service
+- Support for reading secrets by name in the Vault service
+- Support for the isDynamic field when listing definitions in the Limits service
+- Support for getting billable image sizes in the Compute service
+- Support for getting Automatic Workload Repository (AWR) data on external databases in the Database Management service
+- Support for the VM.Standard.E3.Flex flexible compute shape with customizable OCPUs and memory on notebooks in the Data Science service
+- Support for container images and generic artifacts billing in the Registry service
+- Support for the HCX Enterprise add-on in the VMware Solution service
+
+### Breaking Changes
+- Return type of method `public com.oracle.bmc.ocvp.model.SupportedSkuSummary$Name getName()` has been changed to `com.oracle.bmc.ocvp.model.Sku` in the model `SupportedSkuSummary` in the Ocvp service
+- Class `com.oracle.bmc.ocvp.model.SupportedSkuSummary$Name` has been removed from the model `SupportedSkuSummary` in the Ocvp service
+
+## 1.36.5 - 2021-05-18
+### Added
+- Support for spark-submit compatible options in the Data Flow service
+- Support for Object Storage as a configuration source in the Resource Manager service
+
+## 1.36.4 - 2021-05-11
+### Added
+- Support for creating notebook sessions with larger block volumes in the Data Science service
+- Support for database maintenance run patch modes in the Database service
+
+## 1.36.3 - 2021-05-04
+### Added
+- Support for the Operator Access Control service
+- Support for the Service Catalog service
+- Support for the AI Language service
+- Support for autonomous database on Exadata Cloud at Customer infrastructure patching in the Database service
+
+## 1.36.2 - 2021-04-27
+### Added
+- VCN id parameters were moved from being required to being optional on all list operations in the Networking service
+- Support for RACs (real application clusters) for external container, non-container, and pluggable databases in the Database service
+- Support for data masking in the Cloud Guard service
+- Support for opting out of DNS records during instance launch, as well as attaching secondary VNICs, in the Compute service
+- Support for mutable sizes on cluster networks in the Autoscaling service
+- Support for auto-tiering on buckets in the Object Storage service
+
+## 1.36.1 - 2021-04-20
+### Added
+- Support for opting in/out of live migration on instances in the Compute service
+- Support for enabling/disabling Operations Insights on external non-container and external pluggable databases in the Database service
+- Support for a GraphStudio URL as a connection URL on databases in the Database service
+- Support for adding customer contacts on autonomous databases in the Database service
+- Support for name annotations on harvested objects in the Data Catalog service
+
+## 1.36.0 - 2021-04-13
+### Added
+- Support for the Database Migration service
+- Support for the Networking Topology service
+- Support for getting the id of peered VCNs on local peering gateways in the Networking service
+- Support for burstable instances in the Compute service
+- Support for preemptible instances in the Compute service
+- Support for fractional resource usage and availability in the Limits service
+- Support for streaming analytics in the Service Connector Hub service
+- Support for flexible routing inside DRGs to enable packet flow between any two attachments in the Networking service
+- Support for routing policy to customize dynamic import/export of routes in the Networking service
+- Support for IPv6, including on FastConnect and IPsec resources, in the Networking service
+- Support for request validation policies in the API Gateway service
+- Support for RESP-compliant (e.g. REDIS) response caches, and for configuring response caching per-route in the API Gateway service
+- Support for flexible billing in the VMWare Solution service
+- Support for new DNS format for the Web Application Acceleration and Security service
+- Support for configuring APM tracing on applications and functions in the Functions service
+- Support for Enterprise Manager external databases and Management Agent Service managed external databases and hosts in the Operations Insights service
+- Support for getting cluster cache metrics for RAC CDB managed databases in the Database Management service
+
+### Breaking Changes
+- Method `public java.lang.Boolean getIsInternetAccessAllowed()` has been removed from the model `CreateIpv6Details` in the Core service
+- Method `public java.lang.String getIpv6CidrBlock()` has been removed from the model `CreateVcnDetails` in the Core service
+- Method `public java.lang.Boolean getIsInternetAccessAllowed()` has been removed from the model `Ipv6` in the Core service
+- Method `public java.lang.String getPublicIpAddress()` has been removed from the model `Ipv6` in the Core service
+- Method `public java.lang.String getIpv6PublicCidrBlock()` has been removed from the model `Subnet` in the Core service
+- Method `public java.lang.Boolean getIsInternetAccessAllowed()` has been removed from the model `UpdateIpv6Details` in the Core service
+- Method `public java.lang.String getIpv6CidrBlock()` has been removed from the model `Vcn` in the Core service
+- Method `public java.lang.String getIpv6PublicCidrBlock()` has been removed from the model `Vcn` in the Core service
+- Method `public com.oracle.bmc.opsi.model.DatabaseInsightSummary$Builder builder()` has been removed from the model `DatabaseInsightSummary` in the Opsi service
+- Method `public java.util.Set get__explicitlySet__()` has been removed from the model `DatabaseInsightSummary` in the Opsi service
+- Method `public com.oracle.bmc.opsi.model.DatabaseInsightSummary$Builder toBuilder()` has been removed from the model `DatabaseInsightSummary` in the Opsi service
+- Accessibility of method `public DatabaseInsightSummary(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List, java.util.Map, java.util.Map, java.util.Map)` from the model `DatabaseInsightSummary` in Opsi service has been decreased from public to protected
+
+## 1.35.1 - 2021-04-06
+### Added
+- Support for scheduling the suspension and resumption of compute instance pools based on predefined schedules in the Autoscaling service
+- Support for database software images for Cloud@Customer in the Database service
+- Support for OCIC IDCS authorization details in the Application Migration service
+- Support for cross-region asynchronous volume replication in the Block Storage service
+- Support for SDK generation in the API Gateway service
+- Support for container image signing in the Registry service
+- Support for cluster features as a part of the Container Engine for Kubernetes service
+- Support for filtering dedicated virtual machine hosts by remaining memory and OCPUs in the Compute service
+- Support for read/write-any object from buckets using pre-authenticated requests in the Object Storage service
+- Support for restricting pre-authenticated requests by prefix in the Object Storage service
+- Support for route filtering on public virtual circuits in the Virtual Networking service
+
+## 1.35.0 - 2021-03-30
+### Added
+- Support for the Vulnerability Scanning service
+- Support for vSphere 7.0 in the VMware Solution service
+- Support for forecasting in the Usage service
+- Support for viewing, searching, and modifying parameters for on-premise Oracle databases in the Database Management service
+- Support for listing tablespaces of managed databases in the Database Management service
+- Support for cross-regional replication of keys in the Key Management service
+- Support for highly-available database systems in the MySQL Database service
+- Support for Oracle Enterprise Manager bridges, source auto-association, source event type mappings, and plugins to upload data in the Logging Analytics service
+
+### Breaking Changes
+- Renamed field `Succesful` to `Successful` from enum `Status` of request `ListLookupsRequest` in the Logging Analytics service
+- Renamed field `ForcastType` to `ForecastType` from the model `Forecast` in the Usage service
+
+## 1.34.0 - 2021-03-23
+### Added
+- Support for the Network Load Balancing service
+- Support for maintenance runs on autonomous databases in the Database service
+- Support for announcement preferences in the Announcements service
+- Support for domain claiming in the Organizations service
+- Support for saved reports in the Usage service
+- Support for the HeatWave in-memory analytics accelerator in the MySQL Database service
+- Support for community applications in the Marketplace service
+- Support for capacity reservations in the Compute service
+
+### Breaking Changes
+- Method `getCompartmentId()` is removed from `ListWorkRequestErrorsRequest` of `tenantmanagercontrolplane` service
+- Method `getCompartmentId()` is removed from `ListWorkRequestLogsRequest` of `tenantmanagercontrolplane` service
+- Value of Enum attribute `Operator` in Usage API service defaults to `UnknownEnumValue` when it receives an invalid value. In the earlier versions, this raises a `Invalid Operator` error
+
+## 1.33.2 - 2021-03-16
+### Added
+- Support for routing policies and HTTP2 listener protocols in the Load Balancing service
+- Support for model deployments in the Data Science service
+- Support for private clusters in the Container Engine for Kubernetes service
+- Support for updating an instance's usage type in the Content and Experience service
+
+## 1.33.1 - 2021-03-09
+### Added
+- Support for the Application Performance Monitoring service
+- Support for the Golden Gate service
+- Support for SMS subscriptions in the Notifications service
+- Support for friendly-formatted messages in the Service Connector Hub service
+- Support for attaching and detaching instances to instance pools in the Autoscaling service
+
+## 1.33.0 - 2021-03-02
+### Added
+- Support for pipelines, pipeline tasks, and favorites in the Data Integration service
+- Support for publishing tasks to OCI Data Flow in the Data Integration service
+- Support for clones in the File Storage service
+
+### Breaking Changes
+- Removed fields `PrimaryKey` and `UniqueKey` from enum `ModelType` of model `Key` in the Data Integration service
+
+## 1.32.2 - 2021-02-23
+### Added
+- Support for the OCI Registry service
+- Support for exporting an existing running VM, or a copy of VM, into a VMDK, QCOW2, VDI, VHD, or OCI formatted image in the Compute service
+- Support for platform configurations on instances in the Compute service
+- Support for providing target tags and target compartments on profiles in the Optimizer service
+- Support for the 'Fix it' feature in the Optimizer service
+
+## 1.32.1 - 2021-02-16
+### Added
+- Support for scan DNS names and zone ids on database system, cloud VM cluster, and autonomous Exadata infrastructure responses in the Database service
+- Support for specifying ACL rules to limit ingress into public load balancers in the Integration service
+- Support for Cloud at Customer as a source type in the Application Migration service
+- Support for selective migration of specific resources in the Application Migration service
+
+## 1.32.0 - 2021-02-09
+### Added
+- Support for the Database Management service
+- Support for setting an offset for budget processing in the Budgets service
+- Support for enabling and disabling Oracle Cloud Agent plugins in the Compute service
+- Support for listing available plugins and for getting the status of plugins in the Oracle Cloud Agent service
+- Support for one-off patching in autonomous transaction processing - dedicated databases in the Database service
+- Support for additional database upgrade options in the Database service
+- Support for glossary term recommendations in the Data Catalog service
+- Support for listing errata in the OS Management service
+
+### Breaking Changes
+- Model `InstanceAgentCommandContentInfo` is removed from Compute Instance Agent service
+- Model `InstallationRequirements` is removed from OS Management service
+
+## 1.31.0 - 2021-02-02
+### Added
+- Support for checking if a contact for Exadata infrastructure is valid in My Oracle Support in the Database service
+- Support for checking if Exadata infrastructure is in a degraded state in the Database service
+- Support for updating the operating system on a VM cluster in the Database service
+- Support for external databases in the Database service
+- Support for uploading objects to the infrequent access storage tier in the Object Storage service
+- Support for changing the storage tier of existing objects in the Object Storage service
+- Support for private templates in the Resource Manager service
+- Support for multiple encryption domains on IPSec tunnels in the Networking service
+
+### Breaking Changes
+ - The return type of method `getArchivalState()` in `com.oracle.bmc.objectstorage.responses.GetObjectResponse` has been changed to `com.oracle.bmc.objectstorage.model.ArchivalState` in the Object Storage service
+ - The return type of method `getArchivalState()` in `com.oracle.bmc.objectstorage.responses.HeadObjectResponse` has been changed to `com.oracle.bmc.objectstorage.model.ArchivalState ` in the Object Storage service
+ - The method `public java.lang.String getEtag()` has been removed from `com.oracle.bmc.core.responses.ListAppCatalogListingResourceVersionsResponse` in the Core service
+
+## 1.30.1 - 2021-01-26
+### Added
+- Support for creating, managing, and using asymmetric keys in the Key Management service
+- Support for peer ACD unique names in Exadata Cloud at Customer in the Database service
+- Support for ACLs on autonomous databases in Exadata Cloud at Customer Data Guard in the Database service
+- Support for drift detection on individual resources of a stack in the Resource Manager service
+- Support for private access channels and vanity URLs in the Analytics Cloud service
+- Support for updating load balancer shapes in the Blockchain Platform service
+- Support for assigning volume backup policies to volume groups in the Block Volume service
+
+## 1.30.0 - 2021-01-19
+### Added
+- Support for Logging Analytics as a target in the Service Connector Hub service
+- Support for lookups, agent collection warnings, task commands, and data archive/recall in the Logging Analytics service
+
+### Fixed
+- Fixed a bug in the endpoint used for the Management Dashboard service
+
+### Breaking Changes
+- Parameter `sortBy` in requests `ListMetaSourceTypesRequest`, `ListParserFunctionsRequest`, `ListParserMetaPluginsRequest`, `ListSourceLabelOperatorsRequest`, `ListSourceMetaFunctionsRequest` has changed its datatype from `String` to `SortBy` enum in the Logging Analytics service
+- Parameter `lifecycleState` in `LogAnalyticsObjectCollectionRule` has changed its datatype from `LogAnalyticsObjectCollectionRule.LifecycleState` to `ObjectCollectionRuleLifecycleStates` in the Logging Analytics Service
+- Methods `builder()`, `toBuilder()`, and `get__explicitlySet__()` has been removed from `UpdateScheduledTaskDetails` in the Logging Analytics Service
+- Methods `builder()`, `toBuilder()`, and `get__explicitlySet__()` has been removed from `ScheduledTask` in the Logging Analytics Service
+
+## 1.29.0 - 2021-01-12
+### Added
+- Support for auto-scaling in the Big Data service
+- Documentation fixes for the Logging Search service
+
+### Breaking Changes
+- Removed `Starting` and `Stopping` values from enum `LifecycleState` of model `Node` in the Big Data service
+- Removed `UpdatingInfra` value from enum `LifecycleState` of model `BdsInstance` in the Big Data service
+
+## 1.28.0 - 2020-12-15
+### Added
+- Support for filtering listKeys based on KeyShape in KeyManagement service
+- Support for the Oracle Roving Edge Infrastructure service
+- Support for flexible ShapeDetails in Load Balancer service
+- Support for listing of harvested Rules, additional filtering for Logical Entity list calls in Data Catalog service
+- Support second level domain for audit SDK
+- Support for listing flex components in Database service
+- Support for APEX service for ADBS on OCI console for Database service
+- Support for Customer-Managed Key features as a part of the Database service
+- Support for Github configuration source provider as part of the Resource Manager service
+
+### Breaking Changes
+- The following deprecated API methods have been removed from the Database Service : `createAutonomousDataWarehouse`,`createAutonomousDataWarehouseBackup`,`deleteAutonomousDataWarehouse`,`generateAutonomousDataWarehouseWallet`,`getAutonomousDataWarehouse`,`getAutonomousDataWarehouseBackup`,`listAutonomousDataWarehouseBackups`,`listAutonomousDataWarehouses`,`restoreAutonomousDataWarehouse`,`startAutonomousDataWarehouse`,`stopAutonomousDataWarehouse`,`updateAutonomousDataWarehouse`
+
+## 1.27.1 - 2020-12-08
+### Added
+- Support for Integration Service custom endpoint feature
+- Support for metadata field in IdentityProvider Get and List response
+- Support for fine-grained data analysis and improved SQL insights
+- Support for ADB Dedicated - ORDS and SSL cert rotation at AEI
+- Support for Maintenance Schedule feature for Exadata Infrastructure resources for ExaCC
+
+## 1.27.0 - 2020-12-1
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the sa-santiago-1 region
+- Support for peer and OSN resources, as well as retry tokens, in the Blockchain Platform service
+- Support for getting the availability status of management agents in the Management Agent service
+- Support for the on-prem-connector resource type in the Data Safe service
+- Support for service channels in the MySQL Database service
+- Support for getting the creation type of backups, and for filtering backups by creation type in the MySQL Database service
+
+### Breaking Changes
+- Method `public java.util.Map getDefinedTags()` has been removed from EnableDataSafeConfigurationDetails in the Data Safe service
+- Method `public java.util.Map getFreeformTags()` has been removed from EnableDataSafeConfigurationDetails in the Data Safe service
+
+## 1.26.0 - 2020-11-17
+### Added
+- Support for specifying memory for AMD E3 shapes during node pool creation and update in the Container Engine for Kubernetes service
+- Support for upgrading a database on a VM database system in the Database service
+- Support for listing autonomous database clones in the Database service
+- Support for Data Guard with autonomous container databases on Exadata Cloud at Customer in the Database service
+- Support for getting the last login time of a user in the Identity service
+- Support to bulk editing tags on resources in the Identity service
+
+### Breaking Changes
+- The models `AgentUpload`, `Attribute`, `FieldMap`, `GenerateAgentObjectNameDetails`, `LogAnalytics`, `LogAnalyticsSummary`, `OutOfBoxEntityTypeDetails`, `Query`, `QueryWorkRequestResource`, `ServiceTenancy`, `SortOrders`, `StringListDetails` are removed from the Log Analytics service
+- The enum `name` removed value `CuslterSplit` and added `ClusterSplit` in the Log Analytics service
+- Datatype for property status in ListWorkRequestsRequest changed from `com.oracle.bmc.containerengine.model.WorkRequestStatus` to `String` in the Container Engine service
+- Method `public com.oracle.bmc.loganalytics.model.ErrorDetails getErrorDetails()` has been removed from DeleteAssociationsResponse in the Log Analytics service
+
+## 1.25.4 - 2020-11-10
+### Added
+- Support for the 21C autonomous database version in the Database service
+- Support for creating a Data Guard association with a standby database from a database software image in the Database service
+- Support for specifying a TDE wallet password when creating a database or database system in the Database service
+- Support for enabling access control lists for autonomous databases on Exadata Cloud At Customer in the Database service
+- Support for private DNS resolvers, resolver endpoints, and views in the DNS service
+- Support for getting a VCN and resolver association in the Networking service
+- Support for additional parameters when updating subnets and VLANs in the Networking service
+- Support for analytics clusters (database accelerators) in the MySQL Database service
+- Support for migrations to Java Cloud Service and Oracle Weblogic Server instances that use existing databases in the Application Migration service
+- Support for specifying reserved IPs when creating load balancers in the Load Balancing service
+
+## 1.25.3 - 2020-11-03
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the uk-cardiff-1 region
+- Support for the Organizations service
+- Support for the Optimizer service
+- Support for tenancy ID and name on responses in the Usage service
+- Support for object versioning in object lifecycle management in the Object Storage service
+- Support for specifying a syslog URL for applications in the Functions service
+- Support for creation of always-free NoSQL database tables in the NoSQL Database service
+
+## 1.25.2 - 2020-10-27
+### Added
+- Support for the Compute Instance Agent service
+- Support for key store resources and operations in the Database service
+- Support for specifying a key store when creating autonomous container databases in the Database service
+
+### Fixed
+- Fixed a potential data curruption problem for binary data upload with `RefreshableOnNotAuthenticatedProvider`. We recommend that you update to this version `1.25.2` or later. For details, see https://github.com/oracle/oci-java-sdk/issues/255
+
+## 1.25.1 - 2020-10-20
+### Added
+- Support for the Operations Insights service
+- Support for updating autonomous databases to enable/disable Operations Insights service integration, in the Database service
+- Support for the NEEDS_ATTENTION lifecycle state on database systems in the Database service
+- Support for HCX in the VMware Solutions service
+
+## 1.25.0 - 2020-10-13
+### Added
+- Support for API definitions in the API Gateway service
+- Support for pattern-based logical entities, namespace-bound custom properties, and faceted search in the Data Catalog service
+- Support for autonomous Data Guard on autonomous infrastructure in the Database service
+- Support for creating a Data Guard association on an existing standby database home in the Database service
+- Support for upgrading cloud VM cluster grid infrastructure in the Database service
+
+
+### Breaking Changes
+- Attribute `isQuickStart` & method `isQuickStart(Boolean isQuickStart)` in models `CreateLogSavedSearchDetails`, `LogSavedSearchSummary`,`UpdateLogSavedSearchDetails` and `LogSavedSearch` is removed from the Logging Management service
+- Lifecycle State `DELETED` is removed from the Logging Management service
+
+## 1.24.0 - 2020-10-06
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the me-dubai-1 region
+- Support for rotating keys on autonomous container databases and autonomous databases in the Database service
+- Support for cloud Exadata infrastructure and cloud VM clusters in the Database service
+- Support for controlling the display of tax banners in the Marketplace service
+- Support for application references, patch changes, generic JDBC and MySQL data asset types, and publishing tasks to OCI Dataflow in the Data Integration service
+- Support for disabling the legacy Instance Metadata endpoints v1 in the Compute service
+- Support for instance configurations specifying instance options in the Compute Management service
+
+### Breaking Changes
+- Enum `ModelType` in the Data Integration service has restricted values to `Shape`, `InputPort`, `ShapeField`, `InputField`, `DerivedField`, `MacroField`, `OutputPort`, `DynamicProxyField`, `OutputPort`, `DynamicInputField`, `ProxyField`, `Parameter`
+- The return type of method `getWrappedType()` in `com.oracle.bmc.dataintegration.model.ConfiguredType` has been changed from `com.oracle.bmc.dataintegration.model.BaseType` to `java.lang.Object` in the Data Integration Service
+
+## 1.23.4 - 2020-09-29
+### Added
+- Support for specifying custom content dispositions when downloading objects in the Object Storage service
+- Support for the “bring your own IP address” feature in the Virtual Networking service
+- Support for updating the tags of instance console connections in the Compute service
+- Support for custom SSL certificates on gateways in the API Gateway service
+
+## 1.23.3 - 2020-09-22
+### Added
+- Support for software keys in the Key Management service
+- Support for customer contacts on Exadata Cloud at Customer in the Database service
+- Support for updating open modes and permission levels of autonomous databases in the Database service
+- Support for flexible memory on VM instances in the Compute and Compute Management services
+
+## 1.23.2 - 2020-09-15
+### Added
+- Support for the Cloud Guard service
+- Support for specifying desired consumption models when creating instances in the Integration service
+- Support for dynamic shapes in the Load Balancing service
+
+## 1.23.1 - 2020-09-08
+### Added
+- Support for Logging Service
+- Support for Logging Analytics Service
+- Support for Logging Search Service
+- Support for Logging Ingestion Service
+- Support for Management Agent Cloud Service
+- Support for Management Dashboard Service
+- Support for Service Connector Hub service
+- Support for Policy based Request/Response transformation in the API Gateway Service
+- Support for sending diagnostic interrupt to a VM instance in the Compute Service
+- Support for custom Database Software Images in the Database Service
+- Support for getting and listing container database patches for Autonomous Container Database resources in the Database Service
+- Support for updating patch id on maintenance run for Autonomous Container Database resources in the Database Service
+- Support for searching Oracle Cloud resources across tenancies in the Search Service
+- Documentation update for Logging Policies in the API Gateway service
+
+## 1.23.0 - 2020-09-01
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the ap-chiyoda-1 region
+- Support for VM database cloning in the Database service
+- Support for the MAINTENANCE_IN_PROGRESS lifecycle state on database systems, VM clusters, and Cloud Exadata in the Database service
+- Support for provisioning refreshable clones in the Database service
+- Support for new options on listeners and backend sets for specifying SSL protocols, SSL cipher suites, and server ordering preferences in the Load Balancing service
+- Support for AMD flexible shapes with configurable CPU in the Container Engine for Kubernetes service
+- Support for network sources in authentication policies in the Identity service
+
+
+### Breaking Changes
+- In the circuit breaker library, the parameter type of the `recordHttpStatuses` method in `com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration.CircuitBreakerConfigurationBuilder` was changed from `com.google.common.collect.ImmutableSet<Integer>` to `java.util.Set<Integer>`
+- In the circuit breaker library, the return type for the `getRecordHttpStatuses()` method in `com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration` was changed from `com.google.common.collect.ImmutableSet<Integer>` to `java.util.Set<Integer>`
+- In the circuit breaker library, the parameter type of the `recordExceptions` method in `com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration.CircuitBreakerConfigurationBuilder` was changed from `com.google.common.collect.ImmutableList<Class<? extends RuntimeException>>` to `java.util.List<Class<? extends RuntimeException>>`
+- In the circuit breaker library, the return type for the `getRecordExceptions()` method in `com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration` was changed from `com.google.common.collect.ImmutableList<Class<? extends RuntimeException>>` to `java.util.List<Class<? extends RuntimeException>>`
+
+## 1.22.1 - 2020-08-18
+### Added
+- Support for custom boot volume size and other node pool updates in the Container Engine for Kubernetes service
+- Support for Data Guard on Exadata Cloud at Customer VM clusters in the Database service
+- Support for stopping VM instances after scheduled maintenance or hypervisor reboots in the Compute service
+- Support for creating and managing private endpoints in the Data Flow service
+
+## 1.22.0 - 2020-08-11
+### Added
+- Support for autonomous json databases in the Database service
+- Support for cleaning up uncommitted multipart uploads in the Object Storage service
+- Support for additional list API filters in the Data Catalog service
+
+
+### Breaking Changes
+- Some unusable region enums were removed from the Support Management service
+- Parameter `opcRetryToken` was removed from the Support Management service
+
+## 1.21.0 - 2020-08-04
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the uk-gov-cardiff-1 region
+- Support for creating and managing private endpoints in the Data Flow service
+- Support for changing instance shapes and restarting nodes in the Big Data service
+- Support for additional versions (for example CSQL) in the Big Data service
+- Support for creating stacks from compartments in the Resource Manager service
+
+### Breaking Changes
+- Renamed the property of `lifeCycleDetails` to `lifecycleDetails` from the model of `BlockchainPlatformSummary` and `BlockchainPlatformByHostname` in the Blockchain service
+
+## 1.20.0 - 2020-07-28
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the us-sanjose-1 region
+- Support for updating the fault domain and launch options of VM instances in the Compute service
+- Support for image capability schemas and schema versions in the Compute service
+- Support for 'Patch Now' maintenance runs for autonomous Exadata infrastructure and autonomous container database resources in the Database service
+- Support for automatic performance and cost tuning on volumes in the Block Storage service
+
+
+### Breaking changes
+- Removed the accessToken field from the GitlabAccessTokenConfigurationSourceProvider model in the Resource Manager service
+
+## 1.19.4 - 2020-07-21
+### Added
+- Support for license types on instances in the Content and Experience service
+
+## 1.19.3 - 2020-07-14
+### Added
+- Support for the Blockchain service
+- Support for failing over an autonomous database that has Data Guard enabled in the Database service
+- Support for switching over an autonomous database that has Data Guard enabled in the Database service
+- Support for git configuration sources in the Resource Manager service
+- Support for optionally specifying a VCN id on list operations of DHCP options, subnets, security lists, route tables, internet gateways, and local peering gateways in the Networking service
+
+## 1.19.2 - 2020-07-07
+### Added
+- Support for registering and deregistering autonomous dedicated databases with Data Safe in the Database service
+- Support for switching between non-private-endpoints and private endpoints on autonomous databases in the Database service
+- Support for returning group names when listing identity provider groups in the Identity service
+- Support for server-side object re-encryption in the Object Storage service
+- Support for private endpoint (ingress) and public endpoint whitelisting in the Analytics Cloud service
+
+## 1.19.1 - 2020-06-30
+### Added
+- Support for the Usage service
+- Support for the VMware Provisioning service
+- Support for applying one-off patches to databases in the Database service
+- Support for layer-2 virtualization features on vlans in the Networking service
+- Support for all AttachVolumeDetails and ParavirtualizedAttachVolumeDetails properties on instance configurations in the Compute Management service
+- Support for setting HTTP header size and allowing invalid characters in HTTP request headers in the Load Balancing service
+
+## 1.19.0 - 2020-06-23
+### Added
+- Support for the Data Integration service
+- Support for updating database home IDs on databases in the Database service
+- Support for backing up autonomous databases on Cloud at Customer in the Database service
+- Support for managing autonomous VM clusters on Cloud at Customer in the Database service
+- Support for accessing data assets via private endpoints in the Data Catalog service
+- Support for dependency archive zip files to be specified for use by applications in the Data Flow service
+
+
+### Breaking Changes
+- Enum `LifeCycleState` in the Data Catalog service has restricted values to `Creating`, `Active`, `Inactive`, `Updating`, `Deleting`, `Deleted`, `Failed`, `Moving`
+- Enum `TermWorkflowStatus` in the Data Catalog service has restricted values to `New`, `Approved`, `UnderReview`, `Escalated`
+- Enum `JobScheduleType` in the Data Catalog service has restricted values to `Scheduled`, `Immediate`
+- Enum `JobType` in the Data Catalog service has restricted values to `Harvest`, `Profiling`, `Sampling`, `Preview`, `Import`, `Export`, `Internal`, `Purge`, `Immediate`, `Scheduled`, `Immediate_Execution`, `ScheduledExecution`, `ScheduledExecutionInstance`
+- Enum `HarvestStatus` in the Data Catalog service has restricted values to `Complete`, `Error`, `InProgress`, `Deferred`
+- Enum `JobExecutionState` in the Data Catalog service has restricted values to `Created`, `InProgress`, `Inactive`, `Failed`, `Succeeded`, `Canceled`
+- Enum `ConnectionResult` in the Data Catalog service has restricted values to `Succeeded`, `Failed`
+
+## 1.18.1 - 2020-06-16
+### Added
+- Support for creating a new database from an existing database based on a given timestamp in the Database service
+- Support for enabling archive log backups of databases in the Database service
+- Support for returning the database version on autonomous container databases in the Database service
+- Support for the new DNS format of the Data Transfer service
+- Support for scheduled autoscaling, which allows for scaling actions triggered at particular times based on CRON expressions, in the Compute Autoscaling service
+- Support for filtering of list APIs for groups, identity providers, identity provider groups, compartments, dynamic groups, network sources, policies, and users by name or lifecycle state in the Identity Service
+
+## 1.18.0 - 2020-06-09
+### Added
+- Support for returning the database version of backups in the Database service
+- Support for patching on Exadata Cloud at Customer resources in the Database service
+- Support for new lifecycle substates on instances in the Digital Assistant service
+- Support for file servers in the Integration service
+- Support for deleting non-empty tag namespaces and bulk deleting tags in the Identity service
+- Support for bulk move and bulk delete of resources by compartment in the Identity service
+
+
+### Breaking Changes
+- Data type for paramater `dataStorageSizeInTBs` changed from `Integer` to `Double` in the Database service
+- Enum `LifecycleState` has removed the state `Offline` and added `Disconnected` in the Database service
+
+## 1.17.5 - 2020-06-02
+### Added
+- Support for optionally supplying a signature when deleting an agreement in the Marketplace service
+- Support for launching paid listings in non-US regions in the Marketplace service
+- Support for returning the image id of packages in the Marketplace service
+- Support for calling Oracle Cloud Infrastructure services in the ap-chuncheon-1 region
+
+## 1.17.4 - 2020-05-19
+### Added
+- Support for returning the private IP of a private endpoint database in the Database service
+- Support for native JWT validation in the API Gateway service
+
+## 1.17.3 - 2020-05-13
+### Added
+- Support for drift detection in the Resource Manager service
+
+## 1.17.1 - 2020-05-05
+### Added
+- Support for updating the license type of database systems in the Database service
+- Support for updating the version of 19c autonomous databases in the Database service
+- Support for backup and restore functionality in the Key Management service
+- Support for reports in the Marketplace service
+- Support for calling Oracle Cloud Infrastructure services in the ap-hyderabad-1 region
+
+## 1.17.0 - 2020-04-28
+### Added
+- Support for the MySQL Database service
+- Support for updating the database home of a database in the Database service
+- Support for government regions in the Marketplace service
+- Support for starting and stopping instances in the Integration service
+- Support for installing Windows updates in the OS Management service
+
+### Breaking Changes
+- Removed the models of `ErrataId`, `UpdatablePackageSummary`, `ManagedInstanceUpdateDetails` and the parameter `etag` from `ListWorkRequestErrorsResponse` and `ListWorkRequestLogsResponse` in the OsManagement service
+
+## 1.16.0 - 2020-04-21
+### Added
+- Support for the Data Safe service
+- Support for the Incident Management service
+- Support for showing which database versions support always-free in the Database service
+- Support in instance configurations for flex shapes, dedicated VM hosts, encryption in transit, and KMS keys in the Compute Autoscaling service
+- Support for server-side object encryption using a customer-provided encryption key in the Object Storage service
+- Support for specifying maintenance preferences while launching and updating Exadata Database systems in the Database service
+- Support for flexible-shaped VM instances in the Compute service
+- Support for scheduled cross-region backups in the Block Volume service
+- Support for object versioning in the Object Storage service
+
+### Breaking Changes
+- Deleted models of `Archiver`, `CreateArchiverDetails` and `UpdateArchiverDetails` and operations of `CreateArchiver`, `GetArchiver`, `StartArchiver`, `StopArchiver` and `UpdateArchiver` in the streaming service
+
+## 1.15.5 - 2020-04-14
+### Added
+- Support for access types on instances in the Content and Experience service
+- Support for identity contexts in the Search service
+- Support for Client Side Encryption: https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm
+
+## 1.15.4 - 2020-04-07
+### Added
+- Support for changing compartments of runs and applications in the Data Flow service
+- Support for getting usage information in the Key Management Vault service
+- Support for custom Key Management service endpoints and private endpoints on stream pools in the Streaming service
+
+## 1.15.3 - 2020-03-31
+### Added
+- Support for the Secrets Management service 
+- Support for the Big Data service
+- Support for updating class name, file URI, language, and spark version of applications in the Data Flow service
+- Support for cross-region replication in the Object Storage service
+- Support for retention rules in the Object Storage service
+- Support for enabling and disabling pod security policy admission controllers in the Container Engine for Kubernetes service
+
+## 1.15.2 - 2020-03-24
+### Added
+- Support for Web Application Acceleration and Security configurations on instances in the Content and Experience service
+- Support for shared database homes on Exadata Cloud at Customer resources in the Database service
+- Support for Exadata database creation from backup in the Database service
+- Support for conditions on JavaScript challenges, new action types on access rules, new policy configuration settings, exclusions on custom protection rules, and IP address lists on IP whitelists in the Web Application Acceleration and Security service
+- Support for circuit breakers using the `com.oracle.bmc.circuitbreaker.JaxRsCircuitBreaker` interface
+- Better debug logging for retries and signing headers
+
+## 1.15.1 - 2020-03-17
+### Added
+- Support for serial console connections in the Database service
+- Support for preview database versions in the Database service
+- Support for node reboot migration maintenance status and maintenance windows in the Database service
+- Support for using instance metadata API v2 for instance principals authentication
+
+### Fixed
+- Retries for requests that take an `InputStream` as input will now function correctly.
+- Retries will correctly report upload progress to the `ProgressReporter` for the Object Storage upload manager.
+
+### Breaking changes
+- In case retries are necessary, the number of `completed` bytes reported to the `ProgressReporter` will decrease. The `completed` bytes number is not monotonically increasing anymore.
+- To allow retries, the `MultipartObjectAssembler` of the Object Storage upload manager will always allow overwriting existing parts.
+- The `com.oracle.bmc.database.model.AutonomousExadataInfrastructureMaintenanceWindow` class and the `com.oracle.bmc.database.model.AutonomousExadataInfrastructureMaintenanceWindow$DayOfWeek` enum were removed. They were extraneous and not in use anywhere in the API.
+
+## 1.14.0 - 2020-03-10
+### Added
+- Support for Events service integration with alerts in the Budgets service
+
+
+### Breaking changes
+- The `com.oracle.bmc.budget.requests.ListAlertRulesRequest$SortOrder` and `com.oracle.bmc.budget.requests.ListBudgetsRequest$SortOrder` enums have been replaced by the `com.oracle.bmc.budget.model.SortOrder` enum.
+- The type of `com.oracle.bmc.budget.requests.ListAlertRulesRequest.sortBy` and `com.oracle.bmc.budget.requests.ListBudgetsRequest.sortBy` has been changed from `String` to the `com.oracle.bmc.budget.model.SortBy` enum.
+- The type of `com.oracle.bmc.budget.requests.ListAlertRulesRequest.lifecycleState` and `com.oracle.bmc.budget.requests.ListBudgetsRequest.lifecycleState` has been changed from `String` to the `com.oracle.bmc.budget.model.LifecycleState` enum.
+
+## 1.13.2 - 2020-03-03
+### Added
+- Support for updating the shape of a Database System in the Database service
+- Support for generating CPE configurations for download in the Networking service
+- Support for private IPs and fault domains of cluster nodes in the Container Engine for Kubernetes service
+- Support for calling Oracle Cloud Infrastructure services in the ca-montreal-1 region
+
+## 1.13.1 - 2020-02-25
+### Added
+- Support for restarting autonomous databases in the Database service
+- Support for private endpoints on autonomous databases in the Database service
+- Support for IP-based policies in the Identity service
+- Support for management of OAuth 2.0 client credentials in the Identity service
+- Support for OCI Functions as a subscription protocol in the Notifications service
+
+## 1.13.0 - 2020-02-18
+### Added
+- Support for the NoSQL Database service
+- Support for filtering database versions by storage management type in the Database service
+- Support for specifying paid listing types within pricing models in the Marketplace service
+- Support for primary and non-primary instance types in the Content and Experience service
+
+### Breaking changes
+- Removed LifecycleState enum in Marketplace service (was unused)
+
+## 1.12.6 - 2020-02-11
+### Added
+- Support for listing supported database versions for Autonomous Database Serverless, and selecting a version at provisioning time in the Database service
+- Support for TCP proxy protocol versions on listener connection configurations in the Load Balancer service
+- Support for calling the Notifications service in alternate realms
+- Support for calling Oracle Cloud Infrastructure services in the eu-amsterdam-1 and me-jeddah-1 regions
+
+## 1.12.5 - 2020-02-04
+### Added
+- Support for the Data Science service
+- Support for calling Oracle Cloud Infrastructure services in the ap-osaka-1 and ap-melbourne-1 regions
+
+## 1.12.4 - 2020-01-28
+### Added
+- Support for the Application Migration service
+- Support for the Data Flow service
+- Support for the Data Catalog service
+- Support for cross-shape Data Guard in the Database service
+- Support for offline data export in the Data Transfer service
+
+## 1.12.3 - 2020-01-21
+### Added
+- Support for getting DRG redundancy status in the Networking service
+- Support for cloning autonomous databases from backups in the Database service
+
+## 1.12.2 - 2020-01-14
+### Added
+- Support for a description field on route rules and security rules in the Networking service
+- Support for starting and stopping Digital Assistant instances in the Digital Assistant service
+- Support for shared database homes on Exadata, bare metal, and virtual machine instances in the Database service
+- Support for tracking a number of Database service operations through the Work Requests service
+
+## 1.12.1 - 2020-01-08
+### Added
+- Support for optionally specifying the corporate proxy field when creating Exadata infrastructure in the Database service
+- Support for maintenance windows, and rescheduling maintenance runs, on autonomous container databases in the Database service
+
+## 1.12.0 - 2019-12-17
+### Added
+- Support for the API Gateway service
+- Support for the OS Management service
+- Support for the Marketplace service
+- Support for "default"-type vaults in the Key Management service
+- Support for bringing your own keys in the Key Management service 
+- Support for cross-region backups of boot volumes in the Block Storage service
+- Support for top-level TSIG keys in the DNS service
+- Support for resizing virtual machine instances to different shapes in the Compute service
+- Support for management configuration of cloud agents in the Compute service
+- Support for launching node pools using image IDs in the Container Engine for Kubernetes service
+
+### Breaking changes
+- Removed support for v1 auth tokens in kubeconfig files in the `CreateClusterKubeconfigContentDetails` class of the Container Engine for Kubernetes service
+- Removed the IDCS access token requirement on the delete deleteOceInstance operation in the Content and Experience service, which is why the `DeleteOceInstanceDetails` class was removed
+
+## 1.11.0 - 2019-12-10
+### Added
+- Support for etags on results of the List Objects API in the Object Storage service
+- Support for OCIDs on buckets in the Object Storage service
+- Support for content-disposition and cache-control headers on objects in the Object Storage service
+- Support for recovering deleted compartments in the Identity service
+- Support for sharing volumes across multiple instances in the Block Storage service
+- Support for connect harnesses and stream pools in the Streaming service
+- Support for associating file storage mount targets with network security groups in the File Storage service 
+- Support for calling Oracle Cloud Infrastructure services in the uk-gov-london-1 region
+
+### Breaking changes
+- The `com.oracle.bmc.streaming.model.ArchiverLifecycleState` enum in the Streaming service has been replaced by the `com.oracle.bmc.streaming.model.Archiver.LifecycleState` enum
+
+## 1.10.0 - 2019-11-26
+### Added
+- Support for maintenance windows on autonomous databases in the Database service
+- Support for getting the compute units (OCPUs) of an Exadata autonomous transaction processing - dedicated resource in the Database service
+
+### Breaking changes
+- Create database home from VM_CLUSTER_BACKUP is removed from Database Service
+
+## 1.9.5 - 2019-11-19
+### Added
+- Support for four-byte autonomous system numbers (ASNs) on FastConnect resources in the Networking service
+- Support for choosing fault domains when creating instance pools in the Compute service
+- Support for allowing connections from only specific VCNs to autonomous data warehouse and autonomous transaction processing instances in the Database service
+
+## 1.9.4 - 2019-11-12
+### Added
+- Support for access to APEX and SQL Dev features on autonomous transaction processing and autonomous data warehouse resources in the Database service
+- Support for registering / deregistering autonomous transaction processing and autonomous data warehouse resources with Data Safe in the Database service
+- Support for redirecting HTTP / HTTPS request URIs to different URIs in the Load Balancing service
+- Support for specifying compartments on options APIs in the Container Engine for Kubernetes service
+- Support for volume performance units on block volumes in the Block Storage service
+
+## 1.9.3 - 2019-11-05
+### Added
+- Support for the Analytics Cloud service
+- Support for the Integration Cloud service
+- Support for IKE versions in IPSec connections in the Virtual Networking service
+- Support for getting a stack's Terraform state in the Resource Manager service
+
+## 1.9.2 - 2019-10-29
+### Added
+- Support for wallet rotation operations on Autonomous Databases in the Database service
+- Support for adding and removing image shape compatibility entries in the Compute service
+- Support for managing redirects in the Web Application Acceleration and Security service
+- Support for migrating zones from the Dyn HTTP Redirect Service to Oracle Cloud Infrastructure in the DNS service
+
+## 1.9.1 - 2019-10-15
+### Added
+- Support for the Digital Assistant service
+- Support for work requests on Instance Pool operations in the Compute service
+
+## 1.9.0 - 2019-10-08
+### Added
+- Support for the new schema for events in the Audit service
+- Support for entitlements in the Data Transfer service
+- Support for custom scheduled backup policies on volumes in the Block Storage service
+- Support for specifying the network type when launching virtual machine instances in the Compute service
+- Support for Monitoring service integration in the Health Checks service
+
+### Breaking changes
+- For `com.oracle.bmc.dts.model.TransferApplianceEntitlement`:
+	- The `Status` enum has been removed and replaced with `LifecycleState`
+	- The `tenantId` parameter has been renamed as `id`
+- The `eTag` parameter has been removed from `com.oracle.bmc.healthchecks.responses.ChangeHttpMonitorCompartmentResponse`
+- The Audit service version to support the new schema was increased to 20190901.  Older versions of the SDK (< 1.9.0) will continue to function to support Audit service version 20160918
+
+## 1.8.2 - 2019-10-01
+### Added
+- Support for required tags in the Identity service
+- Support for work requests on tagging operations in the Identity service
+- Support for enumerated tag values in the Identity service
+- Support for moving dynamic routing gateway resources across compartments in the Networking service
+- Support for migrating zones from Dyn managed DNS to OCI in the DNS service
+- Support for fast provisioning for virtual machine databases in the Database service
+
+## 1.8.1 - 2019-09-24
+### Added
+- Support for selecting the Terraform version to use in the Resource Manager service
+- Support for bucket re-encryption in the Object Storage service
+- Support for enabling / disabling bucket-level events in the Object Storage service
+
+## 1.8.0 - 2019-09-17
+### Added
+- Support for importing state files in the Resource Manager service
+- Support for Exadata Cloud at Customer in the Database service
+- Support for free tier resources and system tags in the Load Balancing service
+- Support for free tier resources and system tags in the Compute service
+- Support for free tier resources and system tags in the Block Storage service
+- Support for free tier and system tags on autonomous databases in the Database service
+
+### Breaking
+- The class `com.oracle.bmc.database.model.CreateDbHomeWithDbSystemIdBase` was renamed to `com.oracle.bmc.database.model.CreateDbHomeBase` that impacts the following references:
+    - `CreateDbHomeRequest#createDbHomeWithDbSystemIdDetails` parameter type
+    - `CreateDbHomeWithDbSystemIdDetails` class extension
+    - `CreateDbHomeWithDbSystemIdFromBackupDetails` class extension
+
+## 1.7.0 - 2019-09-10
+### Added
+- Support for specifying the `autoBackupWindow` field for scheduling backups in the Database service
+- Support for network security groups on autonomous Exadata infrastructure in the Database service
+- Support for Kubernetes secrets encryption in customer clusters, regional subnets, and cluster authentication for instance principals in the Container Engine for Kubernetes service
+- Support for the Oracle Content and Experience service
+
+### Breaking
+- The etag field has been removed from the `com.oracle.bmc.ons.responses.ChangeTopicCompartmentResponse` and `com.oracle.bmc.ons.responses.ChangeSubscriptionCompartmentResponse` classes of the Notifications service
+
+## 1.6.3 - 2019-09-03
+### Added
+- Support for the Sydney (SYD) region
+- Support for managing cluster networks in the Compute Autoscaling service
+- Support for tracking asynchronous operations via work requests in the Database service
+
+## 1.6.2 - 2019-08-27
+### Added
+- Support for the Sao Paulo (GRU) region
+- Support for dedicated virtual machine hosts in the Compute service
+- Support for resource groups in metrics and alarms in the Monitoring service
+
+## 1.6.1 - 2019-08-20
+### Added
+- Support for the Limits service
+- Support for archiving to Object Storage in the Streaming service
+- Support for etags on resources in the Streaming service
+- Support for Key Management service (KMS) encryption of file systems in the File Storage service
+- Support for moving public IP, DHCP, local peering gateway, internet gateway, network security group, and DRG attachment resources across compartments in the Networking service
+- Support for multi-origin, basic cache, certificate mapping, and OCI Monitoring service integration in the Web Application Acceleration and Security service
+
+### Changed
+- Updated the Apache Connector Provider Add-On's transitive dependency on org.apache.httpcomponents:httpclient dependency to 4.5.9 to address the httpclient security vulnerability in normalizePath (see https://issues.apache.org/jira/browse/HTTPCLIENT-1803)
+
 ## 1.6.0 - 2019-08-13
 ### Added
 - Support for the Data Transfer service

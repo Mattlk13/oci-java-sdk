@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.core;
 
@@ -509,6 +510,793 @@ public class ComputePaginators {
     }
 
     /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeCapacityReservationInstanceShapes operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeCapacityReservationInstanceShapesResponse>
+            listComputeCapacityReservationInstanceShapesResponseIterator(
+                    final ListComputeCapacityReservationInstanceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeCapacityReservationInstanceShapesRequest.Builder,
+                ListComputeCapacityReservationInstanceShapesRequest,
+                ListComputeCapacityReservationInstanceShapesResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationInstanceShapesRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesRequest.Builder get() {
+                        return ListComputeCapacityReservationInstanceShapesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstanceShapesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListComputeCapacityReservationInstanceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationInstanceShapesRequest.Builder>,
+                        ListComputeCapacityReservationInstanceShapesRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationInstanceShapesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstanceShapesRequest,
+                        ListComputeCapacityReservationInstanceShapesResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesResponse apply(
+                            ListComputeCapacityReservationInstanceShapesRequest request) {
+                        return client.listComputeCapacityReservationInstanceShapes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ComputeCapacityReservationInstanceShapeSummary} objects
+     * contained in responses from the listComputeCapacityReservationInstanceShapes operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ComputeCapacityReservationInstanceShapeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ComputeCapacityReservationInstanceShapeSummary>
+            listComputeCapacityReservationInstanceShapesRecordIterator(
+                    final ListComputeCapacityReservationInstanceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeCapacityReservationInstanceShapesRequest.Builder,
+                ListComputeCapacityReservationInstanceShapesRequest,
+                ListComputeCapacityReservationInstanceShapesResponse,
+                com.oracle.bmc.core.model.ComputeCapacityReservationInstanceShapeSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationInstanceShapesRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesRequest.Builder get() {
+                        return ListComputeCapacityReservationInstanceShapesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstanceShapesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListComputeCapacityReservationInstanceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationInstanceShapesRequest.Builder>,
+                        ListComputeCapacityReservationInstanceShapesRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationInstanceShapesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstanceShapesRequest,
+                        ListComputeCapacityReservationInstanceShapesResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationInstanceShapesResponse apply(
+                            ListComputeCapacityReservationInstanceShapesRequest request) {
+                        return client.listComputeCapacityReservationInstanceShapes(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstanceShapesResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model
+                                        .ComputeCapacityReservationInstanceShapeSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model
+                                            .ComputeCapacityReservationInstanceShapeSummary>
+                            apply(ListComputeCapacityReservationInstanceShapesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeCapacityReservationInstances operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeCapacityReservationInstancesResponse>
+            listComputeCapacityReservationInstancesResponseIterator(
+                    final ListComputeCapacityReservationInstancesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeCapacityReservationInstancesRequest.Builder,
+                ListComputeCapacityReservationInstancesRequest,
+                ListComputeCapacityReservationInstancesResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationInstancesRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesRequest.Builder get() {
+                        return ListComputeCapacityReservationInstancesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstancesResponse, String>() {
+                    @Override
+                    public String apply(ListComputeCapacityReservationInstancesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationInstancesRequest.Builder>,
+                        ListComputeCapacityReservationInstancesRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationInstancesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstancesRequest,
+                        ListComputeCapacityReservationInstancesResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesResponse apply(
+                            ListComputeCapacityReservationInstancesRequest request) {
+                        return client.listComputeCapacityReservationInstances(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.CapacityReservationInstanceSummary} objects
+     * contained in responses from the listComputeCapacityReservationInstances operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.CapacityReservationInstanceSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.CapacityReservationInstanceSummary>
+            listComputeCapacityReservationInstancesRecordIterator(
+                    final ListComputeCapacityReservationInstancesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeCapacityReservationInstancesRequest.Builder,
+                ListComputeCapacityReservationInstancesRequest,
+                ListComputeCapacityReservationInstancesResponse,
+                com.oracle.bmc.core.model.CapacityReservationInstanceSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationInstancesRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesRequest.Builder get() {
+                        return ListComputeCapacityReservationInstancesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstancesResponse, String>() {
+                    @Override
+                    public String apply(ListComputeCapacityReservationInstancesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationInstancesRequest.Builder>,
+                        ListComputeCapacityReservationInstancesRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationInstancesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstancesRequest,
+                        ListComputeCapacityReservationInstancesResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationInstancesResponse apply(
+                            ListComputeCapacityReservationInstancesRequest request) {
+                        return client.listComputeCapacityReservationInstances(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationInstancesResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.CapacityReservationInstanceSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model.CapacityReservationInstanceSummary>
+                            apply(ListComputeCapacityReservationInstancesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeCapacityReservations operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeCapacityReservationsResponse>
+            listComputeCapacityReservationsResponseIterator(
+                    final ListComputeCapacityReservationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeCapacityReservationsRequest.Builder,
+                ListComputeCapacityReservationsRequest, ListComputeCapacityReservationsResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationsRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationsRequest.Builder get() {
+                        return ListComputeCapacityReservationsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationsResponse, String>() {
+                    @Override
+                    public String apply(ListComputeCapacityReservationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationsRequest.Builder>,
+                        ListComputeCapacityReservationsRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationsRequest,
+                        ListComputeCapacityReservationsResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationsResponse apply(
+                            ListComputeCapacityReservationsRequest request) {
+                        return client.listComputeCapacityReservations(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ComputeCapacityReservationSummary} objects
+     * contained in responses from the listComputeCapacityReservations operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ComputeCapacityReservationSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ComputeCapacityReservationSummary>
+            listComputeCapacityReservationsRecordIterator(
+                    final ListComputeCapacityReservationsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeCapacityReservationsRequest.Builder,
+                ListComputeCapacityReservationsRequest, ListComputeCapacityReservationsResponse,
+                com.oracle.bmc.core.model.ComputeCapacityReservationSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeCapacityReservationsRequest.Builder>() {
+                    @Override
+                    public ListComputeCapacityReservationsRequest.Builder get() {
+                        return ListComputeCapacityReservationsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationsResponse, String>() {
+                    @Override
+                    public String apply(ListComputeCapacityReservationsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeCapacityReservationsRequest.Builder>,
+                        ListComputeCapacityReservationsRequest>() {
+                    @Override
+                    public ListComputeCapacityReservationsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeCapacityReservationsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationsRequest,
+                        ListComputeCapacityReservationsResponse>() {
+                    @Override
+                    public ListComputeCapacityReservationsResponse apply(
+                            ListComputeCapacityReservationsRequest request) {
+                        return client.listComputeCapacityReservations(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeCapacityReservationsResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.ComputeCapacityReservationSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model.ComputeCapacityReservationSummary>
+                            apply(ListComputeCapacityReservationsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeGlobalImageCapabilitySchemaVersions operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeGlobalImageCapabilitySchemaVersionsResponse>
+            listComputeGlobalImageCapabilitySchemaVersionsResponseIterator(
+                    final ListComputeGlobalImageCapabilitySchemaVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder,
+                ListComputeGlobalImageCapabilitySchemaVersionsRequest,
+                ListComputeGlobalImageCapabilitySchemaVersionsResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder get() {
+                        return ListComputeGlobalImageCapabilitySchemaVersionsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemaVersionsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListComputeGlobalImageCapabilitySchemaVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder>,
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeGlobalImageCapabilitySchemaVersionsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest,
+                        ListComputeGlobalImageCapabilitySchemaVersionsResponse>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsResponse apply(
+                            ListComputeGlobalImageCapabilitySchemaVersionsRequest request) {
+                        return client.listComputeGlobalImageCapabilitySchemaVersions(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaVersionSummary} objects
+     * contained in responses from the listComputeGlobalImageCapabilitySchemaVersions operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaVersionSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaVersionSummary>
+            listComputeGlobalImageCapabilitySchemaVersionsRecordIterator(
+                    final ListComputeGlobalImageCapabilitySchemaVersionsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder,
+                ListComputeGlobalImageCapabilitySchemaVersionsRequest,
+                ListComputeGlobalImageCapabilitySchemaVersionsResponse,
+                com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaVersionSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder get() {
+                        return ListComputeGlobalImageCapabilitySchemaVersionsRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemaVersionsResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListComputeGlobalImageCapabilitySchemaVersionsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeGlobalImageCapabilitySchemaVersionsRequest.Builder>,
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeGlobalImageCapabilitySchemaVersionsRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemaVersionsRequest,
+                        ListComputeGlobalImageCapabilitySchemaVersionsResponse>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemaVersionsResponse apply(
+                            ListComputeGlobalImageCapabilitySchemaVersionsRequest request) {
+                        return client.listComputeGlobalImageCapabilitySchemaVersions(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemaVersionsResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model
+                                        .ComputeGlobalImageCapabilitySchemaVersionSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model
+                                            .ComputeGlobalImageCapabilitySchemaVersionSummary>
+                            apply(ListComputeGlobalImageCapabilitySchemaVersionsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeGlobalImageCapabilitySchemas operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeGlobalImageCapabilitySchemasResponse>
+            listComputeGlobalImageCapabilitySchemasResponseIterator(
+                    final ListComputeGlobalImageCapabilitySchemasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeGlobalImageCapabilitySchemasRequest.Builder,
+                ListComputeGlobalImageCapabilitySchemasRequest,
+                ListComputeGlobalImageCapabilitySchemasResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeGlobalImageCapabilitySchemasRequest.Builder>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasRequest.Builder get() {
+                        return ListComputeGlobalImageCapabilitySchemasRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemasResponse, String>() {
+                    @Override
+                    public String apply(ListComputeGlobalImageCapabilitySchemasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeGlobalImageCapabilitySchemasRequest.Builder>,
+                        ListComputeGlobalImageCapabilitySchemasRequest>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeGlobalImageCapabilitySchemasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemasRequest,
+                        ListComputeGlobalImageCapabilitySchemasResponse>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasResponse apply(
+                            ListComputeGlobalImageCapabilitySchemasRequest request) {
+                        return client.listComputeGlobalImageCapabilitySchemas(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaSummary} objects
+     * contained in responses from the listComputeGlobalImageCapabilitySchemas operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaSummary>
+            listComputeGlobalImageCapabilitySchemasRecordIterator(
+                    final ListComputeGlobalImageCapabilitySchemasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeGlobalImageCapabilitySchemasRequest.Builder,
+                ListComputeGlobalImageCapabilitySchemasRequest,
+                ListComputeGlobalImageCapabilitySchemasResponse,
+                com.oracle.bmc.core.model.ComputeGlobalImageCapabilitySchemaSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeGlobalImageCapabilitySchemasRequest.Builder>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasRequest.Builder get() {
+                        return ListComputeGlobalImageCapabilitySchemasRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemasResponse, String>() {
+                    @Override
+                    public String apply(ListComputeGlobalImageCapabilitySchemasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeGlobalImageCapabilitySchemasRequest.Builder>,
+                        ListComputeGlobalImageCapabilitySchemasRequest>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeGlobalImageCapabilitySchemasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemasRequest,
+                        ListComputeGlobalImageCapabilitySchemasResponse>() {
+                    @Override
+                    public ListComputeGlobalImageCapabilitySchemasResponse apply(
+                            ListComputeGlobalImageCapabilitySchemasRequest request) {
+                        return client.listComputeGlobalImageCapabilitySchemas(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeGlobalImageCapabilitySchemasResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model
+                                        .ComputeGlobalImageCapabilitySchemaSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model
+                                            .ComputeGlobalImageCapabilitySchemaSummary>
+                            apply(ListComputeGlobalImageCapabilitySchemasResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listComputeImageCapabilitySchemas operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListComputeImageCapabilitySchemasResponse>
+            listComputeImageCapabilitySchemasResponseIterator(
+                    final ListComputeImageCapabilitySchemasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListComputeImageCapabilitySchemasRequest.Builder,
+                ListComputeImageCapabilitySchemasRequest,
+                ListComputeImageCapabilitySchemasResponse>(
+                new com.google.common.base.Supplier<
+                        ListComputeImageCapabilitySchemasRequest.Builder>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasRequest.Builder get() {
+                        return ListComputeImageCapabilitySchemasRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeImageCapabilitySchemasResponse, String>() {
+                    @Override
+                    public String apply(ListComputeImageCapabilitySchemasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeImageCapabilitySchemasRequest.Builder>,
+                        ListComputeImageCapabilitySchemasRequest>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeImageCapabilitySchemasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeImageCapabilitySchemasRequest,
+                        ListComputeImageCapabilitySchemasResponse>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasResponse apply(
+                            ListComputeImageCapabilitySchemasRequest request) {
+                        return client.listComputeImageCapabilitySchemas(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary} objects
+     * contained in responses from the listComputeImageCapabilitySchemas operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary>
+            listComputeImageCapabilitySchemasRecordIterator(
+                    final ListComputeImageCapabilitySchemasRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListComputeImageCapabilitySchemasRequest.Builder,
+                ListComputeImageCapabilitySchemasRequest, ListComputeImageCapabilitySchemasResponse,
+                com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary>(
+                new com.google.common.base.Supplier<
+                        ListComputeImageCapabilitySchemasRequest.Builder>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasRequest.Builder get() {
+                        return ListComputeImageCapabilitySchemasRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeImageCapabilitySchemasResponse, String>() {
+                    @Override
+                    public String apply(ListComputeImageCapabilitySchemasResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListComputeImageCapabilitySchemasRequest.Builder>,
+                        ListComputeImageCapabilitySchemasRequest>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListComputeImageCapabilitySchemasRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeImageCapabilitySchemasRequest,
+                        ListComputeImageCapabilitySchemasResponse>() {
+                    @Override
+                    public ListComputeImageCapabilitySchemasResponse apply(
+                            ListComputeImageCapabilitySchemasRequest request) {
+                        return client.listComputeImageCapabilitySchemas(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListComputeImageCapabilitySchemasResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model.ComputeImageCapabilitySchemaSummary>
+                            apply(ListComputeImageCapabilitySchemasResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
      * Creates a new iterable which will iterate over the responses received from the listConsoleHistories operation. This iterable
      * will fetch more data from the server as needed.
      *
@@ -616,6 +1404,613 @@ public class ComputePaginators {
                     @Override
                     public java.util.List<com.oracle.bmc.core.model.ConsoleHistory> apply(
                             ListConsoleHistoriesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDedicatedVmHostInstanceShapes operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDedicatedVmHostInstanceShapesResponse>
+            listDedicatedVmHostInstanceShapesResponseIterator(
+                    final ListDedicatedVmHostInstanceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDedicatedVmHostInstanceShapesRequest.Builder,
+                ListDedicatedVmHostInstanceShapesRequest,
+                ListDedicatedVmHostInstanceShapesResponse>(
+                new com.google.common.base.Supplier<
+                        ListDedicatedVmHostInstanceShapesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesRequest.Builder get() {
+                        return ListDedicatedVmHostInstanceShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstanceShapesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostInstanceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostInstanceShapesRequest.Builder>,
+                        ListDedicatedVmHostInstanceShapesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostInstanceShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstanceShapesRequest,
+                        ListDedicatedVmHostInstanceShapesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesResponse apply(
+                            ListDedicatedVmHostInstanceShapesRequest request) {
+                        return client.listDedicatedVmHostInstanceShapes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary} objects
+     * contained in responses from the listDedicatedVmHostInstanceShapes operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary>
+            listDedicatedVmHostInstanceShapesRecordIterator(
+                    final ListDedicatedVmHostInstanceShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDedicatedVmHostInstanceShapesRequest.Builder,
+                ListDedicatedVmHostInstanceShapesRequest, ListDedicatedVmHostInstanceShapesResponse,
+                com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary>(
+                new com.google.common.base.Supplier<
+                        ListDedicatedVmHostInstanceShapesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesRequest.Builder get() {
+                        return ListDedicatedVmHostInstanceShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstanceShapesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostInstanceShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostInstanceShapesRequest.Builder>,
+                        ListDedicatedVmHostInstanceShapesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostInstanceShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstanceShapesRequest,
+                        ListDedicatedVmHostInstanceShapesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostInstanceShapesResponse apply(
+                            ListDedicatedVmHostInstanceShapesRequest request) {
+                        return client.listDedicatedVmHostInstanceShapes(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstanceShapesResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.core.model.DedicatedVmHostInstanceShapeSummary>
+                            apply(ListDedicatedVmHostInstanceShapesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDedicatedVmHostInstances operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDedicatedVmHostInstancesResponse>
+            listDedicatedVmHostInstancesResponseIterator(
+                    final ListDedicatedVmHostInstancesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDedicatedVmHostInstancesRequest.Builder, ListDedicatedVmHostInstancesRequest,
+                ListDedicatedVmHostInstancesResponse>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostInstancesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesRequest.Builder get() {
+                        return ListDedicatedVmHostInstancesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstancesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostInstancesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostInstancesRequest.Builder>,
+                        ListDedicatedVmHostInstancesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostInstancesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstancesRequest,
+                        ListDedicatedVmHostInstancesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesResponse apply(
+                            ListDedicatedVmHostInstancesRequest request) {
+                        return client.listDedicatedVmHostInstances(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary} objects
+     * contained in responses from the listDedicatedVmHostInstances operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary>
+            listDedicatedVmHostInstancesRecordIterator(
+                    final ListDedicatedVmHostInstancesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDedicatedVmHostInstancesRequest.Builder, ListDedicatedVmHostInstancesRequest,
+                ListDedicatedVmHostInstancesResponse,
+                com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostInstancesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesRequest.Builder get() {
+                        return ListDedicatedVmHostInstancesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstancesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostInstancesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostInstancesRequest.Builder>,
+                        ListDedicatedVmHostInstancesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostInstancesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstancesRequest,
+                        ListDedicatedVmHostInstancesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostInstancesResponse apply(
+                            ListDedicatedVmHostInstancesRequest request) {
+                        return client.listDedicatedVmHostInstances(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostInstancesResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DedicatedVmHostInstanceSummary>
+                            apply(ListDedicatedVmHostInstancesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDedicatedVmHostShapes operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDedicatedVmHostShapesResponse> listDedicatedVmHostShapesResponseIterator(
+            final ListDedicatedVmHostShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDedicatedVmHostShapesRequest.Builder, ListDedicatedVmHostShapesRequest,
+                ListDedicatedVmHostShapesResponse>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostShapesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostShapesRequest.Builder get() {
+                        return ListDedicatedVmHostShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDedicatedVmHostShapesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostShapesRequest.Builder>,
+                        ListDedicatedVmHostShapesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostShapesRequest, ListDedicatedVmHostShapesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostShapesResponse apply(
+                            ListDedicatedVmHostShapesRequest request) {
+                        return client.listDedicatedVmHostShapes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostShapeSummary} objects
+     * contained in responses from the listDedicatedVmHostShapes operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostShapeSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DedicatedVmHostShapeSummary>
+            listDedicatedVmHostShapesRecordIterator(
+                    final ListDedicatedVmHostShapesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDedicatedVmHostShapesRequest.Builder, ListDedicatedVmHostShapesRequest,
+                ListDedicatedVmHostShapesResponse,
+                com.oracle.bmc.core.model.DedicatedVmHostShapeSummary>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostShapesRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostShapesRequest.Builder get() {
+                        return ListDedicatedVmHostShapesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDedicatedVmHostShapesResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostShapesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostShapesRequest.Builder>,
+                        ListDedicatedVmHostShapesRequest>() {
+                    @Override
+                    public ListDedicatedVmHostShapesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostShapesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostShapesRequest, ListDedicatedVmHostShapesResponse>() {
+                    @Override
+                    public ListDedicatedVmHostShapesResponse apply(
+                            ListDedicatedVmHostShapesRequest request) {
+                        return client.listDedicatedVmHostShapes(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostShapesResponse,
+                        java.util.List<com.oracle.bmc.core.model.DedicatedVmHostShapeSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DedicatedVmHostShapeSummary>
+                            apply(ListDedicatedVmHostShapesResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listDedicatedVmHosts operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListDedicatedVmHostsResponse> listDedicatedVmHostsResponseIterator(
+            final ListDedicatedVmHostsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDedicatedVmHostsRequest.Builder, ListDedicatedVmHostsRequest,
+                ListDedicatedVmHostsResponse>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostsRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostsRequest.Builder get() {
+                        return ListDedicatedVmHostsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDedicatedVmHostsResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostsRequest.Builder>,
+                        ListDedicatedVmHostsRequest>() {
+                    @Override
+                    public ListDedicatedVmHostsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostsRequest, ListDedicatedVmHostsResponse>() {
+                    @Override
+                    public ListDedicatedVmHostsResponse apply(ListDedicatedVmHostsRequest request) {
+                        return client.listDedicatedVmHosts(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostSummary} objects
+     * contained in responses from the listDedicatedVmHosts operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.DedicatedVmHostSummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.DedicatedVmHostSummary>
+            listDedicatedVmHostsRecordIterator(final ListDedicatedVmHostsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDedicatedVmHostsRequest.Builder, ListDedicatedVmHostsRequest,
+                ListDedicatedVmHostsResponse, com.oracle.bmc.core.model.DedicatedVmHostSummary>(
+                new com.google.common.base.Supplier<ListDedicatedVmHostsRequest.Builder>() {
+                    @Override
+                    public ListDedicatedVmHostsRequest.Builder get() {
+                        return ListDedicatedVmHostsRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<ListDedicatedVmHostsResponse, String>() {
+                    @Override
+                    public String apply(ListDedicatedVmHostsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDedicatedVmHostsRequest.Builder>,
+                        ListDedicatedVmHostsRequest>() {
+                    @Override
+                    public ListDedicatedVmHostsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDedicatedVmHostsRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostsRequest, ListDedicatedVmHostsResponse>() {
+                    @Override
+                    public ListDedicatedVmHostsResponse apply(ListDedicatedVmHostsRequest request) {
+                        return client.listDedicatedVmHosts(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListDedicatedVmHostsResponse,
+                        java.util.List<com.oracle.bmc.core.model.DedicatedVmHostSummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.DedicatedVmHostSummary> apply(
+                            ListDedicatedVmHostsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the listImageShapeCompatibilityEntries operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses received from the service.
+     */
+    public Iterable<ListImageShapeCompatibilityEntriesResponse>
+            listImageShapeCompatibilityEntriesResponseIterator(
+                    final ListImageShapeCompatibilityEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListImageShapeCompatibilityEntriesRequest.Builder,
+                ListImageShapeCompatibilityEntriesRequest,
+                ListImageShapeCompatibilityEntriesResponse>(
+                new com.google.common.base.Supplier<
+                        ListImageShapeCompatibilityEntriesRequest.Builder>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesRequest.Builder get() {
+                        return ListImageShapeCompatibilityEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListImageShapeCompatibilityEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListImageShapeCompatibilityEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListImageShapeCompatibilityEntriesRequest.Builder>,
+                        ListImageShapeCompatibilityEntriesRequest>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListImageShapeCompatibilityEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListImageShapeCompatibilityEntriesRequest,
+                        ListImageShapeCompatibilityEntriesResponse>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesResponse apply(
+                            ListImageShapeCompatibilityEntriesRequest request) {
+                        return client.listImageShapeCompatibilityEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link com.oracle.bmc.core.model.ImageShapeCompatibilitySummary} objects
+     * contained in responses from the listImageShapeCompatibilityEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link com.oracle.bmc.core.model.ImageShapeCompatibilitySummary} objects
+     * contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.core.model.ImageShapeCompatibilitySummary>
+            listImageShapeCompatibilityEntriesRecordIterator(
+                    final ListImageShapeCompatibilityEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListImageShapeCompatibilityEntriesRequest.Builder,
+                ListImageShapeCompatibilityEntriesRequest,
+                ListImageShapeCompatibilityEntriesResponse,
+                com.oracle.bmc.core.model.ImageShapeCompatibilitySummary>(
+                new com.google.common.base.Supplier<
+                        ListImageShapeCompatibilityEntriesRequest.Builder>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesRequest.Builder get() {
+                        return ListImageShapeCompatibilityEntriesRequest.builder().copy(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListImageShapeCompatibilityEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListImageShapeCompatibilityEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new com.google.common.base.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListImageShapeCompatibilityEntriesRequest.Builder>,
+                        ListImageShapeCompatibilityEntriesRequest>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListImageShapeCompatibilityEntriesRequest.Builder>
+                                    input) {
+                        if (input.getToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getToken().orNull())
+                                    .build();
+                        }
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListImageShapeCompatibilityEntriesRequest,
+                        ListImageShapeCompatibilityEntriesResponse>() {
+                    @Override
+                    public ListImageShapeCompatibilityEntriesResponse apply(
+                            ListImageShapeCompatibilityEntriesRequest request) {
+                        return client.listImageShapeCompatibilityEntries(request);
+                    }
+                },
+                new com.google.common.base.Function<
+                        ListImageShapeCompatibilityEntriesResponse,
+                        java.util.List<
+                                com.oracle.bmc.core.model.ImageShapeCompatibilitySummary>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.core.model.ImageShapeCompatibilitySummary>
+                            apply(ListImageShapeCompatibilityEntriesResponse response) {
                         return response.getItems();
                     }
                 });

@@ -1,11 +1,18 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.monitoring;
 
 import com.oracle.bmc.monitoring.requests.*;
 import com.oracle.bmc.monitoring.responses.*;
 
+/**
+ * Use the Monitoring API to manage metric queries and alarms for assessing the health, capacity, and performance of your cloud resources.
+ * Endpoints vary by operation. For PostMetric, use the `telemetry-ingestion` endpoints; for all other operations, use the `telemetry` endpoints.
+ * For information about monitoring, see [Monitoring Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm).
+ *
+ */
 @javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180401")
 public interface MonitoringAsync extends AutoCloseable {
 
@@ -14,6 +21,11 @@ public interface MonitoringAsync extends AutoCloseable {
      * @param endpoint The endpoint of the serice.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -59,7 +71,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Creates a new alarm in the specified compartment.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -77,7 +91,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Deletes the specified alarm.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -95,7 +111,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Gets the specified alarm.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -113,7 +131,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Get the history of the specified alarm.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -132,7 +152,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Lists the alarms for the specified compartment.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -150,7 +172,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * List the status of each alarm in the specified compartment.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -170,7 +194,7 @@ public interface MonitoringAsync extends AutoCloseable {
      * For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * Transactions Per Second (TPS) per-tenancy limit for this operation: 10.
      *
      *
      * @param request The request object containing the details to send
@@ -221,7 +245,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Removes any existing suppression for the specified alarm.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send
@@ -262,7 +288,9 @@ public interface MonitoringAsync extends AutoCloseable {
      * Updates the specified alarm.
      * For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
      * <p>
-     * Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+     * This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+     * Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+     * or transactions, per second (TPS) for a given tenancy.
      *
      *
      * @param request The request object containing the details to send

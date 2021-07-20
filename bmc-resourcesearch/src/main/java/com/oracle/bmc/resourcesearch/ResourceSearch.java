@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.resourcesearch;
 
 import com.oracle.bmc.resourcesearch.requests.*;
 import com.oracle.bmc.resourcesearch.responses.*;
 
-@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 0.0.4")
+/**
+ * Search for resources in your cloud network.
+ */
+@javax.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20180409")
 public interface ResourceSearch extends AutoCloseable {
 
     /**
@@ -14,6 +18,11 @@ public interface ResourceSearch extends AutoCloseable {
      * @param endpoint The endpoint of the service.
      */
     void setEndpoint(String endpoint);
+
+    /**
+     * Gets the set endpoint for REST call (ex, https://www.example.com)
+     */
+    String getEndpoint();
 
     /**
      * Sets the region to call (ex, Region.US_PHOENIX_1).
@@ -42,6 +51,8 @@ public interface ResourceSearch extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/resourcesearch/GetResourceTypeExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetResourceType API.
      */
     GetResourceTypeResponse getResourceType(GetResourceTypeRequest request);
 
@@ -51,17 +62,21 @@ public interface ResourceSearch extends AutoCloseable {
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/resourcesearch/ListResourceTypesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListResourceTypes API.
      */
     ListResourceTypesResponse listResourceTypes(ListResourceTypesRequest request);
 
     /**
-     * Queries any and all compartments in the tenancy to find resources that match the specified criteria.
+     * Queries any and all compartments in the specified tenancy to find resources that match the specified criteria.
      * Results include resources that you have permission to view and can span different resource types.
      * You can also sort results based on a specified resource attribute.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs.
+     *
+     * <b>Example: </b>Click <a href="https://docs.cloud.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/resourcesearch/SearchResourcesExample.java.html" target="_blank" rel="noopener noreferrer" >here</a> to see how to use SearchResources API.
      */
     SearchResourcesResponse searchResources(SearchResourcesRequest request);
 

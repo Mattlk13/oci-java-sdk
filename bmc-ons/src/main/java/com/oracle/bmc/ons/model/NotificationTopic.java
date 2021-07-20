@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.ons.model;
 
 /**
- * The properties that define a topic.
+ * The properties that define a topic. For general information about topics, see
+ * [Notifications Overview](https://docs.cloud.oracle.com/iaas/Content/Notification/Concepts/notificationoverview.htm).
  *
  * <br/>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model distinguishes fields
@@ -21,6 +23,7 @@ package com.oracle.bmc.ons.model;
     builder = NotificationTopic.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class NotificationTopic {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -40,6 +43,15 @@ public class NotificationTopic {
         public Builder topicId(String topicId) {
             this.topicId = topicId;
             this.__explicitlySet__.add("topicId");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("shortTopicId")
+        private String shortTopicId;
+
+        public Builder shortTopicId(String shortTopicId) {
+            this.shortTopicId = shortTopicId;
+            this.__explicitlySet__.add("shortTopicId");
             return this;
         }
 
@@ -124,6 +136,7 @@ public class NotificationTopic {
                     new NotificationTopic(
                             name,
                             topicId,
+                            shortTopicId,
                             compartmentId,
                             lifecycleState,
                             description,
@@ -141,6 +154,7 @@ public class NotificationTopic {
             Builder copiedBuilder =
                     name(o.getName())
                             .topicId(o.getTopicId())
+                            .shortTopicId(o.getShortTopicId())
                             .compartmentId(o.getCompartmentId())
                             .lifecycleState(o.getLifecycleState())
                             .description(o.getDescription())
@@ -174,6 +188,13 @@ public class NotificationTopic {
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("topicId")
     String topicId;
+
+    /**
+     * A unique short topic Id. This is used only for SMS subscriptions.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("shortTopicId")
+    String shortTopicId;
 
     /**
      * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment for the topic.
@@ -274,7 +295,7 @@ public class NotificationTopic {
     java.util.Map<String, java.util.Map<String, Object>> definedTags;
 
     /**
-     * The endpoint for managing topic subscriptions or publishing messages to the topic.
+     * The endpoint for managing subscriptions or publishing messages to the topic.
      *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("apiEndpoint")

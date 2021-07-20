@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.containerengine.model;
 
@@ -20,6 +21,7 @@ package com.oracle.bmc.containerengine.model;
     builder = CreateNodePoolDetails.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CreateNodePoolDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -78,12 +80,30 @@ public class CreateNodePoolDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeSourceDetails")
+        private NodeSourceDetails nodeSourceDetails;
+
+        public Builder nodeSourceDetails(NodeSourceDetails nodeSourceDetails) {
+            this.nodeSourceDetails = nodeSourceDetails;
+            this.__explicitlySet__.add("nodeSourceDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("nodeShape")
         private String nodeShape;
 
         public Builder nodeShape(String nodeShape) {
             this.nodeShape = nodeShape;
             this.__explicitlySet__.add("nodeShape");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeShapeConfig")
+        private CreateNodeShapeConfigDetails nodeShapeConfig;
+
+        public Builder nodeShapeConfig(CreateNodeShapeConfigDetails nodeShapeConfig) {
+            this.nodeShapeConfig = nodeShapeConfig;
+            this.__explicitlySet__.add("nodeShapeConfig");
             return this;
         }
 
@@ -123,6 +143,15 @@ public class CreateNodePoolDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("nodeConfigDetails")
+        private CreateNodePoolNodeConfigDetails nodeConfigDetails;
+
+        public Builder nodeConfigDetails(CreateNodePoolNodeConfigDetails nodeConfigDetails) {
+            this.nodeConfigDetails = nodeConfigDetails;
+            this.__explicitlySet__.add("nodeConfigDetails");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -135,11 +164,14 @@ public class CreateNodePoolDetails {
                             kubernetesVersion,
                             nodeMetadata,
                             nodeImageName,
+                            nodeSourceDetails,
                             nodeShape,
+                            nodeShapeConfig,
                             initialNodeLabels,
                             sshPublicKey,
                             quantityPerSubnet,
-                            subnetIds);
+                            subnetIds,
+                            nodeConfigDetails);
             __instance__.__explicitlySet__.addAll(__explicitlySet__);
             return __instance__;
         }
@@ -153,11 +185,14 @@ public class CreateNodePoolDetails {
                             .kubernetesVersion(o.getKubernetesVersion())
                             .nodeMetadata(o.getNodeMetadata())
                             .nodeImageName(o.getNodeImageName())
+                            .nodeSourceDetails(o.getNodeSourceDetails())
                             .nodeShape(o.getNodeShape())
+                            .nodeShapeConfig(o.getNodeShapeConfig())
                             .initialNodeLabels(o.getInitialNodeLabels())
                             .sshPublicKey(o.getSshPublicKey())
                             .quantityPerSubnet(o.getQuantityPerSubnet())
-                            .subnetIds(o.getSubnetIds());
+                            .subnetIds(o.getSubnetIds())
+                            .nodeConfigDetails(o.getNodeConfigDetails());
 
             copiedBuilder.__explicitlySet__.retainAll(o.__explicitlySet__);
             return copiedBuilder;
@@ -196,16 +231,26 @@ public class CreateNodePoolDetails {
     String kubernetesVersion;
 
     /**
-     * A list of key/value pairs to add to each underlying OCI instance in the node pool.
+     * A list of key/value pairs to add to each underlying OCI instance in the node pool on launch.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeMetadata")
     java.util.Map<String, String> nodeMetadata;
 
     /**
+     * Deprecated. Use `nodeSourceDetails` instead.
+     * If you specify values for both, this value is ignored.
      * The name of the image running on the nodes in the node pool.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("nodeImageName")
     String nodeImageName;
+
+    /**
+     * Specify the source to use to launch nodes in the node pool. Currently, image is the only supported source.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeSourceDetails")
+    NodeSourceDetails nodeSourceDetails;
 
     /**
      * The name of the node shape of the nodes in the node pool.
@@ -214,28 +259,48 @@ public class CreateNodePoolDetails {
     String nodeShape;
 
     /**
+     * Specify the configuration of the shape to launch nodes in the node pool.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeShapeConfig")
+    CreateNodeShapeConfigDetails nodeShapeConfig;
+
+    /**
      * A list of key/value pairs to add to nodes after they join the Kubernetes cluster.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("initialNodeLabels")
     java.util.List<KeyValue> initialNodeLabels;
 
     /**
-     * The SSH public key to add to each node in the node pool.
+     * The SSH public key on each node in the node pool on launch.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("sshPublicKey")
     String sshPublicKey;
 
     /**
-     * The number of nodes to create in each subnet.
+     * Optional, default to 1. The number of nodes to create in each subnet specified in subnetIds property.
+     * When used, subnetIds is required. This property is deprecated, use nodeConfigDetails instead.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("quantityPerSubnet")
     Integer quantityPerSubnet;
 
     /**
-     * The OCIDs of the subnets in which to place nodes for this node pool.
+     * The OCIDs of the subnets in which to place nodes for this node pool. When used, quantityPerSubnet
+     * can be provided. This property is deprecated, use nodeConfigDetails. Exactly one of the
+     * subnetIds or nodeConfigDetails properties must be specified.
+     *
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("subnetIds")
     java.util.List<String> subnetIds;
+
+    /**
+     * The configuration of nodes in the node pool. Exactly one of the
+     * subnetIds or nodeConfigDetails properties must be specified.
+     *
+     **/
+    @com.fasterxml.jackson.annotation.JsonProperty("nodeConfigDetails")
+    CreateNodePoolNodeConfigDetails nodeConfigDetails;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();

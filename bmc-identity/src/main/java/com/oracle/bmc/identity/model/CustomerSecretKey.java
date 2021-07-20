@@ -1,12 +1,13 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.model;
 
 /**
  * A `CustomerSecretKey` is an Oracle-provided key for using the Object Storage Service's
- * [Amazon S3 compatible API](https://docs.cloud.oracle.com/Content/Object/Tasks/s3compatibleapi.htm).
- * A user can have up to two secret keys at a time.
+ * [Amazon S3 compatible API](https://docs.cloud.oracle.com/Content/Object/Tasks/s3compatibleapi.htm). The key consists of a
+ * secret key/access key pair. A user can have up to two secret keys at a time.
  * <p>
  **Note:** The secret key is always an Oracle-generated string; you can't change it to a string of your choice.
  * <p>
@@ -27,6 +28,7 @@ package com.oracle.bmc.identity.model;
     builder = CustomerSecretKey.Builder.class
 )
 @com.fasterxml.jackson.annotation.JsonFilter(com.oracle.bmc.http.internal.ExplicitlySetFilter.NAME)
+@lombok.Builder(builderClassName = "Builder", toBuilder = true)
 public class CustomerSecretKey {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     @lombok.experimental.Accessors(fluent = true)
@@ -153,7 +155,7 @@ public class CustomerSecretKey {
     String key;
 
     /**
-     * The OCID of the secret key.
+     * The access key portion of the key pair.
      **/
     @com.fasterxml.jackson.annotation.JsonProperty("id")
     String id;

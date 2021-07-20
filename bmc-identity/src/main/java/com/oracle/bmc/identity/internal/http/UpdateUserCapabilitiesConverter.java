@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.identity.internal.http;
 
@@ -16,14 +17,15 @@ public class UpdateUserCapabilitiesConverter {
             RESPONSE_CONVERSION_FACTORY =
                     new com.oracle.bmc.http.internal.ResponseConversionFunctionFactory();
 
-    public static UpdateUserCapabilitiesRequest interceptRequest(
-            UpdateUserCapabilitiesRequest request) {
+    public static com.oracle.bmc.identity.requests.UpdateUserCapabilitiesRequest interceptRequest(
+            com.oracle.bmc.identity.requests.UpdateUserCapabilitiesRequest request) {
 
         return request;
     }
 
     public static com.oracle.bmc.http.internal.WrappedInvocationBuilder fromRequest(
-            com.oracle.bmc.http.internal.RestClient client, UpdateUserCapabilitiesRequest request) {
+            com.oracle.bmc.http.internal.RestClient client,
+            com.oracle.bmc.identity.requests.UpdateUserCapabilitiesRequest request) {
         Validate.notNull(request, "request instance is required");
         Validate.notBlank(request.getUserId(), "userId must not be blank");
         Validate.notNull(
@@ -47,22 +49,29 @@ public class UpdateUserCapabilitiesConverter {
             ib.header("if-match", request.getIfMatch());
         }
 
+        if (client.getClientConfigurator() != null) {
+            client.getClientConfigurator().customizeRequest(request, ib);
+        }
         return ib;
     }
 
     public static com.google.common.base.Function<
-                    javax.ws.rs.core.Response, UpdateUserCapabilitiesResponse>
+                    javax.ws.rs.core.Response,
+                    com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse>
             fromResponse() {
         final com.google.common.base.Function<
-                        javax.ws.rs.core.Response, UpdateUserCapabilitiesResponse>
+                        javax.ws.rs.core.Response,
+                        com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse>
                 transformer =
                         new com.google.common.base.Function<
-                                javax.ws.rs.core.Response, UpdateUserCapabilitiesResponse>() {
+                                javax.ws.rs.core.Response,
+                                com.oracle.bmc.identity.responses
+                                        .UpdateUserCapabilitiesResponse>() {
                             @Override
-                            public UpdateUserCapabilitiesResponse apply(
-                                    javax.ws.rs.core.Response rawResponse) {
+                            public com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse
+                                    apply(javax.ws.rs.core.Response rawResponse) {
                                 LOG.trace(
-                                        "Transform function invoked for UpdateUserCapabilitiesResponse");
+                                        "Transform function invoked for com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse");
                                 com.google.common.base.Function<
                                                 javax.ws.rs.core.Response,
                                                 com.oracle.bmc.http.internal.WithHeaders<User>>
@@ -73,8 +82,13 @@ public class UpdateUserCapabilitiesConverter {
                                 javax.ws.rs.core.MultivaluedMap<String, String> headers =
                                         response.getHeaders();
 
-                                UpdateUserCapabilitiesResponse.Builder builder =
-                                        UpdateUserCapabilitiesResponse.builder();
+                                com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse
+                                                .Builder
+                                        builder =
+                                                com.oracle.bmc.identity.responses
+                                                        .UpdateUserCapabilitiesResponse.builder()
+                                                        .__httpStatusCode__(
+                                                                rawResponse.getStatus());
 
                                 builder.user(response.getItem());
 
@@ -99,7 +113,8 @@ public class UpdateUserCapabilitiesConverter {
                                                     "etag", etagHeader.get().get(0), String.class));
                                 }
 
-                                UpdateUserCapabilitiesResponse responseWrapper = builder.build();
+                                com.oracle.bmc.identity.responses.UpdateUserCapabilitiesResponse
+                                        responseWrapper = builder.build();
 
                                 ResponseHelper.closeResponseSilentlyIfNotBuffered(rawResponse);
                                 return responseWrapper;

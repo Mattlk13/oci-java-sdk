@@ -1,5 +1,6 @@
 /**
- * Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
  */
 package com.oracle.bmc.model;
 
@@ -35,6 +36,10 @@ public class BmcException extends RuntimeException {
      */
     @Getter private final String opcRequestId;
 
+    /**
+     * Flag to indicate that the exception originated from the client and not from the service.
+     * Status code and service code should not be used if this is true.
+     */
     @Getter private final boolean isClientSide;
 
     public BmcException(
