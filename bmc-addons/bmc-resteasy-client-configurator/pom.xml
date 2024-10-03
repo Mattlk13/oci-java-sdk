@@ -15,7 +15,7 @@
   <url>https://docs.us-phoenix-1.oraclecloud.com/Content/API/SDKDocs/javasdk.htm</url>
 
   <properties>
-    <resteasy.version>3.6.3.Final</resteasy.version>
+    <resteasy.version>3.14.0.Final</resteasy.version>
   </properties>
 
 
