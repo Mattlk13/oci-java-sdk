@@ -13,10 +13,16 @@ import com.oracle.bmc.loganalytics.model.*;
 @jakarta.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20200601")
 public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<java.io.InputStream> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
@@ -151,11 +157,11 @@ public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<jav
         return opcRequestId;
     }
     /**
-     * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Logging
-     * Analytics performs an integrity check on the body of the HTTP request by computing the MD5
-     * hash for the body and comparing it to the MD5 hash supplied in the header. If the two hashes
-     * do not match, the log data is rejected and an HTTP-400 Unmatched Content MD5 error is
-     * returned with the message:
+     * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Log Analytics
+     * performs an integrity check on the body of the HTTP request by computing the MD5 hash for the
+     * body and comparing it to the MD5 hash supplied in the header. If the two hashes do not match,
+     * the log data is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the
+     * message:
      *
      * <p>"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header
      * (HEADER_MD5)"
@@ -163,11 +169,11 @@ public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<jav
     private String contentMd5;
 
     /**
-     * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Logging
-     * Analytics performs an integrity check on the body of the HTTP request by computing the MD5
-     * hash for the body and comparing it to the MD5 hash supplied in the header. If the two hashes
-     * do not match, the log data is rejected and an HTTP-400 Unmatched Content MD5 error is
-     * returned with the message:
+     * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Log Analytics
+     * performs an integrity check on the body of the HTTP request by computing the MD5 hash for the
+     * body and comparing it to the MD5 hash supplied in the header. If the two hashes do not match,
+     * the log data is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the
+     * message:
      *
      * <p>"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header
      * (HEADER_MD5)"
@@ -250,11 +256,15 @@ public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<jav
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -469,7 +479,7 @@ public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<jav
         }
 
         /**
-         * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Logging
+         * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Log
          * Analytics performs an integrity check on the body of the HTTP request by computing the
          * MD5 hash for the body and comparing it to the MD5 hash supplied in the header. If the two
          * hashes do not match, the log data is rejected and an HTTP-400 Unmatched Content MD5 error
@@ -481,7 +491,7 @@ public class UploadLogFileRequest extends com.oracle.bmc.requests.BmcRequest<jav
         private String contentMd5 = null;
 
         /**
-         * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Logging
+         * The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Log
          * Analytics performs an integrity check on the body of the HTTP request by computing the
          * MD5 hash for the body and comparing it to the MD5 hash supplied in the header. If the two
          * hashes do not match, the log data is rejected and an HTTP-400 Unmatched Content MD5 error

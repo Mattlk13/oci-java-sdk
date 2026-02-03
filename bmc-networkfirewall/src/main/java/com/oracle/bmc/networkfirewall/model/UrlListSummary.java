@@ -22,12 +22,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UrlListSummary
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"name", "totalUrls", "parentResourceId"})
-    public UrlListSummary(String name, Integer totalUrls, String parentResourceId) {
+    @java.beans.ConstructorProperties({"name", "totalUrls", "parentResourceId", "description"})
+    public UrlListSummary(
+            String name, Integer totalUrls, String parentResourceId, String description) {
         super();
         this.name = name;
         this.totalUrls = totalUrls;
         this.parentResourceId = parentResourceId;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -77,13 +79,29 @@ public final class UrlListSummary
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+        /** The description of the Url list. This field can be used to add additional info. */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the Url list. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UrlListSummary build() {
             UrlListSummary model =
-                    new UrlListSummary(this.name, this.totalUrls, this.parentResourceId);
+                    new UrlListSummary(
+                            this.name, this.totalUrls, this.parentResourceId, this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -100,6 +118,9 @@ public final class UrlListSummary
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -153,6 +174,19 @@ public final class UrlListSummary
         return parentResourceId;
     }
 
+    /** The description of the Url list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the Url list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -171,6 +205,7 @@ public final class UrlListSummary
         sb.append("name=").append(String.valueOf(this.name));
         sb.append(", totalUrls=").append(String.valueOf(this.totalUrls));
         sb.append(", parentResourceId=").append(String.valueOf(this.parentResourceId));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -188,6 +223,7 @@ public final class UrlListSummary
         return java.util.Objects.equals(this.name, other.name)
                 && java.util.Objects.equals(this.totalUrls, other.totalUrls)
                 && java.util.Objects.equals(this.parentResourceId, other.parentResourceId)
+                && java.util.Objects.equals(this.description, other.description)
                 && super.equals(other);
     }
 
@@ -200,6 +236,7 @@ public final class UrlListSummary
         result =
                 (result * PRIME)
                         + (this.parentResourceId == null ? 43 : this.parentResourceId.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

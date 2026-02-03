@@ -23,10 +23,11 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateServiceListDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"services"})
-    public UpdateServiceListDetails(java.util.List<String> services) {
+    @java.beans.ConstructorProperties({"services", "description"})
+    public UpdateServiceListDetails(java.util.List<String> services, String description) {
         super();
         this.services = services;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -46,12 +47,28 @@ public final class UpdateServiceListDetails
             this.__explicitlySet__.add("services");
             return this;
         }
+        /** The description of the service list. This field can be used to add additional info. */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the service list. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateServiceListDetails build() {
-            UpdateServiceListDetails model = new UpdateServiceListDetails(this.services);
+            UpdateServiceListDetails model =
+                    new UpdateServiceListDetails(this.services, this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -62,6 +79,9 @@ public final class UpdateServiceListDetails
         public Builder copy(UpdateServiceListDetails model) {
             if (model.wasPropertyExplicitlySet("services")) {
                 this.services(model.getServices());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -89,6 +109,19 @@ public final class UpdateServiceListDetails
         return services;
     }
 
+    /** The description of the service list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the service list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -105,6 +138,7 @@ public final class UpdateServiceListDetails
         sb.append("UpdateServiceListDetails(");
         sb.append("super=").append(super.toString());
         sb.append("services=").append(String.valueOf(this.services));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -119,7 +153,9 @@ public final class UpdateServiceListDetails
         }
 
         UpdateServiceListDetails other = (UpdateServiceListDetails) o;
-        return java.util.Objects.equals(this.services, other.services) && super.equals(other);
+        return java.util.Objects.equals(this.services, other.services)
+                && java.util.Objects.equals(this.description, other.description)
+                && super.equals(other);
     }
 
     @Override
@@ -127,6 +163,7 @@ public final class UpdateServiceListDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.services == null ? 43 : this.services.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

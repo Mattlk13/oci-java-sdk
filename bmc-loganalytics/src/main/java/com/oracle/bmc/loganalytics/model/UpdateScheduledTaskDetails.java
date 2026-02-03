@@ -31,14 +31,22 @@ package com.oracle.bmc.loganalytics.model;
 public class UpdateScheduledTaskDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"displayName", "freeformTags", "definedTags", "schedules"})
+    @java.beans.ConstructorProperties({
+        "displayName",
+        "description",
+        "freeformTags",
+        "definedTags",
+        "schedules"
+    })
     protected UpdateScheduledTaskDetails(
             String displayName,
+            String description,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.List<Schedule> schedules) {
         super();
         this.displayName = displayName;
+        this.description = description;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.schedules = schedules;
@@ -61,6 +69,19 @@ public class UpdateScheduledTaskDetails
      */
     public String getDisplayName() {
         return displayName;
+    }
+
+    /** Description for this resource. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * Description for this resource.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -130,6 +151,7 @@ public class UpdateScheduledTaskDetails
         sb.append("UpdateScheduledTaskDetails(");
         sb.append("super=").append(super.toString());
         sb.append("displayName=").append(String.valueOf(this.displayName));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", schedules=").append(String.valueOf(this.schedules));
@@ -148,6 +170,7 @@ public class UpdateScheduledTaskDetails
 
         UpdateScheduledTaskDetails other = (UpdateScheduledTaskDetails) o;
         return java.util.Objects.equals(this.displayName, other.displayName)
+                && java.util.Objects.equals(this.description, other.description)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.schedules, other.schedules)
@@ -159,6 +182,7 @@ public class UpdateScheduledTaskDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.displayName == null ? 43 : this.displayName.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.schedules == null ? 43 : this.schedules.hashCode());

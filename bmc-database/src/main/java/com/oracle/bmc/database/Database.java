@@ -1123,6 +1123,23 @@ public interface Database extends AutoCloseable {
     ConvertToStandaloneResponse convertToStandalone(ConvertToStandaloneRequest request);
 
     /**
+     * Creates an advanced cluster file system resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/CreateAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateAdvancedClusterFileSystem API.
+     */
+    CreateAdvancedClusterFileSystemResponse createAdvancedClusterFileSystem(
+            CreateAdvancedClusterFileSystemRequest request);
+
+    /**
      * Creates a new application virtual IP (VIP) address in the specified cloud VM cluster based on
      * the request parameters you provide.
      *
@@ -1842,6 +1859,23 @@ public interface Database extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use DbNodeAction API.
      */
     DbNodeActionResponse dbNodeAction(DbNodeActionRequest request);
+
+    /**
+     * Deletes the advanced cluster file system.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/DeleteAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteAdvancedClusterFileSystem API.
+     */
+    DeleteAdvancedClusterFileSystemResponse deleteAdvancedClusterFileSystem(
+            DeleteAdvancedClusterFileSystemRequest request);
 
     /**
      * Deletes and deregisters the specified application virtual IP (VIP) address.
@@ -3153,6 +3187,23 @@ public interface Database extends AutoCloseable {
      */
     GenerateRecommendedVmClusterNetworkResponse generateRecommendedVmClusterNetwork(
             GenerateRecommendedVmClusterNetworkRequest request);
+
+    /**
+     * Gets information about the specified advanced cluster file systems.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/GetAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetAdvancedClusterFileSystem API.
+     */
+    GetAdvancedClusterFileSystemResponse getAdvancedClusterFileSystem(
+            GetAdvancedClusterFileSystemRequest request);
 
     /**
      * Gets information about a specified application virtual IP (VIP) address.
@@ -4549,6 +4600,23 @@ public interface Database extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use LaunchDbSystem API.
      */
     LaunchDbSystemResponse launchDbSystem(LaunchDbSystemRequest request);
+
+    /**
+     * Lists the advanced cluster file system resources in the specified compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/ListAdvancedClusterFileSystemsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAdvancedClusterFileSystems API.
+     */
+    ListAdvancedClusterFileSystemsResponse listAdvancedClusterFileSystems(
+            ListAdvancedClusterFileSystemsRequest request);
 
     /**
      * Gets a list of application virtual IP (VIP) addresses on a cloud VM cluster.
@@ -6199,6 +6267,23 @@ public interface Database extends AutoCloseable {
             ModifyPluggableDatabaseManagementRequest request);
 
     /**
+     * Mounts the advanced cluster file system to all the virtual machines within a vmcluster.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/MountAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     MountAdvancedClusterFileSystem API.
+     */
+    MountAdvancedClusterFileSystemResponse mountAdvancedClusterFileSystem(
+            MountAdvancedClusterFileSystemRequest request);
+
+    /**
      * Mounts the snapshot for the provided dbNode.
      *
      * @param request The request object containing the details to send
@@ -7137,6 +7222,23 @@ public interface Database extends AutoCloseable {
     TerminateDbSystemResponse terminateDbSystem(TerminateDbSystemRequest request);
 
     /**
+     * Unmounts the advanced cluster file system from all the virtual machines within a vmcluster.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/UnmountAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UnmountAdvancedClusterFileSystem API.
+     */
+    UnmountAdvancedClusterFileSystemResponse unmountAdvancedClusterFileSystem(
+            UnmountAdvancedClusterFileSystemRequest request);
+
+    /**
      * Unmounts the snapshot for the provided dbNode.
      *
      * @param request The request object containing the details to send
@@ -7185,6 +7287,23 @@ public interface Database extends AutoCloseable {
      */
     UnregisterCloudVmClusterPkcsResponse unregisterCloudVmClusterPkcs(
             UnregisterCloudVmClusterPkcsRequest request);
+
+    /**
+     * Updates the advanced cluster file system resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/UpdateAdvancedClusterFileSystemExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateAdvancedClusterFileSystem API.
+     */
+    UpdateAdvancedClusterFileSystemResponse updateAdvancedClusterFileSystem(
+            UpdateAdvancedClusterFileSystemRequest request);
 
     /**
      * Updates the properties of an Autonomous Container Database, such as display name, maintenance

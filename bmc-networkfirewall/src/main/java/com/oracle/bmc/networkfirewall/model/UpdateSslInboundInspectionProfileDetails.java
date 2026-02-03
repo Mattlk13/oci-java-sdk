@@ -27,6 +27,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateSslInboundInspectionProfileDetails extends UpdateDecryptionProfileDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** Whether to block sessions if SSL version is not supported. */
         @com.fasterxml.jackson.annotation.JsonProperty("isUnsupportedVersionBlocked")
         private Boolean isUnsupportedVersionBlocked;
@@ -81,6 +89,7 @@ public final class UpdateSslInboundInspectionProfileDetails extends UpdateDecryp
         public UpdateSslInboundInspectionProfileDetails build() {
             UpdateSslInboundInspectionProfileDetails model =
                     new UpdateSslInboundInspectionProfileDetails(
+                            this.description,
                             this.isUnsupportedVersionBlocked,
                             this.isUnsupportedCipherBlocked,
                             this.isOutOfCapacityBlocked);
@@ -92,6 +101,9 @@ public final class UpdateSslInboundInspectionProfileDetails extends UpdateDecryp
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateSslInboundInspectionProfileDetails model) {
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
+            }
             if (model.wasPropertyExplicitlySet("isUnsupportedVersionBlocked")) {
                 this.isUnsupportedVersionBlocked(model.getIsUnsupportedVersionBlocked());
             }
@@ -116,10 +128,11 @@ public final class UpdateSslInboundInspectionProfileDetails extends UpdateDecryp
 
     @Deprecated
     public UpdateSslInboundInspectionProfileDetails(
+            String description,
             Boolean isUnsupportedVersionBlocked,
             Boolean isUnsupportedCipherBlocked,
             Boolean isOutOfCapacityBlocked) {
-        super();
+        super(description);
         this.isUnsupportedVersionBlocked = isUnsupportedVersionBlocked;
         this.isUnsupportedCipherBlocked = isUnsupportedCipherBlocked;
         this.isOutOfCapacityBlocked = isOutOfCapacityBlocked;

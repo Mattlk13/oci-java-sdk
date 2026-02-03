@@ -91,12 +91,12 @@ public final class LogAnalyticsParserFilter
             this.__explicitlySet__.add("agentVersion");
             return this;
         }
-        /** A flag idicating whether or not hte filter is currently being used. */
+        /** A flag indicating whether or not the filter is currently being used. */
         @com.fasterxml.jackson.annotation.JsonProperty("isInUse")
         private Long isInUse;
 
         /**
-         * A flag idicating whether or not hte filter is currently being used.
+         * A flag indicating whether or not the filter is currently being used.
          *
          * @param isInUse the value to set
          * @return this builder
@@ -240,12 +240,12 @@ public final class LogAnalyticsParserFilter
         return agentVersion;
     }
 
-    /** A flag idicating whether or not hte filter is currently being used. */
+    /** A flag indicating whether or not the filter is currently being used. */
     @com.fasterxml.jackson.annotation.JsonProperty("isInUse")
     private final Long isInUse;
 
     /**
-     * A flag idicating whether or not hte filter is currently being used.
+     * A flag indicating whether or not the filter is currently being used.
      *
      * @return the value
      */

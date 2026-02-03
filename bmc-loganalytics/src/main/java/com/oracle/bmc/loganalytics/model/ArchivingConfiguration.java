@@ -23,11 +23,19 @@ package com.oracle.bmc.loganalytics.model;
 public final class ArchivingConfiguration
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"activeStorageDuration", "archivalStorageDuration"})
-    public ArchivingConfiguration(String activeStorageDuration, String archivalStorageDuration) {
+    @java.beans.ConstructorProperties({
+        "activeStorageDuration",
+        "archivalStorageDuration",
+        "timeOldestActiveBucketEnded"
+    })
+    public ArchivingConfiguration(
+            String activeStorageDuration,
+            String archivalStorageDuration,
+            java.util.Date timeOldestActiveBucketEnded) {
         super();
         this.activeStorageDuration = activeStorageDuration;
         this.archivalStorageDuration = archivalStorageDuration;
+        this.timeOldestActiveBucketEnded = timeOldestActiveBucketEnded;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -74,6 +82,21 @@ public final class ArchivingConfiguration
             this.__explicitlySet__.add("archivalStorageDuration");
             return this;
         }
+        /** end time of the oldest active CoreGroup */
+        @com.fasterxml.jackson.annotation.JsonProperty("timeOldestActiveBucketEnded")
+        private java.util.Date timeOldestActiveBucketEnded;
+
+        /**
+         * end time of the oldest active CoreGroup
+         *
+         * @param timeOldestActiveBucketEnded the value to set
+         * @return this builder
+         */
+        public Builder timeOldestActiveBucketEnded(java.util.Date timeOldestActiveBucketEnded) {
+            this.timeOldestActiveBucketEnded = timeOldestActiveBucketEnded;
+            this.__explicitlySet__.add("timeOldestActiveBucketEnded");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -81,7 +104,9 @@ public final class ArchivingConfiguration
         public ArchivingConfiguration build() {
             ArchivingConfiguration model =
                     new ArchivingConfiguration(
-                            this.activeStorageDuration, this.archivalStorageDuration);
+                            this.activeStorageDuration,
+                            this.archivalStorageDuration,
+                            this.timeOldestActiveBucketEnded);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -95,6 +120,9 @@ public final class ArchivingConfiguration
             }
             if (model.wasPropertyExplicitlySet("archivalStorageDuration")) {
                 this.archivalStorageDuration(model.getArchivalStorageDuration());
+            }
+            if (model.wasPropertyExplicitlySet("timeOldestActiveBucketEnded")) {
+                this.timeOldestActiveBucketEnded(model.getTimeOldestActiveBucketEnded());
             }
             return this;
         }
@@ -147,6 +175,19 @@ public final class ArchivingConfiguration
         return archivalStorageDuration;
     }
 
+    /** end time of the oldest active CoreGroup */
+    @com.fasterxml.jackson.annotation.JsonProperty("timeOldestActiveBucketEnded")
+    private final java.util.Date timeOldestActiveBucketEnded;
+
+    /**
+     * end time of the oldest active CoreGroup
+     *
+     * @return the value
+     */
+    public java.util.Date getTimeOldestActiveBucketEnded() {
+        return timeOldestActiveBucketEnded;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -165,6 +206,8 @@ public final class ArchivingConfiguration
         sb.append("activeStorageDuration=").append(String.valueOf(this.activeStorageDuration));
         sb.append(", archivalStorageDuration=")
                 .append(String.valueOf(this.archivalStorageDuration));
+        sb.append(", timeOldestActiveBucketEnded=")
+                .append(String.valueOf(this.timeOldestActiveBucketEnded));
         sb.append(")");
         return sb.toString();
     }
@@ -182,6 +225,8 @@ public final class ArchivingConfiguration
         return java.util.Objects.equals(this.activeStorageDuration, other.activeStorageDuration)
                 && java.util.Objects.equals(
                         this.archivalStorageDuration, other.archivalStorageDuration)
+                && java.util.Objects.equals(
+                        this.timeOldestActiveBucketEnded, other.timeOldestActiveBucketEnded)
                 && super.equals(other);
     }
 
@@ -199,6 +244,11 @@ public final class ArchivingConfiguration
                         + (this.archivalStorageDuration == null
                                 ? 43
                                 : this.archivalStorageDuration.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.timeOldestActiveBucketEnded == null
+                                ? 43
+                                : this.timeOldestActiveBucketEnded.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

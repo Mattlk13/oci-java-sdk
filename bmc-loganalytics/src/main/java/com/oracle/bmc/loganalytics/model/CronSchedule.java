@@ -43,6 +43,24 @@ public final class CronSchedule extends Schedule {
             this.__explicitlySet__.add("timeOfFirstExecution");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("queryOffsetSecs")
+        private Integer queryOffsetSecs;
+
+        public Builder queryOffsetSecs(Integer queryOffsetSecs) {
+            this.queryOffsetSecs = queryOffsetSecs;
+            this.__explicitlySet__.add("queryOffsetSecs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeEnd")
+        private java.util.Date timeEnd;
+
+        public Builder timeEnd(java.util.Date timeEnd) {
+            this.timeEnd = timeEnd;
+            this.__explicitlySet__.add("timeEnd");
+            return this;
+        }
         /** Value in cron format. */
         @com.fasterxml.jackson.annotation.JsonProperty("expression")
         private String expression;
@@ -82,6 +100,8 @@ public final class CronSchedule extends Schedule {
                     new CronSchedule(
                             this.misfirePolicy,
                             this.timeOfFirstExecution,
+                            this.queryOffsetSecs,
+                            this.timeEnd,
                             this.expression,
                             this.timeZone);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -97,6 +117,12 @@ public final class CronSchedule extends Schedule {
             }
             if (model.wasPropertyExplicitlySet("timeOfFirstExecution")) {
                 this.timeOfFirstExecution(model.getTimeOfFirstExecution());
+            }
+            if (model.wasPropertyExplicitlySet("queryOffsetSecs")) {
+                this.queryOffsetSecs(model.getQueryOffsetSecs());
+            }
+            if (model.wasPropertyExplicitlySet("timeEnd")) {
+                this.timeEnd(model.getTimeEnd());
             }
             if (model.wasPropertyExplicitlySet("expression")) {
                 this.expression(model.getExpression());
@@ -121,9 +147,11 @@ public final class CronSchedule extends Schedule {
     public CronSchedule(
             MisfirePolicy misfirePolicy,
             java.util.Date timeOfFirstExecution,
+            Integer queryOffsetSecs,
+            java.util.Date timeEnd,
             String expression,
             String timeZone) {
-        super(misfirePolicy, timeOfFirstExecution);
+        super(misfirePolicy, timeOfFirstExecution, queryOffsetSecs, timeEnd);
         this.expression = expression;
         this.timeZone = timeZone;
     }

@@ -32,6 +32,7 @@ public final class NetworkFirewallPolicy
         "lifecycleState",
         "lifecycleDetails",
         "attachedNetworkFirewallCount",
+        "description",
         "freeformTags",
         "definedTags",
         "systemTags"
@@ -45,6 +46,7 @@ public final class NetworkFirewallPolicy
             LifecycleState lifecycleState,
             String lifecycleDetails,
             Integer attachedNetworkFirewallCount,
+            String description,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, java.util.Map<String, Object>> systemTags) {
@@ -57,6 +59,7 @@ public final class NetworkFirewallPolicy
         this.lifecycleState = lifecycleState;
         this.lifecycleDetails = lifecycleDetails;
         this.attachedNetworkFirewallCount = attachedNetworkFirewallCount;
+        this.description = description;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.systemTags = systemTags;
@@ -213,6 +216,25 @@ public final class NetworkFirewallPolicy
             return this;
         }
         /**
+         * The description of the network firewall policy. This field can be used to add additional
+         * info.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the network firewall policy. This field can be used to add additional
+         * info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+        /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
          * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). Example:
@@ -293,6 +315,7 @@ public final class NetworkFirewallPolicy
                             this.lifecycleState,
                             this.lifecycleDetails,
                             this.attachedNetworkFirewallCount,
+                            this.description,
                             this.freeformTags,
                             this.definedTags,
                             this.systemTags);
@@ -327,6 +350,9 @@ public final class NetworkFirewallPolicy
             }
             if (model.wasPropertyExplicitlySet("attachedNetworkFirewallCount")) {
                 this.attachedNetworkFirewallCount(model.getAttachedNetworkFirewallCount());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -479,6 +505,23 @@ public final class NetworkFirewallPolicy
     }
 
     /**
+     * The description of the network firewall policy. This field can be used to add additional
+     * info.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the network firewall policy. This field can be used to add additional
+     * info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
      * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm). Example:
@@ -561,6 +604,7 @@ public final class NetworkFirewallPolicy
         sb.append(", lifecycleDetails=").append(String.valueOf(this.lifecycleDetails));
         sb.append(", attachedNetworkFirewallCount=")
                 .append(String.valueOf(this.attachedNetworkFirewallCount));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", systemTags=").append(String.valueOf(this.systemTags));
@@ -587,6 +631,7 @@ public final class NetworkFirewallPolicy
                 && java.util.Objects.equals(this.lifecycleDetails, other.lifecycleDetails)
                 && java.util.Objects.equals(
                         this.attachedNetworkFirewallCount, other.attachedNetworkFirewallCount)
+                && java.util.Objects.equals(this.description, other.description)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.systemTags, other.systemTags)
@@ -615,6 +660,7 @@ public final class NetworkFirewallPolicy
                         + (this.attachedNetworkFirewallCount == null
                                 ? 43
                                 : this.attachedNetworkFirewallCount.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.systemTags == null ? 43 : this.systemTags.hashCode());

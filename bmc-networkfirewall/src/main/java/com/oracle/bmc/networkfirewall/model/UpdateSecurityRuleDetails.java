@@ -25,17 +25,25 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateSecurityRuleDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"condition", "action", "inspection", "position"})
+    @java.beans.ConstructorProperties({
+        "condition",
+        "action",
+        "inspection",
+        "position",
+        "description"
+    })
     public UpdateSecurityRuleDetails(
             SecurityRuleMatchCriteria condition,
             TrafficActionType action,
             TrafficInspectionType inspection,
-            RulePosition position) {
+            RulePosition position,
+            String description) {
         super();
         this.condition = condition;
         this.action = action;
         this.inspection = inspection;
         this.position = position;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -112,6 +120,21 @@ public final class UpdateSecurityRuleDetails
             this.__explicitlySet__.add("position");
             return this;
         }
+        /** The description of the security rule. This field can be used to add additional info. */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the security rule. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -119,7 +142,11 @@ public final class UpdateSecurityRuleDetails
         public UpdateSecurityRuleDetails build() {
             UpdateSecurityRuleDetails model =
                     new UpdateSecurityRuleDetails(
-                            this.condition, this.action, this.inspection, this.position);
+                            this.condition,
+                            this.action,
+                            this.inspection,
+                            this.position,
+                            this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -139,6 +166,9 @@ public final class UpdateSecurityRuleDetails
             }
             if (model.wasPropertyExplicitlySet("position")) {
                 this.position(model.getPosition());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -215,6 +245,19 @@ public final class UpdateSecurityRuleDetails
         return position;
     }
 
+    /** The description of the security rule. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the security rule. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -234,6 +277,7 @@ public final class UpdateSecurityRuleDetails
         sb.append(", action=").append(String.valueOf(this.action));
         sb.append(", inspection=").append(String.valueOf(this.inspection));
         sb.append(", position=").append(String.valueOf(this.position));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -252,6 +296,7 @@ public final class UpdateSecurityRuleDetails
                 && java.util.Objects.equals(this.action, other.action)
                 && java.util.Objects.equals(this.inspection, other.inspection)
                 && java.util.Objects.equals(this.position, other.position)
+                && java.util.Objects.equals(this.description, other.description)
                 && super.equals(other);
     }
 
@@ -263,6 +308,7 @@ public final class UpdateSecurityRuleDetails
         result = (result * PRIME) + (this.action == null ? 43 : this.action.hashCode());
         result = (result * PRIME) + (this.inspection == null ? 43 : this.inspection.hashCode());
         result = (result * PRIME) + (this.position == null ? 43 : this.position.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -44,6 +44,15 @@ public final class SslInboundInspectionProfile extends DecryptionProfile {
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** Whether to block sessions if SSL version is not supported. */
         @com.fasterxml.jackson.annotation.JsonProperty("isUnsupportedVersionBlocked")
         private Boolean isUnsupportedVersionBlocked;
@@ -100,6 +109,7 @@ public final class SslInboundInspectionProfile extends DecryptionProfile {
                     new SslInboundInspectionProfile(
                             this.name,
                             this.parentResourceId,
+                            this.description,
                             this.isUnsupportedVersionBlocked,
                             this.isUnsupportedCipherBlocked,
                             this.isOutOfCapacityBlocked);
@@ -116,6 +126,9 @@ public final class SslInboundInspectionProfile extends DecryptionProfile {
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("isUnsupportedVersionBlocked")) {
                 this.isUnsupportedVersionBlocked(model.getIsUnsupportedVersionBlocked());
@@ -143,10 +156,11 @@ public final class SslInboundInspectionProfile extends DecryptionProfile {
     public SslInboundInspectionProfile(
             String name,
             String parentResourceId,
+            String description,
             Boolean isUnsupportedVersionBlocked,
             Boolean isUnsupportedCipherBlocked,
             Boolean isOutOfCapacityBlocked) {
-        super(name, parentResourceId);
+        super(name, parentResourceId, description);
         this.isUnsupportedVersionBlocked = isUnsupportedVersionBlocked;
         this.isUnsupportedCipherBlocked = isUnsupportedCipherBlocked;
         this.isOutOfCapacityBlocked = isOutOfCapacityBlocked;

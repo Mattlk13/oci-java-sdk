@@ -25,22 +25,30 @@ public class ListStorageWorkRequestErrorsRequest
     /**
      * Work Request Identifier [OCID]
      * (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous
-     * request.
+     * request. The work request id can be usually obtained from the 'opc-work-request-id' response
+     * header of the asynchronous request.
      */
     private String workRequestId;
 
     /**
      * Work Request Identifier [OCID]
      * (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous
-     * request.
+     * request. The work request id can be usually obtained from the 'opc-work-request-id' response
+     * header of the asynchronous request.
      */
     public String getWorkRequestId() {
         return workRequestId;
     }
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
@@ -185,14 +193,16 @@ public class ListStorageWorkRequestErrorsRequest
         /**
          * Work Request Identifier [OCID]
          * (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the
-         * asynchronous request.
+         * asynchronous request. The work request id can be usually obtained from the
+         * 'opc-work-request-id' response header of the asynchronous request.
          */
         private String workRequestId = null;
 
         /**
          * Work Request Identifier [OCID]
          * (https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the
-         * asynchronous request.
+         * asynchronous request. The work request id can be usually obtained from the
+         * 'opc-work-request-id' response header of the asynchronous request.
          *
          * @param workRequestId the value to set
          * @return this builder instance
@@ -202,11 +212,15 @@ public class ListStorageWorkRequestErrorsRequest
             return this;
         }
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance

@@ -118,12 +118,12 @@ public final class LogAnalyticsSourceDataFilter
             this.__explicitlySet__.add("editVersion");
             return this;
         }
-        /** A flag inidcating whether or not the filter is enabled. */
+        /** A flag indicating whether or not the filter is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the filter is enabled.
+         * A flag indicating whether or not the filter is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -410,12 +410,12 @@ public final class LogAnalyticsSourceDataFilter
         return editVersion;
     }
 
-    /** A flag inidcating whether or not the filter is enabled. */
+    /** A flag indicating whether or not the filter is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the filter is enabled.
+     * A flag indicating whether or not the filter is enabled.
      *
      * @return the value
      */

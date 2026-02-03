@@ -35,6 +35,15 @@ public final class UpdateVaultMappedSecretDetails extends UpdateMappedSecretDeta
             this.__explicitlySet__.add("type");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** OCID for the Vault Secret to be used. */
         @com.fasterxml.jackson.annotation.JsonProperty("vaultSecretId")
         private String vaultSecretId;
@@ -72,7 +81,7 @@ public final class UpdateVaultMappedSecretDetails extends UpdateMappedSecretDeta
         public UpdateVaultMappedSecretDetails build() {
             UpdateVaultMappedSecretDetails model =
                     new UpdateVaultMappedSecretDetails(
-                            this.type, this.vaultSecretId, this.versionNumber);
+                            this.type, this.description, this.vaultSecretId, this.versionNumber);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -83,6 +92,9 @@ public final class UpdateVaultMappedSecretDetails extends UpdateMappedSecretDeta
         public Builder copy(UpdateVaultMappedSecretDetails model) {
             if (model.wasPropertyExplicitlySet("type")) {
                 this.type(model.getType());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("vaultSecretId")) {
                 this.vaultSecretId(model.getVaultSecretId());
@@ -105,8 +117,8 @@ public final class UpdateVaultMappedSecretDetails extends UpdateMappedSecretDeta
 
     @Deprecated
     public UpdateVaultMappedSecretDetails(
-            InspectionType type, String vaultSecretId, Integer versionNumber) {
-        super(type);
+            InspectionType type, String description, String vaultSecretId, Integer versionNumber) {
+        super(type, description);
         this.vaultSecretId = vaultSecretId;
         this.versionNumber = versionNumber;
     }

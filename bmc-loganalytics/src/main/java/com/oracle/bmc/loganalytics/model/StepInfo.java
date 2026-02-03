@@ -36,12 +36,12 @@ public final class StepInfo extends com.oracle.bmc.http.client.internal.Explicit
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
-        /** The currnet input sequence match. */
+        /** The current input sequence match. */
         @com.fasterxml.jackson.annotation.JsonProperty("inputSequenceCurrentMatch")
         private String inputSequenceCurrentMatch;
 
         /**
-         * The currnet input sequence match.
+         * The current input sequence match.
          *
          * @param inputSequenceCurrentMatch the value to set
          * @return this builder
@@ -121,12 +121,12 @@ public final class StepInfo extends com.oracle.bmc.http.client.internal.Explicit
         return new Builder().copy(this);
     }
 
-    /** The currnet input sequence match. */
+    /** The current input sequence match. */
     @com.fasterxml.jackson.annotation.JsonProperty("inputSequenceCurrentMatch")
     private final String inputSequenceCurrentMatch;
 
     /**
-     * The currnet input sequence match.
+     * The current input sequence match.
      *
      * @return the value
      */

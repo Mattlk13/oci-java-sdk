@@ -43,6 +43,15 @@ public final class UdpService extends Service {
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** List of port-ranges used. */
         @com.fasterxml.jackson.annotation.JsonProperty("portRanges")
         private java.util.List<PortRange> portRanges;
@@ -63,7 +72,9 @@ public final class UdpService extends Service {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UdpService build() {
-            UdpService model = new UdpService(this.name, this.parentResourceId, this.portRanges);
+            UdpService model =
+                    new UdpService(
+                            this.name, this.parentResourceId, this.description, this.portRanges);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -77,6 +88,9 @@ public final class UdpService extends Service {
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("portRanges")) {
                 this.portRanges(model.getPortRanges());
@@ -95,8 +109,12 @@ public final class UdpService extends Service {
     }
 
     @Deprecated
-    public UdpService(String name, String parentResourceId, java.util.List<PortRange> portRanges) {
-        super(name, parentResourceId);
+    public UdpService(
+            String name,
+            String parentResourceId,
+            String description,
+            java.util.List<PortRange> portRanges) {
+        super(name, parentResourceId, description);
         this.portRanges = portRanges;
     }
 

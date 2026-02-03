@@ -598,7 +598,7 @@ public interface LogAnalytics extends AutoCloseable {
     /**
      * Deletes the configured object storage bucket based collection rule and stop the log
      * collection. It will not delete the existing processed data associated with this bucket from
-     * logging analytics storage.
+     * Log Analytics Storage.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -1331,7 +1331,7 @@ public interface LogAnalytics extends AutoCloseable {
     GetLookupSummaryResponse getLookupSummary(GetLookupSummaryRequest request);
 
     /**
-     * This API gets the namespace details of a tenancy already onboarded in Logging Analytics
+     * This API gets the namespace details of a tenancy already onboarded in Log Analytics
      * Application
      *
      * @param request The request object containing the details to send
@@ -2066,7 +2066,7 @@ public interface LogAnalytics extends AutoCloseable {
 
     /**
      * Given a tenancy OCID, this API returns the namespace of the tenancy if it is valid and
-     * subscribed to the region. The result also indicates if the tenancy is onboarded with Logging
+     * subscribed to the region. The result also indicates if the tenancy is onboarded with Log
      * Analytics.
      *
      * @param request The request object containing the details to send
@@ -2593,7 +2593,7 @@ public interface LogAnalytics extends AutoCloseable {
     ListWorkRequestsResponse listWorkRequests(ListWorkRequestsRequest request);
 
     /**
-     * Off-boards a tenant from Logging Analytics
+     * Off-boards a tenant from Log Analytics
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -2609,7 +2609,7 @@ public interface LogAnalytics extends AutoCloseable {
     OffboardNamespaceResponse offboardNamespace(OffboardNamespaceRequest request);
 
     /**
-     * On-boards a tenant to Logging Analytics.
+     * On-boards a tenant to Log Analytics.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3202,7 +3202,7 @@ public interface LogAnalytics extends AutoCloseable {
     UpdateStorageResponse updateStorage(UpdateStorageRequest request);
 
     /**
-     * Accepts discovery data for processing by Logging Analytics.
+     * Accepts discovery data for processing by Log Analytics.
      *
      * <p>Note: This operation consumes a stream.
      *
@@ -3248,7 +3248,7 @@ public interface LogAnalytics extends AutoCloseable {
     UploadDiscoveryDataResponse uploadDiscoveryData(UploadDiscoveryDataRequest request);
 
     /**
-     * Accepts log events for processing by Logging Analytics.
+     * Accepts log events for processing by Log Analytics.
      *
      * <p>Note: This operation consumes a stream.
      *
@@ -3294,7 +3294,7 @@ public interface LogAnalytics extends AutoCloseable {
     UploadLogEventsFileResponse uploadLogEventsFile(UploadLogEventsFileRequest request);
 
     /**
-     * Accepts log data for processing by Logging Analytics.
+     * Accepts log data for processing by Log Analytics.
      *
      * <p>Note: This operation consumes a stream.
      *

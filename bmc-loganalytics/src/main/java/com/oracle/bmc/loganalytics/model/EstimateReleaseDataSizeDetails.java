@@ -23,12 +23,13 @@ package com.oracle.bmc.loganalytics.model;
 public final class EstimateReleaseDataSizeDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"timeDataStarted", "timeDataEnded"})
+    @java.beans.ConstructorProperties({"timeDataStarted", "timeDataEnded", "collectionId"})
     public EstimateReleaseDataSizeDetails(
-            java.util.Date timeDataStarted, java.util.Date timeDataEnded) {
+            java.util.Date timeDataStarted, java.util.Date timeDataEnded, Long collectionId) {
         super();
         this.timeDataStarted = timeDataStarted;
         this.timeDataEnded = timeDataEnded;
+        this.collectionId = collectionId;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -63,13 +64,33 @@ public final class EstimateReleaseDataSizeDetails
             this.__explicitlySet__.add("timeDataEnded");
             return this;
         }
+        /**
+         * This is the id for the recalled data collection to be released. If specified, only this
+         * collection will be released
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("collectionId")
+        private Long collectionId;
+
+        /**
+         * This is the id for the recalled data collection to be released. If specified, only this
+         * collection will be released
+         *
+         * @param collectionId the value to set
+         * @return this builder
+         */
+        public Builder collectionId(Long collectionId) {
+            this.collectionId = collectionId;
+            this.__explicitlySet__.add("collectionId");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public EstimateReleaseDataSizeDetails build() {
             EstimateReleaseDataSizeDetails model =
-                    new EstimateReleaseDataSizeDetails(this.timeDataStarted, this.timeDataEnded);
+                    new EstimateReleaseDataSizeDetails(
+                            this.timeDataStarted, this.timeDataEnded, this.collectionId);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -83,6 +104,9 @@ public final class EstimateReleaseDataSizeDetails
             }
             if (model.wasPropertyExplicitlySet("timeDataEnded")) {
                 this.timeDataEnded(model.getTimeDataEnded());
+            }
+            if (model.wasPropertyExplicitlySet("collectionId")) {
+                this.collectionId(model.getCollectionId());
             }
             return this;
         }
@@ -123,6 +147,23 @@ public final class EstimateReleaseDataSizeDetails
         return timeDataEnded;
     }
 
+    /**
+     * This is the id for the recalled data collection to be released. If specified, only this
+     * collection will be released
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("collectionId")
+    private final Long collectionId;
+
+    /**
+     * This is the id for the recalled data collection to be released. If specified, only this
+     * collection will be released
+     *
+     * @return the value
+     */
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -140,6 +181,7 @@ public final class EstimateReleaseDataSizeDetails
         sb.append("super=").append(super.toString());
         sb.append("timeDataStarted=").append(String.valueOf(this.timeDataStarted));
         sb.append(", timeDataEnded=").append(String.valueOf(this.timeDataEnded));
+        sb.append(", collectionId=").append(String.valueOf(this.collectionId));
         sb.append(")");
         return sb.toString();
     }
@@ -156,6 +198,7 @@ public final class EstimateReleaseDataSizeDetails
         EstimateReleaseDataSizeDetails other = (EstimateReleaseDataSizeDetails) o;
         return java.util.Objects.equals(this.timeDataStarted, other.timeDataStarted)
                 && java.util.Objects.equals(this.timeDataEnded, other.timeDataEnded)
+                && java.util.Objects.equals(this.collectionId, other.collectionId)
                 && super.equals(other);
     }
 
@@ -169,6 +212,7 @@ public final class EstimateReleaseDataSizeDetails
         result =
                 (result * PRIME)
                         + (this.timeDataEnded == null ? 43 : this.timeDataEnded.hashCode());
+        result = (result * PRIME) + (this.collectionId == null ? 43 : this.collectionId.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

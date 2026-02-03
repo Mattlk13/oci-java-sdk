@@ -195,12 +195,12 @@ public final class Rule extends com.oracle.bmc.http.client.internal.ExplicitlySe
             this.__explicitlySet__.add("definedTags");
             return this;
         }
-        /** The current state of the logging analytics rule. */
+        /** The current state of the Log Analytics rule. */
         @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
         private ConfigLifecycleState lifecycleState;
 
         /**
-         * The current state of the logging analytics rule.
+         * The current state of the Log Analytics rule.
          *
          * @param lifecycleState the value to set
          * @return this builder
@@ -493,12 +493,12 @@ public final class Rule extends com.oracle.bmc.http.client.internal.ExplicitlySe
         return definedTags;
     }
 
-    /** The current state of the logging analytics rule. */
+    /** The current state of the Log Analytics rule. */
     @com.fasterxml.jackson.annotation.JsonProperty("lifecycleState")
     private final ConfigLifecycleState lifecycleState;
 
     /**
-     * The current state of the logging analytics rule.
+     * The current state of the Log Analytics rule.
      *
      * @return the value
      */

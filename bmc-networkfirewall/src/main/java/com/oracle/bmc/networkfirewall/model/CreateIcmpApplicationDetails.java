@@ -35,6 +35,15 @@ public final class CreateIcmpApplicationDetails extends CreateApplicationDetails
             this.__explicitlySet__.add("name");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /**
          * The value of the ICMP message Type field as defined by [RFC
          * 792](https://www.rfc-editor.org/rfc/rfc792.html).
@@ -79,7 +88,8 @@ public final class CreateIcmpApplicationDetails extends CreateApplicationDetails
 
         public CreateIcmpApplicationDetails build() {
             CreateIcmpApplicationDetails model =
-                    new CreateIcmpApplicationDetails(this.name, this.icmpType, this.icmpCode);
+                    new CreateIcmpApplicationDetails(
+                            this.name, this.description, this.icmpType, this.icmpCode);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -90,6 +100,9 @@ public final class CreateIcmpApplicationDetails extends CreateApplicationDetails
         public Builder copy(CreateIcmpApplicationDetails model) {
             if (model.wasPropertyExplicitlySet("name")) {
                 this.name(model.getName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("icmpType")) {
                 this.icmpType(model.getIcmpType());
@@ -111,8 +124,9 @@ public final class CreateIcmpApplicationDetails extends CreateApplicationDetails
     }
 
     @Deprecated
-    public CreateIcmpApplicationDetails(String name, Integer icmpType, Integer icmpCode) {
-        super(name);
+    public CreateIcmpApplicationDetails(
+            String name, String description, Integer icmpType, Integer icmpCode) {
+        super(name, description);
         this.icmpType = icmpType;
         this.icmpCode = icmpCode;
     }

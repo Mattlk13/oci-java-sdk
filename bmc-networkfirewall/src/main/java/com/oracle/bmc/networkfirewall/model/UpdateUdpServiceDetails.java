@@ -27,6 +27,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateUdpServiceDetails extends UpdateServiceDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** List of port-ranges to be used. */
         @com.fasterxml.jackson.annotation.JsonProperty("portRanges")
         private java.util.List<PortRange> portRanges;
@@ -47,7 +55,8 @@ public final class UpdateUdpServiceDetails extends UpdateServiceDetails {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateUdpServiceDetails build() {
-            UpdateUdpServiceDetails model = new UpdateUdpServiceDetails(this.portRanges);
+            UpdateUdpServiceDetails model =
+                    new UpdateUdpServiceDetails(this.description, this.portRanges);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -56,6 +65,9 @@ public final class UpdateUdpServiceDetails extends UpdateServiceDetails {
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateUdpServiceDetails model) {
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
+            }
             if (model.wasPropertyExplicitlySet("portRanges")) {
                 this.portRanges(model.getPortRanges());
             }
@@ -73,8 +85,8 @@ public final class UpdateUdpServiceDetails extends UpdateServiceDetails {
     }
 
     @Deprecated
-    public UpdateUdpServiceDetails(java.util.List<PortRange> portRanges) {
-        super();
+    public UpdateUdpServiceDetails(String description, java.util.List<PortRange> portRanges) {
+        super(description);
         this.portRanges = portRanges;
     }
 

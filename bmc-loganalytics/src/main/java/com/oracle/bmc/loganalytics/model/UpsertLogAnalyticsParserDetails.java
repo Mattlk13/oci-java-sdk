@@ -386,12 +386,12 @@ public final class UpsertLogAnalyticsParserDetails
             this.__explicitlySet__.add("parserTimezone");
             return this;
         }
-        /** A flag indicating whther or not the parser is write once. */
+        /** A flag indicating whether or not the parser is write once. */
         @com.fasterxml.jackson.annotation.JsonProperty("isParserWrittenOnce")
         private Boolean isParserWrittenOnce;
 
         /**
-         * A flag indicating whther or not the parser is write once.
+         * A flag indicating whether or not the parser is write once.
          *
          * @param isParserWrittenOnce the value to set
          * @return this builder
@@ -903,12 +903,12 @@ public final class UpsertLogAnalyticsParserDetails
         return parserTimezone;
     }
 
-    /** A flag indicating whther or not the parser is write once. */
+    /** A flag indicating whether or not the parser is write once. */
     @com.fasterxml.jackson.annotation.JsonProperty("isParserWrittenOnce")
     private final Boolean isParserWrittenOnce;
 
     /**
-     * A flag indicating whther or not the parser is write once.
+     * A flag indicating whether or not the parser is write once.
      *
      * @return the value
      */

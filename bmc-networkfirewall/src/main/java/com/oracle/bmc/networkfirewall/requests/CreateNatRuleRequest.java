@@ -22,10 +22,10 @@ public class CreateNatRuleRequest
     public String getNetworkFirewallPolicyId() {
         return networkFirewallPolicyId;
     }
-    /** Request Details to create NAT rule under a Network Firewall Policy Resource. */
+    /** Request details used to create NAT rule under a Network Firewall policy resource. */
     private com.oracle.bmc.networkfirewall.model.CreateNatRuleDetails createNatRuleDetails;
 
-    /** Request Details to create NAT rule under a Network Firewall Policy Resource. */
+    /** Request details used to create NAT rule under a Network Firewall policy resource. */
     public com.oracle.bmc.networkfirewall.model.CreateNatRuleDetails getCreateNatRuleDetails() {
         return createNatRuleDetails;
     }
@@ -88,12 +88,12 @@ public class CreateNatRuleRequest
             return this;
         }
 
-        /** Request Details to create NAT rule under a Network Firewall Policy Resource. */
+        /** Request details used to create NAT rule under a Network Firewall policy resource. */
         private com.oracle.bmc.networkfirewall.model.CreateNatRuleDetails createNatRuleDetails =
                 null;
 
         /**
-         * Request Details to create NAT rule under a Network Firewall Policy Resource.
+         * Request details used to create NAT rule under a Network Firewall policy resource.
          *
          * @param createNatRuleDetails the value to set
          * @return this builder instance

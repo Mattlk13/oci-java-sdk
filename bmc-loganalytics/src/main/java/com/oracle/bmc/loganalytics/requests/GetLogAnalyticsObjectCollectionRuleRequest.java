@@ -15,21 +15,27 @@ import com.oracle.bmc.loganalytics.model.*;
 public class GetLogAnalyticsObjectCollectionRuleRequest
         extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
     /**
-     * The Logging Analytics Object Collection Rule
+     * The Log Analytics Object Collection Rule
      * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
      */
     private String logAnalyticsObjectCollectionRuleId;
 
     /**
-     * The Logging Analytics Object Collection Rule
+     * The Log Analytics Object Collection Rule
      * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
      */
     public String getLogAnalyticsObjectCollectionRuleId() {
@@ -49,11 +55,15 @@ public class GetLogAnalyticsObjectCollectionRuleRequest
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -64,13 +74,13 @@ public class GetLogAnalyticsObjectCollectionRuleRequest
         }
 
         /**
-         * The Logging Analytics Object Collection Rule
+         * The Log Analytics Object Collection Rule
          * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
          */
         private String logAnalyticsObjectCollectionRuleId = null;
 
         /**
-         * The Logging Analytics Object Collection Rule
+         * The Log Analytics Object Collection Rule
          * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
          *
          * @param logAnalyticsObjectCollectionRuleId the value to set

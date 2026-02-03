@@ -102,6 +102,7 @@ public final class DisconnectConfig
     public enum Action implements com.oracle.bmc.http.internal.BmcEnum {
         None("NONE"),
         Stop("STOP"),
+        Delete("DELETE"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by

@@ -294,12 +294,12 @@ public final class LogAnalyticsObjectCollectionRule
             this.__explicitlySet__.add("pollTill");
             return this;
         }
-        /** Logging Analytics Log group OCID to associate the processed logs with. */
+        /** Log Analytics Log group OCID to associate the processed logs with. */
         @com.fasterxml.jackson.annotation.JsonProperty("logGroupId")
         private String logGroupId;
 
         /**
-         * Logging Analytics Log group OCID to associate the processed logs with.
+         * Log Analytics Log group OCID to associate the processed logs with.
          *
          * @param logGroupId the value to set
          * @return this builder
@@ -309,12 +309,12 @@ public final class LogAnalyticsObjectCollectionRule
             this.__explicitlySet__.add("logGroupId");
             return this;
         }
-        /** Name of the Logging Analytics Source to use for the processing. */
+        /** Name of the Log Analytics Source to use for the processing. */
         @com.fasterxml.jackson.annotation.JsonProperty("logSourceName")
         private String logSourceName;
 
         /**
-         * Name of the Logging Analytics Source to use for the processing.
+         * Name of the Log Analytics Source to use for the processing.
          *
          * @param logSourceName the value to set
          * @return this builder
@@ -324,12 +324,12 @@ public final class LogAnalyticsObjectCollectionRule
             this.__explicitlySet__.add("logSourceName");
             return this;
         }
-        /** Logging Analytics entity OCID to associate the processed logs with. */
+        /** Log Analytics entity OCID to associate the processed logs with. */
         @com.fasterxml.jackson.annotation.JsonProperty("entityId")
         private String entityId;
 
         /**
-         * Logging Analytics entity OCID to associate the processed logs with.
+         * Log Analytics entity OCID to associate the processed logs with.
          *
          * @param entityId the value to set
          * @return this builder
@@ -606,7 +606,7 @@ public final class LogAnalyticsObjectCollectionRule
         }
         /**
          * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE,
-         * which will be used by Logging Analytics while creating Event Rule and consume the event
+         * which will be used by Log Analytics while creating Event Rule and consume the event
          * notifications created by the Object Storage.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("streamId")
@@ -614,7 +614,7 @@ public final class LogAnalyticsObjectCollectionRule
 
         /**
          * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE,
-         * which will be used by Logging Analytics while creating Event Rule and consume the event
+         * which will be used by Log Analytics while creating Event Rule and consume the event
          * notifications created by the Object Storage.
          *
          * @param streamId the value to set
@@ -1032,12 +1032,12 @@ public final class LogAnalyticsObjectCollectionRule
         return pollTill;
     }
 
-    /** Logging Analytics Log group OCID to associate the processed logs with. */
+    /** Log Analytics Log group OCID to associate the processed logs with. */
     @com.fasterxml.jackson.annotation.JsonProperty("logGroupId")
     private final String logGroupId;
 
     /**
-     * Logging Analytics Log group OCID to associate the processed logs with.
+     * Log Analytics Log group OCID to associate the processed logs with.
      *
      * @return the value
      */
@@ -1045,12 +1045,12 @@ public final class LogAnalyticsObjectCollectionRule
         return logGroupId;
     }
 
-    /** Name of the Logging Analytics Source to use for the processing. */
+    /** Name of the Log Analytics Source to use for the processing. */
     @com.fasterxml.jackson.annotation.JsonProperty("logSourceName")
     private final String logSourceName;
 
     /**
-     * Name of the Logging Analytics Source to use for the processing.
+     * Name of the Log Analytics Source to use for the processing.
      *
      * @return the value
      */
@@ -1058,12 +1058,12 @@ public final class LogAnalyticsObjectCollectionRule
         return logSourceName;
     }
 
-    /** Logging Analytics entity OCID to associate the processed logs with. */
+    /** Log Analytics entity OCID to associate the processed logs with. */
     @com.fasterxml.jackson.annotation.JsonProperty("entityId")
     private final String entityId;
 
     /**
-     * Logging Analytics entity OCID to associate the processed logs with.
+     * Log Analytics entity OCID to associate the processed logs with.
      *
      * @return the value
      */
@@ -1301,16 +1301,16 @@ public final class LogAnalyticsObjectCollectionRule
 
     /**
      * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which
-     * will be used by Logging Analytics while creating Event Rule and consume the event
-     * notifications created by the Object Storage.
+     * will be used by Log Analytics while creating Event Rule and consume the event notifications
+     * created by the Object Storage.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("streamId")
     private final String streamId;
 
     /**
      * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which
-     * will be used by Logging Analytics while creating Event Rule and consume the event
-     * notifications created by the Object Storage.
+     * will be used by Log Analytics while creating Event Rule and consume the event notifications
+     * created by the Object Storage.
      *
      * @return the value
      */

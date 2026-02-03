@@ -33,16 +33,16 @@ public final class Filter extends com.oracle.bmc.http.client.internal.Explicitly
     public static class Builder {
         /**
          * Field filter references when inserting filter into the query string. Field must be a
-         * valid logging analytics out-of-the-box field, virtual field calculated in the query or a
-         * user defined field.
+         * valid log analytics out-of-the-box field, virtual field calculated in the query or a user
+         * defined field.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("fieldName")
         private String fieldName;
 
         /**
          * Field filter references when inserting filter into the query string. Field must be a
-         * valid logging analytics out-of-the-box field, virtual field calculated in the query or a
-         * user defined field.
+         * valid log analytics out-of-the-box field, virtual field calculated in the query or a user
+         * defined field.
          *
          * @param fieldName the value to set
          * @return this builder
@@ -126,16 +126,16 @@ public final class Filter extends com.oracle.bmc.http.client.internal.Explicitly
 
     /**
      * Field filter references when inserting filter into the query string. Field must be a valid
-     * logging analytics out-of-the-box field, virtual field calculated in the query or a user
-     * defined field.
+     * log analytics out-of-the-box field, virtual field calculated in the query or a user defined
+     * field.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("fieldName")
     private final String fieldName;
 
     /**
      * Field filter references when inserting filter into the query string. Field must be a valid
-     * logging analytics out-of-the-box field, virtual field calculated in the query or a user
-     * defined field.
+     * log analytics out-of-the-box field, virtual field calculated in the query or a user defined
+     * field.
      *
      * @return the value
      */

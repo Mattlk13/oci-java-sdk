@@ -31,7 +31,8 @@ public final class DesktopDevicePolicy
         "isPrintingEnabled",
         "isPointerEnabled",
         "isKeyboardEnabled",
-        "isDisplayEnabled"
+        "isDisplayEnabled",
+        "isVideoInputEnabled"
     })
     public DesktopDevicePolicy(
             ClipboardMode clipboardMode,
@@ -40,7 +41,8 @@ public final class DesktopDevicePolicy
             Boolean isPrintingEnabled,
             Boolean isPointerEnabled,
             Boolean isKeyboardEnabled,
-            Boolean isDisplayEnabled) {
+            Boolean isDisplayEnabled,
+            Boolean isVideoInputEnabled) {
         super();
         this.clipboardMode = clipboardMode;
         this.audioMode = audioMode;
@@ -49,6 +51,7 @@ public final class DesktopDevicePolicy
         this.isPointerEnabled = isPointerEnabled;
         this.isKeyboardEnabled = isKeyboardEnabled;
         this.isDisplayEnabled = isDisplayEnabled;
+        this.isVideoInputEnabled = isVideoInputEnabled;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -178,6 +181,21 @@ public final class DesktopDevicePolicy
             this.__explicitlySet__.add("isDisplayEnabled");
             return this;
         }
+        /** Indicates whether video input is enabled. */
+        @com.fasterxml.jackson.annotation.JsonProperty("isVideoInputEnabled")
+        private Boolean isVideoInputEnabled;
+
+        /**
+         * Indicates whether video input is enabled.
+         *
+         * @param isVideoInputEnabled the value to set
+         * @return this builder
+         */
+        public Builder isVideoInputEnabled(Boolean isVideoInputEnabled) {
+            this.isVideoInputEnabled = isVideoInputEnabled;
+            this.__explicitlySet__.add("isVideoInputEnabled");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -191,7 +209,8 @@ public final class DesktopDevicePolicy
                             this.isPrintingEnabled,
                             this.isPointerEnabled,
                             this.isKeyboardEnabled,
-                            this.isDisplayEnabled);
+                            this.isDisplayEnabled,
+                            this.isVideoInputEnabled);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -220,6 +239,9 @@ public final class DesktopDevicePolicy
             }
             if (model.wasPropertyExplicitlySet("isDisplayEnabled")) {
                 this.isDisplayEnabled(model.getIsDisplayEnabled());
+            }
+            if (model.wasPropertyExplicitlySet("isVideoInputEnabled")) {
+                this.isVideoInputEnabled(model.getIsVideoInputEnabled());
             }
             return this;
         }
@@ -501,6 +523,19 @@ public final class DesktopDevicePolicy
         return isDisplayEnabled;
     }
 
+    /** Indicates whether video input is enabled. */
+    @com.fasterxml.jackson.annotation.JsonProperty("isVideoInputEnabled")
+    private final Boolean isVideoInputEnabled;
+
+    /**
+     * Indicates whether video input is enabled.
+     *
+     * @return the value
+     */
+    public Boolean getIsVideoInputEnabled() {
+        return isVideoInputEnabled;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -523,6 +558,7 @@ public final class DesktopDevicePolicy
         sb.append(", isPointerEnabled=").append(String.valueOf(this.isPointerEnabled));
         sb.append(", isKeyboardEnabled=").append(String.valueOf(this.isKeyboardEnabled));
         sb.append(", isDisplayEnabled=").append(String.valueOf(this.isDisplayEnabled));
+        sb.append(", isVideoInputEnabled=").append(String.valueOf(this.isVideoInputEnabled));
         sb.append(")");
         return sb.toString();
     }
@@ -544,6 +580,7 @@ public final class DesktopDevicePolicy
                 && java.util.Objects.equals(this.isPointerEnabled, other.isPointerEnabled)
                 && java.util.Objects.equals(this.isKeyboardEnabled, other.isKeyboardEnabled)
                 && java.util.Objects.equals(this.isDisplayEnabled, other.isDisplayEnabled)
+                && java.util.Objects.equals(this.isVideoInputEnabled, other.isVideoInputEnabled)
                 && super.equals(other);
     }
 
@@ -568,6 +605,11 @@ public final class DesktopDevicePolicy
         result =
                 (result * PRIME)
                         + (this.isDisplayEnabled == null ? 43 : this.isDisplayEnabled.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.isVideoInputEnabled == null
+                                ? 43
+                                : this.isVideoInputEnabled.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

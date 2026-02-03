@@ -34,10 +34,11 @@ package com.oracle.bmc.networkfirewall.model;
 public class CreateServiceDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"name"})
-    protected CreateServiceDetails(String name) {
+    @java.beans.ConstructorProperties({"name", "description"})
+    protected CreateServiceDetails(String name, String description) {
         super();
         this.name = name;
+        this.description = description;
     }
 
     /** Name of the service */
@@ -51,6 +52,19 @@ public class CreateServiceDetails
      */
     public String getName() {
         return name;
+    }
+
+    /** The description of the service. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the service. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -69,6 +83,7 @@ public class CreateServiceDetails
         sb.append("CreateServiceDetails(");
         sb.append("super=").append(super.toString());
         sb.append("name=").append(String.valueOf(this.name));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -83,7 +98,9 @@ public class CreateServiceDetails
         }
 
         CreateServiceDetails other = (CreateServiceDetails) o;
-        return java.util.Objects.equals(this.name, other.name) && super.equals(other);
+        return java.util.Objects.equals(this.name, other.name)
+                && java.util.Objects.equals(this.description, other.description)
+                && super.equals(other);
     }
 
     @Override
@@ -91,6 +108,7 @@ public class CreateServiceDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.name == null ? 43 : this.name.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

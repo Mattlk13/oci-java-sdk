@@ -64,12 +64,12 @@ public final class FieldSummaryReport
             this.__explicitlySet__.add("oobCount");
             return this;
         }
-        /** Field usage detailss */
+        /** Field usage details */
         @com.fasterxml.jackson.annotation.JsonProperty("usageDetails")
         private java.util.List<UsageStatusItem> usageDetails;
 
         /**
-         * Field usage detailss
+         * Field usage details
          *
          * @param usageDetails the value to set
          * @return this builder
@@ -142,12 +142,12 @@ public final class FieldSummaryReport
         return oobCount;
     }
 
-    /** Field usage detailss */
+    /** Field usage details */
     @com.fasterxml.jackson.annotation.JsonProperty("usageDetails")
     private final java.util.List<UsageStatusItem> usageDetails;
 
     /**
-     * Field usage detailss
+     * Field usage details
      *
      * @return the value
      */

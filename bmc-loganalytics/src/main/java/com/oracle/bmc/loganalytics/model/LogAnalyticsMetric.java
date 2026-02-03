@@ -214,12 +214,12 @@ public final class LogAnalyticsMetric
             this.__explicitlySet__.add("groupingField");
             return this;
         }
-        /** A flag inidcating whether or not the metric is enabled. */
+        /** A flag indicating whether or not the metric is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the metric is enabled.
+         * A flag indicating whether or not the metric is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -294,13 +294,13 @@ public final class LogAnalyticsMetric
             return this;
         }
         /**
-         * The metric type, specifying the type of aggreation to perform. Default value is COUNT.
+         * The metric type, specifying the type of aggregation to perform. Default value is COUNT.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("metricType")
         private MetricType metricType;
 
         /**
-         * The metric type, specifying the type of aggreation to perform. Default value is COUNT.
+         * The metric type, specifying the type of aggregation to perform. Default value is COUNT.
          *
          * @param metricType the value to set
          * @return this builder
@@ -631,12 +631,12 @@ public final class LogAnalyticsMetric
         return groupingField;
     }
 
-    /** A flag inidcating whether or not the metric is enabled. */
+    /** A flag indicating whether or not the metric is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the metric is enabled.
+     * A flag indicating whether or not the metric is enabled.
      *
      * @return the value
      */
@@ -700,7 +700,7 @@ public final class LogAnalyticsMetric
         return name;
     }
 
-    /** The metric type, specifying the type of aggreation to perform. Default value is COUNT. */
+    /** The metric type, specifying the type of aggregation to perform. Default value is COUNT. */
     public enum MetricType implements com.oracle.bmc.http.internal.BmcEnum {
         Count("COUNT"),
         Sum("SUM"),
@@ -750,12 +750,12 @@ public final class LogAnalyticsMetric
             return UnknownEnumValue;
         }
     };
-    /** The metric type, specifying the type of aggreation to perform. Default value is COUNT. */
+    /** The metric type, specifying the type of aggregation to perform. Default value is COUNT. */
     @com.fasterxml.jackson.annotation.JsonProperty("metricType")
     private final MetricType metricType;
 
     /**
-     * The metric type, specifying the type of aggreation to perform. Default value is COUNT.
+     * The metric type, specifying the type of aggregation to perform. Default value is COUNT.
      *
      * @return the value
      */

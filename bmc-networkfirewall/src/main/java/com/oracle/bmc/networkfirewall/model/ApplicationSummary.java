@@ -33,11 +33,12 @@ package com.oracle.bmc.networkfirewall.model;
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
 public class ApplicationSummary extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"name", "parentResourceId"})
-    protected ApplicationSummary(String name, String parentResourceId) {
+    @java.beans.ConstructorProperties({"name", "parentResourceId", "description"})
+    protected ApplicationSummary(String name, String parentResourceId, String description) {
         super();
         this.name = name;
         this.parentResourceId = parentResourceId;
+        this.description = description;
     }
 
     /** Name of the application. */
@@ -66,6 +67,19 @@ public class ApplicationSummary extends com.oracle.bmc.http.client.internal.Expl
         return parentResourceId;
     }
 
+    /** The description of the application. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the application. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -83,6 +97,7 @@ public class ApplicationSummary extends com.oracle.bmc.http.client.internal.Expl
         sb.append("super=").append(super.toString());
         sb.append("name=").append(String.valueOf(this.name));
         sb.append(", parentResourceId=").append(String.valueOf(this.parentResourceId));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -99,6 +114,7 @@ public class ApplicationSummary extends com.oracle.bmc.http.client.internal.Expl
         ApplicationSummary other = (ApplicationSummary) o;
         return java.util.Objects.equals(this.name, other.name)
                 && java.util.Objects.equals(this.parentResourceId, other.parentResourceId)
+                && java.util.Objects.equals(this.description, other.description)
                 && super.equals(other);
     }
 
@@ -110,6 +126,7 @@ public class ApplicationSummary extends com.oracle.bmc.http.client.internal.Expl
         result =
                 (result * PRIME)
                         + (this.parentResourceId == null ? 43 : this.parentResourceId.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

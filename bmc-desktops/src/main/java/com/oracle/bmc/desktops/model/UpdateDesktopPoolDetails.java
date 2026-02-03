@@ -35,7 +35,9 @@ public final class UpdateDesktopPoolDetails
         "timeStopScheduled",
         "freeformTags",
         "definedTags",
-        "sessionLifecycleActions"
+        "sessionLifecycleActions",
+        "image",
+        "bootVolumeSizeInGBs"
     })
     public UpdateDesktopPoolDetails(
             String displayName,
@@ -49,7 +51,9 @@ public final class UpdateDesktopPoolDetails
             java.util.Date timeStopScheduled,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
-            UpdateDesktopPoolDesktopSessionLifecycleActions sessionLifecycleActions) {
+            UpdateDesktopPoolDesktopSessionLifecycleActions sessionLifecycleActions,
+            UpdateDesktopImage image,
+            Integer bootVolumeSizeInGBs) {
         super();
         this.displayName = displayName;
         this.description = description;
@@ -63,6 +67,8 @@ public final class UpdateDesktopPoolDetails
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.sessionLifecycleActions = sessionLifecycleActions;
+        this.image = image;
+        this.bootVolumeSizeInGBs = bootVolumeSizeInGBs;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -256,6 +262,30 @@ public final class UpdateDesktopPoolDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("image")
+        private UpdateDesktopImage image;
+
+        public Builder image(UpdateDesktopImage image) {
+            this.image = image;
+            this.__explicitlySet__.add("image");
+            return this;
+        }
+        /** The size in GBs of the boot volume for the desktop pool. */
+        @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeSizeInGBs")
+        private Integer bootVolumeSizeInGBs;
+
+        /**
+         * The size in GBs of the boot volume for the desktop pool.
+         *
+         * @param bootVolumeSizeInGBs the value to set
+         * @return this builder
+         */
+        public Builder bootVolumeSizeInGBs(Integer bootVolumeSizeInGBs) {
+            this.bootVolumeSizeInGBs = bootVolumeSizeInGBs;
+            this.__explicitlySet__.add("bootVolumeSizeInGBs");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -273,7 +303,9 @@ public final class UpdateDesktopPoolDetails
                             this.timeStopScheduled,
                             this.freeformTags,
                             this.definedTags,
-                            this.sessionLifecycleActions);
+                            this.sessionLifecycleActions,
+                            this.image,
+                            this.bootVolumeSizeInGBs);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -317,6 +349,12 @@ public final class UpdateDesktopPoolDetails
             }
             if (model.wasPropertyExplicitlySet("sessionLifecycleActions")) {
                 this.sessionLifecycleActions(model.getSessionLifecycleActions());
+            }
+            if (model.wasPropertyExplicitlySet("image")) {
+                this.image(model.getImage());
+            }
+            if (model.wasPropertyExplicitlySet("bootVolumeSizeInGBs")) {
+                this.bootVolumeSizeInGBs(model.getBootVolumeSizeInGBs());
             }
             return this;
         }
@@ -493,6 +531,26 @@ public final class UpdateDesktopPoolDetails
         return sessionLifecycleActions;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("image")
+    private final UpdateDesktopImage image;
+
+    public UpdateDesktopImage getImage() {
+        return image;
+    }
+
+    /** The size in GBs of the boot volume for the desktop pool. */
+    @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeSizeInGBs")
+    private final Integer bootVolumeSizeInGBs;
+
+    /**
+     * The size in GBs of the boot volume for the desktop pool.
+     *
+     * @return the value
+     */
+    public Integer getBootVolumeSizeInGBs() {
+        return bootVolumeSizeInGBs;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -521,6 +579,8 @@ public final class UpdateDesktopPoolDetails
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", sessionLifecycleActions=")
                 .append(String.valueOf(this.sessionLifecycleActions));
+        sb.append(", image=").append(String.valueOf(this.image));
+        sb.append(", bootVolumeSizeInGBs=").append(String.valueOf(this.bootVolumeSizeInGBs));
         sb.append(")");
         return sb.toString();
     }
@@ -548,6 +608,8 @@ public final class UpdateDesktopPoolDetails
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(
                         this.sessionLifecycleActions, other.sessionLifecycleActions)
+                && java.util.Objects.equals(this.image, other.image)
+                && java.util.Objects.equals(this.bootVolumeSizeInGBs, other.bootVolumeSizeInGBs)
                 && super.equals(other);
     }
 
@@ -583,6 +645,12 @@ public final class UpdateDesktopPoolDetails
                         + (this.sessionLifecycleActions == null
                                 ? 43
                                 : this.sessionLifecycleActions.hashCode());
+        result = (result * PRIME) + (this.image == null ? 43 : this.image.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.bootVolumeSizeInGBs == null
+                                ? 43
+                                : this.bootVolumeSizeInGBs.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -43,6 +43,15 @@ public final class IcmpApplication extends Application {
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /**
          * The value of the ICMP message Type field as defined by [RFC
          * 792](https://www.rfc-editor.org/rfc/rfc792.html).
@@ -88,7 +97,11 @@ public final class IcmpApplication extends Application {
         public IcmpApplication build() {
             IcmpApplication model =
                     new IcmpApplication(
-                            this.name, this.parentResourceId, this.icmpType, this.icmpCode);
+                            this.name,
+                            this.parentResourceId,
+                            this.description,
+                            this.icmpType,
+                            this.icmpCode);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -102,6 +115,9 @@ public final class IcmpApplication extends Application {
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("icmpType")) {
                 this.icmpType(model.getIcmpType());
@@ -124,8 +140,12 @@ public final class IcmpApplication extends Application {
 
     @Deprecated
     public IcmpApplication(
-            String name, String parentResourceId, Integer icmpType, Integer icmpCode) {
-        super(name, parentResourceId);
+            String name,
+            String parentResourceId,
+            String description,
+            Integer icmpType,
+            Integer icmpCode) {
+        super(name, parentResourceId, description);
         this.icmpType = icmpType;
         this.icmpCode = icmpCode;
     }

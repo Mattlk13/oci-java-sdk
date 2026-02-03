@@ -5,7 +5,12 @@
 package com.oracle.bmc.networkfirewall.model;
 
 /**
- * Nat Configuration response. <br>
+ * Response to a request to configure Network Address Translation (NAT) on a firewall.
+ *
+ * <p>To perform NAT on traffic passing the private NAT IPs to the firewall, the attached network
+ * firewall policy must also have NAT rules and NAT configuration must be enabled. If NAT
+ * configuration is enabled and the attached firewall policy does not contain NAT rule then NAT IPs
+ * will get allocated but NAT will not be performed on any traffic. <br>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model
  * distinguishes fields that are {@code null} because they are unset from fields that are explicitly
  * set to {@code null}. This is done in the setter methods of the {@link Builder}, which maintain a
@@ -34,15 +39,15 @@ public final class NatConfigurationResponse
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
         /**
-         * To allocate private NAT IPs to the firewall. The attached network firewall policy must
-         * also have NAT rules to enable NAT on any traffic passing through the firewall.
+         * True indicates that NAT configuration is enabled. False indicates NAT configuration is
+         * disabled.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("mustEnablePrivateNat")
         private Boolean mustEnablePrivateNat;
 
         /**
-         * To allocate private NAT IPs to the firewall. The attached network firewall policy must
-         * also have NAT rules to enable NAT on any traffic passing through the firewall.
+         * True indicates that NAT configuration is enabled. False indicates NAT configuration is
+         * disabled.
          *
          * @param mustEnablePrivateNat the value to set
          * @return this builder
@@ -53,15 +58,23 @@ public final class NatConfigurationResponse
             return this;
         }
         /**
-         * An array of NAT IP addresses that are associated with the Network Firewall. These IPs are
-         * reserved for NAT and shouldn't be used for any other purpose in the subnet.
+         * An array of Private NAT IP addresses that are associated with the Network Firewall. These
+         * IP addresses are reserved for NAT and shouldn't be used for any other purpose in the
+         * subnet.
+         *
+         * <p>This list contains IP addresses when NAT configuration is enabled. This list is empty
+         * or null IP when NAT configuration is disabled.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("natIpAddressList")
         private java.util.List<String> natIpAddressList;
 
         /**
-         * An array of NAT IP addresses that are associated with the Network Firewall. These IPs are
-         * reserved for NAT and shouldn't be used for any other purpose in the subnet.
+         * An array of Private NAT IP addresses that are associated with the Network Firewall. These
+         * IP addresses are reserved for NAT and shouldn't be used for any other purpose in the
+         * subnet.
+         *
+         * <p>This list contains IP addresses when NAT configuration is enabled. This list is empty
+         * or null IP when NAT configuration is disabled.
          *
          * @param natIpAddressList the value to set
          * @return this builder
@@ -106,15 +119,15 @@ public final class NatConfigurationResponse
     }
 
     /**
-     * To allocate private NAT IPs to the firewall. The attached network firewall policy must also
-     * have NAT rules to enable NAT on any traffic passing through the firewall.
+     * True indicates that NAT configuration is enabled. False indicates NAT configuration is
+     * disabled.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("mustEnablePrivateNat")
     private final Boolean mustEnablePrivateNat;
 
     /**
-     * To allocate private NAT IPs to the firewall. The attached network firewall policy must also
-     * have NAT rules to enable NAT on any traffic passing through the firewall.
+     * True indicates that NAT configuration is enabled. False indicates NAT configuration is
+     * disabled.
      *
      * @return the value
      */
@@ -123,15 +136,21 @@ public final class NatConfigurationResponse
     }
 
     /**
-     * An array of NAT IP addresses that are associated with the Network Firewall. These IPs are
-     * reserved for NAT and shouldn't be used for any other purpose in the subnet.
+     * An array of Private NAT IP addresses that are associated with the Network Firewall. These IP
+     * addresses are reserved for NAT and shouldn't be used for any other purpose in the subnet.
+     *
+     * <p>This list contains IP addresses when NAT configuration is enabled. This list is empty or
+     * null IP when NAT configuration is disabled.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("natIpAddressList")
     private final java.util.List<String> natIpAddressList;
 
     /**
-     * An array of NAT IP addresses that are associated with the Network Firewall. These IPs are
-     * reserved for NAT and shouldn't be used for any other purpose in the subnet.
+     * An array of Private NAT IP addresses that are associated with the Network Firewall. These IP
+     * addresses are reserved for NAT and shouldn't be used for any other purpose in the subnet.
+     *
+     * <p>This list contains IP addresses when NAT configuration is enabled. This list is empty or
+     * null IP when NAT configuration is disabled.
      *
      * @return the value
      */

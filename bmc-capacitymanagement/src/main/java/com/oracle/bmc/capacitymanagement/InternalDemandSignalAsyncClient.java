@@ -114,7 +114,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "CreateInternalOccmDemandSignalDelivery",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalDelivery/CreateInternalOccmDemandSignalDelivery")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalDelivery/CreateInternalOccmDemandSignalDelivery")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateInternalOccmDemandSignalDeliveryRequest::builder)
                 .basePath("/20231107")
@@ -158,7 +158,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "DeleteInternalOccmDemandSignalDelivery",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalDelivery/DeleteInternalOccmDemandSignalDelivery")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalDelivery/DeleteInternalOccmDemandSignalDelivery")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeleteInternalOccmDemandSignalDeliveryRequest::builder)
                 .basePath("/20231107")
@@ -193,7 +193,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "GetInternalOccmDemandSignal",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignal/GetInternalOccmDemandSignal")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignal/GetInternalOccmDemandSignal")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetInternalOccmDemandSignalRequest::builder)
                 .basePath("/20231107")
@@ -230,7 +230,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "GetInternalOccmDemandSignalCatalog",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/OccmDemandSignalCatalogResource/GetInternalOccmDemandSignalCatalog")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/OccmDemandSignalCatalogResource/GetInternalOccmDemandSignalCatalog")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetInternalOccmDemandSignalCatalogRequest::builder)
                 .basePath("/20231107")
@@ -268,7 +268,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "GetInternalOccmDemandSignalDelivery",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalDelivery/GetInternalOccmDemandSignalDelivery")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalDelivery/GetInternalOccmDemandSignalDelivery")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetInternalOccmDemandSignalDeliveryRequest::builder)
                 .basePath("/20231107")
@@ -310,7 +310,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "ListInternalOccmDemandSignalCatalogResources",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalCatalogResource/ListInternalOccmDemandSignalCatalogResources")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalCatalogResource/ListInternalOccmDemandSignalCatalogResources")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListInternalOccmDemandSignalCatalogResourcesRequest::builder)
                 .basePath("/20231107")
@@ -359,7 +359,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "ListInternalOccmDemandSignalCatalogs",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/OccmDemandSignalCatalog/ListInternalOccmDemandSignalCatalogs")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/OccmDemandSignalCatalog/ListInternalOccmDemandSignalCatalogs")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListInternalOccmDemandSignalCatalogsRequest::builder)
                 .basePath("/20231107")
@@ -405,7 +405,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "ListInternalOccmDemandSignalDeliveries",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalDelivery/ListInternalOccmDemandSignalDeliveries")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalDelivery/ListInternalOccmDemandSignalDeliveries")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListInternalOccmDemandSignalDeliveriesRequest::builder)
                 .basePath("/20231107")
@@ -452,7 +452,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "ListInternalOccmDemandSignalItems",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalItemCollection/ListInternalOccmDemandSignalItems")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalItemCollection/ListInternalOccmDemandSignalItems")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListInternalOccmDemandSignalItemsRequest::builder)
                 .basePath("/20231107")
@@ -500,7 +500,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "ListInternalOccmDemandSignals",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignal/ListInternalOccmDemandSignals")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignal/ListInternalOccmDemandSignals")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListInternalOccmDemandSignalsRequest::builder)
                 .basePath("/20231107")
@@ -549,7 +549,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "UpdateInternalOccmDemandSignal",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignal/UpdateInternalOccmDemandSignal")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignal/UpdateInternalOccmDemandSignal")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateInternalOccmDemandSignalRequest::builder)
                 .basePath("/20231107")
@@ -594,7 +594,7 @@ public class InternalDemandSignalAsyncClient extends com.oracle.bmc.http.interna
                 .serviceDetails(
                         "InternalDemandSignal",
                         "UpdateInternalOccmDemandSignalDelivery",
-                        "https://docs.oracle.com/iaas/api/#/en/occcm/20231107/InternalOccmDemandSignalDelivery/UpdateInternalOccmDemandSignalDelivery")
+                        "https://docs.oracle.com/iaas/api/#/en/occm/20231107/InternalOccmDemandSignalDelivery/UpdateInternalOccmDemandSignalDelivery")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateInternalOccmDemandSignalDeliveryRequest::builder)
                 .basePath("/20231107")

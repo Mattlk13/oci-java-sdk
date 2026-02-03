@@ -36,6 +36,15 @@ public final class UpdateStandardTaskDetails extends UpdateScheduledTaskDetails 
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -80,6 +89,7 @@ public final class UpdateStandardTaskDetails extends UpdateScheduledTaskDetails 
             UpdateStandardTaskDetails model =
                     new UpdateStandardTaskDetails(
                             this.displayName,
+                            this.description,
                             this.freeformTags,
                             this.definedTags,
                             this.schedules,
@@ -94,6 +104,9 @@ public final class UpdateStandardTaskDetails extends UpdateScheduledTaskDetails 
         public Builder copy(UpdateStandardTaskDetails model) {
             if (model.wasPropertyExplicitlySet("displayName")) {
                 this.displayName(model.getDisplayName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -123,11 +136,12 @@ public final class UpdateStandardTaskDetails extends UpdateScheduledTaskDetails 
     @Deprecated
     public UpdateStandardTaskDetails(
             String displayName,
+            String description,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.List<Schedule> schedules,
             Action action) {
-        super(displayName, freeformTags, definedTags, schedules);
+        super(displayName, description, freeformTags, definedTags, schedules);
         this.action = action;
     }
 

@@ -250,12 +250,12 @@ public final class LogAnalyticsSourcePattern
             this.__explicitlySet__.add("description");
             return this;
         }
-        /** A flag inidcating whether or not the source pattern is enabled. */
+        /** A flag indicating whether or not the source pattern is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the source pattern is enabled.
+         * A flag indicating whether or not the source pattern is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -636,12 +636,12 @@ public final class LogAnalyticsSourcePattern
         return description;
     }
 
-    /** A flag inidcating whether or not the source pattern is enabled. */
+    /** A flag indicating whether or not the source pattern is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the source pattern is enabled.
+     * A flag indicating whether or not the source pattern is enabled.
      *
      * @return the value
      */

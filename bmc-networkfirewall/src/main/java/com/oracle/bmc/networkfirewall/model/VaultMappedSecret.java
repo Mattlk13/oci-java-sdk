@@ -53,6 +53,15 @@ public final class VaultMappedSecret extends MappedSecret {
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** OCID for the Vault Secret to be used. */
         @com.fasterxml.jackson.annotation.JsonProperty("vaultSecretId")
         private String vaultSecretId;
@@ -93,6 +102,7 @@ public final class VaultMappedSecret extends MappedSecret {
                             this.name,
                             this.type,
                             this.parentResourceId,
+                            this.description,
                             this.vaultSecretId,
                             this.versionNumber);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -111,6 +121,9 @@ public final class VaultMappedSecret extends MappedSecret {
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("vaultSecretId")) {
                 this.vaultSecretId(model.getVaultSecretId());
@@ -136,9 +149,10 @@ public final class VaultMappedSecret extends MappedSecret {
             String name,
             InspectionType type,
             String parentResourceId,
+            String description,
             String vaultSecretId,
             Integer versionNumber) {
-        super(name, type, parentResourceId);
+        super(name, type, parentResourceId, description);
         this.vaultSecretId = vaultSecretId;
         this.versionNumber = versionNumber;
     }

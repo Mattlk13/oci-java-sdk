@@ -23,10 +23,11 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateApplicationGroupDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"apps"})
-    public UpdateApplicationGroupDetails(java.util.List<String> apps) {
+    @java.beans.ConstructorProperties({"apps", "description"})
+    public UpdateApplicationGroupDetails(java.util.List<String> apps, String description) {
         super();
         this.apps = apps;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -46,12 +47,30 @@ public final class UpdateApplicationGroupDetails
             this.__explicitlySet__.add("apps");
             return this;
         }
+        /**
+         * The description of the application list. This field can be used to add additional info.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the application list. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateApplicationGroupDetails build() {
-            UpdateApplicationGroupDetails model = new UpdateApplicationGroupDetails(this.apps);
+            UpdateApplicationGroupDetails model =
+                    new UpdateApplicationGroupDetails(this.apps, this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -62,6 +81,9 @@ public final class UpdateApplicationGroupDetails
         public Builder copy(UpdateApplicationGroupDetails model) {
             if (model.wasPropertyExplicitlySet("apps")) {
                 this.apps(model.getApps());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -89,6 +111,19 @@ public final class UpdateApplicationGroupDetails
         return apps;
     }
 
+    /** The description of the application list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the application list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -105,6 +140,7 @@ public final class UpdateApplicationGroupDetails
         sb.append("UpdateApplicationGroupDetails(");
         sb.append("super=").append(super.toString());
         sb.append("apps=").append(String.valueOf(this.apps));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -119,7 +155,9 @@ public final class UpdateApplicationGroupDetails
         }
 
         UpdateApplicationGroupDetails other = (UpdateApplicationGroupDetails) o;
-        return java.util.Objects.equals(this.apps, other.apps) && super.equals(other);
+        return java.util.Objects.equals(this.apps, other.apps)
+                && java.util.Objects.equals(this.description, other.description)
+                && super.equals(other);
     }
 
     @Override
@@ -127,6 +165,7 @@ public final class UpdateApplicationGroupDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.apps == null ? 43 : this.apps.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

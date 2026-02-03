@@ -111,10 +111,10 @@ public class ListNatRulesRequest extends com.oracle.bmc.requests.BmcRequest<java
     public String getDisplayName() {
         return displayName;
     }
-    /** Unique priority order for NAT Rules in the network firewall policy. */
+    /** Unique priority order for NAT rules in the Network Firewall policy. */
     private Integer natRulePriorityOrder;
 
-    /** Unique priority order for NAT Rules in the network firewall policy. */
+    /** Unique priority order for NAT rules in the Network Firewall policy. */
     public Integer getNatRulePriorityOrder() {
         return natRulePriorityOrder;
     }
@@ -233,11 +233,11 @@ public class ListNatRulesRequest extends com.oracle.bmc.requests.BmcRequest<java
             return this;
         }
 
-        /** Unique priority order for NAT Rules in the network firewall policy. */
+        /** Unique priority order for NAT rules in the Network Firewall policy. */
         private Integer natRulePriorityOrder = null;
 
         /**
-         * Unique priority order for NAT Rules in the network firewall policy.
+         * Unique priority order for NAT rules in the Network Firewall policy.
          *
          * @param natRulePriorityOrder the value to set
          * @return this builder instance

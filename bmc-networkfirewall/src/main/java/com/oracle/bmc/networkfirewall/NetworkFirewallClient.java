@@ -413,7 +413,7 @@ public class NetworkFirewallClient extends com.oracle.bmc.http.internal.BaseSync
                 .serviceDetails(
                         "NetworkFirewall",
                         "BulkUploadNatRules",
-                        "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/natRule/BulkUploadNatRules")
+                        "https://docs.oracle.com/iaas/api/#/en/network-firewall/20230501/NatRule/BulkUploadNatRules")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(BulkUploadNatRulesRequest::builder)
                 .basePath("/20230501")

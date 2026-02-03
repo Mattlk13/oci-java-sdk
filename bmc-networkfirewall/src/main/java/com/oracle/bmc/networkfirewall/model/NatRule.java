@@ -5,7 +5,9 @@
 package com.oracle.bmc.networkfirewall.model;
 
 /**
- * A Nat Rule is used to define to which traffic NAT should be applied by the firewall. <br>
+ * A [NAT
+ * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+ * defines which traffic NAT should be applied to by the firewall. <br>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model
  * distinguishes fields that are {@code null} because they are unset from fields that are explicitly
  * set to {@code null}. This is done in the setter methods of the {@link Builder}, which maintain a
@@ -95,12 +97,16 @@ public class NatRule extends com.oracle.bmc.http.client.internal.ExplicitlySetBm
         return position;
     }
 
-    /** OCID of the Network Firewall Policy this decryption profile belongs to. */
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * Network Firewall policy this NAT rule belongs to.
+     */
     @com.fasterxml.jackson.annotation.JsonProperty("parentResourceId")
     private final String parentResourceId;
 
     /**
-     * OCID of the Network Firewall Policy this decryption profile belongs to.
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * Network Firewall policy this NAT rule belongs to.
      *
      * @return the value
      */

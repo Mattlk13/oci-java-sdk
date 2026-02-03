@@ -46,6 +46,15 @@ public final class CreateStandardTaskDetails extends CreateScheduledTaskDetails 
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -116,6 +125,7 @@ public final class CreateStandardTaskDetails extends CreateScheduledTaskDetails 
                     new CreateStandardTaskDetails(
                             this.compartmentId,
                             this.displayName,
+                            this.description,
                             this.freeformTags,
                             this.definedTags,
                             this.taskType,
@@ -134,6 +144,9 @@ public final class CreateStandardTaskDetails extends CreateScheduledTaskDetails 
             }
             if (model.wasPropertyExplicitlySet("displayName")) {
                 this.displayName(model.getDisplayName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -167,12 +180,13 @@ public final class CreateStandardTaskDetails extends CreateScheduledTaskDetails 
     public CreateStandardTaskDetails(
             String compartmentId,
             String displayName,
+            String description,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             TaskType taskType,
             java.util.List<Schedule> schedules,
             Action action) {
-        super(compartmentId, displayName, freeformTags, definedTags);
+        super(compartmentId, displayName, description, freeformTags, definedTags);
         this.taskType = taskType;
         this.schedules = schedules;
         this.action = action;
