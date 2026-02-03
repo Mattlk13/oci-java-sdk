@@ -94,12 +94,12 @@ public final class LogAnalyticsSourceFunction
             this.__explicitlySet__.add("arguments");
             return this;
         }
-        /** A flag inidcating whether or not the source function is enabled. */
+        /** A flag indicating whether or not the source function is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the source function is enabled.
+         * A flag indicating whether or not the source function is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -422,12 +422,12 @@ public final class LogAnalyticsSourceFunction
         return arguments;
     }
 
-    /** A flag inidcating whether or not the source function is enabled. */
+    /** A flag indicating whether or not the source function is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the source function is enabled.
+     * A flag indicating whether or not the source function is enabled.
      *
      * @return the value
      */

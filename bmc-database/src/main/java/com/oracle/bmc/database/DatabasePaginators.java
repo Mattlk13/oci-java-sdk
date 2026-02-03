@@ -43,6 +43,134 @@ public class DatabasePaginators {
 
     /**
      * Creates a new iterable which will iterate over the responses received from the
+     * listAdvancedClusterFileSystems operation. This iterable will fetch more data from the server
+     * as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListAdvancedClusterFileSystemsResponse>
+            listAdvancedClusterFileSystemsResponseIterator(
+                    final ListAdvancedClusterFileSystemsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAdvancedClusterFileSystemsRequest.Builder,
+                ListAdvancedClusterFileSystemsRequest,
+                ListAdvancedClusterFileSystemsResponse>(
+                new java.util.function.Supplier<ListAdvancedClusterFileSystemsRequest.Builder>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsRequest.Builder get() {
+                        return ListAdvancedClusterFileSystemsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListAdvancedClusterFileSystemsResponse, String>() {
+                    @Override
+                    public String apply(ListAdvancedClusterFileSystemsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAdvancedClusterFileSystemsRequest.Builder>,
+                        ListAdvancedClusterFileSystemsRequest>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAdvancedClusterFileSystemsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAdvancedClusterFileSystemsRequest,
+                        ListAdvancedClusterFileSystemsResponse>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsResponse apply(
+                            ListAdvancedClusterFileSystemsRequest request) {
+                        return client.listAdvancedClusterFileSystems(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary} objects contained in
+     * responses from the listAdvancedClusterFileSystems operation. This iterable will fetch more
+     * data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary} objects contained in
+     *     responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary>
+            listAdvancedClusterFileSystemsRecordIterator(
+                    final ListAdvancedClusterFileSystemsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAdvancedClusterFileSystemsRequest.Builder,
+                ListAdvancedClusterFileSystemsRequest,
+                ListAdvancedClusterFileSystemsResponse,
+                com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary>(
+                new java.util.function.Supplier<ListAdvancedClusterFileSystemsRequest.Builder>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsRequest.Builder get() {
+                        return ListAdvancedClusterFileSystemsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListAdvancedClusterFileSystemsResponse, String>() {
+                    @Override
+                    public String apply(ListAdvancedClusterFileSystemsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAdvancedClusterFileSystemsRequest.Builder>,
+                        ListAdvancedClusterFileSystemsRequest>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAdvancedClusterFileSystemsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAdvancedClusterFileSystemsRequest,
+                        ListAdvancedClusterFileSystemsResponse>() {
+                    @Override
+                    public ListAdvancedClusterFileSystemsResponse apply(
+                            ListAdvancedClusterFileSystemsRequest request) {
+                        return client.listAdvancedClusterFileSystems(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAdvancedClusterFileSystemsResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model.AdvancedClusterFileSystemSummary>
+                            apply(ListAdvancedClusterFileSystemsResponse response) {
+                        return response.getAdvancedClusterFileSystemCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
      * listApplicationVips operation. This iterable will fetch more data from the server as needed.
      *
      * @param request a request which can be sent to the service operation

@@ -1148,6 +1148,24 @@ public interface DatabaseAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Creates an advanced cluster file system resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateAdvancedClusterFileSystemResponse>
+            createAdvancedClusterFileSystem(
+                    CreateAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    CreateAdvancedClusterFileSystemRequest,
+                                    CreateAdvancedClusterFileSystemResponse>
+                            handler);
+
+    /**
      * Creates a new application virtual IP (VIP) address in the specified cloud VM cluster based on
      * the request parameters you provide.
      *
@@ -1874,6 +1892,24 @@ public interface DatabaseAsync extends AutoCloseable {
             DbNodeActionRequest request,
             com.oracle.bmc.responses.AsyncHandler<DbNodeActionRequest, DbNodeActionResponse>
                     handler);
+
+    /**
+     * Deletes the advanced cluster file system.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteAdvancedClusterFileSystemResponse>
+            deleteAdvancedClusterFileSystem(
+                    DeleteAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteAdvancedClusterFileSystemRequest,
+                                    DeleteAdvancedClusterFileSystemResponse>
+                            handler);
 
     /**
      * Deletes and deregisters the specified application virtual IP (VIP) address.
@@ -3198,6 +3234,23 @@ public interface DatabaseAsync extends AutoCloseable {
                                     GenerateRecommendedVmClusterNetworkRequest,
                                     GenerateRecommendedVmClusterNetworkResponse>
                             handler);
+
+    /**
+     * Gets information about the specified advanced cluster file systems.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetAdvancedClusterFileSystemResponse> getAdvancedClusterFileSystem(
+            GetAdvancedClusterFileSystemRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetAdvancedClusterFileSystemRequest,
+                            GetAdvancedClusterFileSystemResponse>
+                    handler);
 
     /**
      * Gets information about a specified application virtual IP (VIP) address.
@@ -4597,6 +4650,24 @@ public interface DatabaseAsync extends AutoCloseable {
             LaunchDbSystemRequest request,
             com.oracle.bmc.responses.AsyncHandler<LaunchDbSystemRequest, LaunchDbSystemResponse>
                     handler);
+
+    /**
+     * Lists the advanced cluster file system resources in the specified compartment.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAdvancedClusterFileSystemsResponse>
+            listAdvancedClusterFileSystems(
+                    ListAdvancedClusterFileSystemsRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListAdvancedClusterFileSystemsRequest,
+                                    ListAdvancedClusterFileSystemsResponse>
+                            handler);
 
     /**
      * Gets a list of application virtual IP (VIP) addresses on a cloud VM cluster.
@@ -6269,6 +6340,24 @@ public interface DatabaseAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Mounts the advanced cluster file system to all the virtual machines within a vmcluster.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<MountAdvancedClusterFileSystemResponse>
+            mountAdvancedClusterFileSystem(
+                    MountAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    MountAdvancedClusterFileSystemRequest,
+                                    MountAdvancedClusterFileSystemResponse>
+                            handler);
+
+    /**
      * Mounts the snapshot for the provided dbNode.
      *
      * @param request The request object containing the details to send
@@ -7213,6 +7302,24 @@ public interface DatabaseAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Unmounts the advanced cluster file system from all the virtual machines within a vmcluster.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UnmountAdvancedClusterFileSystemResponse>
+            unmountAdvancedClusterFileSystem(
+                    UnmountAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    UnmountAdvancedClusterFileSystemRequest,
+                                    UnmountAdvancedClusterFileSystemResponse>
+                            handler);
+
+    /**
      * Unmounts the snapshot for the provided dbNode.
      *
      * @param request The request object containing the details to send
@@ -7262,6 +7369,24 @@ public interface DatabaseAsync extends AutoCloseable {
                             UnregisterCloudVmClusterPkcsRequest,
                             UnregisterCloudVmClusterPkcsResponse>
                     handler);
+
+    /**
+     * Updates the advanced cluster file system resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateAdvancedClusterFileSystemResponse>
+            updateAdvancedClusterFileSystem(
+                    UpdateAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    UpdateAdvancedClusterFileSystemRequest,
+                                    UpdateAdvancedClusterFileSystemResponse>
+                            handler);
 
     /**
      * Updates the properties of an Autonomous Container Database, such as display name, maintenance

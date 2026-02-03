@@ -318,7 +318,7 @@ public final class LogAnalyticsObjectCollectionRuleSummary
         }
         /**
          * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE,
-         * which will be used by Logging Analytics while creating Event Rule and consume the event
+         * which will be used by Log Analytics while creating Event Rule and consume the event
          * notifications created by the Object Storage.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("streamId")
@@ -326,7 +326,7 @@ public final class LogAnalyticsObjectCollectionRuleSummary
 
         /**
          * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE,
-         * which will be used by Logging Analytics while creating Event Rule and consume the event
+         * which will be used by Log Analytics while creating Event Rule and consume the event
          * notifications created by the Object Storage.
          *
          * @param streamId the value to set
@@ -680,16 +680,16 @@ public final class LogAnalyticsObjectCollectionRuleSummary
 
     /**
      * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which
-     * will be used by Logging Analytics while creating Event Rule and consume the event
-     * notifications created by the Object Storage.
+     * will be used by Log Analytics while creating Event Rule and consume the event notifications
+     * created by the Object Storage.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("streamId")
     private final String streamId;
 
     /**
      * A Stream OCID is required for Object Collection rules of type LIVE or HISTORIC_LIVE, which
-     * will be used by Logging Analytics while creating Event Rule and consume the event
-     * notifications created by the Object Storage.
+     * will be used by Log Analytics while creating Event Rule and consume the event notifications
+     * created by the Object Storage.
      *
      * @return the value
      */

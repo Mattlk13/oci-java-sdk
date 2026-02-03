@@ -36,7 +36,8 @@ public final class LogAnalyticsLabel
         "priority",
         "recommendation",
         "type",
-        "isUserDeleted"
+        "isUserDeleted",
+        "timeUpdated"
     })
     public LogAnalyticsLabel(
             java.util.List<LogAnalyticsLabelAlias> aliases,
@@ -51,7 +52,8 @@ public final class LogAnalyticsLabel
             Priority priority,
             String recommendation,
             Type type,
-            Boolean isUserDeleted) {
+            Boolean isUserDeleted,
+            java.util.Date timeUpdated) {
         super();
         this.aliases = aliases;
         this.countUsageInSource = countUsageInSource;
@@ -66,6 +68,7 @@ public final class LogAnalyticsLabel
         this.recommendation = recommendation;
         this.type = type;
         this.isUserDeleted = isUserDeleted;
+        this.timeUpdated = timeUpdated;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -269,6 +272,21 @@ public final class LogAnalyticsLabel
             this.__explicitlySet__.add("isUserDeleted");
             return this;
         }
+        /** The last updated date. */
+        @com.fasterxml.jackson.annotation.JsonProperty("timeUpdated")
+        private java.util.Date timeUpdated;
+
+        /**
+         * The last updated date.
+         *
+         * @param timeUpdated the value to set
+         * @return this builder
+         */
+        public Builder timeUpdated(java.util.Date timeUpdated) {
+            this.timeUpdated = timeUpdated;
+            this.__explicitlySet__.add("timeUpdated");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -288,7 +306,8 @@ public final class LogAnalyticsLabel
                             this.priority,
                             this.recommendation,
                             this.type,
-                            this.isUserDeleted);
+                            this.isUserDeleted,
+                            this.timeUpdated);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -335,6 +354,9 @@ public final class LogAnalyticsLabel
             }
             if (model.wasPropertyExplicitlySet("isUserDeleted")) {
                 this.isUserDeleted(model.getIsUserDeleted());
+            }
+            if (model.wasPropertyExplicitlySet("timeUpdated")) {
+                this.timeUpdated(model.getTimeUpdated());
             }
             return this;
         }
@@ -614,6 +636,19 @@ public final class LogAnalyticsLabel
         return isUserDeleted;
     }
 
+    /** The last updated date. */
+    @com.fasterxml.jackson.annotation.JsonProperty("timeUpdated")
+    private final java.util.Date timeUpdated;
+
+    /**
+     * The last updated date.
+     *
+     * @return the value
+     */
+    public java.util.Date getTimeUpdated() {
+        return timeUpdated;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -642,6 +677,7 @@ public final class LogAnalyticsLabel
         sb.append(", recommendation=").append(String.valueOf(this.recommendation));
         sb.append(", type=").append(String.valueOf(this.type));
         sb.append(", isUserDeleted=").append(String.valueOf(this.isUserDeleted));
+        sb.append(", timeUpdated=").append(String.valueOf(this.timeUpdated));
         sb.append(")");
         return sb.toString();
     }
@@ -669,6 +705,7 @@ public final class LogAnalyticsLabel
                 && java.util.Objects.equals(this.recommendation, other.recommendation)
                 && java.util.Objects.equals(this.type, other.type)
                 && java.util.Objects.equals(this.isUserDeleted, other.isUserDeleted)
+                && java.util.Objects.equals(this.timeUpdated, other.timeUpdated)
                 && super.equals(other);
     }
 
@@ -697,6 +734,7 @@ public final class LogAnalyticsLabel
         result =
                 (result * PRIME)
                         + (this.isUserDeleted == null ? 43 : this.isUserDeleted.hashCode());
+        result = (result * PRIME) + (this.timeUpdated == null ? 43 : this.timeUpdated.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

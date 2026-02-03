@@ -31,10 +31,11 @@ package com.oracle.bmc.networkfirewall.model;
 public class UpdateMappedSecretDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"type"})
-    protected UpdateMappedSecretDetails(InspectionType type) {
+    @java.beans.ConstructorProperties({"type", "description"})
+    protected UpdateMappedSecretDetails(InspectionType type, String description) {
         super();
         this.type = type;
+        this.description = description;
     }
 
     /**
@@ -58,6 +59,19 @@ public class UpdateMappedSecretDetails
         return type;
     }
 
+    /** The description of the mapped secret. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the mapped secret. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -74,6 +88,7 @@ public class UpdateMappedSecretDetails
         sb.append("UpdateMappedSecretDetails(");
         sb.append("super=").append(super.toString());
         sb.append("type=").append(String.valueOf(this.type));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -88,7 +103,9 @@ public class UpdateMappedSecretDetails
         }
 
         UpdateMappedSecretDetails other = (UpdateMappedSecretDetails) o;
-        return java.util.Objects.equals(this.type, other.type) && super.equals(other);
+        return java.util.Objects.equals(this.type, other.type)
+                && java.util.Objects.equals(this.description, other.description)
+                && super.equals(other);
     }
 
     @Override
@@ -96,6 +113,7 @@ public class UpdateMappedSecretDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.type == null ? 43 : this.type.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

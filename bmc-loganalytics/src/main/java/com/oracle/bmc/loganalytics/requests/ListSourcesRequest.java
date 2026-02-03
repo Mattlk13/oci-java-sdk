@@ -13,10 +13,16 @@ import com.oracle.bmc.loganalytics.model.*;
 @jakarta.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20200601")
 public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
@@ -106,6 +112,57 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
      */
     public IsSystem getIsSystem() {
         return isSystem;
+    }
+    /**
+     * The source lifecycle state used for filtering. Currently supported values are ACTIVE and
+     * DELETED.
+     */
+    private LifecycleState lifecycleState;
+
+    /**
+     * The source lifecycle state used for filtering. Currently supported values are ACTIVE and
+     * DELETED.
+     */
+    public enum LifecycleState implements com.oracle.bmc.http.internal.BmcEnum {
+        Active("ACTIVE"),
+        Deleted("DELETED"),
+        All("ALL"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, LifecycleState> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (LifecycleState v : LifecycleState.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        LifecycleState(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static LifecycleState create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid LifecycleState: " + key);
+        }
+    };
+
+    /**
+     * The source lifecycle state used for filtering. Currently supported values are ACTIVE and
+     * DELETED.
+     */
+    public LifecycleState getLifecycleState() {
+        return lifecycleState;
     }
     /**
      * An auto-associate flag used for filtering. Only sources which are marked for automatic
@@ -295,11 +352,15 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -376,6 +437,24 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
          */
         public Builder isSystem(IsSystem isSystem) {
             this.isSystem = isSystem;
+            return this;
+        }
+
+        /**
+         * The source lifecycle state used for filtering. Currently supported values are ACTIVE and
+         * DELETED.
+         */
+        private LifecycleState lifecycleState = null;
+
+        /**
+         * The source lifecycle state used for filtering. Currently supported values are ACTIVE and
+         * DELETED.
+         *
+         * @param lifecycleState the value to set
+         * @return this builder instance
+         */
+        public Builder lifecycleState(LifecycleState lifecycleState) {
+            this.lifecycleState = lifecycleState;
             return this;
         }
 
@@ -592,6 +671,7 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
             entityType(o.getEntityType());
             sourceDisplayText(o.getSourceDisplayText());
             isSystem(o.getIsSystem());
+            lifecycleState(o.getLifecycleState());
             isAutoAssociated(o.getIsAutoAssociated());
             sortOrder(o.getSortOrder());
             sortBy(o.getSortBy());
@@ -642,6 +722,7 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
             request.entityType = entityType;
             request.sourceDisplayText = sourceDisplayText;
             request.isSystem = isSystem;
+            request.lifecycleState = lifecycleState;
             request.isAutoAssociated = isAutoAssociated;
             request.sortOrder = sortOrder;
             request.sortBy = sortBy;
@@ -655,8 +736,8 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
             request.opcRequestId = opcRequestId;
             return request;
             // new ListSourcesRequest(namespaceName, compartmentId, entityType, sourceDisplayText,
-            // isSystem, isAutoAssociated, sortOrder, sortBy, limit, page, name, sourceType,
-            // categories, patternText, isSimplified, opcRequestId);
+            // isSystem, lifecycleState, isAutoAssociated, sortOrder, sortBy, limit, page, name,
+            // sourceType, categories, patternText, isSimplified, opcRequestId);
         }
     }
 
@@ -672,6 +753,7 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
                 .entityType(entityType)
                 .sourceDisplayText(sourceDisplayText)
                 .isSystem(isSystem)
+                .lifecycleState(lifecycleState)
                 .isAutoAssociated(isAutoAssociated)
                 .sortOrder(sortOrder)
                 .sortBy(sortBy)
@@ -704,6 +786,7 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
         sb.append(",entityType=").append(String.valueOf(this.entityType));
         sb.append(",sourceDisplayText=").append(String.valueOf(this.sourceDisplayText));
         sb.append(",isSystem=").append(String.valueOf(this.isSystem));
+        sb.append(",lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(",isAutoAssociated=").append(String.valueOf(this.isAutoAssociated));
         sb.append(",sortOrder=").append(String.valueOf(this.sortOrder));
         sb.append(",sortBy=").append(String.valueOf(this.sortBy));
@@ -735,6 +818,7 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
                 && java.util.Objects.equals(this.entityType, other.entityType)
                 && java.util.Objects.equals(this.sourceDisplayText, other.sourceDisplayText)
                 && java.util.Objects.equals(this.isSystem, other.isSystem)
+                && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.isAutoAssociated, other.isAutoAssociated)
                 && java.util.Objects.equals(this.sortOrder, other.sortOrder)
                 && java.util.Objects.equals(this.sortBy, other.sortBy)
@@ -763,6 +847,9 @@ public class ListSourcesRequest extends com.oracle.bmc.requests.BmcRequest<java.
                 (result * PRIME)
                         + (this.sourceDisplayText == null ? 43 : this.sourceDisplayText.hashCode());
         result = (result * PRIME) + (this.isSystem == null ? 43 : this.isSystem.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.lifecycleState == null ? 43 : this.lifecycleState.hashCode());
         result =
                 (result * PRIME)
                         + (this.isAutoAssociated == null ? 43 : this.isAutoAssociated.hashCode());

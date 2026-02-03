@@ -44,6 +44,24 @@ public final class FixedFrequencySchedule extends Schedule {
             this.__explicitlySet__.add("timeOfFirstExecution");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("queryOffsetSecs")
+        private Integer queryOffsetSecs;
+
+        public Builder queryOffsetSecs(Integer queryOffsetSecs) {
+            this.queryOffsetSecs = queryOffsetSecs;
+            this.__explicitlySet__.add("queryOffsetSecs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeEnd")
+        private java.util.Date timeEnd;
+
+        public Builder timeEnd(java.util.Date timeEnd) {
+            this.timeEnd = timeEnd;
+            this.__explicitlySet__.add("timeEnd");
+            return this;
+        }
         /**
          * Recurring interval in ISO 8601 extended format as described in
          * https://en.wikipedia.org/wiki/ISO_8601#Durations. The largest supported unit is D, e.g.
@@ -95,6 +113,8 @@ public final class FixedFrequencySchedule extends Schedule {
                     new FixedFrequencySchedule(
                             this.misfirePolicy,
                             this.timeOfFirstExecution,
+                            this.queryOffsetSecs,
+                            this.timeEnd,
                             this.recurringInterval,
                             this.repeatCount);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -110,6 +130,12 @@ public final class FixedFrequencySchedule extends Schedule {
             }
             if (model.wasPropertyExplicitlySet("timeOfFirstExecution")) {
                 this.timeOfFirstExecution(model.getTimeOfFirstExecution());
+            }
+            if (model.wasPropertyExplicitlySet("queryOffsetSecs")) {
+                this.queryOffsetSecs(model.getQueryOffsetSecs());
+            }
+            if (model.wasPropertyExplicitlySet("timeEnd")) {
+                this.timeEnd(model.getTimeEnd());
             }
             if (model.wasPropertyExplicitlySet("recurringInterval")) {
                 this.recurringInterval(model.getRecurringInterval());
@@ -134,9 +160,11 @@ public final class FixedFrequencySchedule extends Schedule {
     public FixedFrequencySchedule(
             MisfirePolicy misfirePolicy,
             java.util.Date timeOfFirstExecution,
+            Integer queryOffsetSecs,
+            java.util.Date timeEnd,
             String recurringInterval,
             Integer repeatCount) {
-        super(misfirePolicy, timeOfFirstExecution);
+        super(misfirePolicy, timeOfFirstExecution, queryOffsetSecs, timeEnd);
         this.recurringInterval = recurringInterval;
         this.repeatCount = repeatCount;
     }

@@ -215,12 +215,12 @@ public final class LogAnalyticsAssociationParameter
             this.__explicitlySet__.add("missingProperties");
             return this;
         }
-        /** A list of requried properties. */
+        /** A list of required properties. */
         @com.fasterxml.jackson.annotation.JsonProperty("requiredProperties")
         private java.util.List<String> requiredProperties;
 
         /**
-         * A list of requried properties.
+         * A list of required properties.
          *
          * @param requiredProperties the value to set
          * @return this builder
@@ -477,12 +477,12 @@ public final class LogAnalyticsAssociationParameter
         return missingProperties;
     }
 
-    /** A list of requried properties. */
+    /** A list of required properties. */
     @com.fasterxml.jackson.annotation.JsonProperty("requiredProperties")
     private final java.util.List<String> requiredProperties;
 
     /**
-     * A list of requried properties.
+     * A list of required properties.
      *
      * @return the value
      */

@@ -5,8 +5,9 @@
 package com.oracle.bmc.networkfirewall.model;
 
 /**
- * Summary of NAT Rules used in the firewall policy. A Nat Rule is used to define which traffic NAT
- * should be applied by the firewall, and how it should do so. <br>
+ * Summary of NAT rules used in the firewall policy. A [NAT
+ * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+ * defines which traffic NAT should be applied to by the firewall, and how it should do so. <br>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model
  * distinguishes fields that are {@code null} because they are unset from fields that are explicitly
  * set to {@code null}. This is done in the setter methods of the {@link Builder}, which maintain a
@@ -41,12 +42,12 @@ public class NatRuleSummary extends com.oracle.bmc.http.client.internal.Explicit
         this.parentResourceId = parentResourceId;
     }
 
-    /** Name for the nat rule, must be unique within the policy. */
+    /** Name for the NAT rule, must be unique within the policy. */
     @com.fasterxml.jackson.annotation.JsonProperty("name")
     private final String name;
 
     /**
-     * Name for the nat rule, must be unique within the policy.
+     * Name for the NAT rule, must be unique within the policy.
      *
      * @return the value
      */
@@ -80,12 +81,16 @@ public class NatRuleSummary extends com.oracle.bmc.http.client.internal.Explicit
         return priorityOrder;
     }
 
-    /** OCID of the Network Firewall Policy this application belongs to. */
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * Network Firewall Policy this NAT rule belongs to.
+     */
     @com.fasterxml.jackson.annotation.JsonProperty("parentResourceId")
     private final String parentResourceId;
 
     /**
-     * OCID of the Network Firewall Policy this application belongs to.
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * Network Firewall Policy this NAT rule belongs to.
      *
      * @return the value
      */

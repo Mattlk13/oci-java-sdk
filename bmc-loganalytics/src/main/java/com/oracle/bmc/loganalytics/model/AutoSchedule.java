@@ -44,11 +44,34 @@ public final class AutoSchedule extends Schedule {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("queryOffsetSecs")
+        private Integer queryOffsetSecs;
+
+        public Builder queryOffsetSecs(Integer queryOffsetSecs) {
+            this.queryOffsetSecs = queryOffsetSecs;
+            this.__explicitlySet__.add("queryOffsetSecs");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("timeEnd")
+        private java.util.Date timeEnd;
+
+        public Builder timeEnd(java.util.Date timeEnd) {
+            this.timeEnd = timeEnd;
+            this.__explicitlySet__.add("timeEnd");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public AutoSchedule build() {
-            AutoSchedule model = new AutoSchedule(this.misfirePolicy, this.timeOfFirstExecution);
+            AutoSchedule model =
+                    new AutoSchedule(
+                            this.misfirePolicy,
+                            this.timeOfFirstExecution,
+                            this.queryOffsetSecs,
+                            this.timeEnd);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -62,6 +85,12 @@ public final class AutoSchedule extends Schedule {
             }
             if (model.wasPropertyExplicitlySet("timeOfFirstExecution")) {
                 this.timeOfFirstExecution(model.getTimeOfFirstExecution());
+            }
+            if (model.wasPropertyExplicitlySet("queryOffsetSecs")) {
+                this.queryOffsetSecs(model.getQueryOffsetSecs());
+            }
+            if (model.wasPropertyExplicitlySet("timeEnd")) {
+                this.timeEnd(model.getTimeEnd());
             }
             return this;
         }
@@ -77,8 +106,12 @@ public final class AutoSchedule extends Schedule {
     }
 
     @Deprecated
-    public AutoSchedule(MisfirePolicy misfirePolicy, java.util.Date timeOfFirstExecution) {
-        super(misfirePolicy, timeOfFirstExecution);
+    public AutoSchedule(
+            MisfirePolicy misfirePolicy,
+            java.util.Date timeOfFirstExecution,
+            Integer queryOffsetSecs,
+            java.util.Date timeEnd) {
+        super(misfirePolicy, timeOfFirstExecution, queryOffsetSecs, timeEnd);
     }
 
     @Override

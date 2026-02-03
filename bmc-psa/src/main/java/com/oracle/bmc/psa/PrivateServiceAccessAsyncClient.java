@@ -107,7 +107,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, CancelPsaWorkRequestResponse::builder)
                 .logger(LOG, "cancelPsaWorkRequest")
-                .serviceDetails("PrivateServiceAccess", "CancelPsaWorkRequest", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "CancelPsaWorkRequest",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/WorkRequest/CancelPsaWorkRequest")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(CancelPsaWorkRequestRequest::builder)
                 .basePath("/20240301")
@@ -138,7 +141,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ChangePrivateServiceAccessCompartmentResponse::builder)
                 .logger(LOG, "changePrivateServiceAccessCompartment")
-                .serviceDetails("PrivateServiceAccess", "ChangePrivateServiceAccessCompartment", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ChangePrivateServiceAccessCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccess/ChangePrivateServiceAccessCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangePrivateServiceAccessCompartmentRequest::builder)
                 .basePath("/20240301")
@@ -174,7 +180,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, CreatePrivateServiceAccessResponse::builder)
                 .logger(LOG, "createPrivateServiceAccess")
-                .serviceDetails("PrivateServiceAccess", "CreatePrivateServiceAccess", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "CreatePrivateServiceAccess",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccess/CreatePrivateServiceAccess")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreatePrivateServiceAccessRequest::builder)
                 .basePath("/20240301")
@@ -215,7 +224,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, DeletePrivateServiceAccessResponse::builder)
                 .logger(LOG, "deletePrivateServiceAccess")
-                .serviceDetails("PrivateServiceAccess", "DeletePrivateServiceAccess", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "DeletePrivateServiceAccess",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccess/DeletePrivateServiceAccess")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeletePrivateServiceAccessRequest::builder)
                 .basePath("/20240301")
@@ -244,7 +256,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, GetPrivateServiceAccessResponse::builder)
                 .logger(LOG, "getPrivateServiceAccess")
-                .serviceDetails("PrivateServiceAccess", "GetPrivateServiceAccess", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "GetPrivateServiceAccess",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccess/GetPrivateServiceAccess")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetPrivateServiceAccessRequest::builder)
                 .basePath("/20240301")
@@ -272,7 +287,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, GetPsaWorkRequestResponse::builder)
                 .logger(LOG, "getPsaWorkRequest")
-                .serviceDetails("PrivateServiceAccess", "GetPsaWorkRequest", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "GetPsaWorkRequest",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/WorkRequest/GetPsaWorkRequest")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetPsaWorkRequestRequest::builder)
                 .basePath("/20240301")
@@ -302,7 +320,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ListPrivateServiceAccessesResponse::builder)
                 .logger(LOG, "listPrivateServiceAccesses")
-                .serviceDetails("PrivateServiceAccess", "ListPrivateServiceAccesses", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ListPrivateServiceAccesses",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccessCollection/ListPrivateServiceAccesses")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListPrivateServiceAccessesRequest::builder)
                 .basePath("/20240301")
@@ -338,7 +359,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ListPsaServicesResponse::builder)
                 .logger(LOG, "listPsaServices")
-                .serviceDetails("PrivateServiceAccess", "ListPsaServices", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ListPsaServices",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PsaServiceCollection/ListPsaServices")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListPsaServicesRequest::builder)
                 .basePath("/20240301")
@@ -372,7 +396,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ListPsaWorkRequestErrorsResponse::builder)
                 .logger(LOG, "listPsaWorkRequestErrors")
-                .serviceDetails("PrivateServiceAccess", "ListPsaWorkRequestErrors", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ListPsaWorkRequestErrors",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/WorkRequestError/ListPsaWorkRequestErrors")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListPsaWorkRequestErrorsRequest::builder)
                 .basePath("/20240301")
@@ -406,7 +433,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ListPsaWorkRequestLogsResponse::builder)
                 .logger(LOG, "listPsaWorkRequestLogs")
-                .serviceDetails("PrivateServiceAccess", "ListPsaWorkRequestLogs", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ListPsaWorkRequestLogs",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/WorkRequestLogEntry/ListPsaWorkRequestLogs")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListPsaWorkRequestLogsRequest::builder)
                 .basePath("/20240301")
@@ -438,7 +468,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, ListPsaWorkRequestsResponse::builder)
                 .logger(LOG, "listPsaWorkRequests")
-                .serviceDetails("PrivateServiceAccess", "ListPsaWorkRequests", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "ListPsaWorkRequests",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/WorkRequest/ListPsaWorkRequests")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListPsaWorkRequestsRequest::builder)
                 .basePath("/20240301")
@@ -480,7 +513,10 @@ public class PrivateServiceAccessAsyncClient extends com.oracle.bmc.http.interna
 
         return clientCall(request, UpdatePrivateServiceAccessResponse::builder)
                 .logger(LOG, "updatePrivateServiceAccess")
-                .serviceDetails("PrivateServiceAccess", "UpdatePrivateServiceAccess", "")
+                .serviceDetails(
+                        "PrivateServiceAccess",
+                        "UpdatePrivateServiceAccess",
+                        "https://docs.oracle.com/iaas/api/#/en/psasvc/20240301/PrivateServiceAccess/UpdatePrivateServiceAccess")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdatePrivateServiceAccessRequest::builder)
                 .basePath("/20240301")

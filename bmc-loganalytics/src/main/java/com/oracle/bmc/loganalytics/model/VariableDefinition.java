@@ -23,17 +23,26 @@ package com.oracle.bmc.loganalytics.model;
 public final class VariableDefinition
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"name", "description", "type", "defaultValue", "properties"})
+    @java.beans.ConstructorProperties({
+        "name",
+        "description",
+        "type",
+        "mapKeys",
+        "defaultValue",
+        "properties"
+    })
     public VariableDefinition(
             String name,
             String description,
             Type type,
+            java.util.List<VariableDefinition> mapKeys,
             String defaultValue,
             java.util.List<PropertyDefinition> properties) {
         super();
         this.name = name;
         this.description = description;
         this.type = type;
+        this.mapKeys = mapKeys;
         this.defaultValue = defaultValue;
         this.properties = properties;
     }
@@ -85,6 +94,21 @@ public final class VariableDefinition
             this.__explicitlySet__.add("type");
             return this;
         }
+        /** List of variables if this variable is a map. */
+        @com.fasterxml.jackson.annotation.JsonProperty("mapKeys")
+        private java.util.List<VariableDefinition> mapKeys;
+
+        /**
+         * List of variables if this variable is a map.
+         *
+         * @param mapKeys the value to set
+         * @return this builder
+         */
+        public Builder mapKeys(java.util.List<VariableDefinition> mapKeys) {
+            this.mapKeys = mapKeys;
+            this.__explicitlySet__.add("mapKeys");
+            return this;
+        }
         /** Default value of the variable is not already set. */
         @com.fasterxml.jackson.annotation.JsonProperty("defaultValue")
         private String defaultValue;
@@ -125,6 +149,7 @@ public final class VariableDefinition
                             this.name,
                             this.description,
                             this.type,
+                            this.mapKeys,
                             this.defaultValue,
                             this.properties);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -143,6 +168,9 @@ public final class VariableDefinition
             }
             if (model.wasPropertyExplicitlySet("type")) {
                 this.type(model.getType());
+            }
+            if (model.wasPropertyExplicitlySet("mapKeys")) {
+                this.mapKeys(model.getMapKeys());
             }
             if (model.wasPropertyExplicitlySet("defaultValue")) {
                 this.defaultValue(model.getDefaultValue());
@@ -247,6 +275,19 @@ public final class VariableDefinition
         return type;
     }
 
+    /** List of variables if this variable is a map. */
+    @com.fasterxml.jackson.annotation.JsonProperty("mapKeys")
+    private final java.util.List<VariableDefinition> mapKeys;
+
+    /**
+     * List of variables if this variable is a map.
+     *
+     * @return the value
+     */
+    public java.util.List<VariableDefinition> getMapKeys() {
+        return mapKeys;
+    }
+
     /** Default value of the variable is not already set. */
     @com.fasterxml.jackson.annotation.JsonProperty("defaultValue")
     private final String defaultValue;
@@ -291,6 +332,7 @@ public final class VariableDefinition
         sb.append("name=").append(String.valueOf(this.name));
         sb.append(", description=").append(String.valueOf(this.description));
         sb.append(", type=").append(String.valueOf(this.type));
+        sb.append(", mapKeys=").append(String.valueOf(this.mapKeys));
         sb.append(", defaultValue=").append(String.valueOf(this.defaultValue));
         sb.append(", properties=").append(String.valueOf(this.properties));
         sb.append(")");
@@ -310,6 +352,7 @@ public final class VariableDefinition
         return java.util.Objects.equals(this.name, other.name)
                 && java.util.Objects.equals(this.description, other.description)
                 && java.util.Objects.equals(this.type, other.type)
+                && java.util.Objects.equals(this.mapKeys, other.mapKeys)
                 && java.util.Objects.equals(this.defaultValue, other.defaultValue)
                 && java.util.Objects.equals(this.properties, other.properties)
                 && super.equals(other);
@@ -322,6 +365,7 @@ public final class VariableDefinition
         result = (result * PRIME) + (this.name == null ? 43 : this.name.hashCode());
         result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + (this.type == null ? 43 : this.type.hashCode());
+        result = (result * PRIME) + (this.mapKeys == null ? 43 : this.mapKeys.hashCode());
         result = (result * PRIME) + (this.defaultValue == null ? 43 : this.defaultValue.hashCode());
         result = (result * PRIME) + (this.properties == null ? 43 : this.properties.hashCode());
         result = (result * PRIME) + super.hashCode();

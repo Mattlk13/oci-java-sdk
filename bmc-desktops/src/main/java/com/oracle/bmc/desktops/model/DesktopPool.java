@@ -49,7 +49,8 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
         "freeformTags",
         "definedTags",
         "nsgIds",
-        "privateAccessDetails"
+        "privateAccessDetails",
+        "bootVolumeSizeInGBs"
     })
     public DesktopPool(
             String id,
@@ -79,7 +80,8 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.List<String> nsgIds,
-            DesktopPoolPrivateAccessDetails privateAccessDetails) {
+            DesktopPoolPrivateAccessDetails privateAccessDetails,
+            Integer bootVolumeSizeInGBs) {
         super();
         this.id = id;
         this.compartmentId = compartmentId;
@@ -109,6 +111,7 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
         this.definedTags = definedTags;
         this.nsgIds = nsgIds;
         this.privateAccessDetails = privateAccessDetails;
+        this.bootVolumeSizeInGBs = bootVolumeSizeInGBs;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -517,6 +520,21 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
             this.__explicitlySet__.add("privateAccessDetails");
             return this;
         }
+        /** The size in GBs of the boot volume for the desktop pool. */
+        @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeSizeInGBs")
+        private Integer bootVolumeSizeInGBs;
+
+        /**
+         * The size in GBs of the boot volume for the desktop pool.
+         *
+         * @param bootVolumeSizeInGBs the value to set
+         * @return this builder
+         */
+        public Builder bootVolumeSizeInGBs(Integer bootVolumeSizeInGBs) {
+            this.bootVolumeSizeInGBs = bootVolumeSizeInGBs;
+            this.__explicitlySet__.add("bootVolumeSizeInGBs");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -551,7 +569,8 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
                             this.freeformTags,
                             this.definedTags,
                             this.nsgIds,
-                            this.privateAccessDetails);
+                            this.privateAccessDetails,
+                            this.bootVolumeSizeInGBs);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -643,6 +662,9 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("privateAccessDetails")) {
                 this.privateAccessDetails(model.getPrivateAccessDetails());
+            }
+            if (model.wasPropertyExplicitlySet("bootVolumeSizeInGBs")) {
+                this.bootVolumeSizeInGBs(model.getBootVolumeSizeInGBs());
             }
             return this;
         }
@@ -1050,6 +1072,19 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
         return privateAccessDetails;
     }
 
+    /** The size in GBs of the boot volume for the desktop pool. */
+    @com.fasterxml.jackson.annotation.JsonProperty("bootVolumeSizeInGBs")
+    private final Integer bootVolumeSizeInGBs;
+
+    /**
+     * The size in GBs of the boot volume for the desktop pool.
+     *
+     * @return the value
+     */
+    public Integer getBootVolumeSizeInGBs() {
+        return bootVolumeSizeInGBs;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1094,6 +1129,7 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", nsgIds=").append(String.valueOf(this.nsgIds));
         sb.append(", privateAccessDetails=").append(String.valueOf(this.privateAccessDetails));
+        sb.append(", bootVolumeSizeInGBs=").append(String.valueOf(this.bootVolumeSizeInGBs));
         sb.append(")");
         return sb.toString();
     }
@@ -1137,6 +1173,7 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.nsgIds, other.nsgIds)
                 && java.util.Objects.equals(this.privateAccessDetails, other.privateAccessDetails)
+                && java.util.Objects.equals(this.bootVolumeSizeInGBs, other.bootVolumeSizeInGBs)
                 && super.equals(other);
     }
 
@@ -1220,6 +1257,11 @@ public final class DesktopPool extends com.oracle.bmc.http.client.internal.Expli
                         + (this.privateAccessDetails == null
                                 ? 43
                                 : this.privateAccessDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.bootVolumeSizeInGBs == null
+                                ? 43
+                                : this.bootVolumeSizeInGBs.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

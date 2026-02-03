@@ -27,18 +27,21 @@ public final class EstimateRecallDataSizeDetails
         "timeDataStarted",
         "timeDataEnded",
         "logSets",
-        "isRecallNewDataOnly"
+        "isRecallNewDataOnly",
+        "collectionId"
     })
     public EstimateRecallDataSizeDetails(
             java.util.Date timeDataStarted,
             java.util.Date timeDataEnded,
             String logSets,
-            Boolean isRecallNewDataOnly) {
+            Boolean isRecallNewDataOnly,
+            Long collectionId) {
         super();
         this.timeDataStarted = timeDataStarted;
         this.timeDataEnded = timeDataEnded;
         this.logSets = logSets;
         this.isRecallNewDataOnly = isRecallNewDataOnly;
+        this.collectionId = collectionId;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -103,6 +106,25 @@ public final class EstimateRecallDataSizeDetails
             this.__explicitlySet__.add("isRecallNewDataOnly");
             return this;
         }
+        /**
+         * This is the existing recalled data collection ID, to be used only for recalling new data.
+         * If specified, the recall new data will be estimated only for this collection
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("collectionId")
+        private Long collectionId;
+
+        /**
+         * This is the existing recalled data collection ID, to be used only for recalling new data.
+         * If specified, the recall new data will be estimated only for this collection
+         *
+         * @param collectionId the value to set
+         * @return this builder
+         */
+        public Builder collectionId(Long collectionId) {
+            this.collectionId = collectionId;
+            this.__explicitlySet__.add("collectionId");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -113,7 +135,8 @@ public final class EstimateRecallDataSizeDetails
                             this.timeDataStarted,
                             this.timeDataEnded,
                             this.logSets,
-                            this.isRecallNewDataOnly);
+                            this.isRecallNewDataOnly,
+                            this.collectionId);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -133,6 +156,9 @@ public final class EstimateRecallDataSizeDetails
             }
             if (model.wasPropertyExplicitlySet("isRecallNewDataOnly")) {
                 this.isRecallNewDataOnly(model.getIsRecallNewDataOnly());
+            }
+            if (model.wasPropertyExplicitlySet("collectionId")) {
+                this.collectionId(model.getCollectionId());
             }
             return this;
         }
@@ -199,6 +225,23 @@ public final class EstimateRecallDataSizeDetails
         return isRecallNewDataOnly;
     }
 
+    /**
+     * This is the existing recalled data collection ID, to be used only for recalling new data. If
+     * specified, the recall new data will be estimated only for this collection
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("collectionId")
+    private final Long collectionId;
+
+    /**
+     * This is the existing recalled data collection ID, to be used only for recalling new data. If
+     * specified, the recall new data will be estimated only for this collection
+     *
+     * @return the value
+     */
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -218,6 +261,7 @@ public final class EstimateRecallDataSizeDetails
         sb.append(", timeDataEnded=").append(String.valueOf(this.timeDataEnded));
         sb.append(", logSets=").append(String.valueOf(this.logSets));
         sb.append(", isRecallNewDataOnly=").append(String.valueOf(this.isRecallNewDataOnly));
+        sb.append(", collectionId=").append(String.valueOf(this.collectionId));
         sb.append(")");
         return sb.toString();
     }
@@ -236,6 +280,7 @@ public final class EstimateRecallDataSizeDetails
                 && java.util.Objects.equals(this.timeDataEnded, other.timeDataEnded)
                 && java.util.Objects.equals(this.logSets, other.logSets)
                 && java.util.Objects.equals(this.isRecallNewDataOnly, other.isRecallNewDataOnly)
+                && java.util.Objects.equals(this.collectionId, other.collectionId)
                 && super.equals(other);
     }
 
@@ -255,6 +300,7 @@ public final class EstimateRecallDataSizeDetails
                         + (this.isRecallNewDataOnly == null
                                 ? 43
                                 : this.isRecallNewDataOnly.hashCode());
+        result = (result * PRIME) + (this.collectionId == null ? 43 : this.collectionId.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -35,6 +35,15 @@ public final class CreateSslInboundInspectionProfileDetails extends CreateDecryp
             this.__explicitlySet__.add("name");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** Whether to block sessions if SSL version is not supported. */
         @com.fasterxml.jackson.annotation.JsonProperty("isUnsupportedVersionBlocked")
         private Boolean isUnsupportedVersionBlocked;
@@ -90,6 +99,7 @@ public final class CreateSslInboundInspectionProfileDetails extends CreateDecryp
             CreateSslInboundInspectionProfileDetails model =
                     new CreateSslInboundInspectionProfileDetails(
                             this.name,
+                            this.description,
                             this.isUnsupportedVersionBlocked,
                             this.isUnsupportedCipherBlocked,
                             this.isOutOfCapacityBlocked);
@@ -103,6 +113,9 @@ public final class CreateSslInboundInspectionProfileDetails extends CreateDecryp
         public Builder copy(CreateSslInboundInspectionProfileDetails model) {
             if (model.wasPropertyExplicitlySet("name")) {
                 this.name(model.getName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("isUnsupportedVersionBlocked")) {
                 this.isUnsupportedVersionBlocked(model.getIsUnsupportedVersionBlocked());
@@ -129,10 +142,11 @@ public final class CreateSslInboundInspectionProfileDetails extends CreateDecryp
     @Deprecated
     public CreateSslInboundInspectionProfileDetails(
             String name,
+            String description,
             Boolean isUnsupportedVersionBlocked,
             Boolean isUnsupportedCipherBlocked,
             Boolean isOutOfCapacityBlocked) {
-        super(name);
+        super(name, description);
         this.isUnsupportedVersionBlocked = isUnsupportedVersionBlocked;
         this.isUnsupportedCipherBlocked = isUnsupportedCipherBlocked;
         this.isOutOfCapacityBlocked = isOutOfCapacityBlocked;

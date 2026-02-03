@@ -23,10 +23,11 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateUrlListDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"urls"})
-    public UpdateUrlListDetails(java.util.List<UrlPattern> urls) {
+    @java.beans.ConstructorProperties({"urls", "description"})
+    public UpdateUrlListDetails(java.util.List<UrlPattern> urls, String description) {
         super();
         this.urls = urls;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -46,12 +47,27 @@ public final class UpdateUrlListDetails
             this.__explicitlySet__.add("urls");
             return this;
         }
+        /** The description of the Url list. This field can be used to add additional info. */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the Url list. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateUrlListDetails build() {
-            UpdateUrlListDetails model = new UpdateUrlListDetails(this.urls);
+            UpdateUrlListDetails model = new UpdateUrlListDetails(this.urls, this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -62,6 +78,9 @@ public final class UpdateUrlListDetails
         public Builder copy(UpdateUrlListDetails model) {
             if (model.wasPropertyExplicitlySet("urls")) {
                 this.urls(model.getUrls());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -89,6 +108,19 @@ public final class UpdateUrlListDetails
         return urls;
     }
 
+    /** The description of the Url list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the Url list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -105,6 +137,7 @@ public final class UpdateUrlListDetails
         sb.append("UpdateUrlListDetails(");
         sb.append("super=").append(super.toString());
         sb.append("urls=").append(String.valueOf(this.urls));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -119,7 +152,9 @@ public final class UpdateUrlListDetails
         }
 
         UpdateUrlListDetails other = (UpdateUrlListDetails) o;
-        return java.util.Objects.equals(this.urls, other.urls) && super.equals(other);
+        return java.util.Objects.equals(this.urls, other.urls)
+                && java.util.Objects.equals(this.description, other.description)
+                && super.equals(other);
     }
 
     @Override
@@ -127,6 +162,7 @@ public final class UpdateUrlListDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.urls == null ? 43 : this.urls.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

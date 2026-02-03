@@ -13,17 +13,31 @@ import com.oracle.bmc.loganalytics.model.*;
 @jakarta.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20200601")
 public class GetLabelRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
-    /** The label name. */
+    /**
+     * The label name. Label name can be obtained by running 'oci log-analytics label list-labels
+     * --namespace-name <namespace>'. The json output 'name' parameter value contains the label
+     * name.
+     */
     private String labelName;
 
-    /** The label name. */
+    /**
+     * The label name. Label name can be obtained by running 'oci log-analytics label list-labels
+     * --namespace-name <namespace>'. The json output 'name' parameter value contains the label
+     * name.
+     */
     public String getLabelName() {
         return labelName;
     }
@@ -40,11 +54,15 @@ public class GetLabelRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -54,11 +72,17 @@ public class GetLabelRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
             return this;
         }
 
-        /** The label name. */
+        /**
+         * The label name. Label name can be obtained by running 'oci log-analytics label
+         * list-labels --namespace-name <namespace>'. The json output 'name' parameter value
+         * contains the label name.
+         */
         private String labelName = null;
 
         /**
-         * The label name.
+         * The label name. Label name can be obtained by running 'oci log-analytics label
+         * list-labels --namespace-name <namespace>'. The json output 'name' parameter value
+         * contains the label name.
          *
          * @param labelName the value to set
          * @return this builder instance

@@ -35,6 +35,15 @@ public final class CreateTcpServiceDetails extends CreateServiceDetails {
             this.__explicitlySet__.add("name");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** List of port-ranges used. */
         @com.fasterxml.jackson.annotation.JsonProperty("portRanges")
         private java.util.List<PortRange> portRanges;
@@ -55,7 +64,8 @@ public final class CreateTcpServiceDetails extends CreateServiceDetails {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public CreateTcpServiceDetails build() {
-            CreateTcpServiceDetails model = new CreateTcpServiceDetails(this.name, this.portRanges);
+            CreateTcpServiceDetails model =
+                    new CreateTcpServiceDetails(this.name, this.description, this.portRanges);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -66,6 +76,9 @@ public final class CreateTcpServiceDetails extends CreateServiceDetails {
         public Builder copy(CreateTcpServiceDetails model) {
             if (model.wasPropertyExplicitlySet("name")) {
                 this.name(model.getName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("portRanges")) {
                 this.portRanges(model.getPortRanges());
@@ -84,8 +97,9 @@ public final class CreateTcpServiceDetails extends CreateServiceDetails {
     }
 
     @Deprecated
-    public CreateTcpServiceDetails(String name, java.util.List<PortRange> portRanges) {
-        super(name);
+    public CreateTcpServiceDetails(
+            String name, String description, java.util.List<PortRange> portRanges) {
+        super(name, description);
         this.portRanges = portRanges;
     }
 

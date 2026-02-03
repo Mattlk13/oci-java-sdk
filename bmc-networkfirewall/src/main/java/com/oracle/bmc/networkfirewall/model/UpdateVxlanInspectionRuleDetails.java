@@ -45,6 +45,15 @@ public final class UpdateVxlanInspectionRuleDetails extends UpdateTunnelInspecti
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("condition")
         private VxlanInspectionRuleMatchCriteria condition;
 
@@ -69,7 +78,11 @@ public final class UpdateVxlanInspectionRuleDetails extends UpdateTunnelInspecti
         public UpdateVxlanInspectionRuleDetails build() {
             UpdateVxlanInspectionRuleDetails model =
                     new UpdateVxlanInspectionRuleDetails(
-                            this.action, this.position, this.condition, this.profile);
+                            this.action,
+                            this.position,
+                            this.description,
+                            this.condition,
+                            this.profile);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -83,6 +96,9 @@ public final class UpdateVxlanInspectionRuleDetails extends UpdateTunnelInspecti
             }
             if (model.wasPropertyExplicitlySet("position")) {
                 this.position(model.getPosition());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("condition")) {
                 this.condition(model.getCondition());
@@ -107,9 +123,10 @@ public final class UpdateVxlanInspectionRuleDetails extends UpdateTunnelInspecti
     public UpdateVxlanInspectionRuleDetails(
             InspectActionType action,
             RulePosition position,
+            String description,
             VxlanInspectionRuleMatchCriteria condition,
             VxlanInspectionRuleProfile profile) {
-        super(action, position);
+        super(action, position, description);
         this.condition = condition;
         this.profile = profile;
     }

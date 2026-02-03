@@ -43,7 +43,7 @@ public abstract class OciCryptoInputStream extends InputStream {
         if (result == -1) {
             return -1;
         } else {
-            return b[0];
+            return (b[0] & 0xFF);
         }
     }
 }

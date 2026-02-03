@@ -13,17 +13,31 @@ import com.oracle.bmc.loganalytics.model.*;
 @jakarta.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20200601")
 public class GetIngestTimeRuleRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
-    /** Unique ocid of the ingest time rule. */
+    /**
+     * Unique ocid of the ingest time rule. Ingest time rule ID can be obtained by running 'oci
+     * log-analytics ingest-time-rule list --namespace-name <namespace> --compartment-id
+     * <compartment>'. The json output 'id' parameter value contains the rule ID.
+     */
     private String ingestTimeRuleId;
 
-    /** Unique ocid of the ingest time rule. */
+    /**
+     * Unique ocid of the ingest time rule. Ingest time rule ID can be obtained by running 'oci
+     * log-analytics ingest-time-rule list --namespace-name <namespace> --compartment-id
+     * <compartment>'. The json output 'id' parameter value contains the rule ID.
+     */
     public String getIngestTimeRuleId() {
         return ingestTimeRuleId;
     }
@@ -41,11 +55,15 @@ public class GetIngestTimeRuleRequest extends com.oracle.bmc.requests.BmcRequest
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -55,11 +73,17 @@ public class GetIngestTimeRuleRequest extends com.oracle.bmc.requests.BmcRequest
             return this;
         }
 
-        /** Unique ocid of the ingest time rule. */
+        /**
+         * Unique ocid of the ingest time rule. Ingest time rule ID can be obtained by running 'oci
+         * log-analytics ingest-time-rule list --namespace-name <namespace> --compartment-id
+         * <compartment>'. The json output 'id' parameter value contains the rule ID.
+         */
         private String ingestTimeRuleId = null;
 
         /**
-         * Unique ocid of the ingest time rule.
+         * Unique ocid of the ingest time rule. Ingest time rule ID can be obtained by running 'oci
+         * log-analytics ingest-time-rule list --namespace-name <namespace> --compartment-id
+         * <compartment>'. The json output 'id' parameter value contains the rule ID.
          *
          * @param ingestTimeRuleId the value to set
          * @return this builder instance

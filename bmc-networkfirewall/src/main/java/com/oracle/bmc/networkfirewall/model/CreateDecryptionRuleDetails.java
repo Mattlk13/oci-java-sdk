@@ -26,6 +26,7 @@ public final class CreateDecryptionRuleDetails
     @Deprecated
     @java.beans.ConstructorProperties({
         "name",
+        "description",
         "condition",
         "action",
         "decryptionProfile",
@@ -34,6 +35,7 @@ public final class CreateDecryptionRuleDetails
     })
     public CreateDecryptionRuleDetails(
             String name,
+            String description,
             DecryptionRuleMatchCriteria condition,
             DecryptionActionType action,
             String decryptionProfile,
@@ -41,6 +43,7 @@ public final class CreateDecryptionRuleDetails
             RulePosition position) {
         super();
         this.name = name;
+        this.description = description;
         this.condition = condition;
         this.action = action;
         this.decryptionProfile = decryptionProfile;
@@ -63,6 +66,23 @@ public final class CreateDecryptionRuleDetails
         public Builder name(String name) {
             this.name = name;
             this.__explicitlySet__.add("name");
+            return this;
+        }
+        /**
+         * The description of the decryption rule. This field can be used to add additional info.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the decryption rule. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
             return this;
         }
 
@@ -150,6 +170,7 @@ public final class CreateDecryptionRuleDetails
             CreateDecryptionRuleDetails model =
                     new CreateDecryptionRuleDetails(
                             this.name,
+                            this.description,
                             this.condition,
                             this.action,
                             this.decryptionProfile,
@@ -165,6 +186,9 @@ public final class CreateDecryptionRuleDetails
         public Builder copy(CreateDecryptionRuleDetails model) {
             if (model.wasPropertyExplicitlySet("name")) {
                 this.name(model.getName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("condition")) {
                 this.condition(model.getCondition());
@@ -205,6 +229,19 @@ public final class CreateDecryptionRuleDetails
      */
     public String getName() {
         return name;
+    }
+
+    /** The description of the decryption rule. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the decryption rule. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
     }
 
     @com.fasterxml.jackson.annotation.JsonProperty("condition")
@@ -288,6 +325,7 @@ public final class CreateDecryptionRuleDetails
         sb.append("CreateDecryptionRuleDetails(");
         sb.append("super=").append(super.toString());
         sb.append("name=").append(String.valueOf(this.name));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(", condition=").append(String.valueOf(this.condition));
         sb.append(", action=").append(String.valueOf(this.action));
         sb.append(", decryptionProfile=").append(String.valueOf(this.decryptionProfile));
@@ -308,6 +346,7 @@ public final class CreateDecryptionRuleDetails
 
         CreateDecryptionRuleDetails other = (CreateDecryptionRuleDetails) o;
         return java.util.Objects.equals(this.name, other.name)
+                && java.util.Objects.equals(this.description, other.description)
                 && java.util.Objects.equals(this.condition, other.condition)
                 && java.util.Objects.equals(this.action, other.action)
                 && java.util.Objects.equals(this.decryptionProfile, other.decryptionProfile)
@@ -321,6 +360,7 @@ public final class CreateDecryptionRuleDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.name == null ? 43 : this.name.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + (this.condition == null ? 43 : this.condition.hashCode());
         result = (result * PRIME) + (this.action == null ? 43 : this.action.hashCode());
         result =

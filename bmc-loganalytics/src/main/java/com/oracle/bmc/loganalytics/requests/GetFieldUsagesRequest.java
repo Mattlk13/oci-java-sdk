@@ -13,17 +13,31 @@ import com.oracle.bmc.loganalytics.model.*;
 @jakarta.annotation.Generated(value = "OracleSDKGenerator", comments = "API Version: 20200601")
 public class GetFieldUsagesRequest extends com.oracle.bmc.requests.BmcRequest<java.lang.Void> {
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     private String namespaceName;
 
-    /** The Logging Analytics namespace used for the request. */
+    /**
+     * The Log Analytics namespace used for the request. The namespace can be obtained by running
+     * 'oci os ns get'
+     */
     public String getNamespaceName() {
         return namespaceName;
     }
-    /** The field name. */
+    /**
+     * The field name. Field name can be obtained by running 'oci log-analytics field list-fields
+     * --namespace-name <namespace>'. The json output 'name' parameter value contains the field
+     * name.
+     */
     private String fieldName;
 
-    /** The field name. */
+    /**
+     * The field name. Field name can be obtained by running 'oci log-analytics field list-fields
+     * --namespace-name <namespace>'. The json output 'name' parameter value contains the field
+     * name.
+     */
     public String getFieldName() {
         return fieldName;
     }
@@ -41,11 +55,15 @@ public class GetFieldUsagesRequest extends com.oracle.bmc.requests.BmcRequest<ja
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /** The Logging Analytics namespace used for the request. */
+        /**
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
+         */
         private String namespaceName = null;
 
         /**
-         * The Logging Analytics namespace used for the request.
+         * The Log Analytics namespace used for the request. The namespace can be obtained by
+         * running 'oci os ns get'
          *
          * @param namespaceName the value to set
          * @return this builder instance
@@ -55,11 +73,17 @@ public class GetFieldUsagesRequest extends com.oracle.bmc.requests.BmcRequest<ja
             return this;
         }
 
-        /** The field name. */
+        /**
+         * The field name. Field name can be obtained by running 'oci log-analytics field
+         * list-fields --namespace-name <namespace>'. The json output 'name' parameter value
+         * contains the field name.
+         */
         private String fieldName = null;
 
         /**
-         * The field name.
+         * The field name. Field name can be obtained by running 'oci log-analytics field
+         * list-fields --namespace-name <namespace>'. The json output 'name' parameter value
+         * contains the field name.
          *
          * @param fieldName the value to set
          * @return this builder instance

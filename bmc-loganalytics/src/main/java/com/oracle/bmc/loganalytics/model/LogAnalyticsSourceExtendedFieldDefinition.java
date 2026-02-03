@@ -229,12 +229,12 @@ public final class LogAnalyticsSourceExtendedFieldDefinition
             this.__explicitlySet__.add("convertedRegularExpression");
             return this;
         }
-        /** A flag inidcating whether or not the extended definition is enabled. */
+        /** A flag indicating whether or not the extended definition is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the extended definition is enabled.
+         * A flag indicating whether or not the extended definition is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -575,12 +575,12 @@ public final class LogAnalyticsSourceExtendedFieldDefinition
         return convertedRegularExpression;
     }
 
-    /** A flag inidcating whether or not the extended definition is enabled. */
+    /** A flag indicating whether or not the extended definition is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the extended definition is enabled.
+     * A flag indicating whether or not the extended definition is enabled.
      *
      * @return the value
      */

@@ -27,6 +27,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateIcmpApplicationDetails extends UpdateApplicationDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /**
          * The value of the ICMP message Type field as defined by [RFC
          * 792](https://www.rfc-editor.org/rfc/rfc792.html).
@@ -71,7 +79,8 @@ public final class UpdateIcmpApplicationDetails extends UpdateApplicationDetails
 
         public UpdateIcmpApplicationDetails build() {
             UpdateIcmpApplicationDetails model =
-                    new UpdateIcmpApplicationDetails(this.icmpType, this.icmpCode);
+                    new UpdateIcmpApplicationDetails(
+                            this.description, this.icmpType, this.icmpCode);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -80,6 +89,9 @@ public final class UpdateIcmpApplicationDetails extends UpdateApplicationDetails
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateIcmpApplicationDetails model) {
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
+            }
             if (model.wasPropertyExplicitlySet("icmpType")) {
                 this.icmpType(model.getIcmpType());
             }
@@ -100,8 +112,8 @@ public final class UpdateIcmpApplicationDetails extends UpdateApplicationDetails
     }
 
     @Deprecated
-    public UpdateIcmpApplicationDetails(Integer icmpType, Integer icmpCode) {
-        super();
+    public UpdateIcmpApplicationDetails(String description, Integer icmpType, Integer icmpCode) {
+        super(description);
         this.icmpType = icmpType;
         this.icmpCode = icmpCode;
     }

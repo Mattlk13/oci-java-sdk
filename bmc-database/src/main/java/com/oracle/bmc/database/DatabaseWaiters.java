@@ -3691,6 +3691,69 @@ public class DatabaseWaiters {
      * @param request the request to send
      * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
      */
+    public com.oracle.bmc.waiter.Waiter<
+                    CreateAdvancedClusterFileSystemRequest, CreateAdvancedClusterFileSystemResponse>
+            forCreateAdvancedClusterFileSystem(CreateAdvancedClusterFileSystemRequest request) {
+        return forCreateAdvancedClusterFileSystem(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    CreateAdvancedClusterFileSystemRequest, CreateAdvancedClusterFileSystemResponse>
+            forCreateAdvancedClusterFileSystem(
+                    CreateAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<CreateAdvancedClusterFileSystemResponse>() {
+                    @Override
+                    public CreateAdvancedClusterFileSystemResponse call() throws Exception {
+                        final CreateAdvancedClusterFileSystemResponse response =
+                                client.createAdvancedClusterFileSystem(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
     public com.oracle.bmc.waiter.Waiter<CreateApplicationVipRequest, CreateApplicationVipResponse>
             forCreateApplicationVip(CreateApplicationVipRequest request) {
         return forCreateApplicationVip(
@@ -5976,6 +6039,69 @@ public class DatabaseWaiters {
                     @Override
                     public DbNodeActionResponse call() throws Exception {
                         final DbNodeActionResponse response = client.dbNodeAction(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    DeleteAdvancedClusterFileSystemRequest, DeleteAdvancedClusterFileSystemResponse>
+            forDeleteAdvancedClusterFileSystem(DeleteAdvancedClusterFileSystemRequest request) {
+        return forDeleteAdvancedClusterFileSystem(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    DeleteAdvancedClusterFileSystemRequest, DeleteAdvancedClusterFileSystemResponse>
+            forDeleteAdvancedClusterFileSystem(
+                    DeleteAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<DeleteAdvancedClusterFileSystemResponse>() {
+                    @Override
+                    public DeleteAdvancedClusterFileSystemResponse call() throws Exception {
+                        final DeleteAdvancedClusterFileSystemResponse response =
+                                client.deleteAdvancedClusterFileSystem(request);
 
                         if (response.getOpcWorkRequestId() != null) {
                             final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
@@ -9944,6 +10070,122 @@ public class DatabaseWaiters {
                         return response;
                     }
                 },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @param targetStates the desired states to wait for. If multiple states are provided then the
+     *     waiter will return once the resource reaches any of the provided states
+     * @return a new {@code Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetAdvancedClusterFileSystemRequest, GetAdvancedClusterFileSystemResponse>
+            forAdvancedClusterFileSystem(
+                    GetAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.database.model.AdvancedClusterFileSystem.LifecycleState...
+                            targetStates) {
+        com.oracle.bmc.util.internal.Validate.notEmpty(
+                targetStates, "At least one targetState must be provided");
+        com.oracle.bmc.util.internal.Validate.noNullElements(
+                targetStates, "Null targetState values are not permitted");
+
+        return forAdvancedClusterFileSystem(
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_WAITER, request, targetStates);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param targetState the desired state to wait for
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetAdvancedClusterFileSystemRequest, GetAdvancedClusterFileSystemResponse>
+            forAdvancedClusterFileSystem(
+                    GetAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.database.model.AdvancedClusterFileSystem.LifecycleState
+                            targetState,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        com.oracle.bmc.util.internal.Validate.notNull(
+                targetState, "The targetState cannot be null");
+
+        return forAdvancedClusterFileSystem(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetState);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @param targetStates the desired states to wait for. The waiter will return once the resource
+     *     reaches any of the provided states
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetAdvancedClusterFileSystemRequest, GetAdvancedClusterFileSystemResponse>
+            forAdvancedClusterFileSystem(
+                    GetAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy,
+                    com.oracle.bmc.database.model.AdvancedClusterFileSystem.LifecycleState...
+                            targetStates) {
+        com.oracle.bmc.util.internal.Validate.notEmpty(
+                targetStates, "At least one target state must be provided");
+        com.oracle.bmc.util.internal.Validate.noNullElements(
+                targetStates, "Null target states are not permitted");
+
+        return forAdvancedClusterFileSystem(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetStates);
+    }
+
+    // Helper method to create a new Waiter for AdvancedClusterFileSystem.
+    private com.oracle.bmc.waiter.Waiter<
+                    GetAdvancedClusterFileSystemRequest, GetAdvancedClusterFileSystemResponse>
+            forAdvancedClusterFileSystem(
+                    com.oracle.bmc.waiter.BmcGenericWaiter waiter,
+                    final GetAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.database.model.AdvancedClusterFileSystem.LifecycleState...
+                            targetStates) {
+        final java.util.Set<com.oracle.bmc.database.model.AdvancedClusterFileSystem.LifecycleState>
+                targetStatesSet = new java.util.HashSet<>(java.util.Arrays.asList(targetStates));
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                waiter.toCallable(
+                        () -> request,
+                        new java.util.function.Function<
+                                GetAdvancedClusterFileSystemRequest,
+                                GetAdvancedClusterFileSystemResponse>() {
+                            @Override
+                            public GetAdvancedClusterFileSystemResponse apply(
+                                    GetAdvancedClusterFileSystemRequest request) {
+                                return client.getAdvancedClusterFileSystem(request);
+                            }
+                        },
+                        new java.util.function.Predicate<GetAdvancedClusterFileSystemResponse>() {
+                            @Override
+                            public boolean test(GetAdvancedClusterFileSystemResponse response) {
+                                return targetStatesSet.contains(
+                                        response.getAdvancedClusterFileSystem()
+                                                .getLifecycleState());
+                            }
+                        },
+                        targetStatesSet.contains(
+                                com.oracle.bmc.database.model.AdvancedClusterFileSystem
+                                        .LifecycleState.Deleted)),
                 request);
     }
 
@@ -16811,6 +17053,69 @@ public class DatabaseWaiters {
      * @param request the request to send
      * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
      */
+    public com.oracle.bmc.waiter.Waiter<
+                    MountAdvancedClusterFileSystemRequest, MountAdvancedClusterFileSystemResponse>
+            forMountAdvancedClusterFileSystem(MountAdvancedClusterFileSystemRequest request) {
+        return forMountAdvancedClusterFileSystem(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    MountAdvancedClusterFileSystemRequest, MountAdvancedClusterFileSystemResponse>
+            forMountAdvancedClusterFileSystem(
+                    MountAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<MountAdvancedClusterFileSystemResponse>() {
+                    @Override
+                    public MountAdvancedClusterFileSystemResponse call() throws Exception {
+                        final MountAdvancedClusterFileSystemResponse response =
+                                client.mountAdvancedClusterFileSystem(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
     public com.oracle.bmc.waiter.Waiter<MountDbnodeSnapshotRequest, MountDbnodeSnapshotResponse>
             forMountDbnodeSnapshot(MountDbnodeSnapshotRequest request) {
         return forMountDbnodeSnapshot(
@@ -19948,6 +20253,71 @@ public class DatabaseWaiters {
      * @param request the request to send
      * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
      */
+    public com.oracle.bmc.waiter.Waiter<
+                    UnmountAdvancedClusterFileSystemRequest,
+                    UnmountAdvancedClusterFileSystemResponse>
+            forUnmountAdvancedClusterFileSystem(UnmountAdvancedClusterFileSystemRequest request) {
+        return forUnmountAdvancedClusterFileSystem(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    UnmountAdvancedClusterFileSystemRequest,
+                    UnmountAdvancedClusterFileSystemResponse>
+            forUnmountAdvancedClusterFileSystem(
+                    UnmountAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<UnmountAdvancedClusterFileSystemResponse>() {
+                    @Override
+                    public UnmountAdvancedClusterFileSystemResponse call() throws Exception {
+                        final UnmountAdvancedClusterFileSystemResponse response =
+                                client.unmountAdvancedClusterFileSystem(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
     public com.oracle.bmc.waiter.Waiter<UnmountDbnodeSnapshotRequest, UnmountDbnodeSnapshotResponse>
             forUnmountDbnodeSnapshot(UnmountDbnodeSnapshotRequest request) {
         return forUnmountDbnodeSnapshot(
@@ -20111,6 +20481,69 @@ public class DatabaseWaiters {
                     public UnregisterCloudVmClusterPkcsResponse call() throws Exception {
                         final UnregisterCloudVmClusterPkcsResponse response =
                                 client.unregisterCloudVmClusterPkcs(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    UpdateAdvancedClusterFileSystemRequest, UpdateAdvancedClusterFileSystemResponse>
+            forUpdateAdvancedClusterFileSystem(UpdateAdvancedClusterFileSystemRequest request) {
+        return forUpdateAdvancedClusterFileSystem(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    UpdateAdvancedClusterFileSystemRequest, UpdateAdvancedClusterFileSystemResponse>
+            forUpdateAdvancedClusterFileSystem(
+                    UpdateAdvancedClusterFileSystemRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<UpdateAdvancedClusterFileSystemResponse>() {
+                    @Override
+                    public UpdateAdvancedClusterFileSystemResponse call() throws Exception {
+                        final UpdateAdvancedClusterFileSystemResponse response =
+                                client.updateAdvancedClusterFileSystem(request);
 
                         if (response.getOpcWorkRequestId() != null) {
                             final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest

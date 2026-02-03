@@ -44,6 +44,15 @@ public final class StandardTask extends ScheduledTask {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("taskType")
         private TaskType taskType;
 
@@ -209,6 +218,7 @@ public final class StandardTask extends ScheduledTask {
                     new StandardTask(
                             this.id,
                             this.displayName,
+                            this.description,
                             this.taskType,
                             this.schedules,
                             this.action,
@@ -238,6 +248,9 @@ public final class StandardTask extends ScheduledTask {
             }
             if (model.wasPropertyExplicitlySet("displayName")) {
                 this.displayName(model.getDisplayName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("taskType")) {
                 this.taskType(model.getTaskType());
@@ -304,6 +317,7 @@ public final class StandardTask extends ScheduledTask {
     public StandardTask(
             String id,
             String displayName,
+            String description,
             TaskType taskType,
             java.util.List<Schedule> schedules,
             Action action,
@@ -323,6 +337,7 @@ public final class StandardTask extends ScheduledTask {
         super(
                 id,
                 displayName,
+                description,
                 taskType,
                 schedules,
                 action,

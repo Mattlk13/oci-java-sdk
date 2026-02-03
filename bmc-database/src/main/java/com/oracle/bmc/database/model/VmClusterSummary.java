@@ -58,7 +58,9 @@ public final class VmClusterSummary
         "cloudAutomationUpdateDetails",
         "exascaleDbStorageVaultId",
         "storageManagementType",
-        "computeModel"
+        "computeModel",
+        "vmFileSystemStorageType",
+        "vmBackupStorageType"
     })
     public VmClusterSummary(
             String id,
@@ -96,7 +98,9 @@ public final class VmClusterSummary
             CloudAutomationUpdateDetails cloudAutomationUpdateDetails,
             String exascaleDbStorageVaultId,
             StorageManagementType storageManagementType,
-            ComputeModel computeModel) {
+            ComputeModel computeModel,
+            VmFileSystemStorageType vmFileSystemStorageType,
+            VmBackupStorageType vmBackupStorageType) {
         super();
         this.id = id;
         this.compartmentId = compartmentId;
@@ -134,6 +138,8 @@ public final class VmClusterSummary
         this.exascaleDbStorageVaultId = exascaleDbStorageVaultId;
         this.storageManagementType = storageManagementType;
         this.computeModel = computeModel;
+        this.vmFileSystemStorageType = vmFileSystemStorageType;
+        this.vmBackupStorageType = vmBackupStorageType;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -755,6 +761,48 @@ public final class VmClusterSummary
             this.__explicitlySet__.add("computeModel");
             return this;
         }
+        /**
+         * Specifies the type of file system storage and supported values are LOCAL and EXASCALE. -
+         * LOCAL if selected then file system storage will be on DB Servers. - EXASCALE if selected
+         * then file system storage will be on Exascale Storage Servers. Default Value is LOCAL
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("vmFileSystemStorageType")
+        private VmFileSystemStorageType vmFileSystemStorageType;
+
+        /**
+         * Specifies the type of file system storage and supported values are LOCAL and EXASCALE. -
+         * LOCAL if selected then file system storage will be on DB Servers. - EXASCALE if selected
+         * then file system storage will be on Exascale Storage Servers. Default Value is LOCAL
+         *
+         * @param vmFileSystemStorageType the value to set
+         * @return this builder
+         */
+        public Builder vmFileSystemStorageType(VmFileSystemStorageType vmFileSystemStorageType) {
+            this.vmFileSystemStorageType = vmFileSystemStorageType;
+            this.__explicitlySet__.add("vmFileSystemStorageType");
+            return this;
+        }
+        /**
+         * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. -
+         * LOCAL if selected then VM Backups storage will be on DB Servers. - EXASCALE if selected
+         * then VM Backups storage will be on Exascale Storage Servers. Default Value is LOCAL.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("vmBackupStorageType")
+        private VmBackupStorageType vmBackupStorageType;
+
+        /**
+         * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. -
+         * LOCAL if selected then VM Backups storage will be on DB Servers. - EXASCALE if selected
+         * then VM Backups storage will be on Exascale Storage Servers. Default Value is LOCAL.
+         *
+         * @param vmBackupStorageType the value to set
+         * @return this builder
+         */
+        public Builder vmBackupStorageType(VmBackupStorageType vmBackupStorageType) {
+            this.vmBackupStorageType = vmBackupStorageType;
+            this.__explicitlySet__.add("vmBackupStorageType");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -797,7 +845,9 @@ public final class VmClusterSummary
                             this.cloudAutomationUpdateDetails,
                             this.exascaleDbStorageVaultId,
                             this.storageManagementType,
-                            this.computeModel);
+                            this.computeModel,
+                            this.vmFileSystemStorageType,
+                            this.vmBackupStorageType);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -913,6 +963,12 @@ public final class VmClusterSummary
             }
             if (model.wasPropertyExplicitlySet("computeModel")) {
                 this.computeModel(model.getComputeModel());
+            }
+            if (model.wasPropertyExplicitlySet("vmFileSystemStorageType")) {
+                this.vmFileSystemStorageType(model.getVmFileSystemStorageType());
+            }
+            if (model.wasPropertyExplicitlySet("vmBackupStorageType")) {
+                this.vmBackupStorageType(model.getVmBackupStorageType());
             }
             return this;
         }
@@ -1703,6 +1759,144 @@ public final class VmClusterSummary
         return computeModel;
     }
 
+    /**
+     * Specifies the type of file system storage and supported values are LOCAL and EXASCALE. -
+     * LOCAL if selected then file system storage will be on DB Servers. - EXASCALE if selected then
+     * file system storage will be on Exascale Storage Servers. Default Value is LOCAL
+     */
+    public enum VmFileSystemStorageType implements com.oracle.bmc.http.internal.BmcEnum {
+        Local("LOCAL"),
+        Exascale("EXASCALE"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by
+         * this version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private static final org.slf4j.Logger LOG =
+                org.slf4j.LoggerFactory.getLogger(VmFileSystemStorageType.class);
+
+        private final String value;
+        private static java.util.Map<String, VmFileSystemStorageType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (VmFileSystemStorageType v : VmFileSystemStorageType.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        VmFileSystemStorageType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static VmFileSystemStorageType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'VmFileSystemStorageType', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Specifies the type of file system storage and supported values are LOCAL and EXASCALE. -
+     * LOCAL if selected then file system storage will be on DB Servers. - EXASCALE if selected then
+     * file system storage will be on Exascale Storage Servers. Default Value is LOCAL
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("vmFileSystemStorageType")
+    private final VmFileSystemStorageType vmFileSystemStorageType;
+
+    /**
+     * Specifies the type of file system storage and supported values are LOCAL and EXASCALE. -
+     * LOCAL if selected then file system storage will be on DB Servers. - EXASCALE if selected then
+     * file system storage will be on Exascale Storage Servers. Default Value is LOCAL
+     *
+     * @return the value
+     */
+    public VmFileSystemStorageType getVmFileSystemStorageType() {
+        return vmFileSystemStorageType;
+    }
+
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. - LOCAL
+     * if selected then VM Backups storage will be on DB Servers. - EXASCALE if selected then VM
+     * Backups storage will be on Exascale Storage Servers. Default Value is LOCAL.
+     */
+    public enum VmBackupStorageType implements com.oracle.bmc.http.internal.BmcEnum {
+        Local("LOCAL"),
+        Exascale("EXASCALE"),
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by
+         * this version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private static final org.slf4j.Logger LOG =
+                org.slf4j.LoggerFactory.getLogger(VmBackupStorageType.class);
+
+        private final String value;
+        private static java.util.Map<String, VmBackupStorageType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (VmBackupStorageType v : VmBackupStorageType.values()) {
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
+            }
+        }
+
+        VmBackupStorageType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static VmBackupStorageType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'VmBackupStorageType', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
+        }
+    };
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. - LOCAL
+     * if selected then VM Backups storage will be on DB Servers. - EXASCALE if selected then VM
+     * Backups storage will be on Exascale Storage Servers. Default Value is LOCAL.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("vmBackupStorageType")
+    private final VmBackupStorageType vmBackupStorageType;
+
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. - LOCAL
+     * if selected then VM Backups storage will be on DB Servers. - EXASCALE if selected then VM
+     * Backups storage will be on Exascale Storage Servers. Default Value is LOCAL.
+     *
+     * @return the value
+     */
+    public VmBackupStorageType getVmBackupStorageType() {
+        return vmBackupStorageType;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1760,6 +1954,9 @@ public final class VmClusterSummary
                 .append(String.valueOf(this.exascaleDbStorageVaultId));
         sb.append(", storageManagementType=").append(String.valueOf(this.storageManagementType));
         sb.append(", computeModel=").append(String.valueOf(this.computeModel));
+        sb.append(", vmFileSystemStorageType=")
+                .append(String.valueOf(this.vmFileSystemStorageType));
+        sb.append(", vmBackupStorageType=").append(String.valueOf(this.vmBackupStorageType));
         sb.append(")");
         return sb.toString();
     }
@@ -1817,6 +2014,9 @@ public final class VmClusterSummary
                         this.exascaleDbStorageVaultId, other.exascaleDbStorageVaultId)
                 && java.util.Objects.equals(this.storageManagementType, other.storageManagementType)
                 && java.util.Objects.equals(this.computeModel, other.computeModel)
+                && java.util.Objects.equals(
+                        this.vmFileSystemStorageType, other.vmFileSystemStorageType)
+                && java.util.Objects.equals(this.vmBackupStorageType, other.vmBackupStorageType)
                 && super.equals(other);
     }
 
@@ -1932,6 +2132,16 @@ public final class VmClusterSummary
                                 ? 43
                                 : this.storageManagementType.hashCode());
         result = (result * PRIME) + (this.computeModel == null ? 43 : this.computeModel.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.vmFileSystemStorageType == null
+                                ? 43
+                                : this.vmFileSystemStorageType.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.vmBackupStorageType == null
+                                ? 43
+                                : this.vmBackupStorageType.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -31,12 +31,12 @@ public final class SourceValidateResults
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
-        /** An arrya of source validation details. */
+        /** An array of source validation details. */
         @com.fasterxml.jackson.annotation.JsonProperty("items")
         private java.util.List<SourceValidateDetails> items;
 
         /**
-         * An arrya of source validation details.
+         * An array of source validation details.
          *
          * @param items the value to set
          * @return this builder
@@ -76,12 +76,12 @@ public final class SourceValidateResults
         return new Builder().copy(this);
     }
 
-    /** An arrya of source validation details. */
+    /** An array of source validation details. */
     @com.fasterxml.jackson.annotation.JsonProperty("items")
     private final java.util.List<SourceValidateDetails> items;
 
     /**
-     * An arrya of source validation details.
+     * An array of source validation details.
      *
      * @return the value
      */

@@ -42,7 +42,8 @@ public final class UpdateCloudVmClusterDetails
         "securityAttributes",
         "dataCollectionOptions",
         "fileSystemConfigurationDetails",
-        "cloudAutomationUpdateDetails"
+        "cloudAutomationUpdateDetails",
+        "vmBackupStorageType"
     })
     public UpdateCloudVmClusterDetails(
             String displayName,
@@ -63,7 +64,8 @@ public final class UpdateCloudVmClusterDetails
             java.util.Map<String, java.util.Map<String, Object>> securityAttributes,
             DataCollectionOptions dataCollectionOptions,
             java.util.List<FileSystemConfigurationDetail> fileSystemConfigurationDetails,
-            CloudAutomationUpdateDetails cloudAutomationUpdateDetails) {
+            CloudAutomationUpdateDetails cloudAutomationUpdateDetails,
+            VmBackupStorageType vmBackupStorageType) {
         super();
         this.displayName = displayName;
         this.cpuCoreCount = cpuCoreCount;
@@ -84,6 +86,7 @@ public final class UpdateCloudVmClusterDetails
         this.dataCollectionOptions = dataCollectionOptions;
         this.fileSystemConfigurationDetails = fileSystemConfigurationDetails;
         this.cloudAutomationUpdateDetails = cloudAutomationUpdateDetails;
+        this.vmBackupStorageType = vmBackupStorageType;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -483,6 +486,27 @@ public final class UpdateCloudVmClusterDetails
             this.__explicitlySet__.add("cloudAutomationUpdateDetails");
             return this;
         }
+        /**
+         * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE.
+         * Storage Type can only be changed once from LOCAL to EXASCALE. EXASCALE to LOCAL is not
+         * permitted.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("vmBackupStorageType")
+        private VmBackupStorageType vmBackupStorageType;
+
+        /**
+         * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE.
+         * Storage Type can only be changed once from LOCAL to EXASCALE. EXASCALE to LOCAL is not
+         * permitted.
+         *
+         * @param vmBackupStorageType the value to set
+         * @return this builder
+         */
+        public Builder vmBackupStorageType(VmBackupStorageType vmBackupStorageType) {
+            this.vmBackupStorageType = vmBackupStorageType;
+            this.__explicitlySet__.add("vmBackupStorageType");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -508,7 +532,8 @@ public final class UpdateCloudVmClusterDetails
                             this.securityAttributes,
                             this.dataCollectionOptions,
                             this.fileSystemConfigurationDetails,
-                            this.cloudAutomationUpdateDetails);
+                            this.cloudAutomationUpdateDetails,
+                            this.vmBackupStorageType);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -573,6 +598,9 @@ public final class UpdateCloudVmClusterDetails
             }
             if (model.wasPropertyExplicitlySet("cloudAutomationUpdateDetails")) {
                 this.cloudAutomationUpdateDetails(model.getCloudAutomationUpdateDetails());
+            }
+            if (model.wasPropertyExplicitlySet("vmBackupStorageType")) {
+                this.vmBackupStorageType(model.getVmBackupStorageType());
             }
             return this;
         }
@@ -966,6 +994,59 @@ public final class UpdateCloudVmClusterDetails
         return cloudAutomationUpdateDetails;
     }
 
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. Storage
+     * Type can only be changed once from LOCAL to EXASCALE. EXASCALE to LOCAL is not permitted.
+     */
+    public enum VmBackupStorageType implements com.oracle.bmc.http.internal.BmcEnum {
+        Local("LOCAL"),
+        Exascale("EXASCALE"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, VmBackupStorageType> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (VmBackupStorageType v : VmBackupStorageType.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        VmBackupStorageType(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static VmBackupStorageType create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid VmBackupStorageType: " + key);
+        }
+    };
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. Storage
+     * Type can only be changed once from LOCAL to EXASCALE. EXASCALE to LOCAL is not permitted.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("vmBackupStorageType")
+    private final VmBackupStorageType vmBackupStorageType;
+
+    /**
+     * Specifies the type of VM Backups Storage and supported values are LOCAL and EXASCALE. Storage
+     * Type can only be changed once from LOCAL to EXASCALE. EXASCALE to LOCAL is not permitted.
+     *
+     * @return the value
+     */
+    public VmBackupStorageType getVmBackupStorageType() {
+        return vmBackupStorageType;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1002,6 +1083,7 @@ public final class UpdateCloudVmClusterDetails
                 .append(String.valueOf(this.fileSystemConfigurationDetails));
         sb.append(", cloudAutomationUpdateDetails=")
                 .append(String.valueOf(this.cloudAutomationUpdateDetails));
+        sb.append(", vmBackupStorageType=").append(String.valueOf(this.vmBackupStorageType));
         sb.append(")");
         return sb.toString();
     }
@@ -1038,6 +1120,7 @@ public final class UpdateCloudVmClusterDetails
                         this.fileSystemConfigurationDetails, other.fileSystemConfigurationDetails)
                 && java.util.Objects.equals(
                         this.cloudAutomationUpdateDetails, other.cloudAutomationUpdateDetails)
+                && java.util.Objects.equals(this.vmBackupStorageType, other.vmBackupStorageType)
                 && super.equals(other);
     }
 
@@ -1100,6 +1183,11 @@ public final class UpdateCloudVmClusterDetails
                         + (this.cloudAutomationUpdateDetails == null
                                 ? 43
                                 : this.cloudAutomationUpdateDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.vmBackupStorageType == null
+                                ? 43
+                                : this.vmBackupStorageType.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

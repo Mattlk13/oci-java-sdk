@@ -20,10 +20,10 @@ public class DeleteNatRuleRequest extends com.oracle.bmc.requests.BmcRequest<jav
     public String getNetworkFirewallPolicyId() {
         return networkFirewallPolicyId;
     }
-    /** Unique identifier for NAT Rules in the network firewall policy. */
+    /** Unique identifier for NAT rules in the Network Firewall policy. */
     private String natRuleName;
 
-    /** Unique identifier for NAT Rules in the network firewall policy. */
+    /** Unique identifier for NAT rules in the Network Firewall policy. */
     public String getNatRuleName() {
         return natRuleName;
     }
@@ -72,11 +72,11 @@ public class DeleteNatRuleRequest extends com.oracle.bmc.requests.BmcRequest<jav
             return this;
         }
 
-        /** Unique identifier for NAT Rules in the network firewall policy. */
+        /** Unique identifier for NAT rules in the Network Firewall policy. */
         private String natRuleName = null;
 
         /**
-         * Unique identifier for NAT Rules in the network firewall policy.
+         * Unique identifier for NAT rules in the Network Firewall policy.
          *
          * @param natRuleName the value to set
          * @return this builder instance

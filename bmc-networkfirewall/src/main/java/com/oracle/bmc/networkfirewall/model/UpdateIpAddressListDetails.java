@@ -27,6 +27,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateIpAddressListDetails extends UpdateAddressListDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** List of IP addresses which could be IPv4 or IPv6 addresses or CIDR blocks. */
         @com.fasterxml.jackson.annotation.JsonProperty("addresses")
         private java.util.List<String> addresses;
@@ -47,7 +55,8 @@ public final class UpdateIpAddressListDetails extends UpdateAddressListDetails {
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public UpdateIpAddressListDetails build() {
-            UpdateIpAddressListDetails model = new UpdateIpAddressListDetails(this.addresses);
+            UpdateIpAddressListDetails model =
+                    new UpdateIpAddressListDetails(this.description, this.addresses);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -56,6 +65,9 @@ public final class UpdateIpAddressListDetails extends UpdateAddressListDetails {
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateIpAddressListDetails model) {
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
+            }
             if (model.wasPropertyExplicitlySet("addresses")) {
                 this.addresses(model.getAddresses());
             }
@@ -73,8 +85,8 @@ public final class UpdateIpAddressListDetails extends UpdateAddressListDetails {
     }
 
     @Deprecated
-    public UpdateIpAddressListDetails(java.util.List<String> addresses) {
-        super();
+    public UpdateIpAddressListDetails(String description, java.util.List<String> addresses) {
+        super(description);
         this.addresses = addresses;
     }
 

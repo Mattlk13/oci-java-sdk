@@ -51,12 +51,12 @@ public final class LogAnalyticsSourceMetadataField
             this.__explicitlySet__.add("fieldName");
             return this;
         }
-        /** A flag inidcating whether or not the source metadata field is enabled. */
+        /** A flag indicating whether or not the source metadata field is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the source metadata field is enabled.
+         * A flag indicating whether or not the source metadata field is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -176,12 +176,12 @@ public final class LogAnalyticsSourceMetadataField
         return fieldName;
     }
 
-    /** A flag inidcating whether or not the source metadata field is enabled. */
+    /** A flag indicating whether or not the source metadata field is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the source metadata field is enabled.
+     * A flag indicating whether or not the source metadata field is enabled.
      *
      * @return the value
      */

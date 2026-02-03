@@ -36,6 +36,7 @@ public final class NetworkFirewall
         "networkFirewallPolicyId",
         "availabilityDomain",
         "natConfiguration",
+        "shape",
         "networkSecurityGroupIds",
         "timeCreated",
         "timeUpdated",
@@ -55,6 +56,7 @@ public final class NetworkFirewall
             String networkFirewallPolicyId,
             String availabilityDomain,
             NatConfigurationResponse natConfiguration,
+            String shape,
             java.util.List<String> networkSecurityGroupIds,
             java.util.Date timeCreated,
             java.util.Date timeUpdated,
@@ -73,6 +75,7 @@ public final class NetworkFirewall
         this.networkFirewallPolicyId = networkFirewallPolicyId;
         this.availabilityDomain = availabilityDomain;
         this.natConfiguration = natConfiguration;
+        this.shape = shape;
         this.networkSecurityGroupIds = networkSecurityGroupIds;
         this.timeCreated = timeCreated;
         this.timeUpdated = timeUpdated;
@@ -240,6 +243,21 @@ public final class NetworkFirewall
         public Builder natConfiguration(NatConfigurationResponse natConfiguration) {
             this.natConfiguration = natConfiguration;
             this.__explicitlySet__.add("natConfiguration");
+            return this;
+        }
+        /** The shape of a firewall to determine the bandwidth that the firewall allows. */
+        @com.fasterxml.jackson.annotation.JsonProperty("shape")
+        private String shape;
+
+        /**
+         * The shape of a firewall to determine the bandwidth that the firewall allows.
+         *
+         * @param shape the value to set
+         * @return this builder
+         */
+        public Builder shape(String shape) {
+            this.shape = shape;
+            this.__explicitlySet__.add("shape");
             return this;
         }
         /**
@@ -417,6 +435,7 @@ public final class NetworkFirewall
                             this.networkFirewallPolicyId,
                             this.availabilityDomain,
                             this.natConfiguration,
+                            this.shape,
                             this.networkSecurityGroupIds,
                             this.timeCreated,
                             this.timeUpdated,
@@ -459,6 +478,9 @@ public final class NetworkFirewall
             }
             if (model.wasPropertyExplicitlySet("natConfiguration")) {
                 this.natConfiguration(model.getNatConfiguration());
+            }
+            if (model.wasPropertyExplicitlySet("shape")) {
+                this.shape(model.getShape());
             }
             if (model.wasPropertyExplicitlySet("networkSecurityGroupIds")) {
                 this.networkSecurityGroupIds(model.getNetworkSecurityGroupIds());
@@ -636,6 +658,19 @@ public final class NetworkFirewall
         return natConfiguration;
     }
 
+    /** The shape of a firewall to determine the bandwidth that the firewall allows. */
+    @com.fasterxml.jackson.annotation.JsonProperty("shape")
+    private final String shape;
+
+    /**
+     * The shape of a firewall to determine the bandwidth that the firewall allows.
+     *
+     * @return the value
+     */
+    public String getShape() {
+        return shape;
+    }
+
     /**
      * An array of network security groups
      * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) associated with
@@ -803,6 +838,7 @@ public final class NetworkFirewall
                 .append(String.valueOf(this.networkFirewallPolicyId));
         sb.append(", availabilityDomain=").append(String.valueOf(this.availabilityDomain));
         sb.append(", natConfiguration=").append(String.valueOf(this.natConfiguration));
+        sb.append(", shape=").append(String.valueOf(this.shape));
         sb.append(", networkSecurityGroupIds=")
                 .append(String.valueOf(this.networkSecurityGroupIds));
         sb.append(", timeCreated=").append(String.valueOf(this.timeCreated));
@@ -836,6 +872,7 @@ public final class NetworkFirewall
                         this.networkFirewallPolicyId, other.networkFirewallPolicyId)
                 && java.util.Objects.equals(this.availabilityDomain, other.availabilityDomain)
                 && java.util.Objects.equals(this.natConfiguration, other.natConfiguration)
+                && java.util.Objects.equals(this.shape, other.shape)
                 && java.util.Objects.equals(
                         this.networkSecurityGroupIds, other.networkSecurityGroupIds)
                 && java.util.Objects.equals(this.timeCreated, other.timeCreated)
@@ -873,6 +910,7 @@ public final class NetworkFirewall
         result =
                 (result * PRIME)
                         + (this.natConfiguration == null ? 43 : this.natConfiguration.hashCode());
+        result = (result * PRIME) + (this.shape == null ? 43 : this.shape.hashCode());
         result =
                 (result * PRIME)
                         + (this.networkSecurityGroupIds == null

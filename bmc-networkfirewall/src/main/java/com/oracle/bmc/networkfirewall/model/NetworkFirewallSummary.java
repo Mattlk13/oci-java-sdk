@@ -32,6 +32,7 @@ public final class NetworkFirewallSummary
         "ipv4Address",
         "ipv6Address",
         "natConfiguration",
+        "shape",
         "networkFirewallPolicyId",
         "timeCreated",
         "timeUpdated",
@@ -50,6 +51,7 @@ public final class NetworkFirewallSummary
             String ipv4Address,
             String ipv6Address,
             NatConfigurationResponse natConfiguration,
+            String shape,
             String networkFirewallPolicyId,
             java.util.Date timeCreated,
             java.util.Date timeUpdated,
@@ -67,6 +69,7 @@ public final class NetworkFirewallSummary
         this.ipv4Address = ipv4Address;
         this.ipv6Address = ipv6Address;
         this.natConfiguration = natConfiguration;
+        this.shape = shape;
         this.networkFirewallPolicyId = networkFirewallPolicyId;
         this.timeCreated = timeCreated;
         this.timeUpdated = timeUpdated;
@@ -215,6 +218,21 @@ public final class NetworkFirewallSummary
         public Builder natConfiguration(NatConfigurationResponse natConfiguration) {
             this.natConfiguration = natConfiguration;
             this.__explicitlySet__.add("natConfiguration");
+            return this;
+        }
+        /** The shape of a firewall to determine the bandwidth that the firewall allows. */
+        @com.fasterxml.jackson.annotation.JsonProperty("shape")
+        private String shape;
+
+        /**
+         * The shape of a firewall to determine the bandwidth that the firewall allows.
+         *
+         * @param shape the value to set
+         * @return this builder
+         */
+        public Builder shape(String shape) {
+            this.shape = shape;
+            this.__explicitlySet__.add("shape");
             return this;
         }
         /**
@@ -389,6 +407,7 @@ public final class NetworkFirewallSummary
                             this.ipv4Address,
                             this.ipv6Address,
                             this.natConfiguration,
+                            this.shape,
                             this.networkFirewallPolicyId,
                             this.timeCreated,
                             this.timeUpdated,
@@ -428,6 +447,9 @@ public final class NetworkFirewallSummary
             }
             if (model.wasPropertyExplicitlySet("natConfiguration")) {
                 this.natConfiguration(model.getNatConfiguration());
+            }
+            if (model.wasPropertyExplicitlySet("shape")) {
+                this.shape(model.getShape());
             }
             if (model.wasPropertyExplicitlySet("networkFirewallPolicyId")) {
                 this.networkFirewallPolicyId(model.getNetworkFirewallPolicyId());
@@ -584,6 +606,19 @@ public final class NetworkFirewallSummary
 
     public NatConfigurationResponse getNatConfiguration() {
         return natConfiguration;
+    }
+
+    /** The shape of a firewall to determine the bandwidth that the firewall allows. */
+    @com.fasterxml.jackson.annotation.JsonProperty("shape")
+    private final String shape;
+
+    /**
+     * The shape of a firewall to determine the bandwidth that the firewall allows.
+     *
+     * @return the value
+     */
+    public String getShape() {
+        return shape;
     }
 
     /**
@@ -749,6 +784,7 @@ public final class NetworkFirewallSummary
         sb.append(", ipv4Address=").append(String.valueOf(this.ipv4Address));
         sb.append(", ipv6Address=").append(String.valueOf(this.ipv6Address));
         sb.append(", natConfiguration=").append(String.valueOf(this.natConfiguration));
+        sb.append(", shape=").append(String.valueOf(this.shape));
         sb.append(", networkFirewallPolicyId=")
                 .append(String.valueOf(this.networkFirewallPolicyId));
         sb.append(", timeCreated=").append(String.valueOf(this.timeCreated));
@@ -780,6 +816,7 @@ public final class NetworkFirewallSummary
                 && java.util.Objects.equals(this.ipv4Address, other.ipv4Address)
                 && java.util.Objects.equals(this.ipv6Address, other.ipv6Address)
                 && java.util.Objects.equals(this.natConfiguration, other.natConfiguration)
+                && java.util.Objects.equals(this.shape, other.shape)
                 && java.util.Objects.equals(
                         this.networkFirewallPolicyId, other.networkFirewallPolicyId)
                 && java.util.Objects.equals(this.timeCreated, other.timeCreated)
@@ -812,6 +849,7 @@ public final class NetworkFirewallSummary
         result =
                 (result * PRIME)
                         + (this.natConfiguration == null ? 43 : this.natConfiguration.hashCode());
+        result = (result * PRIME) + (this.shape == null ? 43 : this.shape.hashCode());
         result =
                 (result * PRIME)
                         + (this.networkFirewallPolicyId == null

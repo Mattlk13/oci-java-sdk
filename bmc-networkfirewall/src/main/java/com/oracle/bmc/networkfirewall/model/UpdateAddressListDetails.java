@@ -34,9 +34,23 @@ package com.oracle.bmc.networkfirewall.model;
 public class UpdateAddressListDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({})
-    protected UpdateAddressListDetails() {
+    @java.beans.ConstructorProperties({"description"})
+    protected UpdateAddressListDetails(String description) {
         super();
+        this.description = description;
+    }
+
+    /** The description of the address list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the address list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -54,6 +68,7 @@ public class UpdateAddressListDetails
         java.lang.StringBuilder sb = new java.lang.StringBuilder();
         sb.append("UpdateAddressListDetails(");
         sb.append("super=").append(super.toString());
+        sb.append("description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -68,13 +83,14 @@ public class UpdateAddressListDetails
         }
 
         UpdateAddressListDetails other = (UpdateAddressListDetails) o;
-        return super.equals(other);
+        return java.util.Objects.equals(this.description, other.description) && super.equals(other);
     }
 
     @Override
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

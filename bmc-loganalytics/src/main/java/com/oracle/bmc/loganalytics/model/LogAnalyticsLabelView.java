@@ -76,12 +76,12 @@ public final class LogAnalyticsLabelView
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
-        /** An arrya of label aliases. */
+        /** An array of label aliases. */
         @com.fasterxml.jackson.annotation.JsonProperty("aliases")
         private java.util.List<LogAnalyticsLabelAlias> aliases;
 
         /**
-         * An arrya of label aliases.
+         * An array of label aliases.
          *
          * @param aliases the value to set
          * @return this builder
@@ -393,12 +393,12 @@ public final class LogAnalyticsLabelView
         return new Builder().copy(this);
     }
 
-    /** An arrya of label aliases. */
+    /** An array of label aliases. */
     @com.fasterxml.jackson.annotation.JsonProperty("aliases")
     private final java.util.List<LogAnalyticsLabelAlias> aliases;
 
     /**
-     * An arrya of label aliases.
+     * An array of label aliases.
      *
      * @return the value
      */

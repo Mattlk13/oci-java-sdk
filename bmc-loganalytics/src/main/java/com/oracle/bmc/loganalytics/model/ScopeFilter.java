@@ -30,12 +30,12 @@ public final class ScopeFilter extends com.oracle.bmc.http.client.internal.Expli
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
-        /** Field must be a valid logging-analytics out-of-the-box field. */
+        /** Field must be a valid log analytics out-of-the-box field. */
         @com.fasterxml.jackson.annotation.JsonProperty("fieldName")
         private String fieldName;
 
         /**
-         * Field must be a valid logging-analytics out-of-the-box field.
+         * Field must be a valid log analytics out-of-the-box field.
          *
          * @param fieldName the value to set
          * @return this builder
@@ -97,12 +97,12 @@ public final class ScopeFilter extends com.oracle.bmc.http.client.internal.Expli
         return new Builder().copy(this);
     }
 
-    /** Field must be a valid logging-analytics out-of-the-box field. */
+    /** Field must be a valid log analytics out-of-the-box field. */
     @com.fasterxml.jackson.annotation.JsonProperty("fieldName")
     private final String fieldName;
 
     /**
-     * Field must be a valid logging-analytics out-of-the-box field.
+     * Field must be a valid log analytics out-of-the-box field.
      *
      * @return the value
      */

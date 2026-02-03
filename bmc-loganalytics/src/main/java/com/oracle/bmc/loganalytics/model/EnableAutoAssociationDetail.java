@@ -32,14 +32,14 @@ public final class EnableAutoAssociationDetail
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
         /**
-         * The unique identifier of the log group to use when auto-associting the log source to
+         * The unique identifier of the log group to use when auto-associating the log source to
          * eligible entities.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("logGroupId")
         private String logGroupId;
 
         /**
-         * The unique identifier of the log group to use when auto-associting the log source to
+         * The unique identifier of the log group to use when auto-associating the log source to
          * eligible entities.
          *
          * @param logGroupId the value to set
@@ -81,15 +81,15 @@ public final class EnableAutoAssociationDetail
     }
 
     /**
-     * The unique identifier of the log group to use when auto-associting the log source to eligible
-     * entities.
+     * The unique identifier of the log group to use when auto-associating the log source to
+     * eligible entities.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("logGroupId")
     private final String logGroupId;
 
     /**
-     * The unique identifier of the log group to use when auto-associting the log source to eligible
-     * entities.
+     * The unique identifier of the log group to use when auto-associating the log source to
+     * eligible entities.
      *
      * @return the value
      */

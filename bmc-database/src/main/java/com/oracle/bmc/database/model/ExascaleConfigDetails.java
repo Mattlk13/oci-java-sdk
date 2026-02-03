@@ -25,11 +25,22 @@ package com.oracle.bmc.database.model;
 public final class ExascaleConfigDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"totalStorageInGBs", "availableStorageInGBs"})
-    public ExascaleConfigDetails(Integer totalStorageInGBs, Integer availableStorageInGBs) {
+    @java.beans.ConstructorProperties({
+        "totalStorageInGBs",
+        "availableStorageInGBs",
+        "totalVmStorageInGBs",
+        "availableVmStorageInGBs"
+    })
+    public ExascaleConfigDetails(
+            Integer totalStorageInGBs,
+            Integer availableStorageInGBs,
+            Integer totalVmStorageInGBs,
+            Integer availableVmStorageInGBs) {
         super();
         this.totalStorageInGBs = totalStorageInGBs;
         this.availableStorageInGBs = availableStorageInGBs;
+        this.totalVmStorageInGBs = totalVmStorageInGBs;
+        this.availableVmStorageInGBs = availableVmStorageInGBs;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -64,13 +75,47 @@ public final class ExascaleConfigDetails
             this.__explicitlySet__.add("availableStorageInGBs");
             return this;
         }
+        /** Storage size needed for VM storage on Exascale in GBs. */
+        @com.fasterxml.jackson.annotation.JsonProperty("totalVmStorageInGBs")
+        private Integer totalVmStorageInGBs;
+
+        /**
+         * Storage size needed for VM storage on Exascale in GBs.
+         *
+         * @param totalVmStorageInGBs the value to set
+         * @return this builder
+         */
+        public Builder totalVmStorageInGBs(Integer totalVmStorageInGBs) {
+            this.totalVmStorageInGBs = totalVmStorageInGBs;
+            this.__explicitlySet__.add("totalVmStorageInGBs");
+            return this;
+        }
+        /** Available storage size for VM storage on Exascale in GBs. */
+        @com.fasterxml.jackson.annotation.JsonProperty("availableVmStorageInGBs")
+        private Integer availableVmStorageInGBs;
+
+        /**
+         * Available storage size for VM storage on Exascale in GBs.
+         *
+         * @param availableVmStorageInGBs the value to set
+         * @return this builder
+         */
+        public Builder availableVmStorageInGBs(Integer availableVmStorageInGBs) {
+            this.availableVmStorageInGBs = availableVmStorageInGBs;
+            this.__explicitlySet__.add("availableVmStorageInGBs");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public ExascaleConfigDetails build() {
             ExascaleConfigDetails model =
-                    new ExascaleConfigDetails(this.totalStorageInGBs, this.availableStorageInGBs);
+                    new ExascaleConfigDetails(
+                            this.totalStorageInGBs,
+                            this.availableStorageInGBs,
+                            this.totalVmStorageInGBs,
+                            this.availableVmStorageInGBs);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -84,6 +129,12 @@ public final class ExascaleConfigDetails
             }
             if (model.wasPropertyExplicitlySet("availableStorageInGBs")) {
                 this.availableStorageInGBs(model.getAvailableStorageInGBs());
+            }
+            if (model.wasPropertyExplicitlySet("totalVmStorageInGBs")) {
+                this.totalVmStorageInGBs(model.getTotalVmStorageInGBs());
+            }
+            if (model.wasPropertyExplicitlySet("availableVmStorageInGBs")) {
+                this.availableVmStorageInGBs(model.getAvailableVmStorageInGBs());
             }
             return this;
         }
@@ -124,6 +175,32 @@ public final class ExascaleConfigDetails
         return availableStorageInGBs;
     }
 
+    /** Storage size needed for VM storage on Exascale in GBs. */
+    @com.fasterxml.jackson.annotation.JsonProperty("totalVmStorageInGBs")
+    private final Integer totalVmStorageInGBs;
+
+    /**
+     * Storage size needed for VM storage on Exascale in GBs.
+     *
+     * @return the value
+     */
+    public Integer getTotalVmStorageInGBs() {
+        return totalVmStorageInGBs;
+    }
+
+    /** Available storage size for VM storage on Exascale in GBs. */
+    @com.fasterxml.jackson.annotation.JsonProperty("availableVmStorageInGBs")
+    private final Integer availableVmStorageInGBs;
+
+    /**
+     * Available storage size for VM storage on Exascale in GBs.
+     *
+     * @return the value
+     */
+    public Integer getAvailableVmStorageInGBs() {
+        return availableVmStorageInGBs;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -141,6 +218,9 @@ public final class ExascaleConfigDetails
         sb.append("super=").append(super.toString());
         sb.append("totalStorageInGBs=").append(String.valueOf(this.totalStorageInGBs));
         sb.append(", availableStorageInGBs=").append(String.valueOf(this.availableStorageInGBs));
+        sb.append(", totalVmStorageInGBs=").append(String.valueOf(this.totalVmStorageInGBs));
+        sb.append(", availableVmStorageInGBs=")
+                .append(String.valueOf(this.availableVmStorageInGBs));
         sb.append(")");
         return sb.toString();
     }
@@ -157,6 +237,9 @@ public final class ExascaleConfigDetails
         ExascaleConfigDetails other = (ExascaleConfigDetails) o;
         return java.util.Objects.equals(this.totalStorageInGBs, other.totalStorageInGBs)
                 && java.util.Objects.equals(this.availableStorageInGBs, other.availableStorageInGBs)
+                && java.util.Objects.equals(this.totalVmStorageInGBs, other.totalVmStorageInGBs)
+                && java.util.Objects.equals(
+                        this.availableVmStorageInGBs, other.availableVmStorageInGBs)
                 && super.equals(other);
     }
 
@@ -172,6 +255,16 @@ public final class ExascaleConfigDetails
                         + (this.availableStorageInGBs == null
                                 ? 43
                                 : this.availableStorageInGBs.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.totalVmStorageInGBs == null
+                                ? 43
+                                : this.totalVmStorageInGBs.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.availableVmStorageInGBs == null
+                                ? 43
+                                : this.availableVmStorageInGBs.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

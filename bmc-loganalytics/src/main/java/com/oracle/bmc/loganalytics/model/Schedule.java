@@ -32,11 +32,22 @@ package com.oracle.bmc.loganalytics.model;
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
 public class Schedule extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"misfirePolicy", "timeOfFirstExecution"})
-    protected Schedule(MisfirePolicy misfirePolicy, java.util.Date timeOfFirstExecution) {
+    @java.beans.ConstructorProperties({
+        "misfirePolicy",
+        "timeOfFirstExecution",
+        "queryOffsetSecs",
+        "timeEnd"
+    })
+    protected Schedule(
+            MisfirePolicy misfirePolicy,
+            java.util.Date timeOfFirstExecution,
+            Integer queryOffsetSecs,
+            java.util.Date timeEnd) {
         super();
         this.misfirePolicy = misfirePolicy;
         this.timeOfFirstExecution = timeOfFirstExecution;
+        this.queryOffsetSecs = queryOffsetSecs;
+        this.timeEnd = timeEnd;
     }
 
     /** Schedule misfire retry policy. */
@@ -116,6 +127,42 @@ public class Schedule extends com.oracle.bmc.http.client.internal.ExplicitlySetB
         return timeOfFirstExecution;
     }
 
+    /**
+     * Number of seconds to offset the query time window by to accommodate capture late arriving
+     * data. For example, a schedule run at 12:00 with a 10 minute interval and queryOffsetSecs=120
+     * will use the query time window of 11:48-11:58 rather than 11:50-12:00 without
+     * queryOffsetSecs.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("queryOffsetSecs")
+    private final Integer queryOffsetSecs;
+
+    /**
+     * Number of seconds to offset the query time window by to accommodate capture late arriving
+     * data. For example, a schedule run at 12:00 with a 10 minute interval and queryOffsetSecs=120
+     * will use the query time window of 11:48-11:58 rather than 11:50-12:00 without
+     * queryOffsetSecs.
+     *
+     * @return the value
+     */
+    public Integer getQueryOffsetSecs() {
+        return queryOffsetSecs;
+    }
+
+    /**
+     * End time for the schedule, even if the schedule would otherwise have remaining executions.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("timeEnd")
+    private final java.util.Date timeEnd;
+
+    /**
+     * End time for the schedule, even if the schedule would otherwise have remaining executions.
+     *
+     * @return the value
+     */
+    public java.util.Date getTimeEnd() {
+        return timeEnd;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -133,6 +180,8 @@ public class Schedule extends com.oracle.bmc.http.client.internal.ExplicitlySetB
         sb.append("super=").append(super.toString());
         sb.append("misfirePolicy=").append(String.valueOf(this.misfirePolicy));
         sb.append(", timeOfFirstExecution=").append(String.valueOf(this.timeOfFirstExecution));
+        sb.append(", queryOffsetSecs=").append(String.valueOf(this.queryOffsetSecs));
+        sb.append(", timeEnd=").append(String.valueOf(this.timeEnd));
         sb.append(")");
         return sb.toString();
     }
@@ -149,6 +198,8 @@ public class Schedule extends com.oracle.bmc.http.client.internal.ExplicitlySetB
         Schedule other = (Schedule) o;
         return java.util.Objects.equals(this.misfirePolicy, other.misfirePolicy)
                 && java.util.Objects.equals(this.timeOfFirstExecution, other.timeOfFirstExecution)
+                && java.util.Objects.equals(this.queryOffsetSecs, other.queryOffsetSecs)
+                && java.util.Objects.equals(this.timeEnd, other.timeEnd)
                 && super.equals(other);
     }
 
@@ -164,6 +215,10 @@ public class Schedule extends com.oracle.bmc.http.client.internal.ExplicitlySetB
                         + (this.timeOfFirstExecution == null
                                 ? 43
                                 : this.timeOfFirstExecution.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.queryOffsetSecs == null ? 43 : this.queryOffsetSecs.hashCode());
+        result = (result * PRIME) + (this.timeEnd == null ? 43 : this.timeEnd.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -239,12 +239,12 @@ public final class LogAnalyticsSourceLabelCondition
             this.__explicitlySet__.add("contentExample");
             return this;
         }
-        /** A flag inidcating whether or not the condition is enabled. */
+        /** A flag indicating whether or not the condition is enabled. */
         @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
         private Boolean isEnabled;
 
         /**
-         * A flag inidcating whether or not the condition is enabled.
+         * A flag indicating whether or not the condition is enabled.
          *
          * @param isEnabled the value to set
          * @return this builder
@@ -629,12 +629,12 @@ public final class LogAnalyticsSourceLabelCondition
         return contentExample;
     }
 
-    /** A flag inidcating whether or not the condition is enabled. */
+    /** A flag indicating whether or not the condition is enabled. */
     @com.fasterxml.jackson.annotation.JsonProperty("isEnabled")
     private final Boolean isEnabled;
 
     /**
-     * A flag inidcating whether or not the condition is enabled.
+     * A flag indicating whether or not the condition is enabled.
      *
      * @return the value
      */

@@ -559,7 +559,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
     /**
      * Deletes the configured object storage bucket based collection rule and stop the log
      * collection. It will not delete the existing processed data associated with this bucket from
-     * logging analytics storage.
+     * Log Analytics Storage.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -1286,7 +1286,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * This API gets the namespace details of a tenancy already onboarded in Logging Analytics
+     * This API gets the namespace details of a tenancy already onboarded in Log Analytics
      * Application
      *
      * @param request The request object containing the details to send
@@ -1974,7 +1974,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
 
     /**
      * Given a tenancy OCID, this API returns the namespace of the tenancy if it is valid and
-     * subscribed to the region. The result also indicates if the tenancy is onboarded with Logging
+     * subscribed to the region. The result also indicates if the tenancy is onboarded with Log
      * Analytics.
      *
      * @param request The request object containing the details to send
@@ -2492,7 +2492,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Off-boards a tenant from Logging Analytics
+     * Off-boards a tenant from Log Analytics
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -2508,7 +2508,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * On-boards a tenant to Logging Analytics.
+     * On-boards a tenant to Log Analytics.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3027,7 +3027,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Accepts discovery data for processing by Logging Analytics.
+     * Accepts discovery data for processing by Log Analytics.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3043,7 +3043,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Accepts log events for processing by Logging Analytics.
+     * Accepts log events for processing by Log Analytics.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3059,7 +3059,7 @@ public interface LogAnalyticsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Accepts log data for processing by Logging Analytics.
+     * Accepts log data for processing by Log Analytics.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.

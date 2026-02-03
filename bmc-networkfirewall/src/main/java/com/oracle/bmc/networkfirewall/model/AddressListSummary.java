@@ -23,14 +23,25 @@ package com.oracle.bmc.networkfirewall.model;
 public final class AddressListSummary
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"name", "type", "totalAddresses", "parentResourceId"})
+    @java.beans.ConstructorProperties({
+        "name",
+        "type",
+        "totalAddresses",
+        "parentResourceId",
+        "description"
+    })
     public AddressListSummary(
-            String name, AddressListType type, Integer totalAddresses, String parentResourceId) {
+            String name,
+            AddressListType type,
+            Integer totalAddresses,
+            String parentResourceId,
+            String description) {
         super();
         this.name = name;
         this.type = type;
         this.totalAddresses = totalAddresses;
         this.parentResourceId = parentResourceId;
+        this.description = description;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -95,6 +106,21 @@ public final class AddressListSummary
             this.__explicitlySet__.add("parentResourceId");
             return this;
         }
+        /** The description of the address list. This field can be used to add additional info. */
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        /**
+         * The description of the address list. This field can be used to add additional info.
+         *
+         * @param description the value to set
+         * @return this builder
+         */
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -102,7 +128,11 @@ public final class AddressListSummary
         public AddressListSummary build() {
             AddressListSummary model =
                     new AddressListSummary(
-                            this.name, this.type, this.totalAddresses, this.parentResourceId);
+                            this.name,
+                            this.type,
+                            this.totalAddresses,
+                            this.parentResourceId,
+                            this.description);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -122,6 +152,9 @@ public final class AddressListSummary
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             return this;
         }
@@ -188,6 +221,19 @@ public final class AddressListSummary
         return parentResourceId;
     }
 
+    /** The description of the address list. This field can be used to add additional info. */
+    @com.fasterxml.jackson.annotation.JsonProperty("description")
+    private final String description;
+
+    /**
+     * The description of the address list. This field can be used to add additional info.
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -207,6 +253,7 @@ public final class AddressListSummary
         sb.append(", type=").append(String.valueOf(this.type));
         sb.append(", totalAddresses=").append(String.valueOf(this.totalAddresses));
         sb.append(", parentResourceId=").append(String.valueOf(this.parentResourceId));
+        sb.append(", description=").append(String.valueOf(this.description));
         sb.append(")");
         return sb.toString();
     }
@@ -225,6 +272,7 @@ public final class AddressListSummary
                 && java.util.Objects.equals(this.type, other.type)
                 && java.util.Objects.equals(this.totalAddresses, other.totalAddresses)
                 && java.util.Objects.equals(this.parentResourceId, other.parentResourceId)
+                && java.util.Objects.equals(this.description, other.description)
                 && super.equals(other);
     }
 
@@ -240,6 +288,7 @@ public final class AddressListSummary
         result =
                 (result * PRIME)
                         + (this.parentResourceId == null ? 43 : this.parentResourceId.hashCode());
+        result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -63,6 +63,15 @@ public final class VxlanInspectionRuleSummary extends TunnelInspectionRuleSummar
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("condition")
         private VxlanInspectionRuleMatchCriteria condition;
 
@@ -91,6 +100,7 @@ public final class VxlanInspectionRuleSummary extends TunnelInspectionRuleSummar
                             this.action,
                             this.priorityOrder,
                             this.parentResourceId,
+                            this.description,
                             this.condition,
                             this.profile);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -112,6 +122,9 @@ public final class VxlanInspectionRuleSummary extends TunnelInspectionRuleSummar
             }
             if (model.wasPropertyExplicitlySet("parentResourceId")) {
                 this.parentResourceId(model.getParentResourceId());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("condition")) {
                 this.condition(model.getCondition());
@@ -138,9 +151,10 @@ public final class VxlanInspectionRuleSummary extends TunnelInspectionRuleSummar
             InspectActionType action,
             Long priorityOrder,
             String parentResourceId,
+            String description,
             VxlanInspectionRuleMatchCriteria condition,
             VxlanInspectionRuleProfile profile) {
-        super(name, action, priorityOrder, parentResourceId);
+        super(name, action, priorityOrder, parentResourceId, description);
         this.condition = condition;
         this.profile = profile;
     }

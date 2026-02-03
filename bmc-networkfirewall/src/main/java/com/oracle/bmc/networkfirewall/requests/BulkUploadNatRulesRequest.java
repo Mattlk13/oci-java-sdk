@@ -21,10 +21,10 @@ public class BulkUploadNatRulesRequest
     public String getNetworkFirewallPolicyId() {
         return networkFirewallPolicyId;
     }
-    /** Request Details to create the NAT Rule for the Network Firewall Policy Resource. */
+    /** Request details to create the NAT rule for the Network Firewall policy resource. */
     private java.io.InputStream bulkUploadNatRulesDetails;
 
-    /** Request Details to create the NAT Rule for the Network Firewall Policy Resource. */
+    /** Request details to create the NAT rule for the Network Firewall policy resource. */
     public java.io.InputStream getBulkUploadNatRulesDetails() {
         return bulkUploadNatRulesDetails;
     }
@@ -103,11 +103,11 @@ public class BulkUploadNatRulesRequest
             return this;
         }
 
-        /** Request Details to create the NAT Rule for the Network Firewall Policy Resource. */
+        /** Request details to create the NAT rule for the Network Firewall policy resource. */
         private java.io.InputStream bulkUploadNatRulesDetails = null;
 
         /**
-         * Request Details to create the NAT Rule for the Network Firewall Policy Resource.
+         * Request details to create the NAT rule for the Network Firewall policy resource.
          *
          * @param bulkUploadNatRulesDetails the value to set
          * @return this builder instance

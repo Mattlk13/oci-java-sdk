@@ -2536,6 +2536,43 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<CreateAdvancedClusterFileSystemResponse>
+            createAdvancedClusterFileSystem(
+                    CreateAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    CreateAdvancedClusterFileSystemRequest,
+                                    CreateAdvancedClusterFileSystemResponse>
+                            handler) {
+        Objects.requireNonNull(
+                request.getCreateAdvancedClusterFileSystemDetails(),
+                "createAdvancedClusterFileSystemDetails is required");
+
+        return clientCall(request, CreateAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "createAdvancedClusterFileSystem")
+                .serviceDetails("Database", "CreateAdvancedClusterFileSystem", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystem.class,
+                        CreateAdvancedClusterFileSystemResponse.Builder::advancedClusterFileSystem)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        CreateAdvancedClusterFileSystemResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateAdvancedClusterFileSystemResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateAdvancedClusterFileSystemResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateApplicationVipResponse> createApplicationVip(
             CreateApplicationVipRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -4034,6 +4071,42 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
                 .handleResponseHeaderString("etag", DbNodeActionResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", DbNodeActionResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAdvancedClusterFileSystemResponse>
+            deleteAdvancedClusterFileSystem(
+                    DeleteAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteAdvancedClusterFileSystemRequest,
+                                    DeleteAdvancedClusterFileSystemResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getAdvancedClusterFileSystemId(),
+                "advancedClusterFileSystemId must not be blank");
+
+        return clientCall(request, DeleteAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "deleteAdvancedClusterFileSystem")
+                .serviceDetails(
+                        "Database",
+                        "DeleteAdvancedClusterFileSystem",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/AdvancedClusterFileSystem/DeleteAdvancedClusterFileSystem")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendPathParam(request.getAdvancedClusterFileSystemId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DeleteAdvancedClusterFileSystemResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteAdvancedClusterFileSystemResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -6890,6 +6963,43 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<GetAdvancedClusterFileSystemResponse>
+            getAdvancedClusterFileSystem(
+                    GetAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    GetAdvancedClusterFileSystemRequest,
+                                    GetAdvancedClusterFileSystemResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getAdvancedClusterFileSystemId(),
+                "advancedClusterFileSystemId must not be blank");
+
+        return clientCall(request, GetAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "getAdvancedClusterFileSystem")
+                .serviceDetails(
+                        "Database",
+                        "GetAdvancedClusterFileSystem",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/AdvancedClusterFileSystem/GetAdvancedClusterFileSystem")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendPathParam(request.getAdvancedClusterFileSystemId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystem.class,
+                        GetAdvancedClusterFileSystemResponse.Builder::advancedClusterFileSystem)
+                .handleResponseHeaderString(
+                        "etag", GetAdvancedClusterFileSystemResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetAdvancedClusterFileSystemResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<GetApplicationVipResponse> getApplicationVip(
             GetApplicationVipRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -9647,6 +9757,50 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
                 .handleResponseHeaderString("etag", LaunchDbSystemResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", LaunchDbSystemResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAdvancedClusterFileSystemsResponse>
+            listAdvancedClusterFileSystems(
+                    ListAdvancedClusterFileSystemsRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ListAdvancedClusterFileSystemsRequest,
+                                    ListAdvancedClusterFileSystemsResponse>
+                            handler) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        return clientCall(request, ListAdvancedClusterFileSystemsResponse::builder)
+                .logger(LOG, "listAdvancedClusterFileSystems")
+                .serviceDetails(
+                        "Database",
+                        "ListAdvancedClusterFileSystems",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/AdvancedClusterFileSystem/ListAdvancedClusterFileSystems")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAdvancedClusterFileSystemsRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("vmClusterId", request.getVmClusterId())
+                .appendQueryParam("resourceId", request.getResourceId())
+                .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("name", request.getName())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystemCollection.class,
+                        ListAdvancedClusterFileSystemsResponse.Builder
+                                ::advancedClusterFileSystemCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListAdvancedClusterFileSystemsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListAdvancedClusterFileSystemsResponse.Builder::opcNextPage)
                 .callAsync(handler);
     }
 
@@ -13483,6 +13637,50 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<MountAdvancedClusterFileSystemResponse>
+            mountAdvancedClusterFileSystem(
+                    MountAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    MountAdvancedClusterFileSystemRequest,
+                                    MountAdvancedClusterFileSystemResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getAdvancedClusterFileSystemId(),
+                "advancedClusterFileSystemId must not be blank");
+
+        return clientCall(request, MountAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "mountAdvancedClusterFileSystem")
+                .serviceDetails(
+                        "Database",
+                        "MountAdvancedClusterFileSystem",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/AdvancedClusterFileSystem/MountAdvancedClusterFileSystem")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(MountAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendPathParam(request.getAdvancedClusterFileSystemId())
+                .appendPathParam("actions")
+                .appendPathParam("mount")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystem.class,
+                        MountAdvancedClusterFileSystemResponse.Builder::advancedClusterFileSystem)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        MountAdvancedClusterFileSystemResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        MountAdvancedClusterFileSystemResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", MountAdvancedClusterFileSystemResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<MountDbnodeSnapshotResponse> mountDbnodeSnapshot(
             MountDbnodeSnapshotRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -15611,6 +15809,50 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<UnmountAdvancedClusterFileSystemResponse>
+            unmountAdvancedClusterFileSystem(
+                    UnmountAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    UnmountAdvancedClusterFileSystemRequest,
+                                    UnmountAdvancedClusterFileSystemResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getAdvancedClusterFileSystemId(),
+                "advancedClusterFileSystemId must not be blank");
+
+        return clientCall(request, UnmountAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "unmountAdvancedClusterFileSystem")
+                .serviceDetails(
+                        "Database",
+                        "UnmountAdvancedClusterFileSystem",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/AdvancedClusterFileSystem/UnmountAdvancedClusterFileSystem")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(UnmountAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendPathParam(request.getAdvancedClusterFileSystemId())
+                .appendPathParam("actions")
+                .appendPathParam("unmount")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystem.class,
+                        UnmountAdvancedClusterFileSystemResponse.Builder::advancedClusterFileSystem)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        UnmountAdvancedClusterFileSystemResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UnmountAdvancedClusterFileSystemResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", UnmountAdvancedClusterFileSystemResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<UnmountDbnodeSnapshotResponse> unmountDbnodeSnapshot(
             UnmountDbnodeSnapshotRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -15733,6 +15975,48 @@ public class DatabaseAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
                 .handleResponseHeaderString(
                         "opc-request-id",
                         UnregisterCloudVmClusterPkcsResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAdvancedClusterFileSystemResponse>
+            updateAdvancedClusterFileSystem(
+                    UpdateAdvancedClusterFileSystemRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    UpdateAdvancedClusterFileSystemRequest,
+                                    UpdateAdvancedClusterFileSystemResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getAdvancedClusterFileSystemId(),
+                "advancedClusterFileSystemId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateAdvancedClusterFileSystemDetails(),
+                "updateAdvancedClusterFileSystemDetails is required");
+
+        return clientCall(request, UpdateAdvancedClusterFileSystemResponse::builder)
+                .logger(LOG, "updateAdvancedClusterFileSystem")
+                .serviceDetails("Database", "UpdateAdvancedClusterFileSystem", "")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateAdvancedClusterFileSystemRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("advancedClusterFileSystems")
+                .appendPathParam(request.getAdvancedClusterFileSystemId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.database.model.AdvancedClusterFileSystem.class,
+                        UpdateAdvancedClusterFileSystemResponse.Builder::advancedClusterFileSystem)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        UpdateAdvancedClusterFileSystemResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "etag", UpdateAdvancedClusterFileSystemResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateAdvancedClusterFileSystemResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

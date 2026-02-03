@@ -27,6 +27,14 @@ package com.oracle.bmc.networkfirewall.model;
 public final class UpdateSslForwardProxyProfileDetails extends UpdateDecryptionProfileDetails {
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** Whether to block sessions if server's certificate is expired. */
         @com.fasterxml.jackson.annotation.JsonProperty("isExpiredCertificateBlocked")
         private Boolean isExpiredCertificateBlocked;
@@ -192,6 +200,7 @@ public final class UpdateSslForwardProxyProfileDetails extends UpdateDecryptionP
         public UpdateSslForwardProxyProfileDetails build() {
             UpdateSslForwardProxyProfileDetails model =
                     new UpdateSslForwardProxyProfileDetails(
+                            this.description,
                             this.isExpiredCertificateBlocked,
                             this.isUntrustedIssuerBlocked,
                             this.isRevocationStatusTimeoutBlocked,
@@ -209,6 +218,9 @@ public final class UpdateSslForwardProxyProfileDetails extends UpdateDecryptionP
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         public Builder copy(UpdateSslForwardProxyProfileDetails model) {
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
+            }
             if (model.wasPropertyExplicitlySet("isExpiredCertificateBlocked")) {
                 this.isExpiredCertificateBlocked(model.getIsExpiredCertificateBlocked());
             }
@@ -252,6 +264,7 @@ public final class UpdateSslForwardProxyProfileDetails extends UpdateDecryptionP
 
     @Deprecated
     public UpdateSslForwardProxyProfileDetails(
+            String description,
             Boolean isExpiredCertificateBlocked,
             Boolean isUntrustedIssuerBlocked,
             Boolean isRevocationStatusTimeoutBlocked,
@@ -261,7 +274,7 @@ public final class UpdateSslForwardProxyProfileDetails extends UpdateDecryptionP
             Boolean areCertificateExtensionsRestricted,
             Boolean isAutoIncludeAltName,
             Boolean isOutOfCapacityBlocked) {
-        super();
+        super(description);
         this.isExpiredCertificateBlocked = isExpiredCertificateBlocked;
         this.isUntrustedIssuerBlocked = isUntrustedIssuerBlocked;
         this.isRevocationStatusTimeoutBlocked = isRevocationStatusTimeoutBlocked;

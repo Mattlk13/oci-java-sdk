@@ -129,7 +129,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CancelBatchJobResponse::builder)
                 .logger(LOG, "cancelBatchJob")
-                .serviceDetails("BatchComputing", "CancelBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CancelBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/CancelBatchJob")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(CancelBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -157,7 +160,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ChangeBatchContextCompartmentResponse::builder)
                 .logger(LOG, "changeBatchContextCompartment")
-                .serviceDetails("BatchComputing", "ChangeBatchContextCompartment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ChangeBatchContextCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/ChangeBatchContextCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangeBatchContextCompartmentRequest::builder)
                 .basePath("/20251031")
@@ -190,7 +196,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ChangeBatchJobCompartmentResponse::builder)
                 .logger(LOG, "changeBatchJobCompartment")
-                .serviceDetails("BatchComputing", "ChangeBatchJobCompartment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ChangeBatchJobCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/ChangeBatchJobCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangeBatchJobCompartmentRequest::builder)
                 .basePath("/20251031")
@@ -222,7 +231,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ChangeBatchJobPoolCompartmentResponse::builder)
                 .logger(LOG, "changeBatchJobPoolCompartment")
-                .serviceDetails("BatchComputing", "ChangeBatchJobPoolCompartment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ChangeBatchJobPoolCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/ChangeBatchJobPoolCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangeBatchJobPoolCompartmentRequest::builder)
                 .basePath("/20251031")
@@ -256,7 +268,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ChangeBatchTaskEnvironmentCompartmentResponse::builder)
                 .logger(LOG, "changeBatchTaskEnvironmentCompartment")
-                .serviceDetails("BatchComputing", "ChangeBatchTaskEnvironmentCompartment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ChangeBatchTaskEnvironmentCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironment/ChangeBatchTaskEnvironmentCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangeBatchTaskEnvironmentCompartmentRequest::builder)
                 .basePath("/20251031")
@@ -289,7 +304,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ChangeBatchTaskProfileCompartmentResponse::builder)
                 .logger(LOG, "changeBatchTaskProfileCompartment")
-                .serviceDetails("BatchComputing", "ChangeBatchTaskProfileCompartment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ChangeBatchTaskProfileCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfile/ChangeBatchTaskProfileCompartment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(ChangeBatchTaskProfileCompartmentRequest::builder)
                 .basePath("/20251031")
@@ -318,7 +336,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CreateBatchContextResponse::builder)
                 .logger(LOG, "createBatchContext")
-                .serviceDetails("BatchComputing", "CreateBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CreateBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/CreateBatchContext")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -350,7 +371,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CreateBatchJobResponse::builder)
                 .logger(LOG, "createBatchJob")
-                .serviceDetails("BatchComputing", "CreateBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CreateBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/CreateBatchJob")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -381,7 +405,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CreateBatchJobPoolResponse::builder)
                 .logger(LOG, "createBatchJobPool")
-                .serviceDetails("BatchComputing", "CreateBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CreateBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/CreateBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -409,7 +436,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CreateBatchTaskEnvironmentResponse::builder)
                 .logger(LOG, "createBatchTaskEnvironment")
-                .serviceDetails("BatchComputing", "CreateBatchTaskEnvironment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CreateBatchTaskEnvironment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironment/CreateBatchTaskEnvironment")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateBatchTaskEnvironmentRequest::builder)
                 .basePath("/20251031")
@@ -438,7 +468,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, CreateBatchTaskProfileResponse::builder)
                 .logger(LOG, "createBatchTaskProfile")
-                .serviceDetails("BatchComputing", "CreateBatchTaskProfile", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "CreateBatchTaskProfile",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfile/CreateBatchTaskProfile")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(CreateBatchTaskProfileRequest::builder)
                 .basePath("/20251031")
@@ -464,7 +497,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, DeleteBatchContextResponse::builder)
                 .logger(LOG, "deleteBatchContext")
-                .serviceDetails("BatchComputing", "DeleteBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "DeleteBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/DeleteBatchContext")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeleteBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -488,7 +524,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, DeleteBatchJobPoolResponse::builder)
                 .logger(LOG, "deleteBatchJobPool")
-                .serviceDetails("BatchComputing", "DeleteBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "DeleteBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/DeleteBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeleteBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -512,7 +551,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, DeleteBatchTaskEnvironmentResponse::builder)
                 .logger(LOG, "deleteBatchTaskEnvironment")
-                .serviceDetails("BatchComputing", "DeleteBatchTaskEnvironment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "DeleteBatchTaskEnvironment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironment/DeleteBatchTaskEnvironment")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeleteBatchTaskEnvironmentRequest::builder)
                 .basePath("/20251031")
@@ -535,7 +577,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, DeleteBatchTaskProfileResponse::builder)
                 .logger(LOG, "deleteBatchTaskProfile")
-                .serviceDetails("BatchComputing", "DeleteBatchTaskProfile", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "DeleteBatchTaskProfile",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfile/DeleteBatchTaskProfile")
                 .method(com.oracle.bmc.http.client.Method.DELETE)
                 .requestBuilder(DeleteBatchTaskProfileRequest::builder)
                 .basePath("/20251031")
@@ -557,7 +602,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchContextResponse::builder)
                 .logger(LOG, "getBatchContext")
-                .serviceDetails("BatchComputing", "GetBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/GetBatchContext")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -582,7 +630,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchJobResponse::builder)
                 .logger(LOG, "getBatchJob")
-                .serviceDetails("BatchComputing", "GetBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/GetBatchJob")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -607,7 +658,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchJobPoolResponse::builder)
                 .logger(LOG, "getBatchJobPool")
-                .serviceDetails("BatchComputing", "GetBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/GetBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -634,7 +688,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchTaskResponse::builder)
                 .logger(LOG, "getBatchTask")
-                .serviceDetails("BatchComputing", "GetBatchTask", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchTask",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTask/GetBatchTask")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchTaskRequest::builder)
                 .basePath("/20251031")
@@ -662,7 +719,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchTaskEnvironmentResponse::builder)
                 .logger(LOG, "getBatchTaskEnvironment")
-                .serviceDetails("BatchComputing", "GetBatchTaskEnvironment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchTaskEnvironment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironment/GetBatchTaskEnvironment")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchTaskEnvironmentRequest::builder)
                 .basePath("/20251031")
@@ -687,7 +747,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetBatchTaskProfileResponse::builder)
                 .logger(LOG, "getBatchTaskProfile")
-                .serviceDetails("BatchComputing", "GetBatchTaskProfile", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetBatchTaskProfile",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfile/GetBatchTaskProfile")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetBatchTaskProfileRequest::builder)
                 .basePath("/20251031")
@@ -712,7 +775,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, GetWorkRequestResponse::builder)
                 .logger(LOG, "getWorkRequest")
-                .serviceDetails("BatchComputing", "GetWorkRequest", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "GetWorkRequest",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/WorkRequest/GetWorkRequest")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(GetWorkRequestRequest::builder)
                 .basePath("/20251031")
@@ -739,7 +805,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchContextShapesResponse::builder)
                 .logger(LOG, "listBatchContextShapes")
-                .serviceDetails("BatchComputing", "ListBatchContextShapes", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchContextShapes",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContextShapeCollection/ListBatchContextShapes")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchContextShapesRequest::builder)
                 .basePath("/20251031")
@@ -766,7 +835,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchContextsResponse::builder)
                 .logger(LOG, "listBatchContexts")
-                .serviceDetails("BatchComputing", "ListBatchContexts", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchContexts",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContextCollection/ListBatchContexts")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchContextsRequest::builder)
                 .basePath("/20251031")
@@ -797,7 +869,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchJobPoolsResponse::builder)
                 .logger(LOG, "listBatchJobPools")
-                .serviceDetails("BatchComputing", "ListBatchJobPools", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchJobPools",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPoolCollection/ListBatchJobPools")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchJobPoolsRequest::builder)
                 .basePath("/20251031")
@@ -831,7 +906,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchJobTasksResponse::builder)
                 .logger(LOG, "listBatchJobTasks")
-                .serviceDetails("BatchComputing", "ListBatchJobTasks", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchJobTasks",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskCollection/ListBatchJobTasks")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchJobTasksRequest::builder)
                 .basePath("/20251031")
@@ -862,7 +940,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchJobsResponse::builder)
                 .logger(LOG, "listBatchJobs")
-                .serviceDetails("BatchComputing", "ListBatchJobs", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchJobs",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobCollection/ListBatchJobs")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchJobsRequest::builder)
                 .basePath("/20251031")
@@ -895,7 +976,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchTaskEnvironmentsResponse::builder)
                 .logger(LOG, "listBatchTaskEnvironments")
-                .serviceDetails("BatchComputing", "ListBatchTaskEnvironments", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchTaskEnvironments",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironmentCollection/ListBatchTaskEnvironments")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchTaskEnvironmentsRequest::builder)
                 .basePath("/20251031")
@@ -927,7 +1011,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchTaskProfilesResponse::builder)
                 .logger(LOG, "listBatchTaskProfiles")
-                .serviceDetails("BatchComputing", "ListBatchTaskProfiles", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchTaskProfiles",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfileCollection/ListBatchTaskProfiles")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchTaskProfilesRequest::builder)
                 .basePath("/20251031")
@@ -958,7 +1045,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListBatchTasksResponse::builder)
                 .logger(LOG, "listBatchTasks")
-                .serviceDetails("BatchComputing", "ListBatchTasks", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListBatchTasks",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskCollection/ListBatchTasks")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListBatchTasksRequest::builder)
                 .basePath("/20251031")
@@ -993,7 +1083,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListWorkRequestErrorsResponse::builder)
                 .logger(LOG, "listWorkRequestErrors")
-                .serviceDetails("BatchComputing", "ListWorkRequestErrors", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListWorkRequestErrors",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/WorkRequestError/ListWorkRequestErrors")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListWorkRequestErrorsRequest::builder)
                 .basePath("/20251031")
@@ -1024,7 +1117,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListWorkRequestLogsResponse::builder)
                 .logger(LOG, "listWorkRequestLogs")
-                .serviceDetails("BatchComputing", "ListWorkRequestLogs", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListWorkRequestLogs",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/WorkRequestLogEntry/ListWorkRequestLogs")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListWorkRequestLogsRequest::builder)
                 .basePath("/20251031")
@@ -1053,7 +1149,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, ListWorkRequestsResponse::builder)
                 .logger(LOG, "listWorkRequests")
-                .serviceDetails("BatchComputing", "ListWorkRequests", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "ListWorkRequests",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/WorkRequest/ListWorkRequests")
                 .method(com.oracle.bmc.http.client.Method.GET)
                 .requestBuilder(ListWorkRequestsRequest::builder)
                 .basePath("/20251031")
@@ -1088,7 +1187,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, PauseBatchJobResponse::builder)
                 .logger(LOG, "pauseBatchJob")
-                .serviceDetails("BatchComputing", "PauseBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "PauseBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/PauseBatchJob")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(PauseBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -1117,7 +1219,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, StartBatchContextResponse::builder)
                 .logger(LOG, "startBatchContext")
-                .serviceDetails("BatchComputing", "StartBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "StartBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/StartBatchContext")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(StartBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -1146,7 +1251,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, StartBatchJobPoolResponse::builder)
                 .logger(LOG, "startBatchJobPool")
-                .serviceDetails("BatchComputing", "StartBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "StartBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/StartBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(StartBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -1175,7 +1283,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, StopBatchContextResponse::builder)
                 .logger(LOG, "stopBatchContext")
-                .serviceDetails("BatchComputing", "StopBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "StopBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/StopBatchContext")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(StopBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -1204,7 +1315,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, StopBatchJobPoolResponse::builder)
                 .logger(LOG, "stopBatchJobPool")
-                .serviceDetails("BatchComputing", "StopBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "StopBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/StopBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(StopBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -1233,7 +1347,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UnpauseBatchJobResponse::builder)
                 .logger(LOG, "unpauseBatchJob")
-                .serviceDetails("BatchComputing", "UnpauseBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UnpauseBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/UnpauseBatchJob")
                 .method(com.oracle.bmc.http.client.Method.POST)
                 .requestBuilder(UnpauseBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -1262,7 +1379,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UpdateBatchContextResponse::builder)
                 .logger(LOG, "updateBatchContext")
-                .serviceDetails("BatchComputing", "UpdateBatchContext", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UpdateBatchContext",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchContext/UpdateBatchContext")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateBatchContextRequest::builder)
                 .basePath("/20251031")
@@ -1289,7 +1409,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UpdateBatchJobResponse::builder)
                 .logger(LOG, "updateBatchJob")
-                .serviceDetails("BatchComputing", "UpdateBatchJob", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UpdateBatchJob",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJob/UpdateBatchJob")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateBatchJobRequest::builder)
                 .basePath("/20251031")
@@ -1316,7 +1439,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UpdateBatchJobPoolResponse::builder)
                 .logger(LOG, "updateBatchJobPool")
-                .serviceDetails("BatchComputing", "UpdateBatchJobPool", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UpdateBatchJobPool",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchJobPool/UpdateBatchJobPool")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateBatchJobPoolRequest::builder)
                 .basePath("/20251031")
@@ -1346,7 +1472,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UpdateBatchTaskEnvironmentResponse::builder)
                 .logger(LOG, "updateBatchTaskEnvironment")
-                .serviceDetails("BatchComputing", "UpdateBatchTaskEnvironment", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UpdateBatchTaskEnvironment",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskEnvironment/UpdateBatchTaskEnvironment")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateBatchTaskEnvironmentRequest::builder)
                 .basePath("/20251031")
@@ -1378,7 +1507,10 @@ public class BatchComputingClient extends com.oracle.bmc.http.internal.BaseSyncC
 
         return clientCall(request, UpdateBatchTaskProfileResponse::builder)
                 .logger(LOG, "updateBatchTaskProfile")
-                .serviceDetails("BatchComputing", "UpdateBatchTaskProfile", "")
+                .serviceDetails(
+                        "BatchComputing",
+                        "UpdateBatchTaskProfile",
+                        "https://docs.oracle.com/iaas/api/#/en/batch/20251031/BatchTaskProfile/UpdateBatchTaskProfile")
                 .method(com.oracle.bmc.http.client.Method.PUT)
                 .requestBuilder(UpdateBatchTaskProfileRequest::builder)
                 .basePath("/20251031")

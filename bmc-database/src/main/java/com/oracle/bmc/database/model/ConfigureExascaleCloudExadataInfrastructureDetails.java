@@ -23,10 +23,12 @@ package com.oracle.bmc.database.model;
 public final class ConfigureExascaleCloudExadataInfrastructureDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"totalStorageInGBs"})
-    public ConfigureExascaleCloudExadataInfrastructureDetails(Integer totalStorageInGBs) {
+    @java.beans.ConstructorProperties({"totalStorageInGBs", "totalVmStorageInGBs"})
+    public ConfigureExascaleCloudExadataInfrastructureDetails(
+            Integer totalStorageInGBs, Integer totalVmStorageInGBs) {
         super();
         this.totalStorageInGBs = totalStorageInGBs;
+        this.totalVmStorageInGBs = totalVmStorageInGBs;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -46,13 +48,29 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
             this.__explicitlySet__.add("totalStorageInGBs");
             return this;
         }
+        /** Storage size needed for VM storage on Exascale in GBs. */
+        @com.fasterxml.jackson.annotation.JsonProperty("totalVmStorageInGBs")
+        private Integer totalVmStorageInGBs;
+
+        /**
+         * Storage size needed for VM storage on Exascale in GBs.
+         *
+         * @param totalVmStorageInGBs the value to set
+         * @return this builder
+         */
+        public Builder totalVmStorageInGBs(Integer totalVmStorageInGBs) {
+            this.totalVmStorageInGBs = totalVmStorageInGBs;
+            this.__explicitlySet__.add("totalVmStorageInGBs");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public ConfigureExascaleCloudExadataInfrastructureDetails build() {
             ConfigureExascaleCloudExadataInfrastructureDetails model =
-                    new ConfigureExascaleCloudExadataInfrastructureDetails(this.totalStorageInGBs);
+                    new ConfigureExascaleCloudExadataInfrastructureDetails(
+                            this.totalStorageInGBs, this.totalVmStorageInGBs);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -63,6 +81,9 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
         public Builder copy(ConfigureExascaleCloudExadataInfrastructureDetails model) {
             if (model.wasPropertyExplicitlySet("totalStorageInGBs")) {
                 this.totalStorageInGBs(model.getTotalStorageInGBs());
+            }
+            if (model.wasPropertyExplicitlySet("totalVmStorageInGBs")) {
+                this.totalVmStorageInGBs(model.getTotalVmStorageInGBs());
             }
             return this;
         }
@@ -90,6 +111,19 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
         return totalStorageInGBs;
     }
 
+    /** Storage size needed for VM storage on Exascale in GBs. */
+    @com.fasterxml.jackson.annotation.JsonProperty("totalVmStorageInGBs")
+    private final Integer totalVmStorageInGBs;
+
+    /**
+     * Storage size needed for VM storage on Exascale in GBs.
+     *
+     * @return the value
+     */
+    public Integer getTotalVmStorageInGBs() {
+        return totalVmStorageInGBs;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -106,6 +140,7 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
         sb.append("ConfigureExascaleCloudExadataInfrastructureDetails(");
         sb.append("super=").append(super.toString());
         sb.append("totalStorageInGBs=").append(String.valueOf(this.totalStorageInGBs));
+        sb.append(", totalVmStorageInGBs=").append(String.valueOf(this.totalVmStorageInGBs));
         sb.append(")");
         return sb.toString();
     }
@@ -122,6 +157,7 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
         ConfigureExascaleCloudExadataInfrastructureDetails other =
                 (ConfigureExascaleCloudExadataInfrastructureDetails) o;
         return java.util.Objects.equals(this.totalStorageInGBs, other.totalStorageInGBs)
+                && java.util.Objects.equals(this.totalVmStorageInGBs, other.totalVmStorageInGBs)
                 && super.equals(other);
     }
 
@@ -132,6 +168,11 @@ public final class ConfigureExascaleCloudExadataInfrastructureDetails
         result =
                 (result * PRIME)
                         + (this.totalStorageInGBs == null ? 43 : this.totalStorageInGBs.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.totalVmStorageInGBs == null
+                                ? 43
+                                : this.totalVmStorageInGBs.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

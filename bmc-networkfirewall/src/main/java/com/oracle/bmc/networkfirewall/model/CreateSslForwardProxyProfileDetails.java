@@ -35,6 +35,15 @@ public final class CreateSslForwardProxyProfileDetails extends CreateDecryptionP
             this.__explicitlySet__.add("name");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** Whether to block sessions if server's certificate is expired. */
         @com.fasterxml.jackson.annotation.JsonProperty("isExpiredCertificateBlocked")
         private Boolean isExpiredCertificateBlocked;
@@ -201,6 +210,7 @@ public final class CreateSslForwardProxyProfileDetails extends CreateDecryptionP
             CreateSslForwardProxyProfileDetails model =
                     new CreateSslForwardProxyProfileDetails(
                             this.name,
+                            this.description,
                             this.isExpiredCertificateBlocked,
                             this.isUntrustedIssuerBlocked,
                             this.isRevocationStatusTimeoutBlocked,
@@ -220,6 +230,9 @@ public final class CreateSslForwardProxyProfileDetails extends CreateDecryptionP
         public Builder copy(CreateSslForwardProxyProfileDetails model) {
             if (model.wasPropertyExplicitlySet("name")) {
                 this.name(model.getName());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("isExpiredCertificateBlocked")) {
                 this.isExpiredCertificateBlocked(model.getIsExpiredCertificateBlocked());
@@ -265,6 +278,7 @@ public final class CreateSslForwardProxyProfileDetails extends CreateDecryptionP
     @Deprecated
     public CreateSslForwardProxyProfileDetails(
             String name,
+            String description,
             Boolean isExpiredCertificateBlocked,
             Boolean isUntrustedIssuerBlocked,
             Boolean isRevocationStatusTimeoutBlocked,
@@ -274,7 +288,7 @@ public final class CreateSslForwardProxyProfileDetails extends CreateDecryptionP
             Boolean areCertificateExtensionsRestricted,
             Boolean isAutoIncludeAltName,
             Boolean isOutOfCapacityBlocked) {
-        super(name);
+        super(name, description);
         this.isExpiredCertificateBlocked = isExpiredCertificateBlocked;
         this.isUntrustedIssuerBlocked = isUntrustedIssuerBlocked;
         this.isRevocationStatusTimeoutBlocked = isRevocationStatusTimeoutBlocked;

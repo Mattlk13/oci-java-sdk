@@ -177,7 +177,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Creates a new NAT Rule at bulk for the Network Firewall Policy.
+     * Creates a new [NAT
+     * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * at bulk for the Network Firewall policy.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -442,7 +444,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Creates a new NAT Rule for the Network Firewall Policy.
+     * Creates a new [NAT
+     * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * for the Network Firewall policy.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -663,7 +667,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Deletes a NAT Rule resource with the given identifier.
+     * Deletes a [NAT
+     * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * resource with the given identifier.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -881,7 +887,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Get NAT Rule by the given name in the context of network firewall policy.
+     * Get a [NAT
+     * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * by the given name in the context of Network Firewall policy.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -1110,7 +1118,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Returns a list of NAT Rules for the Network Firewall Policy.
+     * Returns a list of [NAT
+     * rules](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * for the Network Firewall policy.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -1395,7 +1405,9 @@ public interface NetworkFirewallAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Updates the NAT Rule with the given name in the network firewall policy.
+     * Updates the [NAT
+     * rule](https://docs.oracle.com/iaas/Content/network-firewall/policies.htm#network-firewall-policies__nat)
+     * with the given name in the Network Firewall policy.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.

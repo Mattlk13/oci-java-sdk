@@ -27,6 +27,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
         "id",
         "faultDomain",
         "hpcIslandId",
+        "hostCorrelationId",
         "computeHostGroupId",
         "configurationState",
         "timeConfigurationCheck",
@@ -57,6 +58,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
             String id,
             String faultDomain,
             String hpcIslandId,
+            String hostCorrelationId,
             String computeHostGroupId,
             ConfigurationState configurationState,
             java.util.Date timeConfigurationCheck,
@@ -86,6 +88,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
         this.id = id;
         this.faultDomain = faultDomain;
         this.hpcIslandId = hpcIslandId;
+        this.hostCorrelationId = hostCorrelationId;
         this.computeHostGroupId = computeHostGroupId;
         this.configurationState = configurationState;
         this.timeConfigurationCheck = timeConfigurationCheck;
@@ -218,6 +221,25 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
         public Builder hpcIslandId(String hpcIslandId) {
             this.hpcIslandId = hpcIslandId;
             this.__explicitlySet__.add("hpcIslandId");
+            return this;
+        }
+        /**
+         * The ID that remains consistent when a host moves between capacity pools within the same
+         * tenancy.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("hostCorrelationId")
+        private String hostCorrelationId;
+
+        /**
+         * The ID that remains consistent when a host moves between capacity pools within the same
+         * tenancy.
+         *
+         * @param hostCorrelationId the value to set
+         * @return this builder
+         */
+        public Builder hostCorrelationId(String hostCorrelationId) {
+            this.hostCorrelationId = hostCorrelationId;
+            this.__explicitlySet__.add("hostCorrelationId");
             return this;
         }
         /**
@@ -653,6 +675,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
                             this.id,
                             this.faultDomain,
                             this.hpcIslandId,
+                            this.hostCorrelationId,
                             this.computeHostGroupId,
                             this.configurationState,
                             this.timeConfigurationCheck,
@@ -698,6 +721,9 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("hpcIslandId")) {
                 this.hpcIslandId(model.getHpcIslandId());
+            }
+            if (model.wasPropertyExplicitlySet("hostCorrelationId")) {
+                this.hostCorrelationId(model.getHostCorrelationId());
             }
             if (model.wasPropertyExplicitlySet("computeHostGroupId")) {
                 this.computeHostGroupId(model.getComputeHostGroupId());
@@ -876,6 +902,23 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
      */
     public String getHpcIslandId() {
         return hpcIslandId;
+    }
+
+    /**
+     * The ID that remains consistent when a host moves between capacity pools within the same
+     * tenancy.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("hostCorrelationId")
+    private final String hostCorrelationId;
+
+    /**
+     * The ID that remains consistent when a host moves between capacity pools within the same
+     * tenancy.
+     *
+     * @return the value
+     */
+    public String getHostCorrelationId() {
+        return hostCorrelationId;
     }
 
     /**
@@ -1365,6 +1408,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", id=").append(String.valueOf(this.id));
         sb.append(", faultDomain=").append(String.valueOf(this.faultDomain));
         sb.append(", hpcIslandId=").append(String.valueOf(this.hpcIslandId));
+        sb.append(", hostCorrelationId=").append(String.valueOf(this.hostCorrelationId));
         sb.append(", computeHostGroupId=").append(String.valueOf(this.computeHostGroupId));
         sb.append(", configurationState=").append(String.valueOf(this.configurationState));
         sb.append(", timeConfigurationCheck=").append(String.valueOf(this.timeConfigurationCheck));
@@ -1408,6 +1452,7 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.id, other.id)
                 && java.util.Objects.equals(this.faultDomain, other.faultDomain)
                 && java.util.Objects.equals(this.hpcIslandId, other.hpcIslandId)
+                && java.util.Objects.equals(this.hostCorrelationId, other.hostCorrelationId)
                 && java.util.Objects.equals(this.computeHostGroupId, other.computeHostGroupId)
                 && java.util.Objects.equals(this.configurationState, other.configurationState)
                 && java.util.Objects.equals(
@@ -1451,6 +1496,9 @@ public final class ComputeHost extends com.oracle.bmc.http.client.internal.Expli
         result = (result * PRIME) + (this.id == null ? 43 : this.id.hashCode());
         result = (result * PRIME) + (this.faultDomain == null ? 43 : this.faultDomain.hashCode());
         result = (result * PRIME) + (this.hpcIslandId == null ? 43 : this.hpcIslandId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.hostCorrelationId == null ? 43 : this.hostCorrelationId.hashCode());
         result =
                 (result * PRIME)
                         + (this.computeHostGroupId == null

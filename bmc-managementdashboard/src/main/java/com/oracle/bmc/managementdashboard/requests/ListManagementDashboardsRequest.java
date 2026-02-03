@@ -116,6 +116,19 @@ public class ListManagementDashboardsRequest
     public SortBy getSortBy() {
         return sortBy;
     }
+    /**
+     * This parameter applies only when compartmentId is root compartment. When set to true, all
+     * accessible resources will be returned. Default is false.
+     */
+    private String compartmentIdInSubtree;
+
+    /**
+     * This parameter applies only when compartmentId is root compartment. When set to true, all
+     * accessible resources will be returned. Default is false.
+     */
+    public String getCompartmentIdInSubtree() {
+        return compartmentIdInSubtree;
+    }
 
     public static class Builder
             implements com.oracle.bmc.requests.BmcRequest.Builder<
@@ -232,6 +245,24 @@ public class ListManagementDashboardsRequest
         }
 
         /**
+         * This parameter applies only when compartmentId is root compartment. When set to true, all
+         * accessible resources will be returned. Default is false.
+         */
+        private String compartmentIdInSubtree = null;
+
+        /**
+         * This parameter applies only when compartmentId is root compartment. When set to true, all
+         * accessible resources will be returned. Default is false.
+         *
+         * @param compartmentIdInSubtree the value to set
+         * @return this builder instance
+         */
+        public Builder compartmentIdInSubtree(String compartmentIdInSubtree) {
+            this.compartmentIdInSubtree = compartmentIdInSubtree;
+            return this;
+        }
+
+        /**
          * Set the invocation callback for the request to be built.
          *
          * @param invocationCallback the invocation callback to be set for the request
@@ -268,6 +299,7 @@ public class ListManagementDashboardsRequest
             page(o.getPage());
             sortOrder(o.getSortOrder());
             sortBy(o.getSortBy());
+            compartmentIdInSubtree(o.getCompartmentIdInSubtree());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;
@@ -309,9 +341,10 @@ public class ListManagementDashboardsRequest
             request.page = page;
             request.sortOrder = sortOrder;
             request.sortBy = sortBy;
+            request.compartmentIdInSubtree = compartmentIdInSubtree;
             return request;
             // new ListManagementDashboardsRequest(compartmentId, displayName, opcRequestId, limit,
-            // page, sortOrder, sortBy);
+            // page, sortOrder, sortBy, compartmentIdInSubtree);
         }
     }
 
@@ -328,7 +361,8 @@ public class ListManagementDashboardsRequest
                 .limit(limit)
                 .page(page)
                 .sortOrder(sortOrder)
-                .sortBy(sortBy);
+                .sortBy(sortBy)
+                .compartmentIdInSubtree(compartmentIdInSubtree);
     }
 
     /**
@@ -352,6 +386,7 @@ public class ListManagementDashboardsRequest
         sb.append(",page=").append(String.valueOf(this.page));
         sb.append(",sortOrder=").append(String.valueOf(this.sortOrder));
         sb.append(",sortBy=").append(String.valueOf(this.sortBy));
+        sb.append(",compartmentIdInSubtree=").append(String.valueOf(this.compartmentIdInSubtree));
         sb.append(")");
         return sb.toString();
     }
@@ -373,7 +408,9 @@ public class ListManagementDashboardsRequest
                 && java.util.Objects.equals(this.limit, other.limit)
                 && java.util.Objects.equals(this.page, other.page)
                 && java.util.Objects.equals(this.sortOrder, other.sortOrder)
-                && java.util.Objects.equals(this.sortBy, other.sortBy);
+                && java.util.Objects.equals(this.sortBy, other.sortBy)
+                && java.util.Objects.equals(
+                        this.compartmentIdInSubtree, other.compartmentIdInSubtree);
     }
 
     @Override
@@ -389,6 +426,11 @@ public class ListManagementDashboardsRequest
         result = (result * PRIME) + (this.page == null ? 43 : this.page.hashCode());
         result = (result * PRIME) + (this.sortOrder == null ? 43 : this.sortOrder.hashCode());
         result = (result * PRIME) + (this.sortBy == null ? 43 : this.sortBy.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.compartmentIdInSubtree == null
+                                ? 43
+                                : this.compartmentIdInSubtree.hashCode());
         return result;
     }
 }

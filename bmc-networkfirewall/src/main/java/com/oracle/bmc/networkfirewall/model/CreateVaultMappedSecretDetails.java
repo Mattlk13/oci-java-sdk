@@ -44,6 +44,15 @@ public final class CreateVaultMappedSecretDetails extends CreateMappedSecretDeta
             this.__explicitlySet__.add("type");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("description")
+        private String description;
+
+        public Builder description(String description) {
+            this.description = description;
+            this.__explicitlySet__.add("description");
+            return this;
+        }
         /** OCID for the Vault Secret to be used. */
         @com.fasterxml.jackson.annotation.JsonProperty("vaultSecretId")
         private String vaultSecretId;
@@ -81,7 +90,11 @@ public final class CreateVaultMappedSecretDetails extends CreateMappedSecretDeta
         public CreateVaultMappedSecretDetails build() {
             CreateVaultMappedSecretDetails model =
                     new CreateVaultMappedSecretDetails(
-                            this.name, this.type, this.vaultSecretId, this.versionNumber);
+                            this.name,
+                            this.type,
+                            this.description,
+                            this.vaultSecretId,
+                            this.versionNumber);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -95,6 +108,9 @@ public final class CreateVaultMappedSecretDetails extends CreateMappedSecretDeta
             }
             if (model.wasPropertyExplicitlySet("type")) {
                 this.type(model.getType());
+            }
+            if (model.wasPropertyExplicitlySet("description")) {
+                this.description(model.getDescription());
             }
             if (model.wasPropertyExplicitlySet("vaultSecretId")) {
                 this.vaultSecretId(model.getVaultSecretId());
@@ -117,8 +133,12 @@ public final class CreateVaultMappedSecretDetails extends CreateMappedSecretDeta
 
     @Deprecated
     public CreateVaultMappedSecretDetails(
-            String name, InspectionType type, String vaultSecretId, Integer versionNumber) {
-        super(name, type);
+            String name,
+            InspectionType type,
+            String description,
+            String vaultSecretId,
+            Integer versionNumber) {
+        super(name, type, description);
         this.vaultSecretId = vaultSecretId;
         this.versionNumber = versionNumber;
     }
