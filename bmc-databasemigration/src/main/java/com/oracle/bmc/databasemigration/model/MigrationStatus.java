@@ -11,6 +11,7 @@ public enum MigrationStatus implements com.oracle.bmc.http.internal.BmcEnum {
     Aborting("ABORTING"),
     Validating("VALIDATING"),
     Validated("VALIDATED"),
+    Assessed("ASSESSED"),
     Waiting("WAITING"),
     Migrating("MIGRATING"),
     Done("DONE"),

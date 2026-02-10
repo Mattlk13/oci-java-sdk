@@ -49,7 +49,7 @@ public enum ParameterizedEndpointUtil {
      * <p>Example: {option?v1:v2+}, {option?:v2}, {option?v1?:} {option?:} are invalid pattern
      */
     public static final String OPTIONS_REGEX =
-            "\\{(\\w+)\\?((\\w+\\.\\:\\w+\\.)|(\\w+\\.:\\s*)|(\\s*:\\w+\\.))\\}+";
+            "\\{(\\w+)\\?(((\\w+\\.)+\\:(\\w+\\.)+)|((\\w+\\.)+:\\s*)|(\\s*:(\\w+\\.)+))\\}+";
 
     public static final Pattern OPTIONS_PATTERN = Pattern.compile(OPTIONS_REGEX);
 

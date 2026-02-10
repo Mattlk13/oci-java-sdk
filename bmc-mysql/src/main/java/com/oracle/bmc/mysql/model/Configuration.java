@@ -31,6 +31,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
         "timeCreated",
         "timeUpdated",
         "lifecycleState",
+        "options",
         "initVariables",
         "variables",
         "parentConfigurationId",
@@ -48,6 +49,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
             java.util.Date timeCreated,
             java.util.Date timeUpdated,
             LifecycleState lifecycleState,
+            java.util.List<Option> options,
             InitializationVariables initVariables,
             ConfigurationVariables variables,
             String parentConfigurationId,
@@ -64,6 +66,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
         this.timeCreated = timeCreated;
         this.timeUpdated = timeUpdated;
         this.lifecycleState = lifecycleState;
+        this.options = options;
         this.initVariables = initVariables;
         this.variables = variables;
         this.parentConfigurationId = parentConfigurationId;
@@ -217,6 +220,21 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
             this.__explicitlySet__.add("lifecycleState");
             return this;
         }
+        /** The MySQL options defined in the Configuration. */
+        @com.fasterxml.jackson.annotation.JsonProperty("options")
+        private java.util.List<Option> options;
+
+        /**
+         * The MySQL options defined in the Configuration.
+         *
+         * @param options the value to set
+         * @return this builder
+         */
+        public Builder options(java.util.List<Option> options) {
+            this.options = options;
+            this.__explicitlySet__.add("options");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonProperty("initVariables")
         private InitializationVariables initVariables;
@@ -330,6 +348,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
                             this.timeCreated,
                             this.timeUpdated,
                             this.lifecycleState,
+                            this.options,
                             this.initVariables,
                             this.variables,
                             this.parentConfigurationId,
@@ -370,6 +389,9 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
             }
             if (model.wasPropertyExplicitlySet("lifecycleState")) {
                 this.lifecycleState(model.getLifecycleState());
+            }
+            if (model.wasPropertyExplicitlySet("options")) {
+                this.options(model.getOptions());
             }
             if (model.wasPropertyExplicitlySet("initVariables")) {
                 this.initVariables(model.getInitVariables());
@@ -617,6 +639,19 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
         return lifecycleState;
     }
 
+    /** The MySQL options defined in the Configuration. */
+    @com.fasterxml.jackson.annotation.JsonProperty("options")
+    private final java.util.List<Option> options;
+
+    /**
+     * The MySQL options defined in the Configuration.
+     *
+     * @return the value
+     */
+    public java.util.List<Option> getOptions() {
+        return options;
+    }
+
     @com.fasterxml.jackson.annotation.JsonProperty("initVariables")
     private final InitializationVariables initVariables;
 
@@ -725,6 +760,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
         sb.append(", timeCreated=").append(String.valueOf(this.timeCreated));
         sb.append(", timeUpdated=").append(String.valueOf(this.timeUpdated));
         sb.append(", lifecycleState=").append(String.valueOf(this.lifecycleState));
+        sb.append(", options=").append(String.valueOf(this.options));
         sb.append(", initVariables=").append(String.valueOf(this.initVariables));
         sb.append(", variables=").append(String.valueOf(this.variables));
         sb.append(", parentConfigurationId=").append(String.valueOf(this.parentConfigurationId));
@@ -754,6 +790,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
                 && java.util.Objects.equals(this.timeCreated, other.timeCreated)
                 && java.util.Objects.equals(this.timeUpdated, other.timeUpdated)
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
+                && java.util.Objects.equals(this.options, other.options)
                 && java.util.Objects.equals(this.initVariables, other.initVariables)
                 && java.util.Objects.equals(this.variables, other.variables)
                 && java.util.Objects.equals(this.parentConfigurationId, other.parentConfigurationId)
@@ -780,6 +817,7 @@ public final class Configuration extends com.oracle.bmc.http.client.internal.Exp
         result =
                 (result * PRIME)
                         + (this.lifecycleState == null ? 43 : this.lifecycleState.hashCode());
+        result = (result * PRIME) + (this.options == null ? 43 : this.options.hashCode());
         result =
                 (result * PRIME)
                         + (this.initVariables == null ? 43 : this.initVariables.hashCode());

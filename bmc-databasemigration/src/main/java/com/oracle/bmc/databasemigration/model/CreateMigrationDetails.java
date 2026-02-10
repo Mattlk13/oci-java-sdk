@@ -42,7 +42,8 @@ public class CreateMigrationDetails
         "sourceDatabaseConnectionId",
         "targetDatabaseConnectionId",
         "freeformTags",
-        "definedTags"
+        "definedTags",
+        "assessmentId"
     })
     protected CreateMigrationDetails(
             String description,
@@ -52,7 +53,8 @@ public class CreateMigrationDetails
             String sourceDatabaseConnectionId,
             String targetDatabaseConnectionId,
             java.util.Map<String, String> freeformTags,
-            java.util.Map<String, java.util.Map<String, Object>> definedTags) {
+            java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            String assessmentId) {
         super();
         this.description = description;
         this.compartmentId = compartmentId;
@@ -62,6 +64,7 @@ public class CreateMigrationDetails
         this.targetDatabaseConnectionId = targetDatabaseConnectionId;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
+        this.assessmentId = assessmentId;
     }
 
     /**
@@ -190,6 +193,19 @@ public class CreateMigrationDetails
         return definedTags;
     }
 
+    /** The OCID of the resource being referenced. */
+    @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+    private final String assessmentId;
+
+    /**
+     * The OCID of the resource being referenced.
+     *
+     * @return the value
+     */
+    public String getAssessmentId() {
+        return assessmentId;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -215,6 +231,7 @@ public class CreateMigrationDetails
                 .append(String.valueOf(this.targetDatabaseConnectionId));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
+        sb.append(", assessmentId=").append(String.valueOf(this.assessmentId));
         sb.append(")");
         return sb.toString();
     }
@@ -239,6 +256,7 @@ public class CreateMigrationDetails
                         this.targetDatabaseConnectionId, other.targetDatabaseConnectionId)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
+                && java.util.Objects.equals(this.assessmentId, other.assessmentId)
                 && super.equals(other);
     }
 
@@ -264,6 +282,7 @@ public class CreateMigrationDetails
                                 : this.targetDatabaseConnectionId.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
+        result = (result * PRIME) + (this.assessmentId == null ? 43 : this.assessmentId.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -1,0 +1,178 @@
+/**
+ * Copyright (c) 2016, 2026, Oracle and/or its affiliates.  All rights reserved.
+ * This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+ */
+package com.oracle.bmc.auth.internal;
+
+import com.oracle.bmc.auth.ProvidesConfigurableRefreshAsync;
+import com.oracle.bmc.auth.SessionKeySupplier;
+import com.oracle.bmc.circuitbreaker.CircuitBreakerConfiguration;
+import com.oracle.bmc.circuitbreaker.OciCircuitBreaker;
+import com.oracle.bmc.http.ClientConfigurator;
+import com.oracle.bmc.http.client.HttpClient;
+import com.oracle.bmc.http.client.HttpClientBuilder;
+import com.oracle.bmc.http.client.HttpProvider;
+import com.oracle.bmc.http.internal.CircuitBreakerHelper;
+import org.slf4j.Logger;
+
+import java.net.URI;
+import java.time.Duration;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Abstract base class for asynchronous federation clients that handle security token retrieval and
+ * refresh logic.
+ *
+ * <p>This class manages the lifecycle of security tokens, including refreshing tokens when they are
+ * about to expire, and optionally refreshing session keys. It ensures that only one token refresh
+ * operation is in progress at any time, and provides mechanisms to reuse pending refresh
+ * operations. The class is thread-safe and uses a lock to synchronize access to the refresh logic.
+ *
+ * <p><b>Async Implementation Note</b><br>
+ * This implementation provides true asynchronous behavior through CompletableFuture-based APIs. The
+ * underlying HTTP operations are handled by the OCI SDK's HttpClient abstraction, which ensures
+ * consistent non-blocking semantics regardless of the specific HTTP client implementation in use.
+ * This design enables:
+ *
+ * <ul>
+ *   <li>Non-blocking token retrieval and refresh operations
+ *   <li>Proper CompletableFuture composition and chaining
+ *   <li>Concurrent token operations without thread blocking
+ *   <li>Consistent async behavior across different HTTP client implementations
+ * </ul>
+ *
+ * <p>Features like buildAsync() in authentication providers rely on this async foundation to
+ * provide token pre-fetching and fail-fast authentication initialization.
+ *
+ * <p>Subclasses must implement {@link #getSecurityTokenFromServer()} to define how security tokens
+ * are fetched from the server.
+ *
+ * @see AsyncFederationClient
+ * @see ProvidesConfigurableRefreshAsync
+ */
+public abstract class AbstractAsyncFederationClient
+        implements AsyncFederationClient, ProvidesConfigurableRefreshAsync {
+    private static final Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(AbstractAsyncFederationClient.class);
+    protected volatile SecurityTokenAdapter
+            securityTokenAdapter; // volatile to ensure immediate visibility across threads
+    protected final SessionKeySupplier sessionKeySupplier;
+    protected final OciCircuitBreaker circuitBreaker;
+    protected final HttpClient federationClient;
+    private volatile CompletableFuture<SecurityTokenAdapter> pendingRefresh = null;
+    private final Object refreshLock = new Object();
+    private final String federationEndpoint;
+
+    public AbstractAsyncFederationClient(
+            SessionKeySupplier sessionKeySupplier,
+            String federationEndpoint,
+            ClientConfigurator clientConfigurator,
+            CircuitBreakerConfiguration circuitBreakerConfiguration,
+            List<ClientConfigurator> additionalClientConfigurators) {
+        this.sessionKeySupplier = sessionKeySupplier;
+        this.securityTokenAdapter = new SecurityTokenAdapter(null, sessionKeySupplier);
+        this.federationEndpoint = federationEndpoint;
+
+        HttpClientBuilder rptBuilder =
+                HttpProvider.getDefault().newBuilder().baseUri(URI.create(federationEndpoint));
+        if (clientConfigurator != null) {
+            clientConfigurator.customizeClient(rptBuilder);
+        }
+        for (ClientConfigurator additionalConfigurator : additionalClientConfigurators) {
+            additionalConfigurator.customizeClient(rptBuilder);
+        }
+        this.federationClient = rptBuilder.build();
+
+        if (this.federationClient != null) {
+            this.circuitBreaker =
+                    CircuitBreakerHelper.makeCircuitBreaker(
+                            this.federationClient, circuitBreakerConfiguration);
+        } else {
+            this.circuitBreaker = null;
+        }
+
+        LOG.debug(
+                "AbstractAsyncFederationClient initialized with session key supplier: {}",
+                sessionKeySupplier);
+    }
+
+    protected abstract CompletableFuture<SecurityTokenAdapter> getSecurityTokenFromServer();
+
+    @Override
+    public CompletableFuture<String> refreshAndGetSecurityTokenIfExpiringWithin(Duration time) {
+        return refreshAndGetSecurityTokenIfExpiringWithin(time, true);
+    }
+
+    @Override
+    public CompletableFuture<String> refreshAndGetSecurityTokenIfExpiringWithin(
+            Duration time, boolean refreshKeys) {
+        return refreshAndGetSecurityTokenInnerAsync(true, time, refreshKeys);
+    }
+
+    protected CompletableFuture<String> refreshAndGetSecurityTokenInnerAsync(
+            final boolean doFinalTokenValidityCheck, Duration time, boolean refreshKeys) {
+        if (doFinalTokenValidityCheck) {
+            boolean isValid = securityTokenAdapter.isValid(Optional.ofNullable(time));
+            if (isValid) {
+                LOG.debug("Token is valid, returning existing token");
+                return CompletableFuture.completedFuture(securityTokenAdapter.getSecurityToken());
+            }
+        }
+
+        synchronized (refreshLock) {
+            if (pendingRefresh != null && !pendingRefresh.isCompletedExceptionally()) {
+                LOG.debug("Reusing existing pending refresh: {}", pendingRefresh);
+                return pendingRefresh.thenApply(SecurityTokenAdapter::getSecurityToken);
+            }
+            LOG.debug("Initiating new token refresh");
+            if (refreshKeys) {
+                LOG.info("Refreshing session keys.");
+                sessionKeySupplier.refreshKeys();
+            }
+            pendingRefresh = getSecurityTokenFromServer();
+            return pendingRefresh
+                    .thenApply(
+                            adapter -> {
+                                LOG.debug("Refresh completed, updating token adapter");
+                                securityTokenAdapter = adapter;
+                                // Hook for subclasses to perform post-refresh actions
+                                onTokenRefreshCompleted(adapter.getTokenValidDuration());
+                                return adapter.getSecurityToken();
+                            })
+                    .whenComplete(
+                            (result, ex) -> {
+                                LOG.debug("Refresh future completed, clearing pendingRefresh");
+                                pendingRefresh = null;
+                            });
+        }
+    }
+
+    /**
+     * Hook method called after a successful token refresh. Subclasses can override this to perform
+     * additional actions like scheduling proactive refreshes.
+     */
+    protected abstract void onTokenRefreshCompleted(Duration tokenValidDuration);
+
+    public CompletableFuture<String> refreshAndGetSecurityToken() {
+        return refreshAndGetSecurityTokenInnerAsync(true, null, true);
+    }
+
+    /**
+     * Gets a security token from the federation endpoint. This will be a short-lived token used to
+     * authenticate requests to OCI services.
+     *
+     * @return the security token
+     */
+    public CompletableFuture<String> getSecurityToken() {
+        if (!securityTokenAdapter.isValid()) {
+            return refreshAndGetSecurityToken();
+        }
+        return CompletableFuture.completedFuture(securityTokenAdapter.getSecurityToken());
+    }
+
+    protected String getFederationEndpoint() {
+        return this.federationEndpoint;
+    }
+}

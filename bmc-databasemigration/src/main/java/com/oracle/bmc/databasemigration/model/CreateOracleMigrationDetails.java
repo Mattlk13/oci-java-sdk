@@ -100,6 +100,15 @@ public final class CreateOracleMigrationDetails extends CreateMigrationDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+        private String assessmentId;
+
+        public Builder assessmentId(String assessmentId) {
+            this.assessmentId = assessmentId;
+            this.__explicitlySet__.add("assessmentId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("dataTransferMediumDetails")
         private CreateOracleDataTransferMediumDetails dataTransferMediumDetails;
 
@@ -266,6 +275,7 @@ public final class CreateOracleMigrationDetails extends CreateMigrationDetails {
                             this.targetDatabaseConnectionId,
                             this.freeformTags,
                             this.definedTags,
+                            this.assessmentId,
                             this.dataTransferMediumDetails,
                             this.initialLoadSettings,
                             this.advisorSettings,
@@ -308,6 +318,9 @@ public final class CreateOracleMigrationDetails extends CreateMigrationDetails {
             }
             if (model.wasPropertyExplicitlySet("definedTags")) {
                 this.definedTags(model.getDefinedTags());
+            }
+            if (model.wasPropertyExplicitlySet("assessmentId")) {
+                this.assessmentId(model.getAssessmentId());
             }
             if (model.wasPropertyExplicitlySet("dataTransferMediumDetails")) {
                 this.dataTransferMediumDetails(model.getDataTransferMediumDetails());
@@ -367,6 +380,7 @@ public final class CreateOracleMigrationDetails extends CreateMigrationDetails {
             String targetDatabaseConnectionId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            String assessmentId,
             CreateOracleDataTransferMediumDetails dataTransferMediumDetails,
             CreateOracleInitialLoadSettings initialLoadSettings,
             CreateOracleAdvisorSettings advisorSettings,
@@ -386,7 +400,8 @@ public final class CreateOracleMigrationDetails extends CreateMigrationDetails {
                 sourceDatabaseConnectionId,
                 targetDatabaseConnectionId,
                 freeformTags,
-                definedTags);
+                definedTags,
+                assessmentId);
         this.dataTransferMediumDetails = dataTransferMediumDetails;
         this.initialLoadSettings = initialLoadSettings;
         this.advisorSettings = advisorSettings;

@@ -86,10 +86,42 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
      *     java.io.InputStream) may not be able to be read in both places as the underlying stream
      *     may only be consumed once.
      */
+    java.util.concurrent.Future<AddAssessmentObjectsResponse> addAssessmentObjects(
+            AddAssessmentObjectsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            AddAssessmentObjectsRequest, AddAssessmentObjectsResponse>
+                    handler);
+
+    /**
+     * Add excluded/included object to the list.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
     java.util.concurrent.Future<AddMigrationObjectsResponse> addMigrationObjects(
             AddMigrationObjectsRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             AddMigrationObjectsRequest, AddMigrationObjectsResponse>
+                    handler);
+
+    /**
+     * Used to change the Assessment compartment.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ChangeAssessmentCompartmentResponse> changeAssessmentCompartment(
+            ChangeAssessmentCompartmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ChangeAssessmentCompartmentRequest, ChangeAssessmentCompartmentResponse>
                     handler);
 
     /**
@@ -122,6 +154,21 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
             ChangeMigrationCompartmentRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             ChangeMigrationCompartmentRequest, ChangeMigrationCompartmentResponse>
+                    handler);
+
+    /**
+     * Clone a configuration from an existing Assessment.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CloneAssessmentResponse> cloneAssessment(
+            CloneAssessmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<CloneAssessmentRequest, CloneAssessmentResponse>
                     handler);
 
     /**
@@ -171,6 +218,23 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Create an Assessment resource that contains all the details to perform the database
+     * assessment operation, such as source and destination database details, network throughput,
+     * accepted downtime etc.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateAssessmentResponse> createAssessment(
+            CreateAssessmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<CreateAssessmentRequest, CreateAssessmentResponse>
+                    handler);
+
+    /**
      * Create a Database Connection resource that contains the details to connect to either a Source
      * or Target Database in the migration.
      *
@@ -216,6 +280,21 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
             CreateParameterFileVersionRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             CreateParameterFileVersionRequest, CreateParameterFileVersionResponse>
+                    handler);
+
+    /**
+     * Deletes the Assessment represented by the specified assessment ID.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteAssessmentResponse> deleteAssessment(
+            DeleteAssessmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<DeleteAssessmentRequest, DeleteAssessmentResponse>
                     handler);
 
     /**
@@ -310,6 +389,50 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Display Assessment details.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetAssessmentResponse> getAssessment(
+            GetAssessmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetAssessmentRequest, GetAssessmentResponse>
+                    handler);
+
+    /**
+     * Display Assessor details.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetAssessorResponse> getAssessor(
+            GetAssessorRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetAssessorRequest, GetAssessorResponse> handler);
+
+    /**
+     * Get Assessor Check details.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetAssessorCheckResponse> getAssessorCheck(
+            GetAssessorCheckRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetAssessorCheckRequest, GetAssessorCheckResponse>
+                    handler);
+
+    /**
      * Display Database Connection details.
      *
      * @param request The request object containing the details to send
@@ -388,6 +511,20 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Download DMS script.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetScriptResponse> getScript(
+            GetScriptRequest request,
+            com.oracle.bmc.responses.AsyncHandler<GetScriptRequest, GetScriptResponse> handler);
+
+    /**
      * Gets the details of a work request.
      *
      * @param request The request object containing the details to send
@@ -403,6 +540,134 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Get the Pre-Migration extended Advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAdvisorReportCheckObjectsResponse>
+            listAdvisorReportCheckObjects(
+                    ListAdvisorReportCheckObjectsRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListAdvisorReportCheckObjectsRequest,
+                                    ListAdvisorReportCheckObjectsResponse>
+                            handler);
+
+    /**
+     * List of Pre-Migration checks from the advisor.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAdvisorReportChecksResponse> listAdvisorReportChecks(
+            ListAdvisorReportChecksRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListAdvisorReportChecksRequest, ListAdvisorReportChecksResponse>
+                    handler);
+
+    /**
+     * Display Check Affected objects.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAffectedObjectsResponse> listAffectedObjects(
+            ListAffectedObjectsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListAffectedObjectsRequest, ListAffectedObjectsResponse>
+                    handler);
+
+    /**
+     * Display sample object types to exclude or include for an Assessment.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAssessmentObjectTypesResponse> listAssessmentObjectTypes(
+            ListAssessmentObjectTypesRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListAssessmentObjectTypesRequest, ListAssessmentObjectTypesResponse>
+                    handler);
+
+    /**
+     * Display excluded/included objects.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAssessmentObjectsResponse> listAssessmentObjects(
+            ListAssessmentObjectsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListAssessmentObjectsRequest, ListAssessmentObjectsResponse>
+                    handler);
+
+    /**
+     * List all Assessments.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAssessmentsResponse> listAssessments(
+            ListAssessmentsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<ListAssessmentsRequest, ListAssessmentsResponse>
+                    handler);
+
+    /**
+     * List Assessor Check Summaries.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAssessorChecksResponse> listAssessorChecks(
+            ListAssessorChecksRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListAssessorChecksRequest, ListAssessorChecksResponse>
+                    handler);
+
+    /**
+     * List all Assessors.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAssessorsResponse> listAssessors(
+            ListAssessorsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<ListAssessorsRequest, ListAssessorsResponse>
+                    handler);
+
+    /**
      * List all Database Connections.
      *
      * @param request The request object containing the details to send
@@ -415,6 +680,22 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
     java.util.concurrent.Future<ListConnectionsResponse> listConnections(
             ListConnectionsRequest request,
             com.oracle.bmc.responses.AsyncHandler<ListConnectionsRequest, ListConnectionsResponse>
+                    handler);
+
+    /**
+     * List supported Database Types, Sub-types and Versions.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListDatabaseConnectionTypeResponse> listDatabaseConnectionType(
+            ListDatabaseConnectionTypeRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListDatabaseConnectionTypeRequest, ListDatabaseConnectionTypeResponse>
                     handler);
 
     /**
@@ -609,6 +890,72 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Assessor Action.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PerformAssessorActionResponse> performAssessorAction(
+            PerformAssessorActionRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            PerformAssessorActionRequest, PerformAssessorActionResponse>
+                    handler);
+
+    /**
+     * Download SQL script Assessor Action.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PerformAssessorActionDownloadSqlResponse>
+            performAssessorActionDownloadSql(
+                    PerformAssessorActionDownloadSqlRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    PerformAssessorActionDownloadSqlRequest,
+                                    PerformAssessorActionDownloadSqlResponse>
+                            handler);
+
+    /**
+     * Assessor Check Action.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PerformAssessorCheckActionResponse> performAssessorCheckAction(
+            PerformAssessorCheckActionRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            PerformAssessorCheckActionRequest, PerformAssessorCheckActionResponse>
+                    handler);
+
+    /**
+     * Remove excluded/included objects.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<RemoveAssessmentObjectsResponse> removeAssessmentObjects(
+            RemoveAssessmentObjectsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            RemoveAssessmentObjectsRequest, RemoveAssessmentObjectsResponse>
+                    handler);
+
+    /**
      * Remove excluded/included objects.
      *
      * @param request The request object containing the details to send
@@ -682,6 +1029,73 @@ public interface DatabaseMigrationAsync extends AutoCloseable {
     java.util.concurrent.Future<SuspendJobResponse> suspendJob(
             SuspendJobRequest request,
             com.oracle.bmc.responses.AsyncHandler<SuspendJobRequest, SuspendJobResponse> handler);
+
+    /**
+     * Update the premigration extended Advisor report check.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateAdvisorReportCheckResponse> updateAdvisorReportCheck(
+            UpdateAdvisorReportCheckRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateAdvisorReportCheckRequest, UpdateAdvisorReportCheckResponse>
+                    handler);
+
+    /**
+     * Update the Pre-Migration extended Advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateAdvisorReportCheckObjectsResponse>
+            updateAdvisorReportCheckObjects(
+                    UpdateAdvisorReportCheckObjectsRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    UpdateAdvisorReportCheckObjectsRequest,
+                                    UpdateAdvisorReportCheckObjectsResponse>
+                            handler);
+
+    /**
+     * Update Assessment resource details.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateAssessmentResponse> updateAssessment(
+            UpdateAssessmentRequest request,
+            com.oracle.bmc.responses.AsyncHandler<UpdateAssessmentRequest, UpdateAssessmentResponse>
+                    handler);
+
+    /**
+     * Update the advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateCheckActionUpdateObjectResponse>
+            updateCheckActionUpdateObject(
+                    UpdateCheckActionUpdateObjectRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    UpdateCheckActionUpdateObjectRequest,
+                                    UpdateCheckActionUpdateObjectResponse>
+                            handler);
 
     /**
      * Update Database Connection resource details.

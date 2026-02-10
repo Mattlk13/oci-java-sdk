@@ -1028,6 +1028,40 @@ public class ApplicationDependencyManagementClient
     }
 
     @Override
+    public ListVulnerabilitiesResponse listVulnerabilities(ListVulnerabilitiesRequest request) {
+
+        Validate.notBlank(
+                request.getVulnerabilityAuditId(), "vulnerabilityAuditId must not be blank");
+
+        return clientCall(request, ListVulnerabilitiesResponse::builder)
+                .logger(LOG, "listVulnerabilities")
+                .serviceDetails(
+                        "ApplicationDependencyManagement",
+                        "ListVulnerabilities",
+                        "https://docs.oracle.com/iaas/api/#/en/adm/20220421/VulnerabilityAudit/ListVulnerabilities")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListVulnerabilitiesRequest::builder)
+                .basePath("/20220421")
+                .appendPathParam("vulnerabilityAudits")
+                .appendPathParam(request.getVulnerabilityAuditId())
+                .appendPathParam("vulnerabilities")
+                .appendQueryParam("isDirectVulnerability", request.getIsDirectVulnerability())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.adm.model.VulnerabilityDetailsCollection.class,
+                        ListVulnerabilitiesResponse.Builder::vulnerabilityDetailsCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListVulnerabilitiesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListVulnerabilitiesResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
     public ListVulnerabilityAuditsResponse listVulnerabilityAudits(
             ListVulnerabilityAuditsRequest request) {
 

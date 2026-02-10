@@ -32,7 +32,8 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
         "logLocation",
         "progress",
         "isSuspendAvailable",
-        "editableParameterFiles"
+        "editableParameterFiles",
+        "groupDisplayName"
     })
     public PhaseStatus(
             OdmsJobPhases name,
@@ -45,7 +46,8 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
             LogLocationBucketDetails logLocation,
             Integer progress,
             Boolean isSuspendAvailable,
-            java.util.List<JobParameterFileVersionKind> editableParameterFiles) {
+            java.util.List<JobParameterFileVersionKind> editableParameterFiles,
+            String groupDisplayName) {
         super();
         this.name = name;
         this.status = status;
@@ -58,6 +60,7 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
         this.progress = progress;
         this.isSuspendAvailable = isSuspendAvailable;
         this.editableParameterFiles = editableParameterFiles;
+        this.groupDisplayName = groupDisplayName;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -230,6 +233,21 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
             this.__explicitlySet__.add("editableParameterFiles");
             return this;
         }
+        /** Job Phase group display name e.g. 'Step 1: Migration' */
+        @com.fasterxml.jackson.annotation.JsonProperty("groupDisplayName")
+        private String groupDisplayName;
+
+        /**
+         * Job Phase group display name e.g. 'Step 1: Migration'
+         *
+         * @param groupDisplayName the value to set
+         * @return this builder
+         */
+        public Builder groupDisplayName(String groupDisplayName) {
+            this.groupDisplayName = groupDisplayName;
+            this.__explicitlySet__.add("groupDisplayName");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -247,7 +265,8 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
                             this.logLocation,
                             this.progress,
                             this.isSuspendAvailable,
-                            this.editableParameterFiles);
+                            this.editableParameterFiles,
+                            this.groupDisplayName);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -288,6 +307,9 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("editableParameterFiles")) {
                 this.editableParameterFiles(model.getEditableParameterFiles());
+            }
+            if (model.wasPropertyExplicitlySet("groupDisplayName")) {
+                this.groupDisplayName(model.getGroupDisplayName());
             }
             return this;
         }
@@ -447,6 +469,19 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
         return editableParameterFiles;
     }
 
+    /** Job Phase group display name e.g. 'Step 1: Migration' */
+    @com.fasterxml.jackson.annotation.JsonProperty("groupDisplayName")
+    private final String groupDisplayName;
+
+    /**
+     * Job Phase group display name e.g. 'Step 1: Migration'
+     *
+     * @return the value
+     */
+    public String getGroupDisplayName() {
+        return groupDisplayName;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -474,6 +509,7 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", progress=").append(String.valueOf(this.progress));
         sb.append(", isSuspendAvailable=").append(String.valueOf(this.isSuspendAvailable));
         sb.append(", editableParameterFiles=").append(String.valueOf(this.editableParameterFiles));
+        sb.append(", groupDisplayName=").append(String.valueOf(this.groupDisplayName));
         sb.append(")");
         return sb.toString();
     }
@@ -501,6 +537,7 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.isSuspendAvailable, other.isSuspendAvailable)
                 && java.util.Objects.equals(
                         this.editableParameterFiles, other.editableParameterFiles)
+                && java.util.Objects.equals(this.groupDisplayName, other.groupDisplayName)
                 && super.equals(other);
     }
 
@@ -531,6 +568,9 @@ public final class PhaseStatus extends com.oracle.bmc.http.client.internal.Expli
                         + (this.editableParameterFiles == null
                                 ? 43
                                 : this.editableParameterFiles.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.groupDisplayName == null ? 43 : this.groupDisplayName.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

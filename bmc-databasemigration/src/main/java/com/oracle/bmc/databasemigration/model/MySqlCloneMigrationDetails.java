@@ -63,6 +63,15 @@ public final class MySqlCloneMigrationDetails extends CloneMigrationDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+        private String assessmentId;
+
+        public Builder assessmentId(String assessmentId) {
+            this.assessmentId = assessmentId;
+            this.__explicitlySet__.add("assessmentId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -92,6 +101,7 @@ public final class MySqlCloneMigrationDetails extends CloneMigrationDetails {
                             this.compartmentId,
                             this.sourceDatabaseConnectionId,
                             this.targetDatabaseConnectionId,
+                            this.assessmentId,
                             this.freeformTags,
                             this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -113,6 +123,9 @@ public final class MySqlCloneMigrationDetails extends CloneMigrationDetails {
             }
             if (model.wasPropertyExplicitlySet("targetDatabaseConnectionId")) {
                 this.targetDatabaseConnectionId(model.getTargetDatabaseConnectionId());
+            }
+            if (model.wasPropertyExplicitlySet("assessmentId")) {
+                this.assessmentId(model.getAssessmentId());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -139,6 +152,7 @@ public final class MySqlCloneMigrationDetails extends CloneMigrationDetails {
             String compartmentId,
             String sourceDatabaseConnectionId,
             String targetDatabaseConnectionId,
+            String assessmentId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super(
@@ -146,6 +160,7 @@ public final class MySqlCloneMigrationDetails extends CloneMigrationDetails {
                 compartmentId,
                 sourceDatabaseConnectionId,
                 targetDatabaseConnectionId,
+                assessmentId,
                 freeformTags,
                 definedTags);
     }

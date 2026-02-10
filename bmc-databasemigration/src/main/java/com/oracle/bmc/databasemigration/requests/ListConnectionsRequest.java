@@ -41,6 +41,13 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
             getTechnologyType() {
         return technologyType;
     }
+    /** The database technology sub-type. */
+    private String technologySubType;
+
+    /** The database technology sub-type. */
+    public String getTechnologySubType() {
+        return technologySubType;
+    }
     /** The array of connection types. */
     private java.util.List<com.oracle.bmc.databasemigration.model.ConnectionType> connectionType;
 
@@ -216,6 +223,20 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
             return this.technologyType(java.util.Arrays.asList(singularValue));
         }
 
+        /** The database technology sub-type. */
+        private String technologySubType = null;
+
+        /**
+         * The database technology sub-type.
+         *
+         * @param technologySubType the value to set
+         * @return this builder instance
+         */
+        public Builder technologySubType(String technologySubType) {
+            this.technologySubType = technologySubType;
+            return this;
+        }
+
         /** The array of connection types. */
         private java.util.List<com.oracle.bmc.databasemigration.model.ConnectionType>
                 connectionType = null;
@@ -385,6 +406,7 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
             compartmentId(o.getCompartmentId());
             opcRequestId(o.getOpcRequestId());
             technologyType(o.getTechnologyType());
+            technologySubType(o.getTechnologySubType());
             connectionType(o.getConnectionType());
             sourceConnectionId(o.getSourceConnectionId());
             displayName(o.getDisplayName());
@@ -430,6 +452,7 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
             request.compartmentId = compartmentId;
             request.opcRequestId = opcRequestId;
             request.technologyType = technologyType;
+            request.technologySubType = technologySubType;
             request.connectionType = connectionType;
             request.sourceConnectionId = sourceConnectionId;
             request.displayName = displayName;
@@ -440,8 +463,8 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
             request.lifecycleState = lifecycleState;
             return request;
             // new ListConnectionsRequest(compartmentId, opcRequestId, technologyType,
-            // connectionType, sourceConnectionId, displayName, limit, page, sortBy, sortOrder,
-            // lifecycleState);
+            // technologySubType, connectionType, sourceConnectionId, displayName, limit, page,
+            // sortBy, sortOrder, lifecycleState);
         }
     }
 
@@ -455,6 +478,7 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
                 .compartmentId(compartmentId)
                 .opcRequestId(opcRequestId)
                 .technologyType(technologyType)
+                .technologySubType(technologySubType)
                 .connectionType(connectionType)
                 .sourceConnectionId(sourceConnectionId)
                 .displayName(displayName)
@@ -482,6 +506,7 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
         sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(",opcRequestId=").append(String.valueOf(this.opcRequestId));
         sb.append(",technologyType=").append(String.valueOf(this.technologyType));
+        sb.append(",technologySubType=").append(String.valueOf(this.technologySubType));
         sb.append(",connectionType=").append(String.valueOf(this.connectionType));
         sb.append(",sourceConnectionId=").append(String.valueOf(this.sourceConnectionId));
         sb.append(",displayName=").append(String.valueOf(this.displayName));
@@ -508,6 +533,7 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
                 && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(this.opcRequestId, other.opcRequestId)
                 && java.util.Objects.equals(this.technologyType, other.technologyType)
+                && java.util.Objects.equals(this.technologySubType, other.technologySubType)
                 && java.util.Objects.equals(this.connectionType, other.connectionType)
                 && java.util.Objects.equals(this.sourceConnectionId, other.sourceConnectionId)
                 && java.util.Objects.equals(this.displayName, other.displayName)
@@ -529,6 +555,9 @@ public class ListConnectionsRequest extends com.oracle.bmc.requests.BmcRequest<j
         result =
                 (result * PRIME)
                         + (this.technologyType == null ? 43 : this.technologyType.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.technologySubType == null ? 43 : this.technologySubType.hashCode());
         result =
                 (result * PRIME)
                         + (this.connectionType == null ? 43 : this.connectionType.hashCode());

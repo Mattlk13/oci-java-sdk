@@ -137,6 +137,19 @@ public class ParameterizedEndpointUtilTest {
                 ParameterizedEndpointUtil.INSTANCE.getEndpointWithPopulatedServiceParameters(
                         ENDPOINT_WITH_DUAL_STACK_OPTION, requiredParametersMap, optionsMap));
 
+        assertEquals(
+                "https://testservice.ds.region.oci.secondLevelDomain.com",
+                ParameterizedEndpointUtil.INSTANCE.getEndpointWithPopulatedServiceParameters(
+                        "https://testservice.{dualStack?ds.:}region.{dualStack?oci.:}secondLevelDomain.com",
+                        requiredParametersMap,
+                        optionsMap));
+        assertEquals(
+                "https://testservice.ds.oci.region.secondLevelDomain.com",
+                ParameterizedEndpointUtil.INSTANCE.getEndpointWithPopulatedServiceParameters(
+                        "https://testservice.{dualStack?ds.oci.:}region.secondLevelDomain.com",
+                        requiredParametersMap,
+                        optionsMap));
+
         optionsMap.put(ParameterizedEndpointUtil.DUAL_STACK_OPTION, false);
         assertEquals(
                 "https://testservice.region.oci.secondLevelDomain.com",

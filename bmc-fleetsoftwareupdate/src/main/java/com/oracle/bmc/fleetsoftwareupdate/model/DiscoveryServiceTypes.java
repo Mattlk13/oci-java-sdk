@@ -9,6 +9,7 @@ package com.oracle.bmc.fleetsoftwareupdate.model;
 public enum DiscoveryServiceTypes implements com.oracle.bmc.http.internal.BmcEnum {
     Exacs("EXACS"),
     Exacc("EXACC"),
+    Exadbxs("EXADBXS"),
 
     /**
      * This value is used if a service returns a value for this enum that is not recognized by this
