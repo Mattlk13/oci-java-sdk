@@ -34,7 +34,9 @@ public final class CreateCrossConnectDetails
         "nearCrossConnectOrCrossConnectGroupId",
         "portSpeedShapeName",
         "customerReferenceName",
-        "macsecProperties"
+        "macsecProperties",
+        "ociPhysicalDeviceName",
+        "interfaceName"
     })
     public CreateCrossConnectDetails(
             String compartmentId,
@@ -47,7 +49,9 @@ public final class CreateCrossConnectDetails
             String nearCrossConnectOrCrossConnectGroupId,
             String portSpeedShapeName,
             String customerReferenceName,
-            CreateMacsecProperties macsecProperties) {
+            CreateMacsecProperties macsecProperties,
+            String ociPhysicalDeviceName,
+            String interfaceName) {
         super();
         this.compartmentId = compartmentId;
         this.crossConnectGroupId = crossConnectGroupId;
@@ -60,6 +64,8 @@ public final class CreateCrossConnectDetails
         this.portSpeedShapeName = portSpeedShapeName;
         this.customerReferenceName = customerReferenceName;
         this.macsecProperties = macsecProperties;
+        this.ociPhysicalDeviceName = ociPhysicalDeviceName;
+        this.interfaceName = interfaceName;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -300,6 +306,36 @@ public final class CreateCrossConnectDetails
             this.__explicitlySet__.add("macsecProperties");
             return this;
         }
+        /** The name of the FastConnect device where this cross-connect is installed. */
+        @com.fasterxml.jackson.annotation.JsonProperty("ociPhysicalDeviceName")
+        private String ociPhysicalDeviceName;
+
+        /**
+         * The name of the FastConnect device where this cross-connect is installed.
+         *
+         * @param ociPhysicalDeviceName the value to set
+         * @return this builder
+         */
+        public Builder ociPhysicalDeviceName(String ociPhysicalDeviceName) {
+            this.ociPhysicalDeviceName = ociPhysicalDeviceName;
+            this.__explicitlySet__.add("ociPhysicalDeviceName");
+            return this;
+        }
+        /** The name of the FastConnect interface where this cross-connect is installed. */
+        @com.fasterxml.jackson.annotation.JsonProperty("interfaceName")
+        private String interfaceName;
+
+        /**
+         * The name of the FastConnect interface where this cross-connect is installed.
+         *
+         * @param interfaceName the value to set
+         * @return this builder
+         */
+        public Builder interfaceName(String interfaceName) {
+            this.interfaceName = interfaceName;
+            this.__explicitlySet__.add("interfaceName");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -317,7 +353,9 @@ public final class CreateCrossConnectDetails
                             this.nearCrossConnectOrCrossConnectGroupId,
                             this.portSpeedShapeName,
                             this.customerReferenceName,
-                            this.macsecProperties);
+                            this.macsecProperties,
+                            this.ociPhysicalDeviceName,
+                            this.interfaceName);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -360,6 +398,12 @@ public final class CreateCrossConnectDetails
             }
             if (model.wasPropertyExplicitlySet("macsecProperties")) {
                 this.macsecProperties(model.getMacsecProperties());
+            }
+            if (model.wasPropertyExplicitlySet("ociPhysicalDeviceName")) {
+                this.ociPhysicalDeviceName(model.getOciPhysicalDeviceName());
+            }
+            if (model.wasPropertyExplicitlySet("interfaceName")) {
+                this.interfaceName(model.getInterfaceName());
             }
             return this;
         }
@@ -585,6 +629,32 @@ public final class CreateCrossConnectDetails
         return macsecProperties;
     }
 
+    /** The name of the FastConnect device where this cross-connect is installed. */
+    @com.fasterxml.jackson.annotation.JsonProperty("ociPhysicalDeviceName")
+    private final String ociPhysicalDeviceName;
+
+    /**
+     * The name of the FastConnect device where this cross-connect is installed.
+     *
+     * @return the value
+     */
+    public String getOciPhysicalDeviceName() {
+        return ociPhysicalDeviceName;
+    }
+
+    /** The name of the FastConnect interface where this cross-connect is installed. */
+    @com.fasterxml.jackson.annotation.JsonProperty("interfaceName")
+    private final String interfaceName;
+
+    /**
+     * The name of the FastConnect interface where this cross-connect is installed.
+     *
+     * @return the value
+     */
+    public String getInterfaceName() {
+        return interfaceName;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -613,6 +683,8 @@ public final class CreateCrossConnectDetails
         sb.append(", portSpeedShapeName=").append(String.valueOf(this.portSpeedShapeName));
         sb.append(", customerReferenceName=").append(String.valueOf(this.customerReferenceName));
         sb.append(", macsecProperties=").append(String.valueOf(this.macsecProperties));
+        sb.append(", ociPhysicalDeviceName=").append(String.valueOf(this.ociPhysicalDeviceName));
+        sb.append(", interfaceName=").append(String.valueOf(this.interfaceName));
         sb.append(")");
         return sb.toString();
     }
@@ -642,6 +714,8 @@ public final class CreateCrossConnectDetails
                 && java.util.Objects.equals(this.portSpeedShapeName, other.portSpeedShapeName)
                 && java.util.Objects.equals(this.customerReferenceName, other.customerReferenceName)
                 && java.util.Objects.equals(this.macsecProperties, other.macsecProperties)
+                && java.util.Objects.equals(this.ociPhysicalDeviceName, other.ociPhysicalDeviceName)
+                && java.util.Objects.equals(this.interfaceName, other.interfaceName)
                 && super.equals(other);
     }
 
@@ -684,6 +758,14 @@ public final class CreateCrossConnectDetails
         result =
                 (result * PRIME)
                         + (this.macsecProperties == null ? 43 : this.macsecProperties.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.ociPhysicalDeviceName == null
+                                ? 43
+                                : this.ociPhysicalDeviceName.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.interfaceName == null ? 43 : this.interfaceName.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

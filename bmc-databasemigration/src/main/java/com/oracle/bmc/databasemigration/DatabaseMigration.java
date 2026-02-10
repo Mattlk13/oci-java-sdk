@@ -88,11 +88,44 @@ public interface DatabaseMigration extends AutoCloseable {
      *     provided. The specifics of the default retry strategy are described here
      *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
      *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/AddAssessmentObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     AddAssessmentObjects API.
+     */
+    AddAssessmentObjectsResponse addAssessmentObjects(AddAssessmentObjectsRequest request);
+
+    /**
+     * Add excluded/included object to the list.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
      *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/AddMigrationObjectsExample.java.html"
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use AddMigrationObjects
      *     API.
      */
     AddMigrationObjectsResponse addMigrationObjects(AddMigrationObjectsRequest request);
+
+    /**
+     * Used to change the Assessment compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ChangeAssessmentCompartmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ChangeAssessmentCompartment API.
+     */
+    ChangeAssessmentCompartmentResponse changeAssessmentCompartment(
+            ChangeAssessmentCompartmentRequest request);
 
     /**
      * Used to change the Database Connection compartment.
@@ -127,6 +160,22 @@ public interface DatabaseMigration extends AutoCloseable {
      */
     ChangeMigrationCompartmentResponse changeMigrationCompartment(
             ChangeMigrationCompartmentRequest request);
+
+    /**
+     * Clone a configuration from an existing Assessment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/CloneAssessmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use CloneAssessment
+     *     API.
+     */
+    CloneAssessmentResponse cloneAssessment(CloneAssessmentRequest request);
 
     /**
      * Clone a configuration from an existing Migration.
@@ -173,6 +222,24 @@ public interface DatabaseMigration extends AutoCloseable {
      *     ConnectionDiagnostics API.
      */
     ConnectionDiagnosticsResponse connectionDiagnostics(ConnectionDiagnosticsRequest request);
+
+    /**
+     * Create an Assessment resource that contains all the details to perform the database
+     * assessment operation, such as source and destination database details, network throughput,
+     * accepted downtime etc.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/CreateAssessmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use CreateAssessment
+     *     API.
+     */
+    CreateAssessmentResponse createAssessment(CreateAssessmentRequest request);
 
     /**
      * Create a Database Connection resource that contains the details to connect to either a Source
@@ -224,6 +291,22 @@ public interface DatabaseMigration extends AutoCloseable {
      */
     CreateParameterFileVersionResponse createParameterFileVersion(
             CreateParameterFileVersionRequest request);
+
+    /**
+     * Deletes the Assessment represented by the specified assessment ID.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/DeleteAssessmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteAssessment
+     *     API.
+     */
+    DeleteAssessmentResponse deleteAssessment(DeleteAssessmentRequest request);
 
     /**
      * Deletes the Database Connection represented by the specified connection ID.
@@ -322,6 +405,52 @@ public interface DatabaseMigration extends AutoCloseable {
     GetAdvisorReportResponse getAdvisorReport(GetAdvisorReportRequest request);
 
     /**
+     * Display Assessment details.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/GetAssessmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetAssessment API.
+     */
+    GetAssessmentResponse getAssessment(GetAssessmentRequest request);
+
+    /**
+     * Display Assessor details.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/GetAssessorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetAssessor API.
+     */
+    GetAssessorResponse getAssessor(GetAssessorRequest request);
+
+    /**
+     * Get Assessor Check details.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/GetAssessorCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetAssessorCheck
+     *     API.
+     */
+    GetAssessorCheckResponse getAssessorCheck(GetAssessorCheckRequest request);
+
+    /**
      * Display Database Connection details.
      *
      * @param request The request object containing the details to send
@@ -401,6 +530,21 @@ public interface DatabaseMigration extends AutoCloseable {
     GetParameterFileVersionResponse getParameterFileVersion(GetParameterFileVersionRequest request);
 
     /**
+     * Download DMS script.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/GetScriptExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetScript API.
+     */
+    GetScriptResponse getScript(GetScriptRequest request);
+
+    /**
      * Gets the details of a work request.
      *
      * @param request The request object containing the details to send
@@ -414,6 +558,135 @@ public interface DatabaseMigration extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetWorkRequest API.
      */
     GetWorkRequestResponse getWorkRequest(GetWorkRequestRequest request);
+
+    /**
+     * Get the Pre-Migration extended Advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAdvisorReportCheckObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAdvisorReportCheckObjects API.
+     */
+    ListAdvisorReportCheckObjectsResponse listAdvisorReportCheckObjects(
+            ListAdvisorReportCheckObjectsRequest request);
+
+    /**
+     * List of Pre-Migration checks from the advisor.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAdvisorReportChecksExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAdvisorReportChecks API.
+     */
+    ListAdvisorReportChecksResponse listAdvisorReportChecks(ListAdvisorReportChecksRequest request);
+
+    /**
+     * Display Check Affected objects.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAffectedObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAffectedObjects
+     *     API.
+     */
+    ListAffectedObjectsResponse listAffectedObjects(ListAffectedObjectsRequest request);
+
+    /**
+     * Display sample object types to exclude or include for an Assessment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAssessmentObjectTypesExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAssessmentObjectTypes API.
+     */
+    ListAssessmentObjectTypesResponse listAssessmentObjectTypes(
+            ListAssessmentObjectTypesRequest request);
+
+    /**
+     * Display excluded/included objects.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAssessmentObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAssessmentObjects API.
+     */
+    ListAssessmentObjectsResponse listAssessmentObjects(ListAssessmentObjectsRequest request);
+
+    /**
+     * List all Assessments.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAssessmentsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAssessments
+     *     API.
+     */
+    ListAssessmentsResponse listAssessments(ListAssessmentsRequest request);
+
+    /**
+     * List Assessor Check Summaries.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAssessorChecksExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAssessorChecks
+     *     API.
+     */
+    ListAssessorChecksResponse listAssessorChecks(ListAssessorChecksRequest request);
+
+    /**
+     * List all Assessors.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListAssessorsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListAssessors API.
+     */
+    ListAssessorsResponse listAssessors(ListAssessorsRequest request);
 
     /**
      * List all Database Connections.
@@ -430,6 +703,23 @@ public interface DatabaseMigration extends AutoCloseable {
      *     API.
      */
     ListConnectionsResponse listConnections(ListConnectionsRequest request);
+
+    /**
+     * List supported Database Types, Sub-types and Versions.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/ListDatabaseConnectionTypeExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListDatabaseConnectionType API.
+     */
+    ListDatabaseConnectionTypeResponse listDatabaseConnectionType(
+            ListDatabaseConnectionTypeRequest request);
 
     /**
      * List the excluded database objects.
@@ -626,6 +916,72 @@ public interface DatabaseMigration extends AutoCloseable {
             MakeCurrentParameterFileVersionRequest request);
 
     /**
+     * Assessor Action.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/PerformAssessorActionExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     PerformAssessorAction API.
+     */
+    PerformAssessorActionResponse performAssessorAction(PerformAssessorActionRequest request);
+
+    /**
+     * Download SQL script Assessor Action.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/PerformAssessorActionDownloadSqlExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     PerformAssessorActionDownloadSql API.
+     */
+    PerformAssessorActionDownloadSqlResponse performAssessorActionDownloadSql(
+            PerformAssessorActionDownloadSqlRequest request);
+
+    /**
+     * Assessor Check Action.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/PerformAssessorCheckActionExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     PerformAssessorCheckAction API.
+     */
+    PerformAssessorCheckActionResponse performAssessorCheckAction(
+            PerformAssessorCheckActionRequest request);
+
+    /**
+     * Remove excluded/included objects.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/RemoveAssessmentObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     RemoveAssessmentObjects API.
+     */
+    RemoveAssessmentObjectsResponse removeAssessmentObjects(RemoveAssessmentObjectsRequest request);
+
+    /**
      * Remove excluded/included objects.
      *
      * @param request The request object containing the details to send
@@ -701,6 +1057,73 @@ public interface DatabaseMigration extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use SuspendJob API.
      */
     SuspendJobResponse suspendJob(SuspendJobRequest request);
+
+    /**
+     * Update the premigration extended Advisor report check.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/UpdateAdvisorReportCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateAdvisorReportCheck API.
+     */
+    UpdateAdvisorReportCheckResponse updateAdvisorReportCheck(
+            UpdateAdvisorReportCheckRequest request);
+
+    /**
+     * Update the Pre-Migration extended Advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/UpdateAdvisorReportCheckObjectsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateAdvisorReportCheckObjects API.
+     */
+    UpdateAdvisorReportCheckObjectsResponse updateAdvisorReportCheckObjects(
+            UpdateAdvisorReportCheckObjectsRequest request);
+
+    /**
+     * Update Assessment resource details.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/UpdateAssessmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateAssessment
+     *     API.
+     */
+    UpdateAssessmentResponse updateAssessment(UpdateAssessmentRequest request);
+
+    /**
+     * Update the advisor report object list.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemigration/UpdateCheckActionUpdateObjectExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateCheckActionUpdateObject API.
+     */
+    UpdateCheckActionUpdateObjectResponse updateCheckActionUpdateObject(
+            UpdateCheckActionUpdateObjectRequest request);
 
     /**
      * Update Database Connection resource details.

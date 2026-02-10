@@ -98,6 +98,7 @@ public final class TargetEntry extends com.oracle.bmc.http.client.internal.Expli
         Database("DATABASE"),
         Vmcluster("VMCLUSTER"),
         Cloudvmcluster("CLOUDVMCLUSTER"),
+        Exadbvmcluster("EXADBVMCLUSTER"),
         ;
 
         private final String value;

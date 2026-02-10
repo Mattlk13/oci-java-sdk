@@ -513,6 +513,138 @@ public class VirtualNetworkAsyncClient extends com.oracle.bmc.http.internal.Base
     }
 
     @Override
+    public java.util.concurrent.Future<BulkCreateIpv6sResponse> bulkCreateIpv6s(
+            BulkCreateIpv6sRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkCreateIpv6sRequest, BulkCreateIpv6sResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkCreateIpv6sDetails(), "bulkCreateIpv6sDetails is required");
+
+        return clientCall(request, BulkCreateIpv6sResponse::builder)
+                .logger(LOG, "bulkCreateIpv6s")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkCreateIpv6s",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/Ipv6/BulkCreateIpv6s")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkCreateIpv6sRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("ipv6")
+                .appendPathParam("actions")
+                .appendPathParam("bulkCreateIpv6s")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkCreateIpv6sResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", BulkCreateIpv6sResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkCreatePrivateIpsResponse> bulkCreatePrivateIps(
+            BulkCreatePrivateIpsRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkCreatePrivateIpsRequest, BulkCreatePrivateIpsResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkCreatePrivateIpsDetails(),
+                "bulkCreatePrivateIpsDetails is required");
+
+        return clientCall(request, BulkCreatePrivateIpsResponse::builder)
+                .logger(LOG, "bulkCreatePrivateIps")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkCreatePrivateIps",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/PrivateIp/BulkCreatePrivateIps")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkCreatePrivateIpsRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("privateIps")
+                .appendPathParam("actions")
+                .appendPathParam("bulkCreatePrivateIps")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkCreatePrivateIpsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        BulkCreatePrivateIpsResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkDeleteIpv6sResponse> bulkDeleteIpv6s(
+            BulkDeleteIpv6sRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkDeleteIpv6sRequest, BulkDeleteIpv6sResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkDeleteIpv6sDetails(), "bulkDeleteIpv6sDetails is required");
+
+        return clientCall(request, BulkDeleteIpv6sResponse::builder)
+                .logger(LOG, "bulkDeleteIpv6s")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkDeleteIpv6s",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/Ipv6/BulkDeleteIpv6s")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkDeleteIpv6sRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("ipv6")
+                .appendPathParam("actions")
+                .appendPathParam("bulkDeleteIpv6s")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkDeleteIpv6sResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", BulkDeleteIpv6sResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkDeletePrivateIpsResponse> bulkDeletePrivateIps(
+            BulkDeletePrivateIpsRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkDeletePrivateIpsRequest, BulkDeletePrivateIpsResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkDeletePrivateIpsDetails(),
+                "bulkDeletePrivateIpsDetails is required");
+
+        return clientCall(request, BulkDeletePrivateIpsResponse::builder)
+                .logger(LOG, "bulkDeletePrivateIps")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkDeletePrivateIps",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/PrivateIp/BulkDeletePrivateIps")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkDeletePrivateIpsRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("privateIps")
+                .appendPathParam("actions")
+                .appendPathParam("bulkDeletePrivateIps")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkDeletePrivateIpsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        BulkDeletePrivateIpsResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<BulkDeleteVirtualCircuitPublicPrefixesResponse>
             bulkDeleteVirtualCircuitPublicPrefixes(
                     BulkDeleteVirtualCircuitPublicPrefixesRequest request,
@@ -541,6 +673,138 @@ public class VirtualNetworkAsyncClient extends com.oracle.bmc.http.internal.Base
                 .appendPathParam("bulkDeletePublicPrefixes")
                 .accept("application/json")
                 .hasBody()
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkDetachIpv6sResponse> bulkDetachIpv6s(
+            BulkDetachIpv6sRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkDetachIpv6sRequest, BulkDetachIpv6sResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkDetachIpv6sDetails(), "bulkDetachIpv6sDetails is required");
+
+        return clientCall(request, BulkDetachIpv6sResponse::builder)
+                .logger(LOG, "bulkDetachIpv6s")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkDetachIpv6s",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/Ipv6/BulkDetachIpv6s")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkDetachIpv6sRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("ipv6")
+                .appendPathParam("actions")
+                .appendPathParam("bulkDetachIpv6s")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkDetachIpv6sResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", BulkDetachIpv6sResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkDetachPrivateIpsResponse> bulkDetachPrivateIps(
+            BulkDetachPrivateIpsRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkDetachPrivateIpsRequest, BulkDetachPrivateIpsResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkDetachPrivateIpsDetails(),
+                "bulkDetachPrivateIpsDetails is required");
+
+        return clientCall(request, BulkDetachPrivateIpsResponse::builder)
+                .logger(LOG, "bulkDetachPrivateIps")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkDetachPrivateIps",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/PrivateIp/BulkDetachPrivateIps")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkDetachPrivateIpsRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("privateIps")
+                .appendPathParam("actions")
+                .appendPathParam("bulkDetachPrivateIps")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkDetachPrivateIpsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        BulkDetachPrivateIpsResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkUpdateIpv6sResponse> bulkUpdateIpv6s(
+            BulkUpdateIpv6sRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkUpdateIpv6sRequest, BulkUpdateIpv6sResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkUpdateIpv6sDetails(), "bulkUpdateIpv6sDetails is required");
+
+        return clientCall(request, BulkUpdateIpv6sResponse::builder)
+                .logger(LOG, "bulkUpdateIpv6s")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkUpdateIpv6s",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/Ipv6/BulkUpdateIpv6s")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkUpdateIpv6sRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("ipv6")
+                .appendPathParam("actions")
+                .appendPathParam("bulkUpdateIpv6s")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkUpdateIpv6sResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", BulkUpdateIpv6sResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BulkUpdatePrivateIpsResponse> bulkUpdatePrivateIps(
+            BulkUpdatePrivateIpsRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            BulkUpdatePrivateIpsRequest, BulkUpdatePrivateIpsResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getBulkUpdatePrivateIpsDetails(),
+                "bulkUpdatePrivateIpsDetails is required");
+
+        return clientCall(request, BulkUpdatePrivateIpsResponse::builder)
+                .logger(LOG, "bulkUpdatePrivateIps")
+                .serviceDetails(
+                        "VirtualNetwork",
+                        "BulkUpdatePrivateIps",
+                        "https://docs.oracle.com/iaas/api/#/en/iaas/20160918/PrivateIp/BulkUpdatePrivateIps")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(BulkUpdatePrivateIpsRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("privateIps")
+                .appendPathParam("actions")
+                .appendPathParam("bulkUpdatePrivateIps")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", BulkUpdatePrivateIpsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        BulkUpdatePrivateIpsResponse.Builder::opcWorkRequestId)
                 .callAsync(handler);
     }
 

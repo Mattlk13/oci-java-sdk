@@ -23,6 +23,9 @@ package com.oracle.bmc.fleetsoftwareupdate.model;
         defaultImpl = TargetDetails.class)
 @com.fasterxml.jackson.annotation.JsonSubTypes({
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = ExadbVmClusterTargetSummary.class,
+            name = "EXADBVMCLUSTER"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = VmClusterTargetSummary.class,
             name = "VMCLUSTER"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
@@ -122,6 +125,7 @@ public class TargetDetails extends com.oracle.bmc.http.client.internal.Explicitl
         Database("DATABASE"),
         Vmcluster("VMCLUSTER"),
         Cloudvmcluster("CLOUDVMCLUSTER"),
+        Exadbvmcluster("EXADBVMCLUSTER"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by

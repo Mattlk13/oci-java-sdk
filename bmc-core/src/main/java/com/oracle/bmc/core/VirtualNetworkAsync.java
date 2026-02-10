@@ -274,6 +274,68 @@ public interface VirtualNetworkAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Create new IPv6s for a VNIC or Subnet.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkCreateIpv6sResponse> bulkCreateIpv6s(
+            BulkCreateIpv6sRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkCreateIpv6sRequest, BulkCreateIpv6sResponse>
+                    handler);
+
+    /**
+     * Create secondary private IPv4 addresses.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkCreatePrivateIpsResponse> bulkCreatePrivateIps(
+            BulkCreatePrivateIpsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkCreatePrivateIpsRequest, BulkCreatePrivateIpsResponse>
+                    handler);
+
+    /**
+     * Unassigns and deletes IPv6s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDeleteIpv6sResponse> bulkDeleteIpv6s(
+            BulkDeleteIpv6sRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkDeleteIpv6sRequest, BulkDeleteIpv6sResponse>
+                    handler);
+
+    /**
+     * Unassigns and deletes secondary private IPv4s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDeletePrivateIpsResponse> bulkDeletePrivateIps(
+            BulkDeletePrivateIpsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkDeletePrivateIpsRequest, BulkDeletePrivateIpsResponse>
+                    handler);
+
+    /**
      * Removes one or more customer public IP prefixes from the specified public virtual circuit.
      * Use this operation (and not {@link #updateVirtualCircuit(UpdateVirtualCircuitRequest,
      * Consumer, Consumer) updateVirtualCircuit}) to remove prefixes from the virtual circuit. When
@@ -294,6 +356,70 @@ public interface VirtualNetworkAsync extends AutoCloseable {
                                     BulkDeleteVirtualCircuitPublicPrefixesRequest,
                                     BulkDeleteVirtualCircuitPublicPrefixesResponse>
                             handler);
+
+    /**
+     * detach the specified IPv6s.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDetachIpv6sResponse> bulkDetachIpv6s(
+            BulkDetachIpv6sRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkDetachIpv6sRequest, BulkDetachIpv6sResponse>
+                    handler);
+
+    /**
+     * Unassign the specified PrivateIP address from Virtual Network Interface Card (VNIC). You must
+     * specify the PrivateIP
+     * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkDetachPrivateIpsResponse> bulkDetachPrivateIps(
+            BulkDetachPrivateIpsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkDetachPrivateIpsRequest, BulkDetachPrivateIpsResponse>
+                    handler);
+
+    /**
+     * Updates the specified IPv6s.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkUpdateIpv6sResponse> bulkUpdateIpv6s(
+            BulkUpdateIpv6sRequest request,
+            com.oracle.bmc.responses.AsyncHandler<BulkUpdateIpv6sRequest, BulkUpdateIpv6sResponse>
+                    handler);
+
+    /**
+     * Updates existing secondary Private IPv4s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<BulkUpdatePrivateIpsResponse> bulkUpdatePrivateIps(
+            BulkUpdatePrivateIpsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            BulkUpdatePrivateIpsRequest, BulkUpdatePrivateIpsResponse>
+                    handler);
 
     /**
      * Moves a BYOASN Resource to a different compartment. For information about moving resources

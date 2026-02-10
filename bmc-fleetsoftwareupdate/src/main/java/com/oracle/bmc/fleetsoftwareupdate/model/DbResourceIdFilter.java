@@ -145,6 +145,8 @@ public final class DbResourceIdFilter extends DbFleetDiscoveryFilter {
         Cloudexadatainfrastructure("CLOUDEXADATAINFRASTRUCTURE"),
         Vmcluster("VMCLUSTER"),
         Cloudvmcluster("CLOUDVMCLUSTER"),
+        Exadbvmcluster("EXADBVMCLUSTER"),
+        Exascaledbstoragevault("EXASCALEDBSTORAGEVAULT"),
         Fsucollection("FSUCOLLECTION"),
 
         /**

@@ -70,7 +70,7 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
         if (isStreamWarningEnabled && com.oracle.bmc.util.StreamUtils.isExtraStreamLogsEnabled()) {
             LOG.warn(
                     com.oracle.bmc.util.StreamUtils.getStreamWarningMessage(
-                            "DatabaseMigrationClient", "getJobOutputContent"));
+                            "DatabaseMigrationClient", "getJobOutputContent,getScript"));
         }
     }
 
@@ -181,6 +181,37 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
     }
 
     @Override
+    public AddAssessmentObjectsResponse addAssessmentObjects(AddAssessmentObjectsRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(
+                request.getAddAssessmentObjectsDetails(),
+                "addAssessmentObjectsDetails is required");
+
+        return clientCall(request, AddAssessmentObjectsResponse::builder)
+                .logger(LOG, "addAssessmentObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "AddAssessmentObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/AddAssessmentObjects")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(AddAssessmentObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("actions")
+                .appendPathParam("addAssessmentObjects")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", AddAssessmentObjectsResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public AddMigrationObjectsResponse addMigrationObjects(AddMigrationObjectsRequest request) {
 
         Validate.notBlank(request.getMigrationId(), "migrationId must not be blank");
@@ -207,6 +238,39 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .hasBody()
                 .handleResponseHeaderString(
                         "opc-request-id", AddMigrationObjectsResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public ChangeAssessmentCompartmentResponse changeAssessmentCompartment(
+            ChangeAssessmentCompartmentRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(
+                request.getChangeAssessmentCompartmentDetails(),
+                "changeAssessmentCompartmentDetails is required");
+
+        return clientCall(request, ChangeAssessmentCompartmentResponse::builder)
+                .logger(LOG, "changeAssessmentCompartment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ChangeAssessmentCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/ChangeAssessmentCompartment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ChangeAssessmentCompartmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("actions")
+                .appendPathParam("changeCompartment")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", ChangeAssessmentCompartmentResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -273,6 +337,43 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .hasBody()
                 .handleResponseHeaderString(
                         "opc-request-id", ChangeMigrationCompartmentResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public CloneAssessmentResponse cloneAssessment(CloneAssessmentRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(
+                request.getCloneAssessmentDetails(), "cloneAssessmentDetails is required");
+
+        return clientCall(request, CloneAssessmentResponse::builder)
+                .logger(LOG, "cloneAssessment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "CloneAssessment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/CloneAssessment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CloneAssessmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("actions")
+                .appendPathParam("clone")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.Assessment.class,
+                        CloneAssessmentResponse.Builder::assessment)
+                .handleResponseHeaderString(
+                        "opc-request-id", CloneAssessmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", CloneAssessmentResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString("etag", CloneAssessmentResponse.Builder::etag)
                 .callSync();
     }
 
@@ -367,6 +468,7 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .appendPathParam(request.getConnectionId())
                 .appendPathParam("actions")
                 .appendPathParam("diagnostics")
+                .appendQueryParam("isAssessmentValidation", request.getIsAssessmentValidation())
                 .accept("application/json")
                 .appendHeader("if-match", request.getIfMatch())
                 .appendHeader("opc-request-id", request.getOpcRequestId())
@@ -378,6 +480,37 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .handleResponseHeaderString(
                         "opc-request-id", ConnectionDiagnosticsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString("etag", ConnectionDiagnosticsResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public CreateAssessmentResponse createAssessment(CreateAssessmentRequest request) {
+        Objects.requireNonNull(
+                request.getCreateAssessmentDetails(), "createAssessmentDetails is required");
+
+        return clientCall(request, CreateAssessmentResponse::builder)
+                .logger(LOG, "createAssessment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "CreateAssessment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/CreateAssessment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateAssessmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.Assessment.class,
+                        CreateAssessmentResponse.Builder::assessment)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateAssessmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", CreateAssessmentResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", CreateAssessmentResponse.Builder::opcWorkRequestId)
                 .callSync();
     }
 
@@ -472,6 +605,33 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .handleResponseHeaderString(
                         "opc-work-request-id",
                         CreateParameterFileVersionResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public DeleteAssessmentResponse deleteAssessment(DeleteAssessmentRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        return clientCall(request, DeleteAssessmentResponse::builder)
+                .logger(LOG, "deleteAssessment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "DeleteAssessment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/DeleteAssessment")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteAssessmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-request-id", DeleteAssessmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", DeleteAssessmentResponse.Builder::opcWorkRequestId)
                 .callSync();
     }
 
@@ -651,6 +811,112 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
     }
 
     @Override
+    public GetAssessmentResponse getAssessment(GetAssessmentRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        return clientCall(request, GetAssessmentResponse::builder)
+                .logger(LOG, "getAssessment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "GetAssessment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/GetAssessment")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetAssessmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.Assessment.class,
+                        GetAssessmentResponse.Builder::assessment)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetAssessmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", GetAssessmentResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public GetAssessorResponse getAssessor(GetAssessorRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        return clientCall(request, GetAssessorResponse::builder)
+                .logger(LOG, "getAssessor")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "GetAssessor",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessor/GetAssessor")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetAssessorRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.Assessor.class,
+                        GetAssessorResponse.Builder::assessor)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetAssessorResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", GetAssessorResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public GetAssessorCheckResponse getAssessorCheck(GetAssessorCheckRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        Validate.notBlank(request.getCheckName(), "checkName must not be blank");
+
+        return clientCall(request, GetAssessorCheckResponse::builder)
+                .logger(LOG, "getAssessorCheck")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "GetAssessorCheck",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessorCheck/GetAssessorCheck")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetAssessorCheckRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("checks")
+                .appendPathParam(request.getCheckName())
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessorCheck.class,
+                        GetAssessorCheckResponse.Builder::assessorCheck)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetAssessorCheckResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", GetAssessorCheckResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
     public GetConnectionResponse getConnection(GetConnectionRequest request) {
 
         Validate.notBlank(request.getConnectionId(), "connectionId must not be blank");
@@ -796,6 +1062,31 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
     }
 
     @Override
+    public GetScriptResponse getScript(GetScriptRequest request) {
+
+        Validate.notBlank(request.getScriptId().getValue(), "scriptId must not be blank");
+
+        return clientCall(request, GetScriptResponse::builder)
+                .logger(LOG, "getScript")
+                .serviceDetails("DatabaseMigration", "GetScript", "")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetScriptRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("scripts")
+                .appendPathParam(request.getScriptId().getValue())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .handleBody(java.io.InputStream.class, GetScriptResponse.Builder::inputStream)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetScriptResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("opc-next-page", GetScriptResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
     public GetWorkRequestResponse getWorkRequest(GetWorkRequestRequest request) {
 
         Validate.notBlank(request.getWorkRequestId(), "workRequestId must not be blank");
@@ -823,6 +1114,303 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
     }
 
     @Override
+    public ListAdvisorReportCheckObjectsResponse listAdvisorReportCheckObjects(
+            ListAdvisorReportCheckObjectsRequest request) {
+
+        Validate.notBlank(request.getJobId(), "jobId must not be blank");
+
+        Validate.notBlank(
+                request.getAdvisorReportCheckId(), "advisorReportCheckId must not be blank");
+
+        return clientCall(request, ListAdvisorReportCheckObjectsResponse::builder)
+                .logger(LOG, "listAdvisorReportCheckObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAdvisorReportCheckObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Job/ListAdvisorReportCheckObjects")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAdvisorReportCheckObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("jobs")
+                .appendPathParam(request.getJobId())
+                .appendPathParam("advisorReportChecks")
+                .appendPathParam(request.getAdvisorReportCheckId())
+                .appendPathParam("objects")
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AdvisorReportCheckObjectsCollection
+                                .class,
+                        ListAdvisorReportCheckObjectsResponse.Builder
+                                ::advisorReportCheckObjectsCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListAdvisorReportCheckObjectsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAdvisorReportCheckObjectsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAdvisorReportChecksResponse listAdvisorReportChecks(
+            ListAdvisorReportChecksRequest request) {
+
+        Validate.notBlank(request.getJobId(), "jobId must not be blank");
+
+        return clientCall(request, ListAdvisorReportChecksResponse::builder)
+                .logger(LOG, "listAdvisorReportChecks")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAdvisorReportChecks",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Job/ListAdvisorReportChecks")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAdvisorReportChecksRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("jobs")
+                .appendPathParam(request.getJobId())
+                .appendPathParam("advisorReportChecks")
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AdvisorReportCheckCollection.class,
+                        ListAdvisorReportChecksResponse.Builder::advisorReportCheckCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAdvisorReportChecksResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", ListAdvisorReportChecksResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public ListAffectedObjectsResponse listAffectedObjects(ListAffectedObjectsRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        Validate.notBlank(request.getCheckName(), "checkName must not be blank");
+
+        return clientCall(request, ListAffectedObjectsResponse::builder)
+                .logger(LOG, "listAffectedObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAffectedObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessorCheck/ListAffectedObjects")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAffectedObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("checks")
+                .appendPathParam(request.getCheckName())
+                .appendPathParam("affectedObjects")
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AffectedObjectsCollection.class,
+                        ListAffectedObjectsResponse.Builder::affectedObjectsCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAffectedObjectsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAffectedObjectsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAssessmentObjectTypesResponse listAssessmentObjectTypes(
+            ListAssessmentObjectTypesRequest request) {
+        Objects.requireNonNull(request.getConnectionType(), "connectionType is required");
+
+        return clientCall(request, ListAssessmentObjectTypesResponse::builder)
+                .logger(LOG, "listAssessmentObjectTypes")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAssessmentObjectTypes",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessmentObjectTypeSummary/ListAssessmentObjectTypes")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAssessmentObjectTypesRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessmentObjectTypes")
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("connectionType", request.getConnectionType())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessmentObjectTypeSummaryCollection
+                                .class,
+                        ListAssessmentObjectTypesResponse.Builder
+                                ::assessmentObjectTypeSummaryCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAssessmentObjectTypesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAssessmentObjectTypesResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAssessmentObjectsResponse listAssessmentObjects(
+            ListAssessmentObjectsRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        return clientCall(request, ListAssessmentObjectsResponse::builder)
+                .logger(LOG, "listAssessmentObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAssessmentObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessmentObjectCollection/ListAssessmentObjects")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAssessmentObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessmentObjects")
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessmentObjectCollection.class,
+                        ListAssessmentObjectsResponse.Builder::assessmentObjectCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAssessmentObjectsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAssessmentObjectsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAssessmentsResponse listAssessments(ListAssessmentsRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        return clientCall(request, ListAssessmentsResponse::builder)
+                .logger(LOG, "listAssessments")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAssessments",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessmentSummary/ListAssessments")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAssessmentsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .appendEnumQueryParam("lifecycleDetails", request.getLifecycleDetails())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessmentCollection.class,
+                        ListAssessmentsResponse.Builder::assessmentCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAssessmentsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAssessmentsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAssessorChecksResponse listAssessorChecks(ListAssessorChecksRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        return clientCall(request, ListAssessorChecksResponse::builder)
+                .logger(LOG, "listAssessorChecks")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAssessorChecks",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessorCheckSummary/ListAssessorChecks")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAssessorChecksRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("checks")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessorCheckSummaryCollection.class,
+                        ListAssessorChecksResponse.Builder::assessorCheckSummaryCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAssessorChecksResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAssessorChecksResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListAssessorsResponse listAssessors(ListAssessorsRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        return clientCall(request, ListAssessorsResponse::builder)
+                .logger(LOG, "listAssessors")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListAssessors",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AssessorSummary/ListAssessors")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAssessorsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.AssessorSummaryCollection.class,
+                        ListAssessorsResponse.Builder::assessorSummaryCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListAssessorsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListAssessorsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
     public ListConnectionsResponse listConnections(ListConnectionsRequest request) {
         Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
 
@@ -841,6 +1429,7 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                         "technologyType",
                         request.getTechnologyType(),
                         com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("technologySubType", request.getTechnologySubType())
                 .appendListQueryParam(
                         "connectionType",
                         request.getConnectionType(),
@@ -862,6 +1451,51 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                         "opc-request-id", ListConnectionsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListConnectionsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListDatabaseConnectionTypeResponse listDatabaseConnectionType(
+            ListDatabaseConnectionTypeRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        return clientCall(request, ListDatabaseConnectionTypeResponse::builder)
+                .logger(LOG, "listDatabaseConnectionType")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "ListDatabaseConnectionType",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/DatabaseConnectionTypeSummary/ListDatabaseConnectionType")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListDatabaseConnectionTypeRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("connections")
+                .appendPathParam("databaseconnectiontype")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendListQueryParam(
+                        "technologyType",
+                        request.getTechnologyType(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendListQueryParam(
+                        "connectionType",
+                        request.getConnectionType(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("sourceConnectionId", request.getSourceConnectionId())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.DatabaseConnectionTypeCollection
+                                .class,
+                        ListDatabaseConnectionTypeResponse.Builder
+                                ::databaseConnectionTypeCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListDatabaseConnectionTypeResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListDatabaseConnectionTypeResponse.Builder::opcNextPage)
                 .callSync();
     }
 
@@ -960,6 +1594,7 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .appendEnumQueryParam("sortBy", request.getSortBy())
                 .appendEnumQueryParam("sortOrder", request.getSortOrder())
                 .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .appendQueryParam("jobIdNotEqualTo", request.getJobIdNotEqualTo())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
                 .operationUsesDefaultRetries()
@@ -1289,6 +1924,165 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
     }
 
     @Override
+    public PerformAssessorActionResponse performAssessorAction(
+            PerformAssessorActionRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        Validate.notBlank(request.getAssessorAction(), "assessorAction must not be blank");
+
+        return clientCall(request, PerformAssessorActionResponse::builder)
+                .logger(LOG, "performAssessorAction")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "PerformAssessorAction",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/PerformAssessorAction")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(PerformAssessorActionRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("assessorActions")
+                .appendPathParam(request.getAssessorAction())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", PerformAssessorActionResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        PerformAssessorActionResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public PerformAssessorActionDownloadSqlResponse performAssessorActionDownloadSql(
+            PerformAssessorActionDownloadSqlRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        return clientCall(request, PerformAssessorActionDownloadSqlResponse::builder)
+                .logger(LOG, "performAssessorActionDownloadSql")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "PerformAssessorActionDownloadSql",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/PerformAssessorActionDownloadSql")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(PerformAssessorActionDownloadSqlRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("actions")
+                .appendPathParam("download_sql")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemigration.model.DownloadSqlDetails.class,
+                        PerformAssessorActionDownloadSqlResponse.Builder::downloadSqlDetails)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PerformAssessorActionDownloadSqlResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        PerformAssessorActionDownloadSqlResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "etag", PerformAssessorActionDownloadSqlResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public PerformAssessorCheckActionResponse performAssessorCheckAction(
+            PerformAssessorCheckActionRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        Validate.notBlank(request.getCheckName(), "checkName must not be blank");
+
+        Validate.notBlank(
+                request.getAssessorCheckAction(), "assessorCheckAction must not be blank");
+        Objects.requireNonNull(
+                request.getPerformAssessorCheckActionDetails(),
+                "performAssessorCheckActionDetails is required");
+
+        return clientCall(request, PerformAssessorCheckActionResponse::builder)
+                .logger(LOG, "performAssessorCheckAction")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "PerformAssessorCheckAction",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/PerformAssessorCheckAction")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(PerformAssessorCheckActionRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("checks")
+                .appendPathParam(request.getCheckName())
+                .appendPathParam("actions")
+                .appendPathParam(request.getAssessorCheckAction())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", PerformAssessorCheckActionResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        PerformAssessorCheckActionResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public RemoveAssessmentObjectsResponse removeAssessmentObjects(
+            RemoveAssessmentObjectsRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(
+                request.getRemoveAssessmentObjectsDetails(),
+                "removeAssessmentObjectsDetails is required");
+
+        return clientCall(request, RemoveAssessmentObjectsResponse::builder)
+                .logger(LOG, "removeAssessmentObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "RemoveAssessmentObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/RemoveAssessmentObjects")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(RemoveAssessmentObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("actions")
+                .appendPathParam("removeAssessmentObjects")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", RemoveAssessmentObjectsResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public RemoveMigrationObjectsResponse removeMigrationObjects(
             RemoveMigrationObjectsRequest request) {
 
@@ -1447,6 +2241,150 @@ public class DatabaseMigrationClient extends com.oracle.bmc.http.internal.BaseSy
                 .handleResponseHeaderString(
                         "opc-request-id", SuspendJobResponse.Builder::opcRequestId)
                 .handleResponseHeaderString("etag", SuspendJobResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public UpdateAdvisorReportCheckResponse updateAdvisorReportCheck(
+            UpdateAdvisorReportCheckRequest request) {
+
+        Validate.notBlank(request.getJobId(), "jobId must not be blank");
+
+        Validate.notBlank(
+                request.getAdvisorReportCheckId(), "advisorReportCheckId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateAdvisorReportCheck(), "updateAdvisorReportCheck is required");
+
+        return clientCall(request, UpdateAdvisorReportCheckResponse::builder)
+                .logger(LOG, "updateAdvisorReportCheck")
+                .serviceDetails("DatabaseMigration", "UpdateAdvisorReportCheck", "")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateAdvisorReportCheckRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("jobs")
+                .appendPathParam(request.getJobId())
+                .appendPathParam("advisorReportChecks")
+                .appendPathParam(request.getAdvisorReportCheckId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", UpdateAdvisorReportCheckResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateAdvisorReportCheckObjectsResponse updateAdvisorReportCheckObjects(
+            UpdateAdvisorReportCheckObjectsRequest request) {
+
+        Validate.notBlank(request.getJobId(), "jobId must not be blank");
+
+        Validate.notBlank(
+                request.getAdvisorReportCheckId(), "advisorReportCheckId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateAdvisorReportCheckObjectsDetails(),
+                "updateAdvisorReportCheckObjectsDetails is required");
+
+        return clientCall(request, UpdateAdvisorReportCheckObjectsResponse::builder)
+                .logger(LOG, "updateAdvisorReportCheckObjects")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "UpdateAdvisorReportCheckObjects",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AdvisorReportCheckCollection/UpdateAdvisorReportCheckObjects")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(UpdateAdvisorReportCheckObjectsRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("jobs")
+                .appendPathParam(request.getJobId())
+                .appendPathParam("advisorReportChecks")
+                .appendPathParam(request.getAdvisorReportCheckId())
+                .appendPathParam("actions")
+                .appendPathParam("updateObjects")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateAdvisorReportCheckObjectsResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateAssessmentResponse updateAssessment(UpdateAssessmentRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateAssessmentDetails(), "updateAssessmentDetails is required");
+
+        return clientCall(request, UpdateAssessmentResponse::builder)
+                .logger(LOG, "updateAssessment")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "UpdateAssessment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/Assessment/UpdateAssessment")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateAssessmentRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id", UpdateAssessmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id", UpdateAssessmentResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateCheckActionUpdateObjectResponse updateCheckActionUpdateObject(
+            UpdateCheckActionUpdateObjectRequest request) {
+
+        Validate.notBlank(request.getAssessmentId(), "assessmentId must not be blank");
+
+        Validate.notBlank(request.getAssessorName(), "assessorName must not be blank");
+
+        Validate.notBlank(request.getCheckName(), "checkName must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateCheckActionUpdateObjectDetails(),
+                "updateCheckActionUpdateObjectDetails is required");
+
+        return clientCall(request, UpdateCheckActionUpdateObjectResponse::builder)
+                .logger(LOG, "updateCheckActionUpdateObject")
+                .serviceDetails(
+                        "DatabaseMigration",
+                        "UpdateCheckActionUpdateObject",
+                        "https://docs.oracle.com/iaas/api/#/en/database-migration/20230518/AdvisorReportCheckCollection/UpdateCheckActionUpdateObject")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateCheckActionUpdateObjectRequest::builder)
+                .basePath("/20230518")
+                .appendPathParam("assessments")
+                .appendPathParam(request.getAssessmentId())
+                .appendPathParam("assessors")
+                .appendPathParam(request.getAssessorName())
+                .appendPathParam("checks")
+                .appendPathParam(request.getCheckName())
+                .appendPathParam("actions")
+                .appendPathParam("updateObjects")
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateCheckActionUpdateObjectResponse.Builder::opcRequestId)
                 .callSync();
     }
 

@@ -63,6 +63,15 @@ public final class OracleCloneMigrationDetails extends CloneMigrationDetails {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+        private String assessmentId;
+
+        public Builder assessmentId(String assessmentId) {
+            this.assessmentId = assessmentId;
+            this.__explicitlySet__.add("assessmentId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("freeformTags")
         private java.util.Map<String, String> freeformTags;
 
@@ -123,6 +132,7 @@ public final class OracleCloneMigrationDetails extends CloneMigrationDetails {
                             this.compartmentId,
                             this.sourceDatabaseConnectionId,
                             this.targetDatabaseConnectionId,
+                            this.assessmentId,
                             this.freeformTags,
                             this.definedTags,
                             this.sourceContainerDatabaseConnectionId,
@@ -146,6 +156,9 @@ public final class OracleCloneMigrationDetails extends CloneMigrationDetails {
             }
             if (model.wasPropertyExplicitlySet("targetDatabaseConnectionId")) {
                 this.targetDatabaseConnectionId(model.getTargetDatabaseConnectionId());
+            }
+            if (model.wasPropertyExplicitlySet("assessmentId")) {
+                this.assessmentId(model.getAssessmentId());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -180,6 +193,7 @@ public final class OracleCloneMigrationDetails extends CloneMigrationDetails {
             String compartmentId,
             String sourceDatabaseConnectionId,
             String targetDatabaseConnectionId,
+            String assessmentId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             String sourceContainerDatabaseConnectionId,
@@ -189,6 +203,7 @@ public final class OracleCloneMigrationDetails extends CloneMigrationDetails {
                 compartmentId,
                 sourceDatabaseConnectionId,
                 targetDatabaseConnectionId,
+                assessmentId,
                 freeformTags,
                 definedTags);
         this.sourceContainerDatabaseConnectionId = sourceContainerDatabaseConnectionId;

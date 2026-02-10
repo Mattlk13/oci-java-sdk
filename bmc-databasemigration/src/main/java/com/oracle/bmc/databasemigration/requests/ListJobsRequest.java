@@ -127,6 +127,13 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
     public com.oracle.bmc.databasemigration.model.JobLifecycleStates getLifecycleState() {
         return lifecycleState;
     }
+    /** The ID of the Job to exclude from the list of jobs. */
+    private String jobIdNotEqualTo;
+
+    /** The ID of the Job to exclude from the list of jobs. */
+    public String getJobIdNotEqualTo() {
+        return jobIdNotEqualTo;
+    }
 
     public static class Builder
             implements com.oracle.bmc.requests.BmcRequest.Builder<ListJobsRequest, java.lang.Void> {
@@ -260,6 +267,20 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
             return this;
         }
 
+        /** The ID of the Job to exclude from the list of jobs. */
+        private String jobIdNotEqualTo = null;
+
+        /**
+         * The ID of the Job to exclude from the list of jobs.
+         *
+         * @param jobIdNotEqualTo the value to set
+         * @return this builder instance
+         */
+        public Builder jobIdNotEqualTo(String jobIdNotEqualTo) {
+            this.jobIdNotEqualTo = jobIdNotEqualTo;
+            return this;
+        }
+
         /**
          * Set the invocation callback for the request to be built.
          *
@@ -298,6 +319,7 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
             sortBy(o.getSortBy());
             sortOrder(o.getSortOrder());
             lifecycleState(o.getLifecycleState());
+            jobIdNotEqualTo(o.getJobIdNotEqualTo());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;
@@ -340,9 +362,10 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
             request.sortBy = sortBy;
             request.sortOrder = sortOrder;
             request.lifecycleState = lifecycleState;
+            request.jobIdNotEqualTo = jobIdNotEqualTo;
             return request;
             // new ListJobsRequest(migrationId, opcRequestId, displayName, limit, page, sortBy,
-            // sortOrder, lifecycleState);
+            // sortOrder, lifecycleState, jobIdNotEqualTo);
         }
     }
 
@@ -360,7 +383,8 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
                 .page(page)
                 .sortBy(sortBy)
                 .sortOrder(sortOrder)
-                .lifecycleState(lifecycleState);
+                .lifecycleState(lifecycleState)
+                .jobIdNotEqualTo(jobIdNotEqualTo);
     }
 
     /**
@@ -385,6 +409,7 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
         sb.append(",sortBy=").append(String.valueOf(this.sortBy));
         sb.append(",sortOrder=").append(String.valueOf(this.sortOrder));
         sb.append(",lifecycleState=").append(String.valueOf(this.lifecycleState));
+        sb.append(",jobIdNotEqualTo=").append(String.valueOf(this.jobIdNotEqualTo));
         sb.append(")");
         return sb.toString();
     }
@@ -407,7 +432,8 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
                 && java.util.Objects.equals(this.page, other.page)
                 && java.util.Objects.equals(this.sortBy, other.sortBy)
                 && java.util.Objects.equals(this.sortOrder, other.sortOrder)
-                && java.util.Objects.equals(this.lifecycleState, other.lifecycleState);
+                && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
+                && java.util.Objects.equals(this.jobIdNotEqualTo, other.jobIdNotEqualTo);
     }
 
     @Override
@@ -424,6 +450,9 @@ public class ListJobsRequest extends com.oracle.bmc.requests.BmcRequest<java.lan
         result =
                 (result * PRIME)
                         + (this.lifecycleState == null ? 43 : this.lifecycleState.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.jobIdNotEqualTo == null ? 43 : this.jobIdNotEqualTo.hashCode());
         return result;
     }
 }

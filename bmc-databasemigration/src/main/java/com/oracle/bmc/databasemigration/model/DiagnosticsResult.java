@@ -23,11 +23,13 @@ package com.oracle.bmc.databasemigration.model;
 public final class DiagnosticsResult
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"resultType", "error"})
-    public DiagnosticsResult(ResultType resultType, ResultError error) {
+    @java.beans.ConstructorProperties({"resultType", "error", "databaseInformation"})
+    public DiagnosticsResult(
+            ResultType resultType, ResultError error, DatabaseInformation databaseInformation) {
         super();
         this.resultType = resultType;
         this.error = error;
+        this.databaseInformation = databaseInformation;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -57,11 +59,21 @@ public final class DiagnosticsResult
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("databaseInformation")
+        private DatabaseInformation databaseInformation;
+
+        public Builder databaseInformation(DatabaseInformation databaseInformation) {
+            this.databaseInformation = databaseInformation;
+            this.__explicitlySet__.add("databaseInformation");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public DiagnosticsResult build() {
-            DiagnosticsResult model = new DiagnosticsResult(this.resultType, this.error);
+            DiagnosticsResult model =
+                    new DiagnosticsResult(this.resultType, this.error, this.databaseInformation);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -75,6 +87,9 @@ public final class DiagnosticsResult
             }
             if (model.wasPropertyExplicitlySet("error")) {
                 this.error(model.getError());
+            }
+            if (model.wasPropertyExplicitlySet("databaseInformation")) {
+                this.databaseInformation(model.getDatabaseInformation());
             }
             return this;
         }
@@ -109,6 +124,13 @@ public final class DiagnosticsResult
         return error;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("databaseInformation")
+    private final DatabaseInformation databaseInformation;
+
+    public DatabaseInformation getDatabaseInformation() {
+        return databaseInformation;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -126,6 +148,7 @@ public final class DiagnosticsResult
         sb.append("super=").append(super.toString());
         sb.append("resultType=").append(String.valueOf(this.resultType));
         sb.append(", error=").append(String.valueOf(this.error));
+        sb.append(", databaseInformation=").append(String.valueOf(this.databaseInformation));
         sb.append(")");
         return sb.toString();
     }
@@ -142,6 +165,7 @@ public final class DiagnosticsResult
         DiagnosticsResult other = (DiagnosticsResult) o;
         return java.util.Objects.equals(this.resultType, other.resultType)
                 && java.util.Objects.equals(this.error, other.error)
+                && java.util.Objects.equals(this.databaseInformation, other.databaseInformation)
                 && super.equals(other);
     }
 
@@ -151,6 +175,11 @@ public final class DiagnosticsResult
         int result = 1;
         result = (result * PRIME) + (this.resultType == null ? 43 : this.resultType.hashCode());
         result = (result * PRIME) + (this.error == null ? 43 : this.error.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.databaseInformation == null
+                                ? 43
+                                : this.databaseInformation.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

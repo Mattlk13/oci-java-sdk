@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
@@ -499,6 +500,10 @@ public abstract class AbstractFederationClientAuthenticationDetailsProviderBuild
 
     public X509CertificateSupplier getLeafCertificateSupplier() {
         return this.leafCertificateSupplier;
+    }
+
+    public Set<X509CertificateSupplier> getIntermediateCertificateSupplier() {
+        return this.intermediateCertificateSuppliers;
     }
 
     public String getTenancyId() {

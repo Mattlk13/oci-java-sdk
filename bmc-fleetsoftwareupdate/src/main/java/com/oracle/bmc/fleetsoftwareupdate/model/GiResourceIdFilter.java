@@ -144,6 +144,8 @@ public final class GiResourceIdFilter extends GiFleetDiscoveryFilter {
         Cloudexadatainfrastructure("CLOUDEXADATAINFRASTRUCTURE"),
         Vmcluster("VMCLUSTER"),
         Cloudvmcluster("CLOUDVMCLUSTER"),
+        Exadbvmcluster("EXADBVMCLUSTER"),
+        Exascaledbstoragevault("EXASCALEDBSTORAGEVAULT"),
         Fsucollection("FSUCOLLECTION"),
 
         /**

@@ -21,13 +21,28 @@ package com.oracle.bmc.databasemigration.model;
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
 public final class ResultError extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"code", "message", "issue", "action"})
-    public ResultError(String code, String message, String issue, String action) {
+    @java.beans.ConstructorProperties({
+        "code",
+        "message",
+        "issue",
+        "action",
+        "actionLink",
+        "actionText"
+    })
+    public ResultError(
+            String code,
+            String message,
+            String issue,
+            String action,
+            String actionLink,
+            String actionText) {
         super();
         this.code = code;
         this.message = message;
         this.issue = issue;
         this.action = action;
+        this.actionLink = actionLink;
+        this.actionText = actionText;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -92,12 +107,49 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
             this.__explicitlySet__.add("action");
             return this;
         }
+        /** The link to the documentation */
+        @com.fasterxml.jackson.annotation.JsonProperty("actionLink")
+        private String actionLink;
+
+        /**
+         * The link to the documentation
+         *
+         * @param actionLink the value to set
+         * @return this builder
+         */
+        public Builder actionLink(String actionLink) {
+            this.actionLink = actionLink;
+            this.__explicitlySet__.add("actionLink");
+            return this;
+        }
+        /** The text for the link to the documentation */
+        @com.fasterxml.jackson.annotation.JsonProperty("actionText")
+        private String actionText;
+
+        /**
+         * The text for the link to the documentation
+         *
+         * @param actionText the value to set
+         * @return this builder
+         */
+        public Builder actionText(String actionText) {
+            this.actionText = actionText;
+            this.__explicitlySet__.add("actionText");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public ResultError build() {
-            ResultError model = new ResultError(this.code, this.message, this.issue, this.action);
+            ResultError model =
+                    new ResultError(
+                            this.code,
+                            this.message,
+                            this.issue,
+                            this.action,
+                            this.actionLink,
+                            this.actionText);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -117,6 +169,12 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("action")) {
                 this.action(model.getAction());
+            }
+            if (model.wasPropertyExplicitlySet("actionLink")) {
+                this.actionLink(model.getActionLink());
+            }
+            if (model.wasPropertyExplicitlySet("actionText")) {
+                this.actionText(model.getActionText());
             }
             return this;
         }
@@ -183,6 +241,32 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
         return action;
     }
 
+    /** The link to the documentation */
+    @com.fasterxml.jackson.annotation.JsonProperty("actionLink")
+    private final String actionLink;
+
+    /**
+     * The link to the documentation
+     *
+     * @return the value
+     */
+    public String getActionLink() {
+        return actionLink;
+    }
+
+    /** The text for the link to the documentation */
+    @com.fasterxml.jackson.annotation.JsonProperty("actionText")
+    private final String actionText;
+
+    /**
+     * The text for the link to the documentation
+     *
+     * @return the value
+     */
+    public String getActionText() {
+        return actionText;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -202,6 +286,8 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", message=").append(String.valueOf(this.message));
         sb.append(", issue=").append(String.valueOf(this.issue));
         sb.append(", action=").append(String.valueOf(this.action));
+        sb.append(", actionLink=").append(String.valueOf(this.actionLink));
+        sb.append(", actionText=").append(String.valueOf(this.actionText));
         sb.append(")");
         return sb.toString();
     }
@@ -220,6 +306,8 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.message, other.message)
                 && java.util.Objects.equals(this.issue, other.issue)
                 && java.util.Objects.equals(this.action, other.action)
+                && java.util.Objects.equals(this.actionLink, other.actionLink)
+                && java.util.Objects.equals(this.actionText, other.actionText)
                 && super.equals(other);
     }
 
@@ -231,6 +319,8 @@ public final class ResultError extends com.oracle.bmc.http.client.internal.Expli
         result = (result * PRIME) + (this.message == null ? 43 : this.message.hashCode());
         result = (result * PRIME) + (this.issue == null ? 43 : this.issue.hashCode());
         result = (result * PRIME) + (this.action == null ? 43 : this.action.hashCode());
+        result = (result * PRIME) + (this.actionLink == null ? 43 : this.actionLink.hashCode());
+        result = (result * PRIME) + (this.actionText == null ? 43 : this.actionText.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

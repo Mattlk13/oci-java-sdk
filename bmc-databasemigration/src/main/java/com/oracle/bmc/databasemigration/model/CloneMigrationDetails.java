@@ -39,6 +39,7 @@ public class CloneMigrationDetails
         "compartmentId",
         "sourceDatabaseConnectionId",
         "targetDatabaseConnectionId",
+        "assessmentId",
         "freeformTags",
         "definedTags"
     })
@@ -47,6 +48,7 @@ public class CloneMigrationDetails
             String compartmentId,
             String sourceDatabaseConnectionId,
             String targetDatabaseConnectionId,
+            String assessmentId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
@@ -54,6 +56,7 @@ public class CloneMigrationDetails
         this.compartmentId = compartmentId;
         this.sourceDatabaseConnectionId = sourceDatabaseConnectionId;
         this.targetDatabaseConnectionId = targetDatabaseConnectionId;
+        this.assessmentId = assessmentId;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -114,6 +117,19 @@ public class CloneMigrationDetails
         return targetDatabaseConnectionId;
     }
 
+    /** The OCID of the resource being referenced. */
+    @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+    private final String assessmentId;
+
+    /**
+     * The OCID of the resource being referenced.
+     *
+     * @return the value
+     */
+    public String getAssessmentId() {
+        return assessmentId;
+    }
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see Resource Tags. Example: {"Department":
@@ -171,6 +187,7 @@ public class CloneMigrationDetails
                 .append(String.valueOf(this.sourceDatabaseConnectionId));
         sb.append(", targetDatabaseConnectionId=")
                 .append(String.valueOf(this.targetDatabaseConnectionId));
+        sb.append(", assessmentId=").append(String.valueOf(this.assessmentId));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -193,6 +210,7 @@ public class CloneMigrationDetails
                         this.sourceDatabaseConnectionId, other.sourceDatabaseConnectionId)
                 && java.util.Objects.equals(
                         this.targetDatabaseConnectionId, other.targetDatabaseConnectionId)
+                && java.util.Objects.equals(this.assessmentId, other.assessmentId)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -216,6 +234,7 @@ public class CloneMigrationDetails
                         + (this.targetDatabaseConnectionId == null
                                 ? 43
                                 : this.targetDatabaseConnectionId.hashCode());
+        result = (result * PRIME) + (this.assessmentId == null ? 43 : this.assessmentId.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

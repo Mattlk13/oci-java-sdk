@@ -30,6 +30,7 @@ public final class CreateConfigurationDetails
         "shapeName",
         "initVariables",
         "variables",
+        "options",
         "parentConfigurationId",
         "freeformTags",
         "definedTags"
@@ -41,6 +42,7 @@ public final class CreateConfigurationDetails
             String shapeName,
             InitializationVariables initVariables,
             ConfigurationVariables variables,
+            java.util.List<Option> options,
             String parentConfigurationId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
@@ -51,6 +53,7 @@ public final class CreateConfigurationDetails
         this.shapeName = shapeName;
         this.initVariables = initVariables;
         this.variables = variables;
+        this.options = options;
         this.parentConfigurationId = parentConfigurationId;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
@@ -136,6 +139,21 @@ public final class CreateConfigurationDetails
             this.__explicitlySet__.add("variables");
             return this;
         }
+        /** The MySQL options defined in the Configuration. */
+        @com.fasterxml.jackson.annotation.JsonProperty("options")
+        private java.util.List<Option> options;
+
+        /**
+         * The MySQL options defined in the Configuration.
+         *
+         * @param options the value to set
+         * @return this builder
+         */
+        public Builder options(java.util.List<Option> options) {
+            this.options = options;
+            this.__explicitlySet__.add("options");
+            return this;
+        }
         /**
          * The OCID of the Configuration from which the new Configuration is derived. The values in
          * CreateConfigurationDetails.variables supersede the variables of the parent Configuration.
@@ -207,6 +225,7 @@ public final class CreateConfigurationDetails
                             this.shapeName,
                             this.initVariables,
                             this.variables,
+                            this.options,
                             this.parentConfigurationId,
                             this.freeformTags,
                             this.definedTags);
@@ -235,6 +254,9 @@ public final class CreateConfigurationDetails
             }
             if (model.wasPropertyExplicitlySet("variables")) {
                 this.variables(model.getVariables());
+            }
+            if (model.wasPropertyExplicitlySet("options")) {
+                this.options(model.getOptions());
             }
             if (model.wasPropertyExplicitlySet("parentConfigurationId")) {
                 this.parentConfigurationId(model.getParentConfigurationId());
@@ -324,6 +346,19 @@ public final class CreateConfigurationDetails
         return variables;
     }
 
+    /** The MySQL options defined in the Configuration. */
+    @com.fasterxml.jackson.annotation.JsonProperty("options")
+    private final java.util.List<Option> options;
+
+    /**
+     * The MySQL options defined in the Configuration.
+     *
+     * @return the value
+     */
+    public java.util.List<Option> getOptions() {
+        return options;
+    }
+
     /**
      * The OCID of the Configuration from which the new Configuration is derived. The values in
      * CreateConfigurationDetails.variables supersede the variables of the parent Configuration.
@@ -396,6 +431,7 @@ public final class CreateConfigurationDetails
         sb.append(", shapeName=").append(String.valueOf(this.shapeName));
         sb.append(", initVariables=").append(String.valueOf(this.initVariables));
         sb.append(", variables=").append(String.valueOf(this.variables));
+        sb.append(", options=").append(String.valueOf(this.options));
         sb.append(", parentConfigurationId=").append(String.valueOf(this.parentConfigurationId));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
@@ -419,6 +455,7 @@ public final class CreateConfigurationDetails
                 && java.util.Objects.equals(this.shapeName, other.shapeName)
                 && java.util.Objects.equals(this.initVariables, other.initVariables)
                 && java.util.Objects.equals(this.variables, other.variables)
+                && java.util.Objects.equals(this.options, other.options)
                 && java.util.Objects.equals(this.parentConfigurationId, other.parentConfigurationId)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
@@ -439,6 +476,7 @@ public final class CreateConfigurationDetails
                 (result * PRIME)
                         + (this.initVariables == null ? 43 : this.initVariables.hashCode());
         result = (result * PRIME) + (this.variables == null ? 43 : this.variables.hashCode());
+        result = (result * PRIME) + (this.options == null ? 43 : this.options.hashCode());
         result =
                 (result * PRIME)
                         + (this.parentConfigurationId == null

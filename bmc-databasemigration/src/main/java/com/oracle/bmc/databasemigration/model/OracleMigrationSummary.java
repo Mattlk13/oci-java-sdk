@@ -90,6 +90,15 @@ public final class OracleMigrationSummary extends MigrationSummary {
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("assessmentId")
+        private String assessmentId;
+
+        public Builder assessmentId(String assessmentId) {
+            this.assessmentId = assessmentId;
+            this.__explicitlySet__.add("assessmentId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("timeCreated")
         private java.util.Date timeCreated;
 
@@ -207,6 +216,7 @@ public final class OracleMigrationSummary extends MigrationSummary {
                             this.sourceDatabaseConnectionId,
                             this.targetDatabaseConnectionId,
                             this.executingJobId,
+                            this.assessmentId,
                             this.timeCreated,
                             this.timeUpdated,
                             this.timeLastMigration,
@@ -245,6 +255,9 @@ public final class OracleMigrationSummary extends MigrationSummary {
             }
             if (model.wasPropertyExplicitlySet("executingJobId")) {
                 this.executingJobId(model.getExecutingJobId());
+            }
+            if (model.wasPropertyExplicitlySet("assessmentId")) {
+                this.assessmentId(model.getAssessmentId());
             }
             if (model.wasPropertyExplicitlySet("timeCreated")) {
                 this.timeCreated(model.getTimeCreated());
@@ -300,6 +313,7 @@ public final class OracleMigrationSummary extends MigrationSummary {
             String sourceDatabaseConnectionId,
             String targetDatabaseConnectionId,
             String executingJobId,
+            String assessmentId,
             java.util.Date timeCreated,
             java.util.Date timeUpdated,
             java.util.Date timeLastMigration,
@@ -318,6 +332,7 @@ public final class OracleMigrationSummary extends MigrationSummary {
                 sourceDatabaseConnectionId,
                 targetDatabaseConnectionId,
                 executingJobId,
+                assessmentId,
                 timeCreated,
                 timeUpdated,
                 timeLastMigration,

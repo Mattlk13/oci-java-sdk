@@ -9,6 +9,7 @@ package com.oracle.bmc.databasemigration.model;
 public enum ResultType implements com.oracle.bmc.http.internal.BmcEnum {
     Succeeded("SUCCEEDED"),
     Failed("FAILED"),
+    Warning("WARNING"),
     TimedOut("TIMED_OUT"),
 
     /**

@@ -277,6 +277,70 @@ public interface VirtualNetwork extends AutoCloseable {
             BulkAddVirtualCircuitPublicPrefixesRequest request);
 
     /**
+     * Create new IPv6s for a VNIC or Subnet.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkCreateIpv6sExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkCreateIpv6s
+     *     API.
+     */
+    BulkCreateIpv6sResponse bulkCreateIpv6s(BulkCreateIpv6sRequest request);
+
+    /**
+     * Create secondary private IPv4 addresses.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkCreatePrivateIpsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     BulkCreatePrivateIps API.
+     */
+    BulkCreatePrivateIpsResponse bulkCreatePrivateIps(BulkCreatePrivateIpsRequest request);
+
+    /**
+     * Unassigns and deletes IPv6s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkDeleteIpv6sExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkDeleteIpv6s
+     *     API.
+     */
+    BulkDeleteIpv6sResponse bulkDeleteIpv6s(BulkDeleteIpv6sRequest request);
+
+    /**
+     * Unassigns and deletes secondary private IPv4s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkDeletePrivateIpsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     BulkDeletePrivateIps API.
+     */
+    BulkDeletePrivateIpsResponse bulkDeletePrivateIps(BulkDeletePrivateIpsRequest request);
+
+    /**
      * Removes one or more customer public IP prefixes from the specified public virtual circuit.
      * Use this operation (and not {@link #updateVirtualCircuit(UpdateVirtualCircuitRequest)
      * updateVirtualCircuit}) to remove prefixes from the virtual circuit. When the virtual
@@ -296,6 +360,72 @@ public interface VirtualNetwork extends AutoCloseable {
      */
     BulkDeleteVirtualCircuitPublicPrefixesResponse bulkDeleteVirtualCircuitPublicPrefixes(
             BulkDeleteVirtualCircuitPublicPrefixesRequest request);
+
+    /**
+     * detach the specified IPv6s.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkDetachIpv6sExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkDetachIpv6s
+     *     API.
+     */
+    BulkDetachIpv6sResponse bulkDetachIpv6s(BulkDetachIpv6sRequest request);
+
+    /**
+     * Unassign the specified PrivateIP address from Virtual Network Interface Card (VNIC). You must
+     * specify the PrivateIP
+     * [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkDetachPrivateIpsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     BulkDetachPrivateIps API.
+     */
+    BulkDetachPrivateIpsResponse bulkDetachPrivateIps(BulkDetachPrivateIpsRequest request);
+
+    /**
+     * Updates the specified IPv6s.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkUpdateIpv6sExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use BulkUpdateIpv6s
+     *     API.
+     */
+    BulkUpdateIpv6sResponse bulkUpdateIpv6s(BulkUpdateIpv6sRequest request);
+
+    /**
+     * Updates existing secondary Private IPv4s for a VNIC.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/core/BulkUpdatePrivateIpsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     BulkUpdatePrivateIps API.
+     */
+    BulkUpdatePrivateIpsResponse bulkUpdatePrivateIps(BulkUpdatePrivateIpsRequest request);
 
     /**
      * Moves a BYOASN Resource to a different compartment. For information about moving resources
