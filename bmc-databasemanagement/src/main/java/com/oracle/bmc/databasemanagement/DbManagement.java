@@ -117,6 +117,24 @@ public interface DbManagement extends AutoCloseable {
     AddmTasksResponse addmTasks(AddmTasksRequest request);
 
     /**
+     * Moves the Exadata infrastructure and its related resources (Exadata storage server, Exadata
+     * storage server connectors and Exadata storage server grid) to the specified compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/ChangeCloudExadataInfrastructureCompartmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ChangeCloudExadataInfrastructureCompartment API.
+     */
+    ChangeCloudExadataInfrastructureCompartmentResponse changeCloudExadataInfrastructureCompartment(
+            ChangeCloudExadataInfrastructureCompartmentRequest request);
+
+    /**
      * Changes database parameter values. There are two kinds of database parameters:
      *
      * <p>- Dynamic parameters: They can be changed for the current Oracle Database instance. The
@@ -322,6 +340,24 @@ public interface DbManagement extends AutoCloseable {
             CheckCloudDbSystemConnectorConnectionStatusRequest request);
 
     /**
+     * Checks the status of the Exadata storage server connection specified by
+     * exadataStorageConnectorId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/CheckCloudExadataStorageConnectorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CheckCloudExadataStorageConnector API.
+     */
+    CheckCloudExadataStorageConnectorResponse checkCloudExadataStorageConnector(
+            CheckCloudExadataStorageConnectorRequest request);
+
+    /**
      * Checks the status of the external DB system component connection specified in this connector.
      * This operation will refresh the connectionStatus and timeConnectionStatusLastUpdated fields.
      *
@@ -462,6 +498,42 @@ public interface DbManagement extends AutoCloseable {
      */
     CreateCloudDbSystemDiscoveryResponse createCloudDbSystemDiscovery(
             CreateCloudDbSystemDiscoveryRequest request);
+
+    /**
+     * Creates an OCI resource for the Exadata infrastructure and enables the Monitoring service for
+     * the Exadata infrastructure. The following resource/subresources are created: Infrastructure
+     * Storage server connectors Storage servers Storage grids
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/CreateCloudExadataInfrastructureExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateCloudExadataInfrastructure API.
+     */
+    CreateCloudExadataInfrastructureResponse createCloudExadataInfrastructure(
+            CreateCloudExadataInfrastructureRequest request);
+
+    /**
+     * Creates the Exadata storage server connector after validating the connection information.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/CreateCloudExadataStorageConnectorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateCloudExadataStorageConnector API.
+     */
+    CreateCloudExadataStorageConnectorResponse createCloudExadataStorageConnector(
+            CreateCloudExadataStorageConnectorRequest request);
 
     /**
      * Creates a new Database Management private endpoint.
@@ -716,6 +788,40 @@ public interface DbManagement extends AutoCloseable {
      */
     DeleteCloudDbSystemDiscoveryResponse deleteCloudDbSystemDiscovery(
             DeleteCloudDbSystemDiscoveryRequest request);
+
+    /**
+     * Deletes the Exadata infrastructure specified by exadataInfrastructureId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/DeleteCloudExadataInfrastructureExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteCloudExadataInfrastructure API.
+     */
+    DeleteCloudExadataInfrastructureResponse deleteCloudExadataInfrastructure(
+            DeleteCloudExadataInfrastructureRequest request);
+
+    /**
+     * Deletes the Exadata storage server connector specified by exadataStorageConnectorId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/DeleteCloudExadataStorageConnectorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteCloudExadataStorageConnector API.
+     */
+    DeleteCloudExadataStorageConnectorResponse deleteCloudExadataStorageConnector(
+            DeleteCloudExadataStorageConnectorRequest request);
 
     /**
      * Deletes a specific Database Management private endpoint.
@@ -1010,6 +1116,29 @@ public interface DbManagement extends AutoCloseable {
             DisableCloudDbSystemStackMonitoringRequest request);
 
     /**
+     * Disables Database Management for the Exadata infrastructure specified by
+     * exadataInfrastructureId. It covers the following components:
+     *
+     * <p>- Exadata infrastructure - Exadata storage grid - Exadata storage server
+     *
+     * <p>Note that Database Management will not be disabled for the VM Clusters within the Exadata
+     * infrastructure and should be disabled explicitly, if required.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/DisableCloudExadataInfrastructureManagementExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DisableCloudExadataInfrastructureManagement API.
+     */
+    DisableCloudExadataInfrastructureManagementResponse disableCloudExadataInfrastructureManagement(
+            DisableCloudExadataInfrastructureManagementRequest request);
+
+    /**
      * Disables a Database Management feature for the specified Oracle cloud database.
      *
      * @param request The request object containing the details to send
@@ -1217,6 +1346,40 @@ public interface DbManagement extends AutoCloseable {
     /**
      * Completes the Exadata system prechecking on the following:
      *
+     * <p>- Verifies if the ASM connector is defined for each VM Cluster or return 400 status code
+     * with CONNECTOR_NOT_DEFINED error code. - Verifies if the agents associated with ASM are valid
+     * and could be used for the Exadata storage servers or return 400 status code with
+     * INVALID_AGENT error code.
+     *
+     * <p>Starts the discovery process for the Exadata system infrastructure. The following
+     * resources/components are discovered
+     *
+     * <p>- Exadata storage servers from each VM Cluster - Exadata storage grid for all Exadata
+     * storage servers - Exadata infrastructure
+     *
+     * <p>The same API covers both new discovery and rediscovery cases. For the new discovery case,
+     * new managed resources/sub-resources are created or the existing ones are overridden. For
+     * rediscovery case, the existing managed resources/sub-resources are checked to find out which
+     * ones should be added or which ones should be removed based on the unique key defined for each
+     * resource/sub-resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/DiscoverCloudExadataInfrastructureExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DiscoverCloudExadataInfrastructure API.
+     */
+    DiscoverCloudExadataInfrastructureResponse discoverCloudExadataInfrastructure(
+            DiscoverCloudExadataInfrastructureRequest request);
+
+    /**
+     * Completes the Exadata system prechecking on the following:
+     *
      * <p>- Verifies if the DB systems are valid RAC DB systems or return 400 status code with
      * NON_RAC_DATABASE_SYSTEM error code. - Verifies if the ASM connector defined for each DB
      * system or return 400 status code with CONNECTOR_NOT_DEFINED error code. - Verifies if the
@@ -1386,6 +1549,26 @@ public interface DbManagement extends AutoCloseable {
      */
     EnableCloudDbSystemStackMonitoringResponse enableCloudDbSystemStackMonitoring(
             EnableCloudDbSystemStackMonitoringRequest request);
+
+    /**
+     * Enables Database Management for the Exadata infrastructure specified by
+     * exadataInfrastructureId. It covers the following components:
+     *
+     * <p>- Exadata infrastructure - Exadata storage grid - Exadata storage server
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/EnableCloudExadataInfrastructureManagementExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     EnableCloudExadataInfrastructureManagement API.
+     */
+    EnableCloudExadataInfrastructureManagementResponse enableCloudExadataInfrastructureManagement(
+            EnableCloudExadataInfrastructureManagementRequest request);
 
     /**
      * Enables a Database Management feature for the specified cloud database.
@@ -1803,6 +1986,92 @@ public interface DbManagement extends AutoCloseable {
             GetCloudDbSystemDiscoveryRequest request);
 
     /**
+     * Gets the details for the Exadata infrastructure specified by exadataInfrastructureId. It
+     * includes the VMCluster and storage grid within the Exadata infrastructure.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudExadataInfrastructureExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetCloudExadataInfrastructure API.
+     */
+    GetCloudExadataInfrastructureResponse getCloudExadataInfrastructure(
+            GetCloudExadataInfrastructureRequest request);
+
+    /**
+     * Gets the details for the Exadata storage server connector specified by
+     * exadataStorageConnectorId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudExadataStorageConnectorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetCloudExadataStorageConnector API.
+     */
+    GetCloudExadataStorageConnectorResponse getCloudExadataStorageConnector(
+            GetCloudExadataStorageConnectorRequest request);
+
+    /**
+     * Gets the details for the Exadata storage server grid specified by exadataStorageGridId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudExadataStorageGridExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetCloudExadataStorageGrid API.
+     */
+    GetCloudExadataStorageGridResponse getCloudExadataStorageGrid(
+            GetCloudExadataStorageGridRequest request);
+
+    /**
+     * Gets the summary for the Exadata storage server specified by exadataStorageServerId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudExadataStorageServerExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetCloudExadataStorageServer API.
+     */
+    GetCloudExadataStorageServerResponse getCloudExadataStorageServer(
+            GetCloudExadataStorageServerRequest request);
+
+    /**
+     * Get the IORM plan from the specific Exadata storage server.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudIormPlanExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetCloudIormPlan
+     *     API.
+     */
+    GetCloudIormPlanResponse getCloudIormPlan(GetCloudIormPlanRequest request);
+
+    /**
      * Gets the details for the cloud listener specified by `cloudListenerId`.
      *
      * @param request The request object containing the details to send
@@ -1817,6 +2086,23 @@ public interface DbManagement extends AutoCloseable {
      *     API.
      */
     GetCloudListenerResponse getCloudListener(GetCloudListenerRequest request);
+
+    /**
+     * Gets the open alerts from the specified Exadata storage server.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetCloudOpenAlertHistoryExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetCloudOpenAlertHistory API.
+     */
+    GetCloudOpenAlertHistoryResponse getCloudOpenAlertHistory(
+            GetCloudOpenAlertHistoryRequest request);
 
     /**
      * Gets the metrics related to cluster cache for the Oracle Real Application Clusters (Oracle
@@ -1984,6 +2270,24 @@ public interface DbManagement extends AutoCloseable {
      */
     GetDbManagementPrivateEndpointResponse getDbManagementPrivateEndpoint(
             GetDbManagementPrivateEndpointRequest request);
+
+    /**
+     * Gets the health metrics for a fleet of Exadata infrastructure in a compartment. The
+     * CompartmentId query parameters must be provided to retrieve the health metrics.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/GetExadataInfrastructureFleetHealthMetricsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetExadataInfrastructureFleetHealthMetrics API.
+     */
+    GetExadataInfrastructureFleetHealthMetricsResponse getExadataInfrastructureFleetHealthMetrics(
+            GetExadataInfrastructureFleetHealthMetricsRequest request);
 
     /**
      * Gets the details for the external ASM specified by `externalAsmId`.
@@ -2877,6 +3181,57 @@ public interface DbManagement extends AutoCloseable {
      *     API.
      */
     ListCloudDbSystemsResponse listCloudDbSystems(ListCloudDbSystemsRequest request);
+
+    /**
+     * Lists the Exadata infrastructure resources in the specified compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/ListCloudExadataInfrastructuresExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListCloudExadataInfrastructures API.
+     */
+    ListCloudExadataInfrastructuresResponse listCloudExadataInfrastructures(
+            ListCloudExadataInfrastructuresRequest request);
+
+    /**
+     * Lists the Exadata storage server connectors for the specified Exadata infrastructure.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/ListCloudExadataStorageConnectorsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListCloudExadataStorageConnectors API.
+     */
+    ListCloudExadataStorageConnectorsResponse listCloudExadataStorageConnectors(
+            ListCloudExadataStorageConnectorsRequest request);
+
+    /**
+     * Lists the Exadata storage servers for the specified Exadata infrastructure.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/ListCloudExadataStorageServersExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListCloudExadataStorageServers API.
+     */
+    ListCloudExadataStorageServersResponse listCloudExadataStorageServers(
+            ListCloudExadataStorageServersRequest request);
 
     /**
      * Lists the database services registered with the specified cloud listener for the specified
@@ -4550,6 +4905,74 @@ public interface DbManagement extends AutoCloseable {
      */
     UpdateCloudDbSystemDiscoveryResponse updateCloudDbSystemDiscovery(
             UpdateCloudDbSystemDiscoveryRequest request);
+
+    /**
+     * Updates the details for the Exadata infrastructure specified by exadataInfrastructureId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/UpdateCloudExadataInfrastructureExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateCloudExadataInfrastructure API.
+     */
+    UpdateCloudExadataInfrastructureResponse updateCloudExadataInfrastructure(
+            UpdateCloudExadataInfrastructureRequest request);
+
+    /**
+     * Updates the Exadata storage server connector specified by exadataStorageConnectorId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/UpdateCloudExadataStorageConnectorExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateCloudExadataStorageConnector API.
+     */
+    UpdateCloudExadataStorageConnectorResponse updateCloudExadataStorageConnector(
+            UpdateCloudExadataStorageConnectorRequest request);
+
+    /**
+     * Updates the Exadata storage server grid specified by exadataStorageGridId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/UpdateCloudExadataStorageGridExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateCloudExadataStorageGrid API.
+     */
+    UpdateCloudExadataStorageGridResponse updateCloudExadataStorageGrid(
+            UpdateCloudExadataStorageGridRequest request);
+
+    /**
+     * Updates the Exadata storage server specified by exadataStorageServerId.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/databasemanagement/UpdateCloudExadataStorageServerExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateCloudExadataStorageServer API.
+     */
+    UpdateCloudExadataStorageServerResponse updateCloudExadataStorageServer(
+            UpdateCloudExadataStorageServerRequest request);
 
     /**
      * Updates the cloud listener specified by `cloudListenerId`.

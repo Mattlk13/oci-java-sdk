@@ -1762,6 +1762,400 @@ public class DbManagementPaginators {
 
     /**
      * Creates a new iterable which will iterate over the responses received from the
+     * listCloudExadataInfrastructures operation. This iterable will fetch more data from the server
+     * as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListCloudExadataInfrastructuresResponse>
+            listCloudExadataInfrastructuresResponseIterator(
+                    final ListCloudExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudExadataInfrastructuresRequest.Builder,
+                ListCloudExadataInfrastructuresRequest,
+                ListCloudExadataInfrastructuresResponse>(
+                new java.util.function.Supplier<ListCloudExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest.Builder get() {
+                        return ListCloudExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListCloudExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataInfrastructuresRequest.Builder>,
+                        ListCloudExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataInfrastructuresRequest,
+                        ListCloudExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresResponse apply(
+                            ListCloudExadataInfrastructuresRequest request) {
+                        return client.listCloudExadataInfrastructures(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureSummary} objects contained
+     * in responses from the listCloudExadataInfrastructures operation. This iterable will fetch
+     * more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureSummary} objects
+     *     contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureSummary>
+            listCloudExadataInfrastructuresRecordIterator(
+                    final ListCloudExadataInfrastructuresRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudExadataInfrastructuresRequest.Builder,
+                ListCloudExadataInfrastructuresRequest,
+                ListCloudExadataInfrastructuresResponse,
+                com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureSummary>(
+                new java.util.function.Supplier<ListCloudExadataInfrastructuresRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest.Builder get() {
+                        return ListCloudExadataInfrastructuresRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListCloudExadataInfrastructuresResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataInfrastructuresRequest.Builder>,
+                        ListCloudExadataInfrastructuresRequest>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataInfrastructuresRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataInfrastructuresRequest,
+                        ListCloudExadataInfrastructuresResponse>() {
+                    @Override
+                    public ListCloudExadataInfrastructuresResponse apply(
+                            ListCloudExadataInfrastructuresRequest request) {
+                        return client.listCloudExadataInfrastructures(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataInfrastructuresResponse,
+                        java.util.List<
+                                com.oracle.bmc.databasemanagement.model
+                                        .CloudExadataInfrastructureSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.databasemanagement.model
+                                            .CloudExadataInfrastructureSummary>
+                            apply(ListCloudExadataInfrastructuresResponse response) {
+                        return response.getCloudExadataInfrastructureCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
+     * listCloudExadataStorageConnectors operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListCloudExadataStorageConnectorsResponse>
+            listCloudExadataStorageConnectorsResponseIterator(
+                    final ListCloudExadataStorageConnectorsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudExadataStorageConnectorsRequest.Builder,
+                ListCloudExadataStorageConnectorsRequest,
+                ListCloudExadataStorageConnectorsResponse>(
+                new java.util.function.Supplier<
+                        ListCloudExadataStorageConnectorsRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsRequest.Builder get() {
+                        return ListCloudExadataStorageConnectorsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageConnectorsResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataStorageConnectorsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataStorageConnectorsRequest.Builder>,
+                        ListCloudExadataStorageConnectorsRequest>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataStorageConnectorsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageConnectorsRequest,
+                        ListCloudExadataStorageConnectorsResponse>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsResponse apply(
+                            ListCloudExadataStorageConnectorsRequest request) {
+                        return client.listCloudExadataStorageConnectors(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnectorSummary} objects
+     * contained in responses from the listCloudExadataStorageConnectors operation. This iterable
+     * will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnectorSummary} objects
+     *     contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnectorSummary>
+            listCloudExadataStorageConnectorsRecordIterator(
+                    final ListCloudExadataStorageConnectorsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudExadataStorageConnectorsRequest.Builder,
+                ListCloudExadataStorageConnectorsRequest,
+                ListCloudExadataStorageConnectorsResponse,
+                com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnectorSummary>(
+                new java.util.function.Supplier<
+                        ListCloudExadataStorageConnectorsRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsRequest.Builder get() {
+                        return ListCloudExadataStorageConnectorsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageConnectorsResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataStorageConnectorsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataStorageConnectorsRequest.Builder>,
+                        ListCloudExadataStorageConnectorsRequest>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataStorageConnectorsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageConnectorsRequest,
+                        ListCloudExadataStorageConnectorsResponse>() {
+                    @Override
+                    public ListCloudExadataStorageConnectorsResponse apply(
+                            ListCloudExadataStorageConnectorsRequest request) {
+                        return client.listCloudExadataStorageConnectors(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageConnectorsResponse,
+                        java.util.List<
+                                com.oracle.bmc.databasemanagement.model
+                                        .CloudExadataStorageConnectorSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.databasemanagement.model
+                                            .CloudExadataStorageConnectorSummary>
+                            apply(ListCloudExadataStorageConnectorsResponse response) {
+                        return response.getCloudExadataStorageConnectorCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
+     * listCloudExadataStorageServers operation. This iterable will fetch more data from the server
+     * as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListCloudExadataStorageServersResponse>
+            listCloudExadataStorageServersResponseIterator(
+                    final ListCloudExadataStorageServersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListCloudExadataStorageServersRequest.Builder,
+                ListCloudExadataStorageServersRequest,
+                ListCloudExadataStorageServersResponse>(
+                new java.util.function.Supplier<ListCloudExadataStorageServersRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataStorageServersRequest.Builder get() {
+                        return ListCloudExadataStorageServersRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListCloudExadataStorageServersResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataStorageServersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataStorageServersRequest.Builder>,
+                        ListCloudExadataStorageServersRequest>() {
+                    @Override
+                    public ListCloudExadataStorageServersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataStorageServersRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageServersRequest,
+                        ListCloudExadataStorageServersResponse>() {
+                    @Override
+                    public ListCloudExadataStorageServersResponse apply(
+                            ListCloudExadataStorageServersRequest request) {
+                        return client.listCloudExadataStorageServers(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.databasemanagement.model.CloudExadataStorageServerSummary} objects contained
+     * in responses from the listCloudExadataStorageServers operation. This iterable will fetch more
+     * data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.databasemanagement.model.CloudExadataStorageServerSummary} objects
+     *     contained in responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.databasemanagement.model.CloudExadataStorageServerSummary>
+            listCloudExadataStorageServersRecordIterator(
+                    final ListCloudExadataStorageServersRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListCloudExadataStorageServersRequest.Builder,
+                ListCloudExadataStorageServersRequest,
+                ListCloudExadataStorageServersResponse,
+                com.oracle.bmc.databasemanagement.model.CloudExadataStorageServerSummary>(
+                new java.util.function.Supplier<ListCloudExadataStorageServersRequest.Builder>() {
+                    @Override
+                    public ListCloudExadataStorageServersRequest.Builder get() {
+                        return ListCloudExadataStorageServersRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListCloudExadataStorageServersResponse, String>() {
+                    @Override
+                    public String apply(ListCloudExadataStorageServersResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListCloudExadataStorageServersRequest.Builder>,
+                        ListCloudExadataStorageServersRequest>() {
+                    @Override
+                    public ListCloudExadataStorageServersRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListCloudExadataStorageServersRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageServersRequest,
+                        ListCloudExadataStorageServersResponse>() {
+                    @Override
+                    public ListCloudExadataStorageServersResponse apply(
+                            ListCloudExadataStorageServersRequest request) {
+                        return client.listCloudExadataStorageServers(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListCloudExadataStorageServersResponse,
+                        java.util.List<
+                                com.oracle.bmc.databasemanagement.model
+                                        .CloudExadataStorageServerSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.databasemanagement.model
+                                            .CloudExadataStorageServerSummary>
+                            apply(ListCloudExadataStorageServersResponse response) {
+                        return response.getCloudExadataStorageServerCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
      * listCloudListenerServices operation. This iterable will fetch more data from the server as
      * needed.
      *

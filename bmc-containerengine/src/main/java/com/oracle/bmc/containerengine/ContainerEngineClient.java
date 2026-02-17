@@ -585,6 +585,48 @@ public class ContainerEngineClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public ExtendEndpointDecommissionRollbackDeadlineResponse
+            extendEndpointDecommissionRollbackDeadline(
+                    ExtendEndpointDecommissionRollbackDeadlineRequest request) {
+
+        Validate.notBlank(request.getClusterId(), "clusterId must not be blank");
+        Objects.requireNonNull(
+                request.getExtendEndpointDecommissionRollbackDeadlineDetails(),
+                "extendEndpointDecommissionRollbackDeadlineDetails is required");
+
+        return clientCall(request, ExtendEndpointDecommissionRollbackDeadlineResponse::builder)
+                .logger(LOG, "extendEndpointDecommissionRollbackDeadline")
+                .serviceDetails(
+                        "ContainerEngine",
+                        "ExtendEndpointDecommissionRollbackDeadline",
+                        "https://docs.oracle.com/iaas/api/#/en/containerengine/20180222/Cluster/ExtendEndpointDecommissionRollbackDeadline")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ExtendEndpointDecommissionRollbackDeadlineRequest::builder)
+                .basePath("/20180222")
+                .appendPathParam("clusters")
+                .appendPathParam(request.getClusterId())
+                .appendPathParam("actions")
+                .appendPathParam("extendEndpointDecommissionRollbackDeadline")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.containerengine.model.PublicApiEndpointDecommissionStatus
+                                .class,
+                        ExtendEndpointDecommissionRollbackDeadlineResponse.Builder
+                                ::publicApiEndpointDecommissionStatus)
+                .handleResponseHeaderString(
+                        "etag", ExtendEndpointDecommissionRollbackDeadlineResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ExtendEndpointDecommissionRollbackDeadlineResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public GetAddonResponse getAddon(GetAddonRequest request) {
 
         Validate.notBlank(request.getClusterId(), "clusterId must not be blank");
@@ -798,6 +840,40 @@ public class ContainerEngineClient extends com.oracle.bmc.http.internal.BaseSync
                         GetNodePoolOptionsResponse.Builder::nodePoolOptions)
                 .handleResponseHeaderString(
                         "opc-request-id", GetNodePoolOptionsResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetPublicApiEndpointDecommissionStatusResponse getPublicApiEndpointDecommissionStatus(
+            GetPublicApiEndpointDecommissionStatusRequest request) {
+
+        Validate.notBlank(request.getClusterId(), "clusterId must not be blank");
+
+        return clientCall(request, GetPublicApiEndpointDecommissionStatusResponse::builder)
+                .logger(LOG, "getPublicApiEndpointDecommissionStatus")
+                .serviceDetails(
+                        "ContainerEngine",
+                        "GetPublicApiEndpointDecommissionStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/containerengine/20180222/Cluster/GetPublicApiEndpointDecommissionStatus")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetPublicApiEndpointDecommissionStatusRequest::builder)
+                .basePath("/20180222")
+                .appendPathParam("clusters")
+                .appendPathParam(request.getClusterId())
+                .appendPathParam("publicApiEndpointDecommissionStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.containerengine.model.PublicApiEndpointDecommissionStatus
+                                .class,
+                        GetPublicApiEndpointDecommissionStatusResponse.Builder
+                                ::publicApiEndpointDecommissionStatus)
+                .handleResponseHeaderString(
+                        "etag", GetPublicApiEndpointDecommissionStatusResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetPublicApiEndpointDecommissionStatusResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -1415,6 +1491,39 @@ public class ContainerEngineClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public RollbackPublicApiEndpointDecommissionResponse rollbackPublicApiEndpointDecommission(
+            RollbackPublicApiEndpointDecommissionRequest request) {
+
+        Validate.notBlank(request.getClusterId(), "clusterId must not be blank");
+
+        return clientCall(request, RollbackPublicApiEndpointDecommissionResponse::builder)
+                .logger(LOG, "rollbackPublicApiEndpointDecommission")
+                .serviceDetails(
+                        "ContainerEngine",
+                        "RollbackPublicApiEndpointDecommission",
+                        "https://docs.oracle.com/iaas/api/#/en/containerengine/20180222/Cluster/RollbackPublicApiEndpointDecommission")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(RollbackPublicApiEndpointDecommissionRequest::builder)
+                .basePath("/20180222")
+                .appendPathParam("clusters")
+                .appendPathParam(request.getClusterId())
+                .appendPathParam("actions")
+                .appendPathParam("rollbackPublicApiEndpointDecommission")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        RollbackPublicApiEndpointDecommissionResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        RollbackPublicApiEndpointDecommissionResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public StartCredentialRotationResponse startCredentialRotation(
             StartCredentialRotationRequest request) {
 
@@ -1447,6 +1556,39 @@ public class ContainerEngineClient extends com.oracle.bmc.http.internal.BaseSync
                         StartCredentialRotationResponse.Builder::opcWorkRequestId)
                 .handleResponseHeaderString(
                         "opc-request-id", StartCredentialRotationResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public StartPublicApiEndpointDecommissionResponse startPublicApiEndpointDecommission(
+            StartPublicApiEndpointDecommissionRequest request) {
+
+        Validate.notBlank(request.getClusterId(), "clusterId must not be blank");
+
+        return clientCall(request, StartPublicApiEndpointDecommissionResponse::builder)
+                .logger(LOG, "startPublicApiEndpointDecommission")
+                .serviceDetails(
+                        "ContainerEngine",
+                        "StartPublicApiEndpointDecommission",
+                        "https://docs.oracle.com/iaas/api/#/en/containerengine/20180222/Cluster/StartPublicApiEndpointDecommission")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(StartPublicApiEndpointDecommissionRequest::builder)
+                .basePath("/20180222")
+                .appendPathParam("clusters")
+                .appendPathParam(request.getClusterId())
+                .appendPathParam("actions")
+                .appendPathParam("startPublicApiEndpointDecommission")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        StartPublicApiEndpointDecommissionResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        StartPublicApiEndpointDecommissionResponse.Builder::opcRequestId)
                 .callSync();
     }
 

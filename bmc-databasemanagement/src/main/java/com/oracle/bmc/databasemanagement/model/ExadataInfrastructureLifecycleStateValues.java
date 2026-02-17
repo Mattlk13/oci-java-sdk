@@ -87,7 +87,14 @@ public final class ExadataInfrastructureLifecycleStateValues
         Deleted("DELETED"),
         Failed("FAILED"),
         Unknown("UNKNOWN"),
-        ;
+
+        /**
+         * This value is used if a service returns a value for this enum that is not recognized by
+         * this version of the SDK.
+         */
+        UnknownEnumValue(null);
+
+        private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(State.class);
 
         private final String value;
         private static java.util.Map<String, State> map;
@@ -95,7 +102,9 @@ public final class ExadataInfrastructureLifecycleStateValues
         static {
             map = new java.util.HashMap<>();
             for (State v : State.values()) {
-                map.put(v.getValue(), v);
+                if (v != UnknownEnumValue) {
+                    map.put(v.getValue(), v);
+                }
             }
         }
 
@@ -113,7 +122,10 @@ public final class ExadataInfrastructureLifecycleStateValues
             if (map.containsKey(key)) {
                 return map.get(key);
             }
-            throw new IllegalArgumentException("Invalid State: " + key);
+            LOG.warn(
+                    "Received unknown value '{}' for enum 'State', returning UnknownEnumValue",
+                    key);
+            return UnknownEnumValue;
         }
     };
     /** The current lifecycle state of the Exadata infrastructure resource. */

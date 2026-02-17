@@ -154,4 +154,126 @@ public class DbSystemPaginators {
                     }
                 });
     }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
+     * listMaintenanceEvents operation. This iterable will fetch more data from the server as
+     * needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListMaintenanceEventsResponse> listMaintenanceEventsResponseIterator(
+            final ListMaintenanceEventsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListMaintenanceEventsRequest.Builder,
+                ListMaintenanceEventsRequest,
+                ListMaintenanceEventsResponse>(
+                new java.util.function.Supplier<ListMaintenanceEventsRequest.Builder>() {
+                    @Override
+                    public ListMaintenanceEventsRequest.Builder get() {
+                        return ListMaintenanceEventsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListMaintenanceEventsResponse, String>() {
+                    @Override
+                    public String apply(ListMaintenanceEventsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListMaintenanceEventsRequest.Builder>,
+                        ListMaintenanceEventsRequest>() {
+                    @Override
+                    public ListMaintenanceEventsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListMaintenanceEventsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListMaintenanceEventsRequest, ListMaintenanceEventsResponse>() {
+                    @Override
+                    public ListMaintenanceEventsResponse apply(
+                            ListMaintenanceEventsRequest request) {
+                        return client.listMaintenanceEvents(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.mysql.model.MaintenanceEvent} objects contained in responses from the
+     * listMaintenanceEvents operation. This iterable will fetch more data from the server as
+     * needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.mysql.model.MaintenanceEvent} objects contained in responses received from
+     *     the service.
+     */
+    public Iterable<com.oracle.bmc.mysql.model.MaintenanceEvent>
+            listMaintenanceEventsRecordIterator(final ListMaintenanceEventsRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListMaintenanceEventsRequest.Builder,
+                ListMaintenanceEventsRequest,
+                ListMaintenanceEventsResponse,
+                com.oracle.bmc.mysql.model.MaintenanceEvent>(
+                new java.util.function.Supplier<ListMaintenanceEventsRequest.Builder>() {
+                    @Override
+                    public ListMaintenanceEventsRequest.Builder get() {
+                        return ListMaintenanceEventsRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListMaintenanceEventsResponse, String>() {
+                    @Override
+                    public String apply(ListMaintenanceEventsResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListMaintenanceEventsRequest.Builder>,
+                        ListMaintenanceEventsRequest>() {
+                    @Override
+                    public ListMaintenanceEventsRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListMaintenanceEventsRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListMaintenanceEventsRequest, ListMaintenanceEventsResponse>() {
+                    @Override
+                    public ListMaintenanceEventsResponse apply(
+                            ListMaintenanceEventsRequest request) {
+                        return client.listMaintenanceEvents(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListMaintenanceEventsResponse,
+                        java.util.List<com.oracle.bmc.mysql.model.MaintenanceEvent>>() {
+                    @Override
+                    public java.util.List<com.oracle.bmc.mysql.model.MaintenanceEvent> apply(
+                            ListMaintenanceEventsResponse response) {
+                        return response.getItems();
+                    }
+                });
+    }
 }

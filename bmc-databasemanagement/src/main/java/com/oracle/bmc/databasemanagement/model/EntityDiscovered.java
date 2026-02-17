@@ -23,6 +23,12 @@ package com.oracle.bmc.databasemanagement.model;
         defaultImpl = EntityDiscovered.class)
 @com.fasterxml.jackson.annotation.JsonSubTypes({
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = ExadataInfrastructureDiscoverySummary.class,
+            name = "MANAGED_INFRASTRUCTURE_DISCOVER_SUMMARY"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = StorageGridDiscoverySummary.class,
+            name = "MANAGED_STORAGE_GRID_DISCOVER_SUMMARY"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = ExternalStorageGridDiscoverySummary.class,
             name = "STORAGE_GRID_DISCOVER_SUMMARY"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
@@ -32,11 +38,20 @@ package com.oracle.bmc.databasemanagement.model;
             value = ExternalDatabaseSystemDiscoverySummary.class,
             name = "DATABASE_SYSTEM_DISCOVER_SUMMARY"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = CloudExadataInfrastructureDiscovery.class,
+            name = "CLOUD_INFRASTRUCTURE_DISCOVER"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = ExternalExadataInfrastructureDiscoverySummary.class,
             name = "INFRASTRUCTURE_DISCOVER_SUMMARY"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = ExternalStorageServerDiscoverySummary.class,
-            name = "STORAGE_SERVER_DISCOVER_SUMMARY")
+            name = "STORAGE_SERVER_DISCOVER_SUMMARY"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = StorageServerDiscoverySummary.class,
+            name = "MANAGED_STORAGE_SERVER_DISCOVER_SUMMARY"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = VMClusterDiscoverySummary.class,
+            name = "VM_CLUSTER_DISCOVER_SUMMARY")
 })
 @com.fasterxml.jackson.annotation.JsonFilter(
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
@@ -351,6 +366,11 @@ public class EntityDiscovered extends com.oracle.bmc.http.client.internal.Explic
         DatabaseSystemDiscoverSummary("DATABASE_SYSTEM_DISCOVER_SUMMARY"),
         InfrastructureDiscoverSummary("INFRASTRUCTURE_DISCOVER_SUMMARY"),
         InfrastructureDiscover("INFRASTRUCTURE_DISCOVER"),
+        ManagedStorageServerDiscoverSummary("MANAGED_STORAGE_SERVER_DISCOVER_SUMMARY"),
+        ManagedStorageGridDiscoverSummary("MANAGED_STORAGE_GRID_DISCOVER_SUMMARY"),
+        VmClusterDiscoverSummary("VM_CLUSTER_DISCOVER_SUMMARY"),
+        ManagedInfrastructureDiscoverSummary("MANAGED_INFRASTRUCTURE_DISCOVER_SUMMARY"),
+        CloudInfrastructureDiscover("CLOUD_INFRASTRUCTURE_DISCOVER"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by

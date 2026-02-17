@@ -27,18 +27,21 @@ public final class CreateMaintenanceDetails
         "windowStartTime",
         "versionPreference",
         "versionTrackPreference",
-        "maintenanceScheduleType"
+        "maintenanceScheduleType",
+        "maintenanceDisabledWindows"
     })
     public CreateMaintenanceDetails(
             String windowStartTime,
             VersionPreference versionPreference,
             VersionTrackPreference versionTrackPreference,
-            MaintenanceScheduleType maintenanceScheduleType) {
+            MaintenanceScheduleType maintenanceScheduleType,
+            java.util.List<MaintenanceDisabledWindow> maintenanceDisabledWindows) {
         super();
         this.windowStartTime = windowStartTime;
         this.versionPreference = versionPreference;
         this.versionTrackPreference = versionTrackPreference;
         this.maintenanceScheduleType = maintenanceScheduleType;
+        this.maintenanceDisabledWindows = maintenanceDisabledWindows;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -153,6 +156,28 @@ public final class CreateMaintenanceDetails
             this.__explicitlySet__.add("maintenanceScheduleType");
             return this;
         }
+        /**
+         * Time window during which downtime-inducing maintenance shall not be performed.
+         * Downtime-free maintenance may be performed to apply required security patches. At most
+         * one configured window is supported.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceDisabledWindows")
+        private java.util.List<MaintenanceDisabledWindow> maintenanceDisabledWindows;
+
+        /**
+         * Time window during which downtime-inducing maintenance shall not be performed.
+         * Downtime-free maintenance may be performed to apply required security patches. At most
+         * one configured window is supported.
+         *
+         * @param maintenanceDisabledWindows the value to set
+         * @return this builder
+         */
+        public Builder maintenanceDisabledWindows(
+                java.util.List<MaintenanceDisabledWindow> maintenanceDisabledWindows) {
+            this.maintenanceDisabledWindows = maintenanceDisabledWindows;
+            this.__explicitlySet__.add("maintenanceDisabledWindows");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -163,7 +188,8 @@ public final class CreateMaintenanceDetails
                             this.windowStartTime,
                             this.versionPreference,
                             this.versionTrackPreference,
-                            this.maintenanceScheduleType);
+                            this.maintenanceScheduleType,
+                            this.maintenanceDisabledWindows);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -183,6 +209,9 @@ public final class CreateMaintenanceDetails
             }
             if (model.wasPropertyExplicitlySet("maintenanceScheduleType")) {
                 this.maintenanceScheduleType(model.getMaintenanceScheduleType());
+            }
+            if (model.wasPropertyExplicitlySet("maintenanceDisabledWindows")) {
+                this.maintenanceDisabledWindows(model.getMaintenanceDisabledWindows());
             }
             return this;
         }
@@ -299,6 +328,25 @@ public final class CreateMaintenanceDetails
         return maintenanceScheduleType;
     }
 
+    /**
+     * Time window during which downtime-inducing maintenance shall not be performed. Downtime-free
+     * maintenance may be performed to apply required security patches. At most one configured
+     * window is supported.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceDisabledWindows")
+    private final java.util.List<MaintenanceDisabledWindow> maintenanceDisabledWindows;
+
+    /**
+     * Time window during which downtime-inducing maintenance shall not be performed. Downtime-free
+     * maintenance may be performed to apply required security patches. At most one configured
+     * window is supported.
+     *
+     * @return the value
+     */
+    public java.util.List<MaintenanceDisabledWindow> getMaintenanceDisabledWindows() {
+        return maintenanceDisabledWindows;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -319,6 +367,8 @@ public final class CreateMaintenanceDetails
         sb.append(", versionTrackPreference=").append(String.valueOf(this.versionTrackPreference));
         sb.append(", maintenanceScheduleType=")
                 .append(String.valueOf(this.maintenanceScheduleType));
+        sb.append(", maintenanceDisabledWindows=")
+                .append(String.valueOf(this.maintenanceDisabledWindows));
         sb.append(")");
         return sb.toString();
     }
@@ -339,6 +389,8 @@ public final class CreateMaintenanceDetails
                         this.versionTrackPreference, other.versionTrackPreference)
                 && java.util.Objects.equals(
                         this.maintenanceScheduleType, other.maintenanceScheduleType)
+                && java.util.Objects.equals(
+                        this.maintenanceDisabledWindows, other.maintenanceDisabledWindows)
                 && super.equals(other);
     }
 
@@ -362,6 +414,11 @@ public final class CreateMaintenanceDetails
                         + (this.maintenanceScheduleType == null
                                 ? 43
                                 : this.maintenanceScheduleType.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.maintenanceDisabledWindows == null
+                                ? 43
+                                : this.maintenanceDisabledWindows.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

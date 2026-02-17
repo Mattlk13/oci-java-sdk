@@ -417,6 +417,48 @@ public class DbSystemClient extends com.oracle.bmc.http.internal.BaseSyncClient
     }
 
     @Override
+    public ListMaintenanceEventsResponse listMaintenanceEvents(
+            ListMaintenanceEventsRequest request) {
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+
+        return clientCall(request, ListMaintenanceEventsResponse::builder)
+                .logger(LOG, "listMaintenanceEvents")
+                .serviceDetails(
+                        "DbSystem",
+                        "ListMaintenanceEvents",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/MaintenanceEvent/ListMaintenanceEvents")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListMaintenanceEventsRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("maintenanceEvents")
+                .appendQueryParam(
+                        "mysqlVersionBeforeMaintenance", request.getMysqlVersionBeforeMaintenance())
+                .appendQueryParam(
+                        "mysqlVersionAfterMaintenance", request.getMysqlVersionAfterMaintenance())
+                .appendEnumQueryParam("maintenanceType", request.getMaintenanceType())
+                .appendEnumQueryParam("maintenanceAction", request.getMaintenanceAction())
+                .appendEnumQueryParam("maintenanceStatus", request.getMaintenanceStatus())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBodyList(
+                        com.oracle.bmc.mysql.model.MaintenanceEvent.class,
+                        ListMaintenanceEventsResponse.Builder::items)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListMaintenanceEventsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListMaintenanceEventsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
     public RestartDbSystemResponse restartDbSystem(RestartDbSystemRequest request) {
 
         Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
