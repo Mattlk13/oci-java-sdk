@@ -230,6 +230,47 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public ChangeCloudExadataInfrastructureCompartmentResponse
+            changeCloudExadataInfrastructureCompartment(
+                    ChangeCloudExadataInfrastructureCompartmentRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+        Objects.requireNonNull(
+                request.getChangeCloudExadataInfrastructureCompartmentDetails(),
+                "changeCloudExadataInfrastructureCompartmentDetails is required");
+
+        return clientCall(request, ChangeCloudExadataInfrastructureCompartmentResponse::builder)
+                .logger(LOG, "changeCloudExadataInfrastructureCompartment")
+                .serviceDetails(
+                        "DbManagement",
+                        "ChangeCloudExadataInfrastructureCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/ChangeCloudExadataInfrastructureCompartment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ChangeCloudExadataInfrastructureCompartmentRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .appendPathParam("actions")
+                .appendPathParam("changeCompartment")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ChangeCloudExadataInfrastructureCompartmentResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        ChangeCloudExadataInfrastructureCompartmentResponse.Builder
+                                ::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
     public ChangeDatabaseParametersResponse changeDatabaseParameters(
             ChangeDatabaseParametersRequest request) {
 
@@ -609,6 +650,45 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public CheckCloudExadataStorageConnectorResponse checkCloudExadataStorageConnector(
+            CheckCloudExadataStorageConnectorRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageConnectorId(),
+                "cloudExadataStorageConnectorId must not be blank");
+
+        return clientCall(request, CheckCloudExadataStorageConnectorResponse::builder)
+                .logger(LOG, "checkCloudExadataStorageConnector")
+                .serviceDetails(
+                        "DbManagement",
+                        "CheckCloudExadataStorageConnector",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/CheckCloudExadataStorageConnector")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CheckCloudExadataStorageConnectorRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .appendPathParam(request.getCloudExadataStorageConnectorId())
+                .appendPathParam("actions")
+                .appendPathParam("checkStatus")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnectorStatus
+                                .class,
+                        CheckCloudExadataStorageConnectorResponse.Builder
+                                ::cloudExadataStorageConnectorStatus)
+                .handleResponseHeaderString(
+                        "etag", CheckCloudExadataStorageConnectorResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CheckCloudExadataStorageConnectorResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public CheckExternalDbSystemConnectorConnectionStatusResponse
             checkExternalDbSystemConnectorConnectionStatus(
                     CheckExternalDbSystemConnectorConnectionStatusRequest request) {
@@ -900,6 +980,74 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                 .handleResponseHeaderString(
                         "content-location",
                         CreateCloudDbSystemDiscoveryResponse.Builder::contentLocation)
+                .callSync();
+    }
+
+    @Override
+    public CreateCloudExadataInfrastructureResponse createCloudExadataInfrastructure(
+            CreateCloudExadataInfrastructureRequest request) {
+        Objects.requireNonNull(
+                request.getCreateCloudExadataInfrastructureDetails(),
+                "createCloudExadataInfrastructureDetails is required");
+
+        return clientCall(request, CreateCloudExadataInfrastructureResponse::builder)
+                .logger(LOG, "createCloudExadataInfrastructure")
+                .serviceDetails(
+                        "DbManagement",
+                        "CreateCloudExadataInfrastructure",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/CreateCloudExadataInfrastructure")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateCloudExadataInfrastructureRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructure.class,
+                        CreateCloudExadataInfrastructureResponse.Builder
+                                ::cloudExadataInfrastructure)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateCloudExadataInfrastructureResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateCloudExadataInfrastructureResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public CreateCloudExadataStorageConnectorResponse createCloudExadataStorageConnector(
+            CreateCloudExadataStorageConnectorRequest request) {
+        Objects.requireNonNull(
+                request.getCreateCloudExadataStorageConnectorDetails(),
+                "createCloudExadataStorageConnectorDetails is required");
+
+        return clientCall(request, CreateCloudExadataStorageConnectorResponse::builder)
+                .logger(LOG, "createCloudExadataStorageConnector")
+                .serviceDetails(
+                        "DbManagement",
+                        "CreateCloudExadataStorageConnector",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/CreateCloudExadataStorageConnector")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateCloudExadataStorageConnectorRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnector.class,
+                        CreateCloudExadataStorageConnectorResponse.Builder
+                                ::cloudExadataStorageConnector)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateCloudExadataStorageConnectorResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateCloudExadataStorageConnectorResponse.Builder::etag)
                 .callSync();
     }
 
@@ -1411,6 +1559,65 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public DeleteCloudExadataInfrastructureResponse deleteCloudExadataInfrastructure(
+            DeleteCloudExadataInfrastructureRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+
+        return clientCall(request, DeleteCloudExadataInfrastructureResponse::builder)
+                .logger(LOG, "deleteCloudExadataInfrastructure")
+                .serviceDetails(
+                        "DbManagement",
+                        "DeleteCloudExadataInfrastructure",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/DeleteCloudExadataInfrastructure")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteCloudExadataInfrastructureRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteCloudExadataInfrastructureResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DeleteCloudExadataInfrastructureResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public DeleteCloudExadataStorageConnectorResponse deleteCloudExadataStorageConnector(
+            DeleteCloudExadataStorageConnectorRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageConnectorId(),
+                "cloudExadataStorageConnectorId must not be blank");
+
+        return clientCall(request, DeleteCloudExadataStorageConnectorResponse::builder)
+                .logger(LOG, "deleteCloudExadataStorageConnector")
+                .serviceDetails(
+                        "DbManagement",
+                        "DeleteCloudExadataStorageConnector",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/DeleteCloudExadataStorageConnector")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteCloudExadataStorageConnectorRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .appendPathParam(request.getCloudExadataStorageConnectorId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteCloudExadataStorageConnectorResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public DeleteDbManagementPrivateEndpointResponse deleteDbManagementPrivateEndpoint(
             DeleteDbManagementPrivateEndpointRequest request) {
 
@@ -1918,6 +2125,43 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public DisableCloudExadataInfrastructureManagementResponse
+            disableCloudExadataInfrastructureManagement(
+                    DisableCloudExadataInfrastructureManagementRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+
+        return clientCall(request, DisableCloudExadataInfrastructureManagementResponse::builder)
+                .logger(LOG, "disableCloudExadataInfrastructureManagement")
+                .serviceDetails(
+                        "DbManagement",
+                        "DisableCloudExadataInfrastructureManagement",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/DisableCloudExadataInfrastructureManagement")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(DisableCloudExadataInfrastructureManagementRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .appendPathParam("actions")
+                .appendPathParam("disableDatabaseManagement")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DisableCloudExadataInfrastructureManagementResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DisableCloudExadataInfrastructureManagementResponse.Builder
+                                ::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
     public DisableDatabaseManagementFeatureResponse disableDatabaseManagementFeature(
             DisableDatabaseManagementFeatureRequest request) {
 
@@ -2331,6 +2575,41 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public DiscoverCloudExadataInfrastructureResponse discoverCloudExadataInfrastructure(
+            DiscoverCloudExadataInfrastructureRequest request) {
+        Objects.requireNonNull(
+                request.getDiscoverCloudExadataInfrastructureDetails(),
+                "discoverCloudExadataInfrastructureDetails is required");
+
+        return clientCall(request, DiscoverCloudExadataInfrastructureResponse::builder)
+                .logger(LOG, "discoverCloudExadataInfrastructure")
+                .serviceDetails(
+                        "DbManagement",
+                        "DiscoverCloudExadataInfrastructure",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/DiscoverCloudExadataInfrastructure")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(DiscoverCloudExadataInfrastructureRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam("actions")
+                .appendPathParam("discoverExadataInfrastructure")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureDiscovery
+                                .class,
+                        DiscoverCloudExadataInfrastructureResponse.Builder
+                                ::cloudExadataInfrastructureDiscovery)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DiscoverCloudExadataInfrastructureResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public DiscoverExternalExadataInfrastructureResponse discoverExternalExadataInfrastructure(
             DiscoverExternalExadataInfrastructureRequest request) {
         Objects.requireNonNull(
@@ -2608,6 +2887,47 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                 .handleResponseHeaderString(
                         "opc-work-request-id",
                         EnableCloudDbSystemStackMonitoringResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
+    public EnableCloudExadataInfrastructureManagementResponse
+            enableCloudExadataInfrastructureManagement(
+                    EnableCloudExadataInfrastructureManagementRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+        Objects.requireNonNull(
+                request.getEnableCloudExadataInfrastructureManagementDetails(),
+                "enableCloudExadataInfrastructureManagementDetails is required");
+
+        return clientCall(request, EnableCloudExadataInfrastructureManagementResponse::builder)
+                .logger(LOG, "enableCloudExadataInfrastructureManagement")
+                .serviceDetails(
+                        "DbManagement",
+                        "EnableCloudExadataInfrastructureManagement",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/EnableCloudExadataInfrastructureManagement")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(EnableCloudExadataInfrastructureManagementRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .appendPathParam("actions")
+                .appendPathParam("enableDatabaseManagement")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("if-match", request.getIfMatch())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        EnableCloudExadataInfrastructureManagementResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        EnableCloudExadataInfrastructureManagementResponse.Builder
+                                ::opcWorkRequestId)
                 .callSync();
     }
 
@@ -3446,6 +3766,168 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
     }
 
     @Override
+    public GetCloudExadataInfrastructureResponse getCloudExadataInfrastructure(
+            GetCloudExadataInfrastructureRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+
+        return clientCall(request, GetCloudExadataInfrastructureResponse::builder)
+                .logger(LOG, "getCloudExadataInfrastructure")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudExadataInfrastructure",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/GetCloudExadataInfrastructure")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudExadataInfrastructureRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructure.class,
+                        GetCloudExadataInfrastructureResponse.Builder::cloudExadataInfrastructure)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetCloudExadataInfrastructureResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", GetCloudExadataInfrastructureResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public GetCloudExadataStorageConnectorResponse getCloudExadataStorageConnector(
+            GetCloudExadataStorageConnectorRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageConnectorId(),
+                "cloudExadataStorageConnectorId must not be blank");
+
+        return clientCall(request, GetCloudExadataStorageConnectorResponse::builder)
+                .logger(LOG, "getCloudExadataStorageConnector")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudExadataStorageConnector",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/GetCloudExadataStorageConnector")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudExadataStorageConnectorRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .appendPathParam(request.getCloudExadataStorageConnectorId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnector.class,
+                        GetCloudExadataStorageConnectorResponse.Builder
+                                ::cloudExadataStorageConnector)
+                .handleResponseHeaderString(
+                        "etag", GetCloudExadataStorageConnectorResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetCloudExadataStorageConnectorResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetCloudExadataStorageGridResponse getCloudExadataStorageGrid(
+            GetCloudExadataStorageGridRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageGridId(),
+                "cloudExadataStorageGridId must not be blank");
+
+        return clientCall(request, GetCloudExadataStorageGridResponse::builder)
+                .logger(LOG, "getCloudExadataStorageGrid")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudExadataStorageGrid",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageGrid/GetCloudExadataStorageGrid")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudExadataStorageGridRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageGrids")
+                .appendPathParam(request.getCloudExadataStorageGridId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageGrid.class,
+                        GetCloudExadataStorageGridResponse.Builder::cloudExadataStorageGrid)
+                .handleResponseHeaderString(
+                        "etag", GetCloudExadataStorageGridResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetCloudExadataStorageGridResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetCloudExadataStorageServerResponse getCloudExadataStorageServer(
+            GetCloudExadataStorageServerRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageServerId(),
+                "cloudExadataStorageServerId must not be blank");
+
+        return clientCall(request, GetCloudExadataStorageServerResponse::builder)
+                .logger(LOG, "getCloudExadataStorageServer")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudExadataStorageServer",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageServer/GetCloudExadataStorageServer")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudExadataStorageServerRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageServers")
+                .appendPathParam(request.getCloudExadataStorageServerId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageServer.class,
+                        GetCloudExadataStorageServerResponse.Builder::cloudExadataStorageServer)
+                .handleResponseHeaderString(
+                        "etag", GetCloudExadataStorageServerResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetCloudExadataStorageServerResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetCloudIormPlanResponse getCloudIormPlan(GetCloudIormPlanRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageServerId(),
+                "cloudExadataStorageServerId must not be blank");
+
+        return clientCall(request, GetCloudIormPlanResponse::builder)
+                .logger(LOG, "getCloudIormPlan")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudIormPlan",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageServer/GetCloudIormPlan")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudIormPlanRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageServers")
+                .appendPathParam(request.getCloudExadataStorageServerId())
+                .appendPathParam("iormPlan")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudIormPlan.class,
+                        GetCloudIormPlanResponse.Builder::cloudIormPlan)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetCloudIormPlanResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public GetCloudListenerResponse getCloudListener(GetCloudListenerRequest request) {
 
         Validate.notBlank(request.getCloudListenerId(), "cloudListenerId must not be blank");
@@ -3470,6 +3952,37 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                 .handleResponseHeaderString("etag", GetCloudListenerResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", GetCloudListenerResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetCloudOpenAlertHistoryResponse getCloudOpenAlertHistory(
+            GetCloudOpenAlertHistoryRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageServerId(),
+                "cloudExadataStorageServerId must not be blank");
+
+        return clientCall(request, GetCloudOpenAlertHistoryResponse::builder)
+                .logger(LOG, "getCloudOpenAlertHistory")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetCloudOpenAlertHistory",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageServer/GetCloudOpenAlertHistory")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetCloudOpenAlertHistoryRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageServers")
+                .appendPathParam(request.getCloudExadataStorageServerId())
+                .appendPathParam("openAlertHistory")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudOpenAlertHistory.class,
+                        GetCloudOpenAlertHistoryResponse.Builder::cloudOpenAlertHistory)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetCloudOpenAlertHistoryResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -3862,6 +4375,51 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                 .handleResponseHeaderString(
                         "opc-request-id",
                         GetDbManagementPrivateEndpointResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetExadataInfrastructureFleetHealthMetricsResponse
+            getExadataInfrastructureFleetHealthMetrics(
+                    GetExadataInfrastructureFleetHealthMetricsRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        Objects.requireNonNull(request.getCompareBaselineTime(), "compareBaselineTime is required");
+
+        Objects.requireNonNull(request.getCompareTargetTime(), "compareTargetTime is required");
+
+        return clientCall(request, GetExadataInfrastructureFleetHealthMetricsResponse::builder)
+                .logger(LOG, "getExadataInfrastructureFleetHealthMetrics")
+                .serviceDetails(
+                        "DbManagement",
+                        "GetExadataInfrastructureFleetHealthMetrics",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/ExadataInfrastructureFleetHealthMetrics/GetExadataInfrastructureFleetHealthMetrics")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetExadataInfrastructureFleetHealthMetricsRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("exadataInfrastructureFleetMetrics")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("compareBaselineTime", request.getCompareBaselineTime())
+                .appendQueryParam("compareTargetTime", request.getCompareTargetTime())
+                .appendEnumQueryParam("compareType", request.getCompareType())
+                .appendEnumQueryParam(
+                        "filterByExadataInfrastructureDeploymentType",
+                        request.getFilterByExadataInfrastructureDeploymentType())
+                .appendEnumQueryParam(
+                        "filterByExadataInfrastructureLifecycleState",
+                        request.getFilterByExadataInfrastructureLifecycleState())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model
+                                .ExadataInfrastructureFleetHealthMetrics.class,
+                        GetExadataInfrastructureFleetHealthMetricsResponse.Builder
+                                ::exadataInfrastructureFleetHealthMetrics)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetExadataInfrastructureFleetHealthMetricsResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -5623,6 +6181,132 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                         "opc-request-id", ListCloudDbSystemsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListCloudDbSystemsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListCloudExadataInfrastructuresResponse listCloudExadataInfrastructures(
+            ListCloudExadataInfrastructuresRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        return clientCall(request, ListCloudExadataInfrastructuresResponse::builder)
+                .logger(LOG, "listCloudExadataInfrastructures")
+                .serviceDetails(
+                        "DbManagement",
+                        "ListCloudExadataInfrastructures",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/ListCloudExadataInfrastructures")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListCloudExadataInfrastructuresRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructureCollection
+                                .class,
+                        ListCloudExadataInfrastructuresResponse.Builder
+                                ::cloudExadataInfrastructureCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListCloudExadataInfrastructuresResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListCloudExadataInfrastructuresResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListCloudExadataStorageConnectorsResponse listCloudExadataStorageConnectors(
+            ListCloudExadataStorageConnectorsRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        Objects.requireNonNull(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId is required");
+
+        return clientCall(request, ListCloudExadataStorageConnectorsResponse::builder)
+                .logger(LOG, "listCloudExadataStorageConnectors")
+                .serviceDetails(
+                        "DbManagement",
+                        "ListCloudExadataStorageConnectors",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/ListCloudExadataStorageConnectors")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListCloudExadataStorageConnectorsRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam(
+                        "cloudExadataInfrastructureId", request.getCloudExadataInfrastructureId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model
+                                .CloudExadataStorageConnectorCollection.class,
+                        ListCloudExadataStorageConnectorsResponse.Builder
+                                ::cloudExadataStorageConnectorCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListCloudExadataStorageConnectorsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListCloudExadataStorageConnectorsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListCloudExadataStorageServersResponse listCloudExadataStorageServers(
+            ListCloudExadataStorageServersRequest request) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        Objects.requireNonNull(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId is required");
+
+        return clientCall(request, ListCloudExadataStorageServersResponse::builder)
+                .logger(LOG, "listCloudExadataStorageServers")
+                .serviceDetails(
+                        "DbManagement",
+                        "ListCloudExadataStorageServers",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageServer/ListCloudExadataStorageServers")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListCloudExadataStorageServersRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageServers")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam(
+                        "cloudExadataInfrastructureId", request.getCloudExadataInfrastructureId())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageServerCollection
+                                .class,
+                        ListCloudExadataStorageServersResponse.Builder
+                                ::cloudExadataStorageServerCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListCloudExadataStorageServersResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListCloudExadataStorageServersResponse.Builder::opcNextPage)
                 .callSync();
     }
 
@@ -9295,6 +9979,158 @@ public class DbManagementClient extends com.oracle.bmc.http.internal.BaseSyncCli
                 .handleResponseHeaderString(
                         "opc-request-id",
                         UpdateCloudDbSystemDiscoveryResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateCloudExadataInfrastructureResponse updateCloudExadataInfrastructure(
+            UpdateCloudExadataInfrastructureRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataInfrastructureId(),
+                "cloudExadataInfrastructureId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateCloudExadataInfrastructureDetails(),
+                "updateCloudExadataInfrastructureDetails is required");
+
+        return clientCall(request, UpdateCloudExadataInfrastructureResponse::builder)
+                .logger(LOG, "updateCloudExadataInfrastructure")
+                .serviceDetails(
+                        "DbManagement",
+                        "UpdateCloudExadataInfrastructure",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataInfrastructure/UpdateCloudExadataInfrastructure")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateCloudExadataInfrastructureRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataInfrastructures")
+                .appendPathParam(request.getCloudExadataInfrastructureId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataInfrastructure.class,
+                        UpdateCloudExadataInfrastructureResponse.Builder
+                                ::cloudExadataInfrastructure)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateCloudExadataInfrastructureResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", UpdateCloudExadataInfrastructureResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public UpdateCloudExadataStorageConnectorResponse updateCloudExadataStorageConnector(
+            UpdateCloudExadataStorageConnectorRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageConnectorId(),
+                "cloudExadataStorageConnectorId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateCloudExadataStorageConnectorDetails(),
+                "updateCloudExadataStorageConnectorDetails is required");
+
+        return clientCall(request, UpdateCloudExadataStorageConnectorResponse::builder)
+                .logger(LOG, "updateCloudExadataStorageConnector")
+                .serviceDetails(
+                        "DbManagement",
+                        "UpdateCloudExadataStorageConnector",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageConnector/UpdateCloudExadataStorageConnector")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateCloudExadataStorageConnectorRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageConnectors")
+                .appendPathParam(request.getCloudExadataStorageConnectorId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageConnector.class,
+                        UpdateCloudExadataStorageConnectorResponse.Builder
+                                ::cloudExadataStorageConnector)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateCloudExadataStorageConnectorResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", UpdateCloudExadataStorageConnectorResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public UpdateCloudExadataStorageGridResponse updateCloudExadataStorageGrid(
+            UpdateCloudExadataStorageGridRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageGridId(),
+                "cloudExadataStorageGridId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateCloudExadataStorageGridDetails(),
+                "updateCloudExadataStorageGridDetails is required");
+
+        return clientCall(request, UpdateCloudExadataStorageGridResponse::builder)
+                .logger(LOG, "updateCloudExadataStorageGrid")
+                .serviceDetails(
+                        "DbManagement",
+                        "UpdateCloudExadataStorageGrid",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageGrid/UpdateCloudExadataStorageGrid")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateCloudExadataStorageGridRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageGrids")
+                .appendPathParam(request.getCloudExadataStorageGridId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageGrid.class,
+                        UpdateCloudExadataStorageGridResponse.Builder::cloudExadataStorageGrid)
+                .handleResponseHeaderString(
+                        "etag", UpdateCloudExadataStorageGridResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateCloudExadataStorageGridResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateCloudExadataStorageServerResponse updateCloudExadataStorageServer(
+            UpdateCloudExadataStorageServerRequest request) {
+
+        Validate.notBlank(
+                request.getCloudExadataStorageServerId(),
+                "cloudExadataStorageServerId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateCloudExadataStorageServerDetails(),
+                "updateCloudExadataStorageServerDetails is required");
+
+        return clientCall(request, UpdateCloudExadataStorageServerResponse::builder)
+                .logger(LOG, "updateCloudExadataStorageServer")
+                .serviceDetails(
+                        "DbManagement",
+                        "UpdateCloudExadataStorageServer",
+                        "https://docs.oracle.com/iaas/api/#/en/database-management/20201101/CloudExadataStorageServer/UpdateCloudExadataStorageServer")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateCloudExadataStorageServerRequest::builder)
+                .basePath("/20201101")
+                .appendPathParam("cloudExadataStorageServers")
+                .appendPathParam(request.getCloudExadataStorageServerId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.databasemanagement.model.CloudExadataStorageServer.class,
+                        UpdateCloudExadataStorageServerResponse.Builder::cloudExadataStorageServer)
+                .handleResponseHeaderString(
+                        "etag", UpdateCloudExadataStorageServerResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        UpdateCloudExadataStorageServerResponse.Builder::opcRequestId)
                 .callSync();
     }
 
