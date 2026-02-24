@@ -21,12 +21,22 @@ package com.oracle.bmc.database.model;
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
 public final class DrScanDetails extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"hostname", "scanListenerPortTcp", "ips"})
-    public DrScanDetails(String hostname, Integer scanListenerPortTcp, java.util.List<String> ips) {
+    @java.beans.ConstructorProperties({
+        "hostname",
+        "scanListenerPortTcp",
+        "ips",
+        "scanListenerPortTcpSsl"
+    })
+    public DrScanDetails(
+            String hostname,
+            Integer scanListenerPortTcp,
+            java.util.List<String> ips,
+            Integer scanListenerPortTcpSsl) {
         super();
         this.hostname = hostname;
         this.scanListenerPortTcp = scanListenerPortTcp;
         this.ips = ips;
+        this.scanListenerPortTcpSsl = scanListenerPortTcpSsl;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -76,13 +86,32 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
             this.__explicitlySet__.add("ips");
             return this;
         }
+        /** The DR SCAN TCPIP SSL port. Default is 2484. */
+        @com.fasterxml.jackson.annotation.JsonProperty("scanListenerPortTcpSsl")
+        private Integer scanListenerPortTcpSsl;
+
+        /**
+         * The DR SCAN TCPIP SSL port. Default is 2484.
+         *
+         * @param scanListenerPortTcpSsl the value to set
+         * @return this builder
+         */
+        public Builder scanListenerPortTcpSsl(Integer scanListenerPortTcpSsl) {
+            this.scanListenerPortTcpSsl = scanListenerPortTcpSsl;
+            this.__explicitlySet__.add("scanListenerPortTcpSsl");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
         public DrScanDetails build() {
             DrScanDetails model =
-                    new DrScanDetails(this.hostname, this.scanListenerPortTcp, this.ips);
+                    new DrScanDetails(
+                            this.hostname,
+                            this.scanListenerPortTcp,
+                            this.ips,
+                            this.scanListenerPortTcpSsl);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -99,6 +128,9 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
             }
             if (model.wasPropertyExplicitlySet("ips")) {
                 this.ips(model.getIps());
+            }
+            if (model.wasPropertyExplicitlySet("scanListenerPortTcpSsl")) {
+                this.scanListenerPortTcpSsl(model.getScanListenerPortTcpSsl());
             }
             return this;
         }
@@ -152,6 +184,19 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
         return ips;
     }
 
+    /** The DR SCAN TCPIP SSL port. Default is 2484. */
+    @com.fasterxml.jackson.annotation.JsonProperty("scanListenerPortTcpSsl")
+    private final Integer scanListenerPortTcpSsl;
+
+    /**
+     * The DR SCAN TCPIP SSL port. Default is 2484.
+     *
+     * @return the value
+     */
+    public Integer getScanListenerPortTcpSsl() {
+        return scanListenerPortTcpSsl;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -170,6 +215,7 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
         sb.append("hostname=").append(String.valueOf(this.hostname));
         sb.append(", scanListenerPortTcp=").append(String.valueOf(this.scanListenerPortTcp));
         sb.append(", ips=").append(String.valueOf(this.ips));
+        sb.append(", scanListenerPortTcpSsl=").append(String.valueOf(this.scanListenerPortTcpSsl));
         sb.append(")");
         return sb.toString();
     }
@@ -187,6 +233,8 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
         return java.util.Objects.equals(this.hostname, other.hostname)
                 && java.util.Objects.equals(this.scanListenerPortTcp, other.scanListenerPortTcp)
                 && java.util.Objects.equals(this.ips, other.ips)
+                && java.util.Objects.equals(
+                        this.scanListenerPortTcpSsl, other.scanListenerPortTcpSsl)
                 && super.equals(other);
     }
 
@@ -201,6 +249,11 @@ public final class DrScanDetails extends com.oracle.bmc.http.client.internal.Exp
                                 ? 43
                                 : this.scanListenerPortTcp.hashCode());
         result = (result * PRIME) + (this.ips == null ? 43 : this.ips.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.scanListenerPortTcpSsl == null
+                                ? 43
+                                : this.scanListenerPortTcpSsl.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

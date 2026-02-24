@@ -154,6 +154,42 @@ public class ChannelsAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<GenerateChannelStatusResponse> generateChannelStatus(
+            GenerateChannelStatusRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            GenerateChannelStatusRequest, GenerateChannelStatusResponse>
+                    handler) {
+
+        Validate.notBlank(request.getChannelId(), "channelId must not be blank");
+
+        return clientCall(request, GenerateChannelStatusResponse::builder)
+                .logger(LOG, "generateChannelStatus")
+                .serviceDetails(
+                        "Channels",
+                        "GenerateChannelStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/ChannelStatus/GenerateChannelStatus")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(GenerateChannelStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("channels")
+                .appendPathParam(request.getChannelId())
+                .appendPathParam("actions")
+                .appendPathParam("generateChannelStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.mysql.model.ChannelStatus.class,
+                        GenerateChannelStatusResponse.Builder::channelStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GenerateChannelStatusResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        GenerateChannelStatusResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<GetChannelResponse> getChannel(
             GetChannelRequest request,
             final com.oracle.bmc.responses.AsyncHandler<GetChannelRequest, GetChannelResponse>
@@ -181,6 +217,37 @@ public class ChannelsAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
                 .handleResponseHeaderString("etag", GetChannelResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", GetChannelResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetChannelStatusResponse> getChannelStatus(
+            GetChannelStatusRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            GetChannelStatusRequest, GetChannelStatusResponse>
+                    handler) {
+
+        Validate.notBlank(request.getChannelId(), "channelId must not be blank");
+
+        return clientCall(request, GetChannelStatusResponse::builder)
+                .logger(LOG, "getChannelStatus")
+                .serviceDetails(
+                        "Channels",
+                        "GetChannelStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/ChannelStatus/GetChannelStatus")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetChannelStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("channels")
+                .appendPathParam(request.getChannelId())
+                .appendPathParam("channelStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.mysql.model.ChannelStatus.class,
+                        GetChannelStatusResponse.Builder::channelStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetChannelStatusResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

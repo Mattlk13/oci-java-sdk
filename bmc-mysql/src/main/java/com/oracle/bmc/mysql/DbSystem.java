@@ -128,6 +128,23 @@ public interface DbSystem extends AutoCloseable {
     DeleteHeatWaveClusterResponse deleteHeatWaveCluster(DeleteHeatWaveClusterRequest request);
 
     /**
+     * Initiates an asynchronous request to collect the current status of the specified DB System,
+     * including the status of any attached Channels (if requested).
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/mysql/GenerateDbSystemStatusExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GenerateDbSystemStatus API.
+     */
+    GenerateDbSystemStatusResponse generateDbSystemStatus(GenerateDbSystemStatusRequest request);
+
+    /**
      * Sends a request to estimate the memory footprints of user tables when loaded to HeatWave
      * cluster memory.
      *
@@ -159,6 +176,23 @@ public interface DbSystem extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetDbSystem API.
      */
     GetDbSystemResponse getDbSystem(GetDbSystemRequest request);
+
+    /**
+     * Returns the most up-to-date status of the specified DB System, including the status of any
+     * requested Channels.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/mysql/GetDbSystemStatusExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetDbSystemStatus
+     *     API.
+     */
+    GetDbSystemStatusResponse getDbSystemStatus(GetDbSystemStatusRequest request);
 
     /**
      * Gets information about the HeatWave cluster.

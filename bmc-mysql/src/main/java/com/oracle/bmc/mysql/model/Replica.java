@@ -46,7 +46,8 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
         "isDeleteProtected",
         "shapeName",
         "configurationId",
-        "replicaOverrides"
+        "replicaOverrides",
+        "telemetryConfiguration"
     })
     public Replica(
             SecureConnectionDetails secureConnections,
@@ -73,7 +74,8 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
             Boolean isDeleteProtected,
             String shapeName,
             String configurationId,
-            ReplicaOverrides replicaOverrides) {
+            ReplicaOverrides replicaOverrides,
+            TelemetryConfigurationDetails telemetryConfiguration) {
         super();
         this.secureConnections = secureConnections;
         this.encryptData = encryptData;
@@ -100,6 +102,7 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
         this.shapeName = shapeName;
         this.configurationId = configurationId;
         this.replicaOverrides = replicaOverrides;
+        this.telemetryConfiguration = telemetryConfiguration;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -508,6 +511,16 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+        private TelemetryConfigurationDetails telemetryConfiguration;
+
+        public Builder telemetryConfiguration(
+                TelemetryConfigurationDetails telemetryConfiguration) {
+            this.telemetryConfiguration = telemetryConfiguration;
+            this.__explicitlySet__.add("telemetryConfiguration");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -538,7 +551,8 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
                             this.isDeleteProtected,
                             this.shapeName,
                             this.configurationId,
-                            this.replicaOverrides);
+                            this.replicaOverrides,
+                            this.telemetryConfiguration);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -621,6 +635,9 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
             }
             if (model.wasPropertyExplicitlySet("replicaOverrides")) {
                 this.replicaOverrides(model.getReplicaOverrides());
+            }
+            if (model.wasPropertyExplicitlySet("telemetryConfiguration")) {
+                this.telemetryConfiguration(model.getTelemetryConfiguration());
             }
             return this;
         }
@@ -1038,6 +1055,13 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
         return replicaOverrides;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+    private final TelemetryConfigurationDetails telemetryConfiguration;
+
+    public TelemetryConfigurationDetails getTelemetryConfiguration() {
+        return telemetryConfiguration;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1078,6 +1102,7 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
         sb.append(", shapeName=").append(String.valueOf(this.shapeName));
         sb.append(", configurationId=").append(String.valueOf(this.configurationId));
         sb.append(", replicaOverrides=").append(String.valueOf(this.replicaOverrides));
+        sb.append(", telemetryConfiguration=").append(String.valueOf(this.telemetryConfiguration));
         sb.append(")");
         return sb.toString();
     }
@@ -1117,6 +1142,8 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
                 && java.util.Objects.equals(this.shapeName, other.shapeName)
                 && java.util.Objects.equals(this.configurationId, other.configurationId)
                 && java.util.Objects.equals(this.replicaOverrides, other.replicaOverrides)
+                && java.util.Objects.equals(
+                        this.telemetryConfiguration, other.telemetryConfiguration)
                 && super.equals(other);
     }
 
@@ -1171,6 +1198,11 @@ public final class Replica extends com.oracle.bmc.http.client.internal.Explicitl
         result =
                 (result * PRIME)
                         + (this.replicaOverrides == null ? 43 : this.replicaOverrides.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.telemetryConfiguration == null
+                                ? 43
+                                : this.telemetryConfiguration.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

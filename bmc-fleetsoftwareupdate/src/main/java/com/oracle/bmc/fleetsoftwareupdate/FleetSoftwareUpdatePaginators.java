@@ -995,6 +995,132 @@ public class FleetSoftwareUpdatePaginators {
 
     /**
      * Creates a new iterable which will iterate over the responses received from the
+     * listFsuReadinessChecks operation. This iterable will fetch more data from the server as
+     * needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListFsuReadinessChecksResponse> listFsuReadinessChecksResponseIterator(
+            final ListFsuReadinessChecksRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListFsuReadinessChecksRequest.Builder,
+                ListFsuReadinessChecksRequest,
+                ListFsuReadinessChecksResponse>(
+                new java.util.function.Supplier<ListFsuReadinessChecksRequest.Builder>() {
+                    @Override
+                    public ListFsuReadinessChecksRequest.Builder get() {
+                        return ListFsuReadinessChecksRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListFsuReadinessChecksResponse, String>() {
+                    @Override
+                    public String apply(ListFsuReadinessChecksResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListFsuReadinessChecksRequest.Builder>,
+                        ListFsuReadinessChecksRequest>() {
+                    @Override
+                    public ListFsuReadinessChecksRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListFsuReadinessChecksRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListFsuReadinessChecksRequest, ListFsuReadinessChecksResponse>() {
+                    @Override
+                    public ListFsuReadinessChecksResponse apply(
+                            ListFsuReadinessChecksRequest request) {
+                        return client.listFsuReadinessChecks(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheckSummary} objects contained in
+     * responses from the listFsuReadinessChecks operation. This iterable will fetch more data from
+     * the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheckSummary} objects contained in
+     *     responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheckSummary>
+            listFsuReadinessChecksRecordIterator(final ListFsuReadinessChecksRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListFsuReadinessChecksRequest.Builder,
+                ListFsuReadinessChecksRequest,
+                ListFsuReadinessChecksResponse,
+                com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheckSummary>(
+                new java.util.function.Supplier<ListFsuReadinessChecksRequest.Builder>() {
+                    @Override
+                    public ListFsuReadinessChecksRequest.Builder get() {
+                        return ListFsuReadinessChecksRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<ListFsuReadinessChecksResponse, String>() {
+                    @Override
+                    public String apply(ListFsuReadinessChecksResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListFsuReadinessChecksRequest.Builder>,
+                        ListFsuReadinessChecksRequest>() {
+                    @Override
+                    public ListFsuReadinessChecksRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListFsuReadinessChecksRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListFsuReadinessChecksRequest, ListFsuReadinessChecksResponse>() {
+                    @Override
+                    public ListFsuReadinessChecksResponse apply(
+                            ListFsuReadinessChecksRequest request) {
+                        return client.listFsuReadinessChecks(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListFsuReadinessChecksResponse,
+                        java.util.List<
+                                com.oracle.bmc.fleetsoftwareupdate.model
+                                        .FsuReadinessCheckSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.fleetsoftwareupdate.model
+                                            .FsuReadinessCheckSummary>
+                            apply(ListFsuReadinessChecksResponse response) {
+                        return response.getFsuReadinessCheckCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
      * listWorkRequestErrors operation. This iterable will fetch more data from the server as
      * needed.
      *

@@ -230,6 +230,46 @@ public class DbSystemAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
     }
 
     @Override
+    public java.util.concurrent.Future<GenerateDbSystemStatusResponse> generateDbSystemStatus(
+            GenerateDbSystemStatusRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            GenerateDbSystemStatusRequest, GenerateDbSystemStatusResponse>
+                    handler) {
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+        Objects.requireNonNull(
+                request.getGenerateDbSystemStatusDetails(),
+                "generateDbSystemStatusDetails is required");
+
+        return clientCall(request, GenerateDbSystemStatusResponse::builder)
+                .logger(LOG, "generateDbSystemStatus")
+                .serviceDetails(
+                        "DbSystem",
+                        "GenerateDbSystemStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/DbSystemStatus/GenerateDbSystemStatus")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(GenerateDbSystemStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("actions")
+                .appendPathParam("generateDbSystemStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.mysql.model.DbSystemStatus.class,
+                        GenerateDbSystemStatusResponse.Builder::dbSystemStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GenerateDbSystemStatusResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        GenerateDbSystemStatusResponse.Builder::opcWorkRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<GenerateHeatWaveClusterMemoryEstimateResponse>
             generateHeatWaveClusterMemoryEstimate(
                     GenerateHeatWaveClusterMemoryEstimateRequest request,
@@ -298,6 +338,37 @@ public class DbSystemAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncC
                 .handleResponseHeaderString("etag", GetDbSystemResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", GetDbSystemResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDbSystemStatusResponse> getDbSystemStatus(
+            GetDbSystemStatusRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            GetDbSystemStatusRequest, GetDbSystemStatusResponse>
+                    handler) {
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+
+        return clientCall(request, GetDbSystemStatusResponse::builder)
+                .logger(LOG, "getDbSystemStatus")
+                .serviceDetails(
+                        "DbSystem",
+                        "GetDbSystemStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/DbSystemStatus/GetDbSystemStatus")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetDbSystemStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("dbSystemStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.mysql.model.DbSystemStatus.class,
+                        GetDbSystemStatusResponse.Builder::dbSystemStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetDbSystemStatusResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

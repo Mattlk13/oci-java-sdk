@@ -332,12 +332,16 @@ public final class Resolver extends com.oracle.bmc.http.client.internal.Explicit
             this.__explicitlySet__.add("attachedViews");
             return this;
         }
-        /** Rules for the resolver. Rules are evaluated in order. */
+        /**
+         * Rules for the resolver. Rules are evaluated in order, and only the first matching rule
+         * will have its action applied.
+         */
         @com.fasterxml.jackson.annotation.JsonProperty("rules")
         private java.util.List<ResolverRule> rules;
 
         /**
-         * Rules for the resolver. Rules are evaluated in order.
+         * Rules for the resolver. Rules are evaluated in order, and only the first matching rule
+         * will have its action applied.
          *
          * @param rules the value to set
          * @return this builder
@@ -707,12 +711,16 @@ public final class Resolver extends com.oracle.bmc.http.client.internal.Explicit
         return attachedViews;
     }
 
-    /** Rules for the resolver. Rules are evaluated in order. */
+    /**
+     * Rules for the resolver. Rules are evaluated in order, and only the first matching rule will
+     * have its action applied.
+     */
     @com.fasterxml.jackson.annotation.JsonProperty("rules")
     private final java.util.List<ResolverRule> rules;
 
     /**
-     * Rules for the resolver. Rules are evaluated in order.
+     * Rules for the resolver. Rules are evaluated in order, and only the first matching rule will
+     * have its action applied.
      *
      * @return the value
      */

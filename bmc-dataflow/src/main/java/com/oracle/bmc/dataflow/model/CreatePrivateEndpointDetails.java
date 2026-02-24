@@ -33,7 +33,8 @@ public final class CreatePrivateEndpointDetails
         "maxHostCount",
         "nsgIds",
         "scanDetails",
-        "subnetId"
+        "subnetId",
+        "securityAttributes"
     })
     public CreatePrivateEndpointDetails(
             String compartmentId,
@@ -45,7 +46,8 @@ public final class CreatePrivateEndpointDetails
             Integer maxHostCount,
             java.util.List<String> nsgIds,
             java.util.List<Scan> scanDetails,
-            String subnetId) {
+            String subnetId,
+            java.util.Map<String, java.util.Map<String, Object>> securityAttributes) {
         super();
         this.compartmentId = compartmentId;
         this.definedTags = definedTags;
@@ -57,6 +59,7 @@ public final class CreatePrivateEndpointDetails
         this.nsgIds = nsgIds;
         this.scanDetails = scanDetails;
         this.subnetId = subnetId;
+        this.securityAttributes = securityAttributes;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -250,6 +253,34 @@ public final class CreatePrivateEndpointDetails
             this.__explicitlySet__.add("subnetId");
             return this;
         }
+        /**
+         * Security attributes for this resource. Each key is predefined and scoped to a namespace.
+         * For more information, see [Resource
+         * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+         *
+         * <p>Example: {@code {"Oracle-ZPR": {"MaxEgressCount": {"value": "42", "mode":
+         * "enforce"}}}}
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("securityAttributes")
+        private java.util.Map<String, java.util.Map<String, Object>> securityAttributes;
+
+        /**
+         * Security attributes for this resource. Each key is predefined and scoped to a namespace.
+         * For more information, see [Resource
+         * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+         *
+         * <p>Example: {@code {"Oracle-ZPR": {"MaxEgressCount": {"value": "42", "mode":
+         * "enforce"}}}}
+         *
+         * @param securityAttributes the value to set
+         * @return this builder
+         */
+        public Builder securityAttributes(
+                java.util.Map<String, java.util.Map<String, Object>> securityAttributes) {
+            this.securityAttributes = securityAttributes;
+            this.__explicitlySet__.add("securityAttributes");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -266,7 +297,8 @@ public final class CreatePrivateEndpointDetails
                             this.maxHostCount,
                             this.nsgIds,
                             this.scanDetails,
-                            this.subnetId);
+                            this.subnetId,
+                            this.securityAttributes);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -304,6 +336,9 @@ public final class CreatePrivateEndpointDetails
             }
             if (model.wasPropertyExplicitlySet("subnetId")) {
                 this.subnetId(model.getSubnetId());
+            }
+            if (model.wasPropertyExplicitlySet("securityAttributes")) {
+                this.securityAttributes(model.getSecurityAttributes());
             }
             return this;
         }
@@ -484,6 +519,29 @@ public final class CreatePrivateEndpointDetails
         return subnetId;
     }
 
+    /**
+     * Security attributes for this resource. Each key is predefined and scoped to a namespace. For
+     * more information, see [Resource
+     * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+     *
+     * <p>Example: {@code {"Oracle-ZPR": {"MaxEgressCount": {"value": "42", "mode": "enforce"}}}}
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("securityAttributes")
+    private final java.util.Map<String, java.util.Map<String, Object>> securityAttributes;
+
+    /**
+     * Security attributes for this resource. Each key is predefined and scoped to a namespace. For
+     * more information, see [Resource
+     * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+     *
+     * <p>Example: {@code {"Oracle-ZPR": {"MaxEgressCount": {"value": "42", "mode": "enforce"}}}}
+     *
+     * @return the value
+     */
+    public java.util.Map<String, java.util.Map<String, Object>> getSecurityAttributes() {
+        return securityAttributes;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -509,6 +567,7 @@ public final class CreatePrivateEndpointDetails
         sb.append(", nsgIds=").append(String.valueOf(this.nsgIds));
         sb.append(", scanDetails=").append(String.valueOf(this.scanDetails));
         sb.append(", subnetId=").append(String.valueOf(this.subnetId));
+        sb.append(", securityAttributes=").append(String.valueOf(this.securityAttributes));
         sb.append(")");
         return sb.toString();
     }
@@ -533,6 +592,7 @@ public final class CreatePrivateEndpointDetails
                 && java.util.Objects.equals(this.nsgIds, other.nsgIds)
                 && java.util.Objects.equals(this.scanDetails, other.scanDetails)
                 && java.util.Objects.equals(this.subnetId, other.subnetId)
+                && java.util.Objects.equals(this.securityAttributes, other.securityAttributes)
                 && super.equals(other);
     }
 
@@ -552,6 +612,11 @@ public final class CreatePrivateEndpointDetails
         result = (result * PRIME) + (this.nsgIds == null ? 43 : this.nsgIds.hashCode());
         result = (result * PRIME) + (this.scanDetails == null ? 43 : this.scanDetails.hashCode());
         result = (result * PRIME) + (this.subnetId == null ? 43 : this.subnetId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.securityAttributes == null
+                                ? 43
+                                : this.securityAttributes.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

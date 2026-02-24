@@ -549,6 +549,12 @@
   },
   {
     "condition" : { "typeReachable" : "com.fasterxml.jackson.databind.ObjectMapper" },
+    "name": "com.oracle.bmc.dataflow.model.SqlEndpointLogOperation",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "condition" : { "typeReachable" : "com.fasterxml.jackson.databind.ObjectMapper" },
     "name": "com.oracle.bmc.dataflow.model.SqlEndpointNetworkConfiguration",
     "allDeclaredFields": true,
     "allDeclaredMethods": true,

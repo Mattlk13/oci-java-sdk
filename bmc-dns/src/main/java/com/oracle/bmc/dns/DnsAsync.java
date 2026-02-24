@@ -202,6 +202,8 @@ public interface DnsAsync extends AutoCloseable {
      * <p>For the purposes of access control, the attachment is automatically placed into the same
      * compartment as the domain's zone.
      *
+     * <p>Attachments cannot be created for private zones.
+     *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
      * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
