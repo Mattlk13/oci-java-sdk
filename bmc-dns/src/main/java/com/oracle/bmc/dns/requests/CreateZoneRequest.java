@@ -35,6 +35,25 @@ public class CreateZoneRequest
         return opcRequestId;
     }
     /**
+     * A token that uniquely identifies a request so it can be retried in case of a timeout or
+     * server error without risk of executing that same action again. Retry tokens expire after 24
+     * hours, but can be invalidated before then due to conflicting operations (for example, if a
+     * resource has been deleted and purged from the system, then a retry of the original creation
+     * request may be rejected).
+     */
+    private String opcRetryToken;
+
+    /**
+     * A token that uniquely identifies a request so it can be retried in case of a timeout or
+     * server error without risk of executing that same action again. Retry tokens expire after 24
+     * hours, but can be invalidated before then due to conflicting operations (for example, if a
+     * resource has been deleted and purged from the system, then a retry of the original creation
+     * request may be rejected).
+     */
+    public String getOpcRetryToken() {
+        return opcRetryToken;
+    }
+    /**
      * The OCID of the compartment the zone belongs to.
      *
      * <p>This parameter is deprecated and should be omitted.
@@ -111,6 +130,30 @@ public class CreateZoneRequest
          */
         public Builder opcRequestId(String opcRequestId) {
             this.opcRequestId = opcRequestId;
+            return this;
+        }
+
+        /**
+         * A token that uniquely identifies a request so it can be retried in case of a timeout or
+         * server error without risk of executing that same action again. Retry tokens expire after
+         * 24 hours, but can be invalidated before then due to conflicting operations (for example,
+         * if a resource has been deleted and purged from the system, then a retry of the original
+         * creation request may be rejected).
+         */
+        private String opcRetryToken = null;
+
+        /**
+         * A token that uniquely identifies a request so it can be retried in case of a timeout or
+         * server error without risk of executing that same action again. Retry tokens expire after
+         * 24 hours, but can be invalidated before then due to conflicting operations (for example,
+         * if a resource has been deleted and purged from the system, then a retry of the original
+         * creation request may be rejected).
+         *
+         * @param opcRetryToken the value to set
+         * @return this builder instance
+         */
+        public Builder opcRetryToken(String opcRetryToken) {
+            this.opcRetryToken = opcRetryToken;
             return this;
         }
 
@@ -194,6 +237,7 @@ public class CreateZoneRequest
         public Builder copy(CreateZoneRequest o) {
             createZoneDetails(o.getCreateZoneDetails());
             opcRequestId(o.getOpcRequestId());
+            opcRetryToken(o.getOpcRetryToken());
             compartmentId(o.getCompartmentId());
             scope(o.getScope());
             viewId(o.getViewId());
@@ -245,11 +289,13 @@ public class CreateZoneRequest
             CreateZoneRequest request = new CreateZoneRequest();
             request.createZoneDetails = createZoneDetails;
             request.opcRequestId = opcRequestId;
+            request.opcRetryToken = opcRetryToken;
             request.compartmentId = compartmentId;
             request.scope = scope;
             request.viewId = viewId;
             return request;
-            // new CreateZoneRequest(createZoneDetails, opcRequestId, compartmentId, scope, viewId);
+            // new CreateZoneRequest(createZoneDetails, opcRequestId, opcRetryToken, compartmentId,
+            // scope, viewId);
         }
     }
 
@@ -262,6 +308,7 @@ public class CreateZoneRequest
         return new Builder()
                 .createZoneDetails(createZoneDetails)
                 .opcRequestId(opcRequestId)
+                .opcRetryToken(opcRetryToken)
                 .compartmentId(compartmentId)
                 .scope(scope)
                 .viewId(viewId);
@@ -283,6 +330,7 @@ public class CreateZoneRequest
         sb.append("super=").append(super.toString());
         sb.append(",createZoneDetails=").append(String.valueOf(this.createZoneDetails));
         sb.append(",opcRequestId=").append(String.valueOf(this.opcRequestId));
+        sb.append(",opcRetryToken=").append(String.valueOf(this.opcRetryToken));
         sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(",scope=").append(String.valueOf(this.scope));
         sb.append(",viewId=").append(String.valueOf(this.viewId));
@@ -303,6 +351,7 @@ public class CreateZoneRequest
         return super.equals(o)
                 && java.util.Objects.equals(this.createZoneDetails, other.createZoneDetails)
                 && java.util.Objects.equals(this.opcRequestId, other.opcRequestId)
+                && java.util.Objects.equals(this.opcRetryToken, other.opcRetryToken)
                 && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(this.scope, other.scope)
                 && java.util.Objects.equals(this.viewId, other.viewId);
@@ -316,6 +365,9 @@ public class CreateZoneRequest
                 (result * PRIME)
                         + (this.createZoneDetails == null ? 43 : this.createZoneDetails.hashCode());
         result = (result * PRIME) + (this.opcRequestId == null ? 43 : this.opcRequestId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.opcRetryToken == null ? 43 : this.opcRetryToken.hashCode());
         result =
                 (result * PRIME)
                         + (this.compartmentId == null ? 43 : this.compartmentId.hashCode());

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.oracle.oci.sdk</groupId>
   <artifactId>oci-java-sdk</artifactId>
-  <version>3.80.2</version>
+  <version>3.80.3</version>
   <packaging>pom</packaging>
   <name>Oracle Cloud Infrastructure SDK</name>
   <description>This project contains the SDK used for Oracle Cloud Infrastructure</description>
@@ -670,6 +670,7 @@
     <module>bmc-psa</module>
     <module>bmc-dif</module>
     <module>bmc-batch</module>
+    <module>bmc-marketplaceprivateoffer</module>
     <module>bmc-containerengine</module>
     <module>bmc-keymanagement</module>
     <module>bmc-resourcesearch</module>
@@ -801,7 +802,6 @@
     <module>bmc-desktops</module>
     <module>bmc-emaildataplane</module>
     <module>bmc-clusterplacementgroups</module>
-    <module>bmc-marketplaceprivateoffer</module>
     <module>bmc-resourcescheduler</module>
     <module>bmc-demandsignal</module>
     <module>bmc-fleetappsmanagement</module>

@@ -178,6 +178,40 @@ public class ChannelsClient extends com.oracle.bmc.http.internal.BaseSyncClient
     }
 
     @Override
+    public GenerateChannelStatusResponse generateChannelStatus(
+            GenerateChannelStatusRequest request) {
+
+        Validate.notBlank(request.getChannelId(), "channelId must not be blank");
+
+        return clientCall(request, GenerateChannelStatusResponse::builder)
+                .logger(LOG, "generateChannelStatus")
+                .serviceDetails(
+                        "Channels",
+                        "GenerateChannelStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/ChannelStatus/GenerateChannelStatus")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(GenerateChannelStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("channels")
+                .appendPathParam(request.getChannelId())
+                .appendPathParam("actions")
+                .appendPathParam("generateChannelStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.mysql.model.ChannelStatus.class,
+                        GenerateChannelStatusResponse.Builder::channelStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GenerateChannelStatusResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        GenerateChannelStatusResponse.Builder::opcWorkRequestId)
+                .callSync();
+    }
+
+    @Override
     public GetChannelResponse getChannel(GetChannelRequest request) {
 
         Validate.notBlank(request.getChannelId(), "channelId must not be blank");
@@ -203,6 +237,34 @@ public class ChannelsClient extends com.oracle.bmc.http.internal.BaseSyncClient
                 .handleResponseHeaderString("etag", GetChannelResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", GetChannelResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetChannelStatusResponse getChannelStatus(GetChannelStatusRequest request) {
+
+        Validate.notBlank(request.getChannelId(), "channelId must not be blank");
+
+        return clientCall(request, GetChannelStatusResponse::builder)
+                .logger(LOG, "getChannelStatus")
+                .serviceDetails(
+                        "Channels",
+                        "GetChannelStatus",
+                        "https://docs.oracle.com/iaas/api/#/en/mysql/20190415/ChannelStatus/GetChannelStatus")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetChannelStatusRequest::builder)
+                .basePath("/20190415")
+                .appendPathParam("channels")
+                .appendPathParam(request.getChannelId())
+                .appendPathParam("channelStatus")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.mysql.model.ChannelStatus.class,
+                        GetChannelStatusResponse.Builder::channelStatus)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetChannelStatusResponse.Builder::opcRequestId)
                 .callSync();
     }
 

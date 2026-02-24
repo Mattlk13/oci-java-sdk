@@ -381,6 +381,45 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
     }
 
     @Override
+    public java.util.concurrent.Future<ChangeFsuReadinessCheckCompartmentResponse>
+            changeFsuReadinessCheckCompartment(
+                    ChangeFsuReadinessCheckCompartmentRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ChangeFsuReadinessCheckCompartmentRequest,
+                                    ChangeFsuReadinessCheckCompartmentResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getFsuReadinessCheckId(), "fsuReadinessCheckId must not be blank");
+        Objects.requireNonNull(
+                request.getChangeFsuReadinessCheckCompartmentDetails(),
+                "changeFsuReadinessCheckCompartmentDetails is required");
+
+        return clientCall(request, ChangeFsuReadinessCheckCompartmentResponse::builder)
+                .logger(LOG, "changeFsuReadinessCheckCompartment")
+                .serviceDetails(
+                        "FleetSoftwareUpdate",
+                        "ChangeFsuReadinessCheckCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/edsfu/20220528/FsuReadinessCheck/ChangeFsuReadinessCheckCompartment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ChangeFsuReadinessCheckCompartmentRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .appendPathParam(request.getFsuReadinessCheckId())
+                .appendPathParam("actions")
+                .appendPathParam("changeCompartment")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ChangeFsuReadinessCheckCompartmentResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<CloneFsuCycleResponse> cloneFsuCycle(
             CloneFsuCycleRequest request,
             final com.oracle.bmc.responses.AsyncHandler<CloneFsuCycleRequest, CloneFsuCycleResponse>
@@ -547,6 +586,41 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
                 .handleResponseHeaderString("etag", CreateFsuDiscoveryResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "Location", CreateFsuDiscoveryResponse.Builder::location)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFsuReadinessCheckResponse> createFsuReadinessCheck(
+            CreateFsuReadinessCheckRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            CreateFsuReadinessCheckRequest, CreateFsuReadinessCheckResponse>
+                    handler) {
+        Objects.requireNonNull(
+                request.getCreateFsuReadinessCheckDetails(),
+                "createFsuReadinessCheckDetails is required");
+
+        return clientCall(request, CreateFsuReadinessCheckResponse::builder)
+                .logger(LOG, "createFsuReadinessCheck")
+                .serviceDetails("FleetSoftwareUpdate", "CreateFsuReadinessCheck", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateFsuReadinessCheckRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheck.class,
+                        CreateFsuReadinessCheckResponse.Builder::fsuReadinessCheck)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        CreateFsuReadinessCheckResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateFsuReadinessCheckResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", CreateFsuReadinessCheckResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "Location", CreateFsuReadinessCheckResponse.Builder::location)
                 .callAsync(handler);
     }
 
@@ -730,6 +804,38 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
                 .appendHeader("if-match", request.getIfMatch())
                 .handleResponseHeaderString(
                         "opc-request-id", DeleteFsuJobResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFsuReadinessCheckResponse> deleteFsuReadinessCheck(
+            DeleteFsuReadinessCheckRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            DeleteFsuReadinessCheckRequest, DeleteFsuReadinessCheckResponse>
+                    handler) {
+
+        Validate.notBlank(
+                request.getFsuReadinessCheckId(), "fsuReadinessCheckId must not be blank");
+
+        return clientCall(request, DeleteFsuReadinessCheckResponse::builder)
+                .logger(LOG, "deleteFsuReadinessCheck")
+                .serviceDetails(
+                        "FleetSoftwareUpdate",
+                        "DeleteFsuReadinessCheck",
+                        "https://docs.oracle.com/iaas/api/#/en/edsfu/20220528/FsuReadinessCheck/DeleteFsuReadinessCheck")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteFsuReadinessCheckRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .appendPathParam(request.getFsuReadinessCheckId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DeleteFsuReadinessCheckResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", DeleteFsuReadinessCheckResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -981,6 +1087,38 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
                         GetFsuJobOutputContentResponse.Builder::inputStream)
                 .handleResponseHeaderString(
                         "opc-request-id", GetFsuJobOutputContentResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFsuReadinessCheckResponse> getFsuReadinessCheck(
+            GetFsuReadinessCheckRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            GetFsuReadinessCheckRequest, GetFsuReadinessCheckResponse>
+                    handler) {
+
+        Validate.notBlank(
+                request.getFsuReadinessCheckId(), "fsuReadinessCheckId must not be blank");
+
+        return clientCall(request, GetFsuReadinessCheckResponse::builder)
+                .logger(LOG, "getFsuReadinessCheck")
+                .serviceDetails(
+                        "FleetSoftwareUpdate",
+                        "GetFsuReadinessCheck",
+                        "https://docs.oracle.com/iaas/api/#/en/edsfu/20220528/FsuReadinessCheck/GetFsuReadinessCheck")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetFsuReadinessCheckRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .appendPathParam(request.getFsuReadinessCheckId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheck.class,
+                        GetFsuReadinessCheckResponse.Builder::fsuReadinessCheck)
+                .handleResponseHeaderString("etag", GetFsuReadinessCheckResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetFsuReadinessCheckResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -1321,6 +1459,45 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
                         "opc-request-id", ListFsuJobsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListFsuJobsResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFsuReadinessChecksResponse> listFsuReadinessChecks(
+            ListFsuReadinessChecksRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            ListFsuReadinessChecksRequest, ListFsuReadinessChecksResponse>
+                    handler) {
+        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
+
+        return clientCall(request, ListFsuReadinessChecksResponse::builder)
+                .logger(LOG, "listFsuReadinessChecks")
+                .serviceDetails(
+                        "FleetSoftwareUpdate",
+                        "ListFsuReadinessChecks",
+                        "https://docs.oracle.com/iaas/api/#/en/edsfu/20220528/FsuReadinessCheckSummary/ListFsuReadinessChecks")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListFsuReadinessChecksRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("resourceId", request.getResourceId())
+                .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .appendQueryParam("displayName", request.getDisplayName())
+                .appendEnumQueryParam("type", request.getType())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheckCollection.class,
+                        ListFsuReadinessChecksResponse.Builder::fsuReadinessCheckCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListFsuReadinessChecksResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListFsuReadinessChecksResponse.Builder::opcNextPage)
                 .callAsync(handler);
     }
 
@@ -1698,6 +1875,43 @@ public class FleetSoftwareUpdateAsyncClient extends com.oracle.bmc.http.internal
                 .handleResponseHeaderString(
                         "opc-request-id", UpdateFsuJobResponse.Builder::opcRequestId)
                 .handleResponseHeaderString("etag", UpdateFsuJobResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFsuReadinessCheckResponse> updateFsuReadinessCheck(
+            UpdateFsuReadinessCheckRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            UpdateFsuReadinessCheckRequest, UpdateFsuReadinessCheckResponse>
+                    handler) {
+
+        Validate.notBlank(
+                request.getFsuReadinessCheckId(), "fsuReadinessCheckId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateFsuReadinessCheckDetails(),
+                "updateFsuReadinessCheckDetails is required");
+
+        return clientCall(request, UpdateFsuReadinessCheckResponse::builder)
+                .logger(LOG, "updateFsuReadinessCheck")
+                .serviceDetails(
+                        "FleetSoftwareUpdate",
+                        "UpdateFsuReadinessCheck",
+                        "https://docs.oracle.com/iaas/api/#/en/edsfu/20220528/FsuReadinessCheck/UpdateFsuReadinessCheck")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateFsuReadinessCheckRequest::builder)
+                .basePath("/20220528")
+                .appendPathParam("fsuReadinessChecks")
+                .appendPathParam(request.getFsuReadinessCheckId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.fleetsoftwareupdate.model.FsuReadinessCheck.class,
+                        UpdateFsuReadinessCheckResponse.Builder::fsuReadinessCheck)
+                .handleResponseHeaderString(
+                        "opc-request-id", UpdateFsuReadinessCheckResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", UpdateFsuReadinessCheckResponse.Builder::etag)
                 .callAsync(handler);
     }
 

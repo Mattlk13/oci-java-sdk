@@ -30,20 +30,23 @@ public final class ReplicaOverrides
         "shapeName",
         "configurationId",
         "nsgIds",
-        "securityAttributes"
+        "securityAttributes",
+        "telemetryConfiguration"
     })
     public ReplicaOverrides(
             String mysqlVersion,
             String shapeName,
             String configurationId,
             java.util.List<String> nsgIds,
-            java.util.Map<String, java.util.Map<String, Object>> securityAttributes) {
+            java.util.Map<String, java.util.Map<String, Object>> securityAttributes,
+            TelemetryConfigurationDetails telemetryConfiguration) {
         super();
         this.mysqlVersion = mysqlVersion;
         this.shapeName = shapeName;
         this.configurationId = configurationId;
         this.nsgIds = nsgIds;
         this.securityAttributes = securityAttributes;
+        this.telemetryConfiguration = telemetryConfiguration;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -141,6 +144,16 @@ public final class ReplicaOverrides
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+        private TelemetryConfigurationDetails telemetryConfiguration;
+
+        public Builder telemetryConfiguration(
+                TelemetryConfigurationDetails telemetryConfiguration) {
+            this.telemetryConfiguration = telemetryConfiguration;
+            this.__explicitlySet__.add("telemetryConfiguration");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -151,7 +164,8 @@ public final class ReplicaOverrides
                             this.shapeName,
                             this.configurationId,
                             this.nsgIds,
-                            this.securityAttributes);
+                            this.securityAttributes,
+                            this.telemetryConfiguration);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -174,6 +188,9 @@ public final class ReplicaOverrides
             }
             if (model.wasPropertyExplicitlySet("securityAttributes")) {
                 this.securityAttributes(model.getSecurityAttributes());
+            }
+            if (model.wasPropertyExplicitlySet("telemetryConfiguration")) {
+                this.telemetryConfiguration(model.getTelemetryConfiguration());
             }
             return this;
         }
@@ -267,6 +284,13 @@ public final class ReplicaOverrides
         return securityAttributes;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+    private final TelemetryConfigurationDetails telemetryConfiguration;
+
+    public TelemetryConfigurationDetails getTelemetryConfiguration() {
+        return telemetryConfiguration;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -287,6 +311,7 @@ public final class ReplicaOverrides
         sb.append(", configurationId=").append(String.valueOf(this.configurationId));
         sb.append(", nsgIds=").append(String.valueOf(this.nsgIds));
         sb.append(", securityAttributes=").append(String.valueOf(this.securityAttributes));
+        sb.append(", telemetryConfiguration=").append(String.valueOf(this.telemetryConfiguration));
         sb.append(")");
         return sb.toString();
     }
@@ -306,6 +331,8 @@ public final class ReplicaOverrides
                 && java.util.Objects.equals(this.configurationId, other.configurationId)
                 && java.util.Objects.equals(this.nsgIds, other.nsgIds)
                 && java.util.Objects.equals(this.securityAttributes, other.securityAttributes)
+                && java.util.Objects.equals(
+                        this.telemetryConfiguration, other.telemetryConfiguration)
                 && super.equals(other);
     }
 
@@ -324,6 +351,11 @@ public final class ReplicaOverrides
                         + (this.securityAttributes == null
                                 ? 43
                                 : this.securityAttributes.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.telemetryConfiguration == null
+                                ? 43
+                                : this.telemetryConfiguration.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

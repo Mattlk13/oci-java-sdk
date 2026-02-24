@@ -56,7 +56,8 @@ public final class DbSystemSnapshot
         "secureConnections",
         "encryptData",
         "region",
-        "readEndpoint"
+        "readEndpoint",
+        "telemetryConfiguration"
     })
     public DbSystemSnapshot(
             String id,
@@ -92,7 +93,8 @@ public final class DbSystemSnapshot
             SecureConnectionDetails secureConnections,
             EncryptDataDetails encryptData,
             String region,
-            ReadEndpointDetails readEndpoint) {
+            ReadEndpointDetails readEndpoint,
+            TelemetryConfigurationDetails telemetryConfiguration) {
         super();
         this.id = id;
         this.displayName = displayName;
@@ -128,6 +130,7 @@ public final class DbSystemSnapshot
         this.encryptData = encryptData;
         this.region = region;
         this.readEndpoint = readEndpoint;
+        this.telemetryConfiguration = telemetryConfiguration;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -647,6 +650,16 @@ public final class DbSystemSnapshot
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+        private TelemetryConfigurationDetails telemetryConfiguration;
+
+        public Builder telemetryConfiguration(
+                TelemetryConfigurationDetails telemetryConfiguration) {
+            this.telemetryConfiguration = telemetryConfiguration;
+            this.__explicitlySet__.add("telemetryConfiguration");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -686,7 +699,8 @@ public final class DbSystemSnapshot
                             this.secureConnections,
                             this.encryptData,
                             this.region,
-                            this.readEndpoint);
+                            this.readEndpoint,
+                            this.telemetryConfiguration);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -796,6 +810,9 @@ public final class DbSystemSnapshot
             }
             if (model.wasPropertyExplicitlySet("readEndpoint")) {
                 this.readEndpoint(model.getReadEndpoint());
+            }
+            if (model.wasPropertyExplicitlySet("telemetryConfiguration")) {
+                this.telemetryConfiguration(model.getTelemetryConfiguration());
             }
             return this;
         }
@@ -1254,6 +1271,13 @@ public final class DbSystemSnapshot
         return readEndpoint;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+    private final TelemetryConfigurationDetails telemetryConfiguration;
+
+    public TelemetryConfigurationDetails getTelemetryConfiguration() {
+        return telemetryConfiguration;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1303,6 +1327,7 @@ public final class DbSystemSnapshot
         sb.append(", encryptData=").append(String.valueOf(this.encryptData));
         sb.append(", region=").append(String.valueOf(this.region));
         sb.append(", readEndpoint=").append(String.valueOf(this.readEndpoint));
+        sb.append(", telemetryConfiguration=").append(String.valueOf(this.telemetryConfiguration));
         sb.append(")");
         return sb.toString();
     }
@@ -1351,6 +1376,8 @@ public final class DbSystemSnapshot
                 && java.util.Objects.equals(this.encryptData, other.encryptData)
                 && java.util.Objects.equals(this.region, other.region)
                 && java.util.Objects.equals(this.readEndpoint, other.readEndpoint)
+                && java.util.Objects.equals(
+                        this.telemetryConfiguration, other.telemetryConfiguration)
                 && super.equals(other);
     }
 
@@ -1426,6 +1453,11 @@ public final class DbSystemSnapshot
         result = (result * PRIME) + (this.encryptData == null ? 43 : this.encryptData.hashCode());
         result = (result * PRIME) + (this.region == null ? 43 : this.region.hashCode());
         result = (result * PRIME) + (this.readEndpoint == null ? 43 : this.readEndpoint.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.telemetryConfiguration == null
+                                ? 43
+                                : this.telemetryConfiguration.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

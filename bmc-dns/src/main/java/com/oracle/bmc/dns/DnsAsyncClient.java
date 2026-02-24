@@ -510,6 +510,7 @@ public class DnsAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncClient
                 .appendQueryParam("viewId", request.getViewId())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
                 .hasBody()
                 .handleBody(com.oracle.bmc.dns.model.Zone.class, CreateZoneResponse.Builder::zone)
                 .handleResponseHeaderString("ETag", CreateZoneResponse.Builder::eTag)
@@ -549,6 +550,7 @@ public class DnsAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncClient
                 .appendQueryParam("viewId", request.getViewId())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
                 .hasBinaryRequestBody()
                 .hasBody()
                 .handleBody(

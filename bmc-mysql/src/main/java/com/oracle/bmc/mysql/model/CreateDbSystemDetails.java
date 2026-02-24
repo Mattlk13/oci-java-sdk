@@ -59,7 +59,8 @@ public final class CreateDbSystemDetails
         "databaseMode",
         "accessMode",
         "customerContacts",
-        "readEndpoint"
+        "readEndpoint",
+        "telemetryConfiguration"
     })
     public CreateDbSystemDetails(
             String displayName,
@@ -97,7 +98,8 @@ public final class CreateDbSystemDetails
             DbSystem.DatabaseMode databaseMode,
             DbSystem.AccessMode accessMode,
             java.util.List<CustomerContact> customerContacts,
-            CreateReadEndpointDetails readEndpoint) {
+            CreateReadEndpointDetails readEndpoint,
+            CreateTelemetryConfigurationDetails telemetryConfiguration) {
         super();
         this.displayName = displayName;
         this.description = description;
@@ -135,6 +137,7 @@ public final class CreateDbSystemDetails
         this.accessMode = accessMode;
         this.customerContacts = customerContacts;
         this.readEndpoint = readEndpoint;
+        this.telemetryConfiguration = telemetryConfiguration;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -770,6 +773,16 @@ public final class CreateDbSystemDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+        private CreateTelemetryConfigurationDetails telemetryConfiguration;
+
+        public Builder telemetryConfiguration(
+                CreateTelemetryConfigurationDetails telemetryConfiguration) {
+            this.telemetryConfiguration = telemetryConfiguration;
+            this.__explicitlySet__.add("telemetryConfiguration");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -811,7 +824,8 @@ public final class CreateDbSystemDetails
                             this.databaseMode,
                             this.accessMode,
                             this.customerContacts,
-                            this.readEndpoint);
+                            this.readEndpoint,
+                            this.telemetryConfiguration);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -927,6 +941,9 @@ public final class CreateDbSystemDetails
             }
             if (model.wasPropertyExplicitlySet("readEndpoint")) {
                 this.readEndpoint(model.getReadEndpoint());
+            }
+            if (model.wasPropertyExplicitlySet("telemetryConfiguration")) {
+                this.telemetryConfiguration(model.getTelemetryConfiguration());
             }
             return this;
         }
@@ -1491,6 +1508,13 @@ public final class CreateDbSystemDetails
         return readEndpoint;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("telemetryConfiguration")
+    private final CreateTelemetryConfigurationDetails telemetryConfiguration;
+
+    public CreateTelemetryConfigurationDetails getTelemetryConfiguration() {
+        return telemetryConfiguration;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1542,6 +1566,7 @@ public final class CreateDbSystemDetails
         sb.append(", accessMode=").append(String.valueOf(this.accessMode));
         sb.append(", customerContacts=").append(String.valueOf(this.customerContacts));
         sb.append(", readEndpoint=").append(String.valueOf(this.readEndpoint));
+        sb.append(", telemetryConfiguration=").append(String.valueOf(this.telemetryConfiguration));
         sb.append(")");
         return sb.toString();
     }
@@ -1592,6 +1617,8 @@ public final class CreateDbSystemDetails
                 && java.util.Objects.equals(this.accessMode, other.accessMode)
                 && java.util.Objects.equals(this.customerContacts, other.customerContacts)
                 && java.util.Objects.equals(this.readEndpoint, other.readEndpoint)
+                && java.util.Objects.equals(
+                        this.telemetryConfiguration, other.telemetryConfiguration)
                 && super.equals(other);
     }
 
@@ -1673,6 +1700,11 @@ public final class CreateDbSystemDetails
                 (result * PRIME)
                         + (this.customerContacts == null ? 43 : this.customerContacts.hashCode());
         result = (result * PRIME) + (this.readEndpoint == null ? 43 : this.readEndpoint.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.telemetryConfiguration == null
+                                ? 43
+                                : this.telemetryConfiguration.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

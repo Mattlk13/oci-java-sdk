@@ -82,12 +82,12 @@ public final class SteeringPolicyAttachment
             this.__explicitlySet__.add("steeringPolicyId");
             return this;
         }
-        /** The OCID of the attached zone. */
+        /** The OCID of the attached zone. Must be a public zone. */
         @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
         private String zoneId;
 
         /**
-         * The OCID of the attached zone.
+         * The OCID of the attached zone. Must be a public zone.
          *
          * @param zoneId the value to set
          * @return this builder
@@ -314,12 +314,12 @@ public final class SteeringPolicyAttachment
         return steeringPolicyId;
     }
 
-    /** The OCID of the attached zone. */
+    /** The OCID of the attached zone. Must be a public zone. */
     @com.fasterxml.jackson.annotation.JsonProperty("zoneId")
     private final String zoneId;
 
     /**
-     * The OCID of the attached zone.
+     * The OCID of the attached zone. Must be a public zone.
      *
      * @return the value
      */

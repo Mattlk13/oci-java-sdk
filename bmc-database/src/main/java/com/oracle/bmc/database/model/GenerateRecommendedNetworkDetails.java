@@ -31,6 +31,7 @@ public final class GenerateRecommendedNetworkDetails
         "scanListenerPortTcp",
         "scanListenerPortTcpSsl",
         "drScanListenerPortTcp",
+        "drScanListenerPortTcpSsl",
         "networks",
         "dns",
         "ntp",
@@ -44,6 +45,7 @@ public final class GenerateRecommendedNetworkDetails
             Integer scanListenerPortTcp,
             Integer scanListenerPortTcpSsl,
             Integer drScanListenerPortTcp,
+            Integer drScanListenerPortTcpSsl,
             java.util.List<InfoForNetworkGenDetails> networks,
             java.util.List<String> dns,
             java.util.List<String> ntp,
@@ -56,6 +58,7 @@ public final class GenerateRecommendedNetworkDetails
         this.scanListenerPortTcp = scanListenerPortTcp;
         this.scanListenerPortTcpSsl = scanListenerPortTcpSsl;
         this.drScanListenerPortTcp = drScanListenerPortTcp;
+        this.drScanListenerPortTcpSsl = drScanListenerPortTcpSsl;
         this.networks = networks;
         this.dns = dns;
         this.ntp = ntp;
@@ -159,6 +162,21 @@ public final class GenerateRecommendedNetworkDetails
         public Builder drScanListenerPortTcp(Integer drScanListenerPortTcp) {
             this.drScanListenerPortTcp = drScanListenerPortTcp;
             this.__explicitlySet__.add("drScanListenerPortTcp");
+            return this;
+        }
+        /** The DR SCAN TCPIP SSL port. Default is 2484. */
+        @com.fasterxml.jackson.annotation.JsonProperty("drScanListenerPortTcpSsl")
+        private Integer drScanListenerPortTcpSsl;
+
+        /**
+         * The DR SCAN TCPIP SSL port. Default is 2484.
+         *
+         * @param drScanListenerPortTcpSsl the value to set
+         * @return this builder
+         */
+        public Builder drScanListenerPortTcpSsl(Integer drScanListenerPortTcpSsl) {
+            this.drScanListenerPortTcpSsl = drScanListenerPortTcpSsl;
+            this.__explicitlySet__.add("drScanListenerPortTcpSsl");
             return this;
         }
         /** List of parameters for generation of the client and backup networks. */
@@ -266,6 +284,7 @@ public final class GenerateRecommendedNetworkDetails
                             this.scanListenerPortTcp,
                             this.scanListenerPortTcpSsl,
                             this.drScanListenerPortTcp,
+                            this.drScanListenerPortTcpSsl,
                             this.networks,
                             this.dns,
                             this.ntp,
@@ -296,6 +315,9 @@ public final class GenerateRecommendedNetworkDetails
             }
             if (model.wasPropertyExplicitlySet("drScanListenerPortTcp")) {
                 this.drScanListenerPortTcp(model.getDrScanListenerPortTcp());
+            }
+            if (model.wasPropertyExplicitlySet("drScanListenerPortTcpSsl")) {
+                this.drScanListenerPortTcpSsl(model.getDrScanListenerPortTcpSsl());
             }
             if (model.wasPropertyExplicitlySet("networks")) {
                 this.networks(model.getNetworks());
@@ -407,6 +429,19 @@ public final class GenerateRecommendedNetworkDetails
         return drScanListenerPortTcp;
     }
 
+    /** The DR SCAN TCPIP SSL port. Default is 2484. */
+    @com.fasterxml.jackson.annotation.JsonProperty("drScanListenerPortTcpSsl")
+    private final Integer drScanListenerPortTcpSsl;
+
+    /**
+     * The DR SCAN TCPIP SSL port. Default is 2484.
+     *
+     * @return the value
+     */
+    public Integer getDrScanListenerPortTcpSsl() {
+        return drScanListenerPortTcpSsl;
+    }
+
     /** List of parameters for generation of the client and backup networks. */
     @com.fasterxml.jackson.annotation.JsonProperty("networks")
     private final java.util.List<InfoForNetworkGenDetails> networks;
@@ -509,6 +544,8 @@ public final class GenerateRecommendedNetworkDetails
         sb.append(", scanListenerPortTcp=").append(String.valueOf(this.scanListenerPortTcp));
         sb.append(", scanListenerPortTcpSsl=").append(String.valueOf(this.scanListenerPortTcpSsl));
         sb.append(", drScanListenerPortTcp=").append(String.valueOf(this.drScanListenerPortTcp));
+        sb.append(", drScanListenerPortTcpSsl=")
+                .append(String.valueOf(this.drScanListenerPortTcpSsl));
         sb.append(", networks=").append(String.valueOf(this.networks));
         sb.append(", dns=").append(String.valueOf(this.dns));
         sb.append(", ntp=").append(String.valueOf(this.ntp));
@@ -535,6 +572,8 @@ public final class GenerateRecommendedNetworkDetails
                 && java.util.Objects.equals(
                         this.scanListenerPortTcpSsl, other.scanListenerPortTcpSsl)
                 && java.util.Objects.equals(this.drScanListenerPortTcp, other.drScanListenerPortTcp)
+                && java.util.Objects.equals(
+                        this.drScanListenerPortTcpSsl, other.drScanListenerPortTcpSsl)
                 && java.util.Objects.equals(this.networks, other.networks)
                 && java.util.Objects.equals(this.dns, other.dns)
                 && java.util.Objects.equals(this.ntp, other.ntp)
@@ -567,6 +606,11 @@ public final class GenerateRecommendedNetworkDetails
                         + (this.drScanListenerPortTcp == null
                                 ? 43
                                 : this.drScanListenerPortTcp.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.drScanListenerPortTcpSsl == null
+                                ? 43
+                                : this.drScanListenerPortTcpSsl.hashCode());
         result = (result * PRIME) + (this.networks == null ? 43 : this.networks.hashCode());
         result = (result * PRIME) + (this.dns == null ? 43 : this.dns.hashCode());
         result = (result * PRIME) + (this.ntp == null ? 43 : this.ntp.hashCode());

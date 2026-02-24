@@ -206,6 +206,8 @@ public interface Dns extends AutoCloseable {
      * <p>For the purposes of access control, the attachment is automatically placed into the same
      * compartment as the domain's zone.
      *
+     * <p>Attachments cannot be created for private zones.
+     *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
      * @throws BmcException when an error occurs. This operation uses

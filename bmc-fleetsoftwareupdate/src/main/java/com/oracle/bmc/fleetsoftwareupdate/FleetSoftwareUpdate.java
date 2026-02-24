@@ -192,6 +192,24 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
             ChangeFsuDiscoveryCompartmentRequest request);
 
     /**
+     * Moves a Exadata Fleet Update Readiness Check resource from one compartment identifier to
+     * another. When provided, If-Match is checked against ETag values of the resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/ChangeFsuReadinessCheckCompartmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ChangeFsuReadinessCheckCompartment API.
+     */
+    ChangeFsuReadinessCheckCompartmentResponse changeFsuReadinessCheckCompartment(
+            ChangeFsuReadinessCheckCompartmentRequest request);
+
+    /**
      * Clones existing Exadata Fleet Update Cycle details into a new Exadata Fleet Update Cycle
      * resource.
      *
@@ -269,6 +287,22 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
      *     API.
      */
     CreateFsuDiscoveryResponse createFsuDiscovery(CreateFsuDiscoveryRequest request);
+
+    /**
+     * Creates a new Exadata Fleet Update Readiness Check.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/CreateFsuReadinessCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateFsuReadinessCheck API.
+     */
+    CreateFsuReadinessCheckResponse createFsuReadinessCheck(CreateFsuReadinessCheckRequest request);
 
     /**
      * Deletes a Exadata Fleet Update Action resource by identifier.
@@ -367,6 +401,22 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use DeleteFsuJob API.
      */
     DeleteFsuJobResponse deleteFsuJob(DeleteFsuJobRequest request);
+
+    /**
+     * Deletes a Exadata Fleet Update Readiness Check resource by identifier.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/DeleteFsuReadinessCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteFsuReadinessCheck API.
+     */
+    DeleteFsuReadinessCheckResponse deleteFsuReadinessCheck(DeleteFsuReadinessCheckRequest request);
 
     /**
      * Gets a Exadata Fleet Update Action by identifier.
@@ -495,6 +545,22 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
      *     GetFsuJobOutputContent API.
      */
     GetFsuJobOutputContentResponse getFsuJobOutputContent(GetFsuJobOutputContentRequest request);
+
+    /**
+     * Gets a Exadata Fleet Update Readiness Check by identifier.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/GetFsuReadinessCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetFsuReadinessCheck API.
+     */
+    GetFsuReadinessCheckResponse getFsuReadinessCheck(GetFsuReadinessCheckRequest request);
 
     /**
      * Gets the status of the work request with the specified ID.
@@ -637,6 +703,23 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListFsuJobs API.
      */
     ListFsuJobsResponse listFsuJobs(ListFsuJobsRequest request);
+
+    /**
+     * Returns a list of Exadata Fleet Update Readiness Checks resources in the specified
+     * compartment.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/ListFsuReadinessChecksExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListFsuReadinessChecks API.
+     */
+    ListFsuReadinessChecksResponse listFsuReadinessChecks(ListFsuReadinessChecksRequest request);
 
     /**
      * Returns a paginated list of errors for a specified Work Request..
@@ -815,6 +898,22 @@ public interface FleetSoftwareUpdate extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use UpdateFsuJob API.
      */
     UpdateFsuJobResponse updateFsuJob(UpdateFsuJobRequest request);
+
+    /**
+     * Updates the Exadata Fleet Update Readiness Check identified by the ID.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/fleetsoftwareupdate/UpdateFsuReadinessCheckExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateFsuReadinessCheck API.
+     */
+    UpdateFsuReadinessCheckResponse updateFsuReadinessCheck(UpdateFsuReadinessCheckRequest request);
 
     /**
      * Gets the pre-configured waiters available for resources for this service.
