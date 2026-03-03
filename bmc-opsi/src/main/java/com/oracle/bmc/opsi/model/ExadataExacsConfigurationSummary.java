@@ -108,6 +108,24 @@ public final class ExadataExacsConfigurationSummary extends ExadataConfiguration
             this.__explicitlySet__.add("vmclusterDetails");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("exadataShape")
+        private String exadataShape;
+
+        public Builder exadataShape(String exadataShape) {
+            this.exadataShape = exadataShape;
+            this.__explicitlySet__.add("exadataShape");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("chargebackPlanDetails")
+        private ChargebackPlanDetails chargebackPlanDetails;
+
+        public Builder chargebackPlanDetails(ChargebackPlanDetails chargebackPlanDetails) {
+            this.chargebackPlanDetails = chargebackPlanDetails;
+            this.__explicitlySet__.add("chargebackPlanDetails");
+            return this;
+        }
         /**
          * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
          * OPSI private endpoint
@@ -162,6 +180,8 @@ public final class ExadataExacsConfigurationSummary extends ExadataConfiguration
                             this.definedTags,
                             this.freeformTags,
                             this.vmclusterDetails,
+                            this.exadataShape,
+                            this.chargebackPlanDetails,
                             this.opsiPrivateEndpointId,
                             this.parentId);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -199,6 +219,12 @@ public final class ExadataExacsConfigurationSummary extends ExadataConfiguration
             if (model.wasPropertyExplicitlySet("vmclusterDetails")) {
                 this.vmclusterDetails(model.getVmclusterDetails());
             }
+            if (model.wasPropertyExplicitlySet("exadataShape")) {
+                this.exadataShape(model.getExadataShape());
+            }
+            if (model.wasPropertyExplicitlySet("chargebackPlanDetails")) {
+                this.chargebackPlanDetails(model.getChargebackPlanDetails());
+            }
             if (model.wasPropertyExplicitlySet("opsiPrivateEndpointId")) {
                 this.opsiPrivateEndpointId(model.getOpsiPrivateEndpointId());
             }
@@ -229,6 +255,8 @@ public final class ExadataExacsConfigurationSummary extends ExadataConfiguration
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, String> freeformTags,
             java.util.List<VmClusterSummary> vmclusterDetails,
+            String exadataShape,
+            ChargebackPlanDetails chargebackPlanDetails,
             String opsiPrivateEndpointId,
             String parentId) {
         super(
@@ -240,7 +268,9 @@ public final class ExadataExacsConfigurationSummary extends ExadataConfiguration
                 exadataRackType,
                 definedTags,
                 freeformTags,
-                vmclusterDetails);
+                vmclusterDetails,
+                exadataShape,
+                chargebackPlanDetails);
         this.opsiPrivateEndpointId = opsiPrivateEndpointId;
         this.parentId = parentId;
     }

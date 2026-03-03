@@ -3087,6 +3087,23 @@ public interface DatabaseAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Execute an operating system (OS) patch action on a DB system. Returns 202 and a work request.
+     * Some updates may require a reboot.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ExecuteDbSystemOsPatchResponse> executeDbSystemOsPatch(
+            ExecuteDbSystemOsPatchRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ExecuteDbSystemOsPatchRequest, ExecuteDbSystemOsPatchResponse>
+                    handler);
+
+    /**
      * Initiates a failover of the specified Autonomous AI Database to the associated peer database.
      * Applicable only to databases with Disaster Recovery enabled. This API should be called in the
      * remote region where the peer database resides. Below parameter is optional: - `peerDbId` Use
@@ -3921,6 +3938,24 @@ public interface DatabaseAsync extends AutoCloseable {
     java.util.concurrent.Future<GetDbSystemResponse> getDbSystem(
             GetDbSystemRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetDbSystemRequest, GetDbSystemResponse> handler);
+
+    /**
+     * Gets the details of the specified OS patch action for the specified DB system.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetDbSystemOsPatchHistoryEntryResponse>
+            getDbSystemOsPatchHistoryEntry(
+                    GetDbSystemOsPatchHistoryEntryRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetDbSystemOsPatchHistoryEntryRequest,
+                                    GetDbSystemOsPatchHistoryEntryResponse>
+                            handler);
 
     /**
      * Gets information the specified patch.
@@ -5410,6 +5445,24 @@ public interface DatabaseAsync extends AutoCloseable {
                     com.oracle.bmc.responses.AsyncHandler<
                                     ListDbSystemComputePerformancesRequest,
                                     ListDbSystemComputePerformancesResponse>
+                            handler);
+
+    /**
+     * Gets the history of the OS patch actions performed on the specified DB system.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListDbSystemOsPatchHistoryEntriesResponse>
+            listDbSystemOsPatchHistoryEntries(
+                    ListDbSystemOsPatchHistoryEntriesRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListDbSystemOsPatchHistoryEntriesRequest,
+                                    ListDbSystemOsPatchHistoryEntriesResponse>
                             handler);
 
     /**

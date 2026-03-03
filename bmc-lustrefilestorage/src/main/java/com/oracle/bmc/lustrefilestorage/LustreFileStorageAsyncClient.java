@@ -482,6 +482,91 @@ public class LustreFileStorageAsyncClient extends com.oracle.bmc.http.internal.B
     }
 
     @Override
+    public java.util.concurrent.Future<ListAvailableMaintenanceScheduleStartTimesResponse>
+            listAvailableMaintenanceScheduleStartTimes(
+                    ListAvailableMaintenanceScheduleStartTimesRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ListAvailableMaintenanceScheduleStartTimesRequest,
+                                    ListAvailableMaintenanceScheduleStartTimesResponse>
+                            handler) {
+
+        return clientCall(request, ListAvailableMaintenanceScheduleStartTimesResponse::builder)
+                .logger(LOG, "listAvailableMaintenanceScheduleStartTimes")
+                .serviceDetails(
+                        "LustreFileStorage",
+                        "ListAvailableMaintenanceScheduleStartTimes",
+                        "https://docs.oracle.com/iaas/api/#/en/lustre/20250228/AvailableMaintenanceScheduleStartTimeCollection/ListAvailableMaintenanceScheduleStartTimes")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAvailableMaintenanceScheduleStartTimesRequest::builder)
+                .basePath("/20250228")
+                .appendPathParam("availableMaintenanceScheduleStartTimes")
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("availabilityDomain", request.getAvailabilityDomain())
+                .appendEnumQueryParam("dayOfWeek", request.getDayOfWeek())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.lustrefilestorage.model
+                                .AvailableMaintenanceScheduleStartTimeCollection.class,
+                        ListAvailableMaintenanceScheduleStartTimesResponse.Builder
+                                ::availableMaintenanceScheduleStartTimeCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListAvailableMaintenanceScheduleStartTimesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListAvailableMaintenanceScheduleStartTimesResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAvailableOverrideMaintenanceStartTimesResponse>
+            listAvailableOverrideMaintenanceStartTimes(
+                    ListAvailableOverrideMaintenanceStartTimesRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ListAvailableOverrideMaintenanceStartTimesRequest,
+                                    ListAvailableOverrideMaintenanceStartTimesResponse>
+                            handler) {
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        return clientCall(request, ListAvailableOverrideMaintenanceStartTimesResponse::builder)
+                .logger(LOG, "listAvailableOverrideMaintenanceStartTimes")
+                .serviceDetails(
+                        "LustreFileStorage",
+                        "ListAvailableOverrideMaintenanceStartTimes",
+                        "https://docs.oracle.com/iaas/api/#/en/lustre/20250228/AvailableOverrideMaintenanceStartTimeCollection/ListAvailableOverrideMaintenanceStartTimes")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListAvailableOverrideMaintenanceStartTimesRequest::builder)
+                .basePath("/20250228")
+                .appendPathParam("availableOverrideMaintenanceStartTimes")
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("date", request.getDate())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.lustrefilestorage.model
+                                .AvailableOverrideMaintenanceStartTimeCollection.class,
+                        ListAvailableOverrideMaintenanceStartTimesResponse.Builder
+                                ::availableOverrideMaintenanceStartTimeCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListAvailableOverrideMaintenanceStartTimesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListAvailableOverrideMaintenanceStartTimesResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<ListLustreFileSystemsResponse> listLustreFileSystems(
             ListLustreFileSystemsRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -705,6 +790,42 @@ public class LustreFileStorageAsyncClient extends com.oracle.bmc.http.internal.B
                         "opc-request-id", ListWorkRequestsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListWorkRequestsResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<OverrideMaintenanceResponse> overrideMaintenance(
+            OverrideMaintenanceRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            OverrideMaintenanceRequest, OverrideMaintenanceResponse>
+                    handler) {
+
+        Validate.notBlank(request.getLustreFileSystemId(), "lustreFileSystemId must not be blank");
+        Objects.requireNonNull(
+                request.getOverrideMaintenanceDetails(), "overrideMaintenanceDetails is required");
+
+        return clientCall(request, OverrideMaintenanceResponse::builder)
+                .logger(LOG, "overrideMaintenance")
+                .serviceDetails(
+                        "LustreFileStorage",
+                        "OverrideMaintenance",
+                        "https://docs.oracle.com/iaas/api/#/en/lustre/20250228/LustreFileSystem/OverrideMaintenance")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(OverrideMaintenanceRequest::builder)
+                .basePath("/20250228")
+                .appendPathParam("lustreFileSystems")
+                .appendPathParam(request.getLustreFileSystemId())
+                .appendPathParam("actions")
+                .appendPathParam("overrideMaintenance")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        OverrideMaintenanceResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", OverrideMaintenanceResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

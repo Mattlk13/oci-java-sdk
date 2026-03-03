@@ -108,6 +108,24 @@ public final class ExadataDatabaseMachineConfigurationSummary extends ExadataCon
             this.__explicitlySet__.add("vmclusterDetails");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("exadataShape")
+        private String exadataShape;
+
+        public Builder exadataShape(String exadataShape) {
+            this.exadataShape = exadataShape;
+            this.__explicitlySet__.add("exadataShape");
+            return this;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("chargebackPlanDetails")
+        private ChargebackPlanDetails chargebackPlanDetails;
+
+        public Builder chargebackPlanDetails(ChargebackPlanDetails chargebackPlanDetails) {
+            this.chargebackPlanDetails = chargebackPlanDetails;
+            this.__explicitlySet__.add("chargebackPlanDetails");
+            return this;
+        }
         /** Enterprise Manager Unique Identifier */
         @com.fasterxml.jackson.annotation.JsonProperty("enterpriseManagerIdentifier")
         private String enterpriseManagerIdentifier;
@@ -248,6 +266,8 @@ public final class ExadataDatabaseMachineConfigurationSummary extends ExadataCon
                             this.definedTags,
                             this.freeformTags,
                             this.vmclusterDetails,
+                            this.exadataShape,
+                            this.chargebackPlanDetails,
                             this.enterpriseManagerIdentifier,
                             this.enterpriseManagerBridgeId,
                             this.enterpriseManagerEntityIdentifier,
@@ -290,6 +310,12 @@ public final class ExadataDatabaseMachineConfigurationSummary extends ExadataCon
             }
             if (model.wasPropertyExplicitlySet("vmclusterDetails")) {
                 this.vmclusterDetails(model.getVmclusterDetails());
+            }
+            if (model.wasPropertyExplicitlySet("exadataShape")) {
+                this.exadataShape(model.getExadataShape());
+            }
+            if (model.wasPropertyExplicitlySet("chargebackPlanDetails")) {
+                this.chargebackPlanDetails(model.getChargebackPlanDetails());
             }
             if (model.wasPropertyExplicitlySet("enterpriseManagerIdentifier")) {
                 this.enterpriseManagerIdentifier(model.getEnterpriseManagerIdentifier());
@@ -340,6 +366,8 @@ public final class ExadataDatabaseMachineConfigurationSummary extends ExadataCon
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, String> freeformTags,
             java.util.List<VmClusterSummary> vmclusterDetails,
+            String exadataShape,
+            ChargebackPlanDetails chargebackPlanDetails,
             String enterpriseManagerIdentifier,
             String enterpriseManagerBridgeId,
             String enterpriseManagerEntityIdentifier,
@@ -357,7 +385,9 @@ public final class ExadataDatabaseMachineConfigurationSummary extends ExadataCon
                 exadataRackType,
                 definedTags,
                 freeformTags,
-                vmclusterDetails);
+                vmclusterDetails,
+                exadataShape,
+                chargebackPlanDetails);
         this.enterpriseManagerIdentifier = enterpriseManagerIdentifier;
         this.enterpriseManagerBridgeId = enterpriseManagerBridgeId;
         this.enterpriseManagerEntityIdentifier = enterpriseManagerEntityIdentifier;

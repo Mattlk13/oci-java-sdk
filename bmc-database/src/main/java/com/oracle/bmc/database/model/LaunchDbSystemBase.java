@@ -29,6 +29,9 @@ package com.oracle.bmc.database.model;
             value = LaunchDbSystemDetails.class,
             name = "NONE"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = LaunchStandbyDbSystemDetails.class,
+            name = "DATAGUARD"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = LaunchDbSystemFromDbSystemDetails.class,
             name = "DB_SYSTEM"),
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
@@ -1112,6 +1115,7 @@ public class LaunchDbSystemBase extends com.oracle.bmc.http.client.internal.Expl
         DbBackup("DB_BACKUP"),
         Database("DATABASE"),
         DbSystem("DB_SYSTEM"),
+        Dataguard("DATAGUARD"),
         ;
 
         private final String value;

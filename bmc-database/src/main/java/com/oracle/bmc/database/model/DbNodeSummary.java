@@ -59,7 +59,8 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
         "totalCpuCoreCount",
         "dbServerId",
         "computeModel",
-        "computeCount"
+        "computeCount",
+        "isOsPatchRebootRequired"
     })
     public DbNodeSummary(
             String id,
@@ -91,7 +92,8 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
             Integer totalCpuCoreCount,
             String dbServerId,
             ComputeModel computeModel,
-            Integer computeCount) {
+            Integer computeCount,
+            Boolean isOsPatchRebootRequired) {
         super();
         this.id = id;
         this.dbSystemId = dbSystemId;
@@ -123,6 +125,7 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
         this.dbServerId = dbServerId;
         this.computeModel = computeModel;
         this.computeCount = computeCount;
+        this.isOsPatchRebootRequired = isOsPatchRebootRequired;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -700,6 +703,29 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
             this.__explicitlySet__.add("computeCount");
             return this;
         }
+        /**
+         * Indicates whether the database node must be rebooted after applying Operating System
+         * patches. This flag becomes true after operations such as OS/kernel updates to indicate
+         * that a reboot of the node is required. After a successful reboot, this value is expected
+         * to return to false.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("isOsPatchRebootRequired")
+        private Boolean isOsPatchRebootRequired;
+
+        /**
+         * Indicates whether the database node must be rebooted after applying Operating System
+         * patches. This flag becomes true after operations such as OS/kernel updates to indicate
+         * that a reboot of the node is required. After a successful reboot, this value is expected
+         * to return to false.
+         *
+         * @param isOsPatchRebootRequired the value to set
+         * @return this builder
+         */
+        public Builder isOsPatchRebootRequired(Boolean isOsPatchRebootRequired) {
+            this.isOsPatchRebootRequired = isOsPatchRebootRequired;
+            this.__explicitlySet__.add("isOsPatchRebootRequired");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -736,7 +762,8 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
                             this.totalCpuCoreCount,
                             this.dbServerId,
                             this.computeModel,
-                            this.computeCount);
+                            this.computeCount,
+                            this.isOsPatchRebootRequired);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -834,6 +861,9 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
             }
             if (model.wasPropertyExplicitlySet("computeCount")) {
                 this.computeCount(model.getComputeCount());
+            }
+            if (model.wasPropertyExplicitlySet("isOsPatchRebootRequired")) {
+                this.isOsPatchRebootRequired(model.getIsOsPatchRebootRequired());
             }
             return this;
         }
@@ -1510,6 +1540,27 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
         return computeCount;
     }
 
+    /**
+     * Indicates whether the database node must be rebooted after applying Operating System patches.
+     * This flag becomes true after operations such as OS/kernel updates to indicate that a reboot
+     * of the node is required. After a successful reboot, this value is expected to return to
+     * false.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("isOsPatchRebootRequired")
+    private final Boolean isOsPatchRebootRequired;
+
+    /**
+     * Indicates whether the database node must be rebooted after applying Operating System patches.
+     * This flag becomes true after operations such as OS/kernel updates to indicate that a reboot
+     * of the node is required. After a successful reboot, this value is expected to return to
+     * false.
+     *
+     * @return the value
+     */
+    public Boolean getIsOsPatchRebootRequired() {
+        return isOsPatchRebootRequired;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -1558,6 +1609,8 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
         sb.append(", dbServerId=").append(String.valueOf(this.dbServerId));
         sb.append(", computeModel=").append(String.valueOf(this.computeModel));
         sb.append(", computeCount=").append(String.valueOf(this.computeCount));
+        sb.append(", isOsPatchRebootRequired=")
+                .append(String.valueOf(this.isOsPatchRebootRequired));
         sb.append(")");
         return sb.toString();
     }
@@ -1606,6 +1659,8 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
                 && java.util.Objects.equals(this.dbServerId, other.dbServerId)
                 && java.util.Objects.equals(this.computeModel, other.computeModel)
                 && java.util.Objects.equals(this.computeCount, other.computeCount)
+                && java.util.Objects.equals(
+                        this.isOsPatchRebootRequired, other.isOsPatchRebootRequired)
                 && super.equals(other);
     }
 
@@ -1673,6 +1728,11 @@ public final class DbNodeSummary extends com.oracle.bmc.http.client.internal.Exp
         result = (result * PRIME) + (this.dbServerId == null ? 43 : this.dbServerId.hashCode());
         result = (result * PRIME) + (this.computeModel == null ? 43 : this.computeModel.hashCode());
         result = (result * PRIME) + (this.computeCount == null ? 43 : this.computeCount.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.isOsPatchRebootRequired == null
+                                ? 43
+                                : this.isOsPatchRebootRequired.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

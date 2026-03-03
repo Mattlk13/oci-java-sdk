@@ -147,8 +147,11 @@ public final class MaskingPolicyHealthReportLogSummary
          * target database. DETERMINISTIC_ENCRYPTION_FORMAT_CHECK checks if any masking column has
          * deterministic encryption masking format. COLUMN_EXIST_CHECK checks if the masking columns
          * are available in the target database. TIME_TRAVEL_CHECK checks if the masking tables have
-         * Time Travel enabled. INVALID_PACKAGE_CHECK checks if any of the required packages are in
-         * invalid state.
+         * Time Travel enabled. SYSTEM_OBJECTS_CHECK checks if the masking tables have dependent
+         * objects present in SYS schema. INVALID_PACKAGE_CHECK checks if any of the required
+         * packages are in invalid state. AUDIT_POLICY_CHECK checks if the masking tables have Audit
+         * policies enabled. USER_CREDENTIALS_CHECK checks if target database user credentials are
+         * required to run masking using the policy
          */
         @com.fasterxml.jackson.annotation.JsonProperty("healthCheckType")
         private HealthCheckType healthCheckType;
@@ -172,8 +175,11 @@ public final class MaskingPolicyHealthReportLogSummary
          * target database. DETERMINISTIC_ENCRYPTION_FORMAT_CHECK checks if any masking column has
          * deterministic encryption masking format. COLUMN_EXIST_CHECK checks if the masking columns
          * are available in the target database. TIME_TRAVEL_CHECK checks if the masking tables have
-         * Time Travel enabled. INVALID_PACKAGE_CHECK checks if any of the required packages are in
-         * invalid state.
+         * Time Travel enabled. SYSTEM_OBJECTS_CHECK checks if the masking tables have dependent
+         * objects present in SYS schema. INVALID_PACKAGE_CHECK checks if any of the required
+         * packages are in invalid state. AUDIT_POLICY_CHECK checks if the masking tables have Audit
+         * policies enabled. USER_CREDENTIALS_CHECK checks if target database user credentials are
+         * required to run masking using the policy
          *
          * @param healthCheckType the value to set
          * @return this builder
@@ -370,7 +376,11 @@ public final class MaskingPolicyHealthReportLogSummary
      * DETERMINISTIC_ENCRYPTION_FORMAT_CHECK checks if any masking column has deterministic
      * encryption masking format. COLUMN_EXIST_CHECK checks if the masking columns are available in
      * the target database. TIME_TRAVEL_CHECK checks if the masking tables have Time Travel enabled.
-     * INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * SYSTEM_OBJECTS_CHECK checks if the masking tables have dependent objects present in SYS
+     * schema. INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * AUDIT_POLICY_CHECK checks if the masking tables have Audit policies enabled.
+     * USER_CREDENTIALS_CHECK checks if target database user credentials are required to run masking
+     * using the policy
      */
     public enum HealthCheckType implements com.oracle.bmc.http.internal.BmcEnum {
         InvalidObjectCheck("INVALID_OBJECT_CHECK"),
@@ -389,7 +399,10 @@ public final class MaskingPolicyHealthReportLogSummary
         DeterministicEncryptionFormatCheck("DETERMINISTIC_ENCRYPTION_FORMAT_CHECK"),
         ColumnExistCheck("COLUMN_EXIST_CHECK"),
         TimeTravelCheck("TIME_TRAVEL_CHECK"),
+        SystemObjectsCheck("SYSTEM_OBJECTS_CHECK"),
         InvalidPackageCheck("INVALID_PACKAGE_CHECK"),
+        AuditPolicyCheck("AUDIT_POLICY_CHECK"),
+        UserCredentialsCheck("USER_CREDENTIALS_CHECK"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by
@@ -451,7 +464,11 @@ public final class MaskingPolicyHealthReportLogSummary
      * DETERMINISTIC_ENCRYPTION_FORMAT_CHECK checks if any masking column has deterministic
      * encryption masking format. COLUMN_EXIST_CHECK checks if the masking columns are available in
      * the target database. TIME_TRAVEL_CHECK checks if the masking tables have Time Travel enabled.
-     * INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * SYSTEM_OBJECTS_CHECK checks if the masking tables have dependent objects present in SYS
+     * schema. INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * AUDIT_POLICY_CHECK checks if the masking tables have Audit policies enabled.
+     * USER_CREDENTIALS_CHECK checks if target database user credentials are required to run masking
+     * using the policy
      */
     @com.fasterxml.jackson.annotation.JsonProperty("healthCheckType")
     private final HealthCheckType healthCheckType;
@@ -475,7 +492,11 @@ public final class MaskingPolicyHealthReportLogSummary
      * DETERMINISTIC_ENCRYPTION_FORMAT_CHECK checks if any masking column has deterministic
      * encryption masking format. COLUMN_EXIST_CHECK checks if the masking columns are available in
      * the target database. TIME_TRAVEL_CHECK checks if the masking tables have Time Travel enabled.
-     * INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * SYSTEM_OBJECTS_CHECK checks if the masking tables have dependent objects present in SYS
+     * schema. INVALID_PACKAGE_CHECK checks if any of the required packages are in invalid state.
+     * AUDIT_POLICY_CHECK checks if the masking tables have Audit policies enabled.
+     * USER_CREDENTIALS_CHECK checks if target database user credentials are required to run masking
+     * using the policy
      *
      * @return the value
      */

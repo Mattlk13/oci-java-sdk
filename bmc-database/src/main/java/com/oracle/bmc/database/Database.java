@@ -3041,6 +3041,23 @@ public interface Database extends AutoCloseable {
             EnablePluggableDatabaseManagementRequest request);
 
     /**
+     * Execute an operating system (OS) patch action on a DB system. Returns 202 and a work request.
+     * Some updates may require a reboot.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/ExecuteDbSystemOsPatchExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ExecuteDbSystemOsPatch API.
+     */
+    ExecuteDbSystemOsPatchResponse executeDbSystemOsPatch(ExecuteDbSystemOsPatchRequest request);
+
+    /**
      * Initiates a failover of the specified Autonomous AI Database to the associated peer database.
      * Applicable only to databases with Disaster Recovery enabled. This API should be called in the
      * remote region where the peer database resides. Below parameter is optional: - `peerDbId` Use
@@ -3875,6 +3892,23 @@ public interface Database extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetDbSystem API.
      */
     GetDbSystemResponse getDbSystem(GetDbSystemRequest request);
+
+    /**
+     * Gets the details of the specified OS patch action for the specified DB system.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/GetDbSystemOsPatchHistoryEntryExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetDbSystemOsPatchHistoryEntry API.
+     */
+    GetDbSystemOsPatchHistoryEntryResponse getDbSystemOsPatchHistoryEntry(
+            GetDbSystemOsPatchHistoryEntryRequest request);
 
     /**
      * Gets information the specified patch.
@@ -5348,6 +5382,23 @@ public interface Database extends AutoCloseable {
      */
     ListDbSystemComputePerformancesResponse listDbSystemComputePerformances(
             ListDbSystemComputePerformancesRequest request);
+
+    /**
+     * Gets the history of the OS patch actions performed on the specified DB system.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation will not retry by default, users
+     *     can also use RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION provided by the SDK to
+     *     enable retries for it. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/database/ListDbSystemOsPatchHistoryEntriesExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListDbSystemOsPatchHistoryEntries API.
+     */
+    ListDbSystemOsPatchHistoryEntriesResponse listDbSystemOsPatchHistoryEntries(
+            ListDbSystemOsPatchHistoryEntriesRequest request);
 
     /**
      * Gets the history of the patch actions performed on the specified DB system.

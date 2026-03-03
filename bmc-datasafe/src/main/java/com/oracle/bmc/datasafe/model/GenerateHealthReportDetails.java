@@ -29,7 +29,8 @@ public final class GenerateHealthReportDetails
         "compartmentId",
         "tablespace",
         "freeformTags",
-        "definedTags"
+        "definedTags",
+        "targetCredentials"
     })
     public GenerateHealthReportDetails(
             CheckType checkType,
@@ -37,7 +38,8 @@ public final class GenerateHealthReportDetails
             String compartmentId,
             String tablespace,
             java.util.Map<String, String> freeformTags,
-            java.util.Map<String, java.util.Map<String, Object>> definedTags) {
+            java.util.Map<String, java.util.Map<String, Object>> definedTags,
+            Credentials targetCredentials) {
         super();
         this.checkType = checkType;
         this.targetId = targetId;
@@ -45,6 +47,7 @@ public final class GenerateHealthReportDetails
         this.tablespace = tablespace;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
+        this.targetCredentials = targetCredentials;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -167,6 +170,15 @@ public final class GenerateHealthReportDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("targetCredentials")
+        private Credentials targetCredentials;
+
+        public Builder targetCredentials(Credentials targetCredentials) {
+            this.targetCredentials = targetCredentials;
+            this.__explicitlySet__.add("targetCredentials");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -178,7 +190,8 @@ public final class GenerateHealthReportDetails
                             this.compartmentId,
                             this.tablespace,
                             this.freeformTags,
-                            this.definedTags);
+                            this.definedTags,
+                            this.targetCredentials);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -204,6 +217,9 @@ public final class GenerateHealthReportDetails
             }
             if (model.wasPropertyExplicitlySet("definedTags")) {
                 this.definedTags(model.getDefinedTags());
+            }
+            if (model.wasPropertyExplicitlySet("targetCredentials")) {
+                this.targetCredentials(model.getTargetCredentials());
             }
             return this;
         }
@@ -354,6 +370,13 @@ public final class GenerateHealthReportDetails
         return definedTags;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("targetCredentials")
+    private final Credentials targetCredentials;
+
+    public Credentials getTargetCredentials() {
+        return targetCredentials;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -375,6 +398,7 @@ public final class GenerateHealthReportDetails
         sb.append(", tablespace=").append(String.valueOf(this.tablespace));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
+        sb.append(", targetCredentials=").append(String.valueOf(this.targetCredentials));
         sb.append(")");
         return sb.toString();
     }
@@ -395,6 +419,7 @@ public final class GenerateHealthReportDetails
                 && java.util.Objects.equals(this.tablespace, other.tablespace)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
+                && java.util.Objects.equals(this.targetCredentials, other.targetCredentials)
                 && super.equals(other);
     }
 
@@ -410,6 +435,9 @@ public final class GenerateHealthReportDetails
         result = (result * PRIME) + (this.tablespace == null ? 43 : this.tablespace.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.targetCredentials == null ? 43 : this.targetCredentials.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -28,6 +28,8 @@ public enum OperationType implements com.oracle.bmc.http.internal.BmcEnum {
     DeleteOciCacheConfigSet("DELETE_OCI_CACHE_CONFIG_SET"),
     ChangeOciCacheConfigSetCompartment("CHANGE_OCI_CACHE_CONFIG_SET_COMPARTMENT"),
     ChangeOciCacheUserCompartment("CHANGE_OCI_CACHE_USER_COMPARTMENT"),
+    PatchOciCacheCluster("PATCH_OCI_CACHE_CLUSTER"),
+    ReplaceOciCacheNode("REPLACE_OCI_CACHE_NODE"),
 
     /**
      * This value is used if a service returns a value for this enum that is not recognized by this

@@ -5972,6 +5972,41 @@ public class DatabaseClient extends com.oracle.bmc.http.internal.BaseSyncClient
     }
 
     @Override
+    public ExecuteDbSystemOsPatchResponse executeDbSystemOsPatch(
+            ExecuteDbSystemOsPatchRequest request) {
+        Objects.requireNonNull(
+                request.getExecuteDbSystemOsPatchDetails(),
+                "executeDbSystemOsPatchDetails is required");
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+
+        return clientCall(request, ExecuteDbSystemOsPatchResponse::builder)
+                .logger(LOG, "executeDbSystemOsPatch")
+                .serviceDetails(
+                        "Database",
+                        "ExecuteDbSystemOsPatch",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/DbSystem/ExecuteDbSystemOsPatch")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ExecuteDbSystemOsPatchRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("actions")
+                .appendPathParam("osPatch")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        ExecuteDbSystemOsPatchResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", ExecuteDbSystemOsPatchResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public FailOverAutonomousDatabaseResponse failOverAutonomousDatabase(
             FailOverAutonomousDatabaseRequest request) {
 
@@ -7507,6 +7542,39 @@ public class DatabaseClient extends com.oracle.bmc.http.internal.BaseSyncClient
                 .handleResponseHeaderString("etag", GetDbSystemResponse.Builder::etag)
                 .handleResponseHeaderString(
                         "opc-request-id", GetDbSystemResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetDbSystemOsPatchHistoryEntryResponse getDbSystemOsPatchHistoryEntry(
+            GetDbSystemOsPatchHistoryEntryRequest request) {
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+
+        Validate.notBlank(
+                request.getOsPatchHistoryEntryId(), "osPatchHistoryEntryId must not be blank");
+
+        return clientCall(request, GetDbSystemOsPatchHistoryEntryResponse::builder)
+                .logger(LOG, "getDbSystemOsPatchHistoryEntry")
+                .serviceDetails(
+                        "Database",
+                        "GetDbSystemOsPatchHistoryEntry",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/DbSystemOsPatchHistoryEntry/GetDbSystemOsPatchHistoryEntry")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetDbSystemOsPatchHistoryEntryRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("osPatchHistoryEntries")
+                .appendPathParam(request.getOsPatchHistoryEntryId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.class,
+                        GetDbSystemOsPatchHistoryEntryResponse.Builder::dbSystemOsPatchHistoryEntry)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetDbSystemOsPatchHistoryEntryResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -10288,6 +10356,45 @@ public class DatabaseClient extends com.oracle.bmc.http.internal.BaseSyncClient
                 .handleResponseHeaderString(
                         "opc-next-page",
                         ListDbSystemComputePerformancesResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListDbSystemOsPatchHistoryEntriesResponse listDbSystemOsPatchHistoryEntries(
+            ListDbSystemOsPatchHistoryEntriesRequest request) {
+
+        Validate.notBlank(request.getDbSystemId(), "dbSystemId must not be blank");
+
+        return clientCall(request, ListDbSystemOsPatchHistoryEntriesResponse::builder)
+                .logger(LOG, "listDbSystemOsPatchHistoryEntries")
+                .serviceDetails(
+                        "Database",
+                        "ListDbSystemOsPatchHistoryEntries",
+                        "https://docs.oracle.com/iaas/api/#/en/database/20160918/DbSystemOsPatchHistoryEntryCollection/ListDbSystemOsPatchHistoryEntries")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListDbSystemOsPatchHistoryEntriesRequest::builder)
+                .basePath("/20160918")
+                .appendPathParam("dbSystems")
+                .appendPathParam(request.getDbSystemId())
+                .appendPathParam("osPatchHistoryEntries")
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
+                .appendEnumQueryParam("action", request.getAction())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntryCollection.class,
+                        ListDbSystemOsPatchHistoryEntriesResponse.Builder
+                                ::dbSystemOsPatchHistoryEntryCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListDbSystemOsPatchHistoryEntriesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListDbSystemOsPatchHistoryEntriesResponse.Builder::opcNextPage)
                 .callSync();
     }
 

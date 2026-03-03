@@ -5115,6 +5115,140 @@ public class DatabasePaginators {
 
     /**
      * Creates a new iterable which will iterate over the responses received from the
+     * listDbSystemOsPatchHistoryEntries operation. This iterable will fetch more data from the
+     * server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListDbSystemOsPatchHistoryEntriesResponse>
+            listDbSystemOsPatchHistoryEntriesResponseIterator(
+                    final ListDbSystemOsPatchHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListDbSystemOsPatchHistoryEntriesRequest.Builder,
+                ListDbSystemOsPatchHistoryEntriesRequest,
+                ListDbSystemOsPatchHistoryEntriesResponse>(
+                new java.util.function.Supplier<
+                        ListDbSystemOsPatchHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesRequest.Builder get() {
+                        return ListDbSystemOsPatchHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListDbSystemOsPatchHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListDbSystemOsPatchHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDbSystemOsPatchHistoryEntriesRequest.Builder>,
+                        ListDbSystemOsPatchHistoryEntriesRequest>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDbSystemOsPatchHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListDbSystemOsPatchHistoryEntriesRequest,
+                        ListDbSystemOsPatchHistoryEntriesResponse>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesResponse apply(
+                            ListDbSystemOsPatchHistoryEntriesRequest request) {
+                        return client.listDbSystemOsPatchHistoryEntries(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntrySummary} objects contained in
+     * responses from the listDbSystemOsPatchHistoryEntries operation. This iterable will fetch more
+     * data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntrySummary} objects contained in
+     *     responses received from the service.
+     */
+    public Iterable<com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntrySummary>
+            listDbSystemOsPatchHistoryEntriesRecordIterator(
+                    final ListDbSystemOsPatchHistoryEntriesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListDbSystemOsPatchHistoryEntriesRequest.Builder,
+                ListDbSystemOsPatchHistoryEntriesRequest,
+                ListDbSystemOsPatchHistoryEntriesResponse,
+                com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntrySummary>(
+                new java.util.function.Supplier<
+                        ListDbSystemOsPatchHistoryEntriesRequest.Builder>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesRequest.Builder get() {
+                        return ListDbSystemOsPatchHistoryEntriesRequest.builder().copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListDbSystemOsPatchHistoryEntriesResponse, String>() {
+                    @Override
+                    public String apply(ListDbSystemOsPatchHistoryEntriesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListDbSystemOsPatchHistoryEntriesRequest.Builder>,
+                        ListDbSystemOsPatchHistoryEntriesRequest>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListDbSystemOsPatchHistoryEntriesRequest.Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListDbSystemOsPatchHistoryEntriesRequest,
+                        ListDbSystemOsPatchHistoryEntriesResponse>() {
+                    @Override
+                    public ListDbSystemOsPatchHistoryEntriesResponse apply(
+                            ListDbSystemOsPatchHistoryEntriesRequest request) {
+                        return client.listDbSystemOsPatchHistoryEntries(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListDbSystemOsPatchHistoryEntriesResponse,
+                        java.util.List<
+                                com.oracle.bmc.database.model
+                                        .DbSystemOsPatchHistoryEntrySummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.database.model
+                                            .DbSystemOsPatchHistoryEntrySummary>
+                            apply(ListDbSystemOsPatchHistoryEntriesResponse response) {
+                        return response.getDbSystemOsPatchHistoryEntryCollection().getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
      * listDbSystemPatchHistoryEntries operation. This iterable will fetch more data from the server
      * as needed.
      *

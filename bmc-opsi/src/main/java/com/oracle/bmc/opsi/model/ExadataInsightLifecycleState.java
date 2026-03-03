@@ -13,6 +13,7 @@ public enum ExadataInsightLifecycleState implements com.oracle.bmc.http.internal
     Deleting("DELETING"),
     Deleted("DELETED"),
     Failed("FAILED"),
+    NeedsAttention("NEEDS_ATTENTION"),
 
     /**
      * This value is used if a service returns a value for this enum that is not recognized by this

@@ -444,6 +444,9 @@ public final class AutonomousDatabaseBackupSummary
          * dbversion, the system will provision a 23ai database, but the UI will display it as 26ai.
          * When you specify 26ai for dbversion, the system will provision and display a 26ai
          * database as expected. For new databases, it is recommended to use either 19c or 26ai.
+         *
+         * <p>*Note** Starting December 2026, 23ai will not be supported as a valid value for this
+         * parameter.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("dbVersion")
         private String dbVersion;
@@ -453,6 +456,9 @@ public final class AutonomousDatabaseBackupSummary
          * dbversion, the system will provision a 23ai database, but the UI will display it as 26ai.
          * When you specify 26ai for dbversion, the system will provision and display a 26ai
          * database as expected. For new databases, it is recommended to use either 19c or 26ai.
+         *
+         * <p>*Note** Starting December 2026, 23ai will not be supported as a valid value for this
+         * parameter.
          *
          * @param dbVersion the value to set
          * @return this builder
@@ -1043,6 +1049,9 @@ public final class AutonomousDatabaseBackupSummary
      * dbversion, the system will provision a 23ai database, but the UI will display it as 26ai.
      * When you specify 26ai for dbversion, the system will provision and display a 26ai database as
      * expected. For new databases, it is recommended to use either 19c or 26ai.
+     *
+     * <p>*Note** Starting December 2026, 23ai will not be supported as a valid value for this
+     * parameter.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("dbVersion")
     private final String dbVersion;
@@ -1052,6 +1061,9 @@ public final class AutonomousDatabaseBackupSummary
      * dbversion, the system will provision a 23ai database, but the UI will display it as 26ai.
      * When you specify 26ai for dbversion, the system will provision and display a 26ai database as
      * expected. For new databases, it is recommended to use either 19c or 26ai.
+     *
+     * <p>*Note** Starting December 2026, 23ai will not be supported as a valid value for this
+     * parameter.
      *
      * @return the value
      */

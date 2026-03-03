@@ -72,7 +72,7 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
             LOG.warn(
                     com.oracle.bmc.util.StreamUtils.getStreamWarningMessage(
                             "OperationsInsightsClient",
-                            "downloadOperationsInsightsWarehouseWallet,getAwrHubObject"));
+                            "downloadOperationsInsightsWarehouseWallet,getAwrHubObject,getChargebackPlanReportContent"));
         }
     }
 
@@ -260,6 +260,43 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
                 .handleResponseHeaderString(
                         "opc-request-id",
                         ChangeAwrHubSourceCompartmentResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public ChangeChargebackPlanCompartmentResponse changeChargebackPlanCompartment(
+            ChangeChargebackPlanCompartmentRequest request) {
+
+        Validate.notBlank(request.getChargebackplanId(), "chargebackplanId must not be blank");
+        Objects.requireNonNull(
+                request.getChangeChargebackPlanCompartmentDetails(),
+                "changeChargebackPlanCompartmentDetails is required");
+
+        return clientCall(request, ChangeChargebackPlanCompartmentResponse::builder)
+                .logger(LOG, "changeChargebackPlanCompartment")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "ChangeChargebackPlanCompartment",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/ChangeChargebackPlanCompartment")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ChangeChargebackPlanCompartmentRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .appendPathParam(request.getChargebackplanId())
+                .appendPathParam("actions")
+                .appendPathParam("changeCompartment")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        ChangeChargebackPlanCompartmentResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ChangeChargebackPlanCompartmentResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -796,6 +833,85 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
     }
 
     @Override
+    public CreateChargebackPlanResponse createChargebackPlan(CreateChargebackPlanRequest request) {
+        Objects.requireNonNull(
+                request.getCreateChargebackPlanDetails(),
+                "createChargebackPlanDetails is required");
+
+        return clientCall(request, CreateChargebackPlanResponse::builder)
+                .logger(LOG, "createChargebackPlan")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "CreateChargebackPlan",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/CreateChargebackPlan")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateChargebackPlanRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlan.class,
+                        CreateChargebackPlanResponse.Builder::chargebackPlan)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        CreateChargebackPlanResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateChargebackPlanResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "location", CreateChargebackPlanResponse.Builder::location)
+                .handleResponseHeaderString(
+                        "content-location", CreateChargebackPlanResponse.Builder::contentLocation)
+                .handleResponseHeaderString("etag", CreateChargebackPlanResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public CreateChargebackPlanReportResponse createChargebackPlanReport(
+            CreateChargebackPlanReportRequest request) {
+        Objects.requireNonNull(
+                request.getCreateChargebackPlanReportDetails(),
+                "createChargebackPlanReportDetails is required");
+
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        return clientCall(request, CreateChargebackPlanReportResponse::builder)
+                .logger(LOG, "createChargebackPlanReport")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "CreateChargebackPlanReport",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/CreateChargebackPlanReport")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateChargebackPlanReportRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlanReport.class,
+                        CreateChargebackPlanReportResponse.Builder::chargebackPlanReport)
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        CreateChargebackPlanReportResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateChargebackPlanReportResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateChargebackPlanReportResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
     public CreateDatabaseInsightResponse createDatabaseInsight(
             CreateDatabaseInsightRequest request) {
         Objects.requireNonNull(
@@ -1250,6 +1366,69 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
     }
 
     @Override
+    public DeleteChargebackPlanResponse deleteChargebackPlan(DeleteChargebackPlanRequest request) {
+
+        Validate.notBlank(request.getChargebackplanId(), "chargebackplanId must not be blank");
+
+        return clientCall(request, DeleteChargebackPlanResponse::builder)
+                .logger(LOG, "deleteChargebackPlan")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "DeleteChargebackPlan",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/DeleteChargebackPlan")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteChargebackPlanRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .appendPathParam(request.getChargebackplanId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DeleteChargebackPlanResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", DeleteChargebackPlanResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public DeleteChargebackPlanReportResponse deleteChargebackPlanReport(
+            DeleteChargebackPlanReportRequest request) {
+
+        Validate.notBlank(
+                request.getChargebackPlanReportId(), "chargebackPlanReportId must not be blank");
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        return clientCall(request, DeleteChargebackPlanReportResponse::builder)
+                .logger(LOG, "deleteChargebackPlanReport")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "DeleteChargebackPlanReport",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/DeleteChargebackPlanReport")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteChargebackPlanReportRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendPathParam(request.getChargebackPlanReportId())
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DeleteChargebackPlanReportResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", DeleteChargebackPlanReportResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public DeleteDatabaseInsightResponse deleteDatabaseInsight(
             DeleteDatabaseInsightRequest request) {
 
@@ -1681,6 +1860,38 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
     }
 
     @Override
+    public DisablePlanExadataInsightResponse disablePlanExadataInsight(
+            DisablePlanExadataInsightRequest request) {
+
+        Validate.notBlank(request.getExadataInsightId(), "exadataInsightId must not be blank");
+
+        return clientCall(request, DisablePlanExadataInsightResponse::builder)
+                .logger(LOG, "disablePlanExadataInsight")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "DisablePlanExadataInsight",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ExadataInsights/DisablePlanExadataInsight")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(DisablePlanExadataInsightRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("exadataInsights")
+                .appendPathParam(request.getExadataInsightId())
+                .appendPathParam("actions")
+                .appendPathParam("disablePlan")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        DisablePlanExadataInsightResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", DisablePlanExadataInsightResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
     public DownloadOperationsInsightsWarehouseWalletResponse
             downloadOperationsInsightsWarehouseWallet(
                     DownloadOperationsInsightsWarehouseWalletRequest request) {
@@ -1898,6 +2109,42 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
                         "opc-work-request-id", EnableHostInsightResponse.Builder::opcWorkRequestId)
                 .handleResponseHeaderString(
                         "opc-request-id", EnableHostInsightResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public EnablePlanExadataInsightResponse enablePlanExadataInsight(
+            EnablePlanExadataInsightRequest request) {
+        Objects.requireNonNull(
+                request.getEnablePlanExadataInsightDetails(),
+                "enablePlanExadataInsightDetails is required");
+
+        Validate.notBlank(request.getExadataInsightId(), "exadataInsightId must not be blank");
+
+        return clientCall(request, EnablePlanExadataInsightResponse::builder)
+                .logger(LOG, "enablePlanExadataInsight")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "EnablePlanExadataInsight",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ExadataInsights/EnablePlanExadataInsight")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(EnablePlanExadataInsightRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("exadataInsights")
+                .appendPathParam(request.getExadataInsightId())
+                .appendPathParam("actions")
+                .appendPathParam("enablePlan")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        EnablePlanExadataInsightResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", EnablePlanExadataInsightResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -2155,6 +2402,110 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
                         GetAwrReportResponse.Builder::awrReport)
                 .handleResponseHeaderString(
                         "opc-request-id", GetAwrReportResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetChargebackPlanResponse getChargebackPlan(GetChargebackPlanRequest request) {
+
+        Validate.notBlank(request.getChargebackplanId(), "chargebackplanId must not be blank");
+
+        return clientCall(request, GetChargebackPlanResponse::builder)
+                .logger(LOG, "getChargebackPlan")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "GetChargebackPlan",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/GetChargebackPlan")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetChargebackPlanRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .appendPathParam(request.getChargebackplanId())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlan.class,
+                        GetChargebackPlanResponse.Builder::chargebackPlan)
+                .handleResponseHeaderString("etag", GetChargebackPlanResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetChargebackPlanResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetChargebackPlanReportResponse getChargebackPlanReport(
+            GetChargebackPlanReportRequest request) {
+
+        Validate.notBlank(
+                request.getChargebackPlanReportId(), "chargebackPlanReportId must not be blank");
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        return clientCall(request, GetChargebackPlanReportResponse::builder)
+                .logger(LOG, "getChargebackPlanReport")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "GetChargebackPlanReport",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/GetChargebackPlanReport")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetChargebackPlanReportRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendPathParam(request.getChargebackPlanReportId())
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlanReport.class,
+                        GetChargebackPlanReportResponse.Builder::chargebackPlanReport)
+                .handleResponseHeaderString("etag", GetChargebackPlanReportResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetChargebackPlanReportResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetChargebackPlanReportContentResponse getChargebackPlanReportContent(
+            GetChargebackPlanReportContentRequest request) {
+
+        Validate.notBlank(
+                request.getChargebackPlanReportId(), "chargebackPlanReportId must not be blank");
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        return clientCall(request, GetChargebackPlanReportContentResponse::builder)
+                .logger(LOG, "getChargebackPlanReportContent")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "GetChargebackPlanReportContent",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/GetChargebackPlanReportContent")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetChargebackPlanReportContentRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendPathParam(request.getChargebackPlanReportId())
+                .appendPathParam("content")
+                .appendQueryParam("timeIntervalStart", request.getTimeIntervalStart())
+                .appendQueryParam("timeIntervalEnd", request.getTimeIntervalEnd())
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .appendQueryParam("relativeTimeInterval", request.getRelativeTimeInterval())
+                .accept("application/octet-stream")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        java.io.InputStream.class,
+                        GetChargebackPlanReportContentResponse.Builder::inputStream)
+                .handleResponseHeaderString(
+                        "etag", GetChargebackPlanReportContentResponse.Builder::etag)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetChargebackPlanReportContentResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -3560,6 +3911,75 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
                         "opc-request-id", ListAwrSnapshotsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListAwrSnapshotsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListChargebackPlanReportsResponse listChargebackPlanReports(
+            ListChargebackPlanReportsRequest request) {
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        return clientCall(request, ListChargebackPlanReportsResponse::builder)
+                .logger(LOG, "listChargebackPlanReports")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "ListChargebackPlanReports",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/ListChargebackPlanReports")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListChargebackPlanReportsRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlanReportCollection.class,
+                        ListChargebackPlanReportsResponse.Builder::chargebackPlanReportCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListChargebackPlanReportsResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListChargebackPlanReportsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListChargebackPlansResponse listChargebackPlans(ListChargebackPlansRequest request) {
+
+        return clientCall(request, ListChargebackPlansResponse::builder)
+                .logger(LOG, "listChargebackPlans")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "ListChargebackPlans",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/ListChargebackPlans")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListChargebackPlansRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("chargebackplanId", request.getChargebackplanId())
+                .appendQueryParam("limit", request.getLimit())
+                .appendQueryParam("page", request.getPage())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendQueryParam("compartmentIdInSubtree", request.getCompartmentIdInSubtree())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .handleBody(
+                        com.oracle.bmc.opsi.model.ChargebackPlanCollection.class,
+                        ListChargebackPlansResponse.Builder::chargebackPlanCollection)
+                .handleResponseHeaderString(
+                        "opc-request-id", ListChargebackPlansResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListChargebackPlansResponse.Builder::opcNextPage)
                 .callSync();
     }
 
@@ -8446,8 +8866,6 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
     @Override
     public SynchronizeAutonomousDatabaseToExadataResponse synchronizeAutonomousDatabaseToExadata(
             SynchronizeAutonomousDatabaseToExadataRequest request) {
-        Objects.requireNonNull(request.getCompartmentId(), "compartmentId is required");
-
         Objects.requireNonNull(
                 request.getSynchronizeAutonomousDatabaseToExadataDetails(),
                 "synchronizeAutonomousDatabaseToExadataDetails is required");
@@ -8616,6 +9034,78 @@ public class OperationsInsightsClient extends com.oracle.bmc.http.internal.BaseS
                         "opc-work-request-id", UpdateAwrHubSourceResponse.Builder::opcWorkRequestId)
                 .handleResponseHeaderString(
                         "opc-request-id", UpdateAwrHubSourceResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateChargebackPlanResponse updateChargebackPlan(UpdateChargebackPlanRequest request) {
+
+        Validate.notBlank(request.getChargebackplanId(), "chargebackplanId must not be blank");
+        Objects.requireNonNull(
+                request.getUpdateChargebackPlanDetails(),
+                "updateChargebackPlanDetails is required");
+
+        return clientCall(request, UpdateChargebackPlanResponse::builder)
+                .logger(LOG, "updateChargebackPlan")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "UpdateChargebackPlan",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/UpdateChargebackPlan")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateChargebackPlanRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlans")
+                .appendPathParam(request.getChargebackplanId())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        UpdateChargebackPlanResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", UpdateChargebackPlanResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public UpdateChargebackPlanReportResponse updateChargebackPlanReport(
+            UpdateChargebackPlanReportRequest request) {
+
+        Validate.notBlank(
+                request.getChargebackPlanReportId(), "chargebackPlanReportId must not be blank");
+        Objects.requireNonNull(request.getId(), "id is required");
+
+        Objects.requireNonNull(request.getResourceType(), "resourceType is required");
+
+        Objects.requireNonNull(
+                request.getUpdateChargebackPlanReportDetails(),
+                "updateChargebackPlanReportDetails is required");
+
+        return clientCall(request, UpdateChargebackPlanReportResponse::builder)
+                .logger(LOG, "updateChargebackPlanReport")
+                .serviceDetails(
+                        "OperationsInsights",
+                        "UpdateChargebackPlanReport",
+                        "https://docs.oracle.com/iaas/api/#/en/operations-insights/20200630/ChargebackPlan/UpdateChargebackPlanReport")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(UpdateChargebackPlanReportRequest::builder)
+                .basePath("/20200630")
+                .appendPathParam("chargebackPlanReport")
+                .appendPathParam(request.getChargebackPlanReportId())
+                .appendQueryParam("id", request.getId())
+                .appendQueryParam("resourceType", request.getResourceType())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .operationUsesDefaultRetries()
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        UpdateChargebackPlanReportResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id", UpdateChargebackPlanReportResponse.Builder::opcRequestId)
                 .callSync();
     }
 

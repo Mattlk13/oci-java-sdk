@@ -247,6 +247,41 @@ public interface LustreFileStorage extends AutoCloseable {
     GetWorkRequestResponse getWorkRequest(GetWorkRequestRequest request);
 
     /**
+     * Gets the list of available maintenance schedule start times for both Create and Update
+     * operation
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/lustrefilestorage/ListAvailableMaintenanceScheduleStartTimesExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAvailableMaintenanceScheduleStartTimes API.
+     */
+    ListAvailableMaintenanceScheduleStartTimesResponse listAvailableMaintenanceScheduleStartTimes(
+            ListAvailableMaintenanceScheduleStartTimesRequest request);
+
+    /**
+     * Gets the list of available maintenance start times for Override operation
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/lustrefilestorage/ListAvailableOverrideMaintenanceStartTimesExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListAvailableOverrideMaintenanceStartTimes API.
+     */
+    ListAvailableOverrideMaintenanceStartTimesResponse listAvailableOverrideMaintenanceStartTimes(
+            ListAvailableOverrideMaintenanceStartTimesRequest request);
+
+    /**
      * Gets a list of Lustre file systems.
      *
      * @param request The request object containing the details to send
@@ -341,6 +376,22 @@ public interface LustreFileStorage extends AutoCloseable {
      *     API.
      */
     ListWorkRequestsResponse listWorkRequests(ListWorkRequestsRequest request);
+
+    /**
+     * Overrides the upcoming maintenance to the value provided by user
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/lustrefilestorage/OverrideMaintenanceExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use OverrideMaintenance
+     *     API.
+     */
+    OverrideMaintenanceResponse overrideMaintenance(OverrideMaintenanceRequest request);
 
     /**
      * Starts the export of data from the Lustre file system to Object Storage. The Lustre file
