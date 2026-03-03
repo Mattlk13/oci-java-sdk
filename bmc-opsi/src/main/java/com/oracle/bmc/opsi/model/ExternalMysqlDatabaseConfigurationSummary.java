@@ -81,6 +81,15 @@ public final class ExternalMysqlDatabaseConfigurationSummary extends DatabaseCon
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("isAdvancedFeaturesEnabled")
+        private Boolean isAdvancedFeaturesEnabled;
+
+        public Builder isAdvancedFeaturesEnabled(Boolean isAdvancedFeaturesEnabled) {
+            this.isAdvancedFeaturesEnabled = isAdvancedFeaturesEnabled;
+            this.__explicitlySet__.add("isAdvancedFeaturesEnabled");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("cdbName")
         private String cdbName;
 
@@ -189,6 +198,7 @@ public final class ExternalMysqlDatabaseConfigurationSummary extends DatabaseCon
                             this.databaseDisplayName,
                             this.databaseType,
                             this.databaseVersion,
+                            this.isAdvancedFeaturesEnabled,
                             this.cdbName,
                             this.definedTags,
                             this.freeformTags,
@@ -221,6 +231,9 @@ public final class ExternalMysqlDatabaseConfigurationSummary extends DatabaseCon
             }
             if (model.wasPropertyExplicitlySet("databaseVersion")) {
                 this.databaseVersion(model.getDatabaseVersion());
+            }
+            if (model.wasPropertyExplicitlySet("isAdvancedFeaturesEnabled")) {
+                this.isAdvancedFeaturesEnabled(model.getIsAdvancedFeaturesEnabled());
             }
             if (model.wasPropertyExplicitlySet("cdbName")) {
                 this.cdbName(model.getCdbName());
@@ -264,6 +277,7 @@ public final class ExternalMysqlDatabaseConfigurationSummary extends DatabaseCon
             String databaseDisplayName,
             String databaseType,
             String databaseVersion,
+            Boolean isAdvancedFeaturesEnabled,
             String cdbName,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, String> freeformTags,
@@ -278,6 +292,7 @@ public final class ExternalMysqlDatabaseConfigurationSummary extends DatabaseCon
                 databaseDisplayName,
                 databaseType,
                 databaseVersion,
+                isAdvancedFeaturesEnabled,
                 cdbName,
                 definedTags,
                 freeformTags,

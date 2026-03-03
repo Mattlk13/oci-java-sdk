@@ -59,6 +59,7 @@ public class DatabaseConfigurationSummary
         "databaseDisplayName",
         "databaseType",
         "databaseVersion",
+        "isAdvancedFeaturesEnabled",
         "cdbName",
         "definedTags",
         "freeformTags",
@@ -71,6 +72,7 @@ public class DatabaseConfigurationSummary
             String databaseDisplayName,
             String databaseType,
             String databaseVersion,
+            Boolean isAdvancedFeaturesEnabled,
             String cdbName,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, String> freeformTags,
@@ -82,6 +84,7 @@ public class DatabaseConfigurationSummary
         this.databaseDisplayName = databaseDisplayName;
         this.databaseType = databaseType;
         this.databaseVersion = databaseVersion;
+        this.isAdvancedFeaturesEnabled = isAdvancedFeaturesEnabled;
         this.cdbName = cdbName;
         this.definedTags = definedTags;
         this.freeformTags = freeformTags;
@@ -174,6 +177,19 @@ public class DatabaseConfigurationSummary
         return databaseVersion;
     }
 
+    /** Flag is to identify if advanced features for autonomous database is enabled or not */
+    @com.fasterxml.jackson.annotation.JsonProperty("isAdvancedFeaturesEnabled")
+    private final Boolean isAdvancedFeaturesEnabled;
+
+    /**
+     * Flag is to identify if advanced features for autonomous database is enabled or not
+     *
+     * @return the value
+     */
+    public Boolean getIsAdvancedFeaturesEnabled() {
+        return isAdvancedFeaturesEnabled;
+    }
+
     /** Name of the CDB.Only applies to PDB. */
     @com.fasterxml.jackson.annotation.JsonProperty("cdbName")
     private final String cdbName;
@@ -259,6 +275,8 @@ public class DatabaseConfigurationSummary
         sb.append(", databaseDisplayName=").append(String.valueOf(this.databaseDisplayName));
         sb.append(", databaseType=").append(String.valueOf(this.databaseType));
         sb.append(", databaseVersion=").append(String.valueOf(this.databaseVersion));
+        sb.append(", isAdvancedFeaturesEnabled=")
+                .append(String.valueOf(this.isAdvancedFeaturesEnabled));
         sb.append(", cdbName=").append(String.valueOf(this.cdbName));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
@@ -283,6 +301,8 @@ public class DatabaseConfigurationSummary
                 && java.util.Objects.equals(this.databaseDisplayName, other.databaseDisplayName)
                 && java.util.Objects.equals(this.databaseType, other.databaseType)
                 && java.util.Objects.equals(this.databaseVersion, other.databaseVersion)
+                && java.util.Objects.equals(
+                        this.isAdvancedFeaturesEnabled, other.isAdvancedFeaturesEnabled)
                 && java.util.Objects.equals(this.cdbName, other.cdbName)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
@@ -310,6 +330,11 @@ public class DatabaseConfigurationSummary
         result =
                 (result * PRIME)
                         + (this.databaseVersion == null ? 43 : this.databaseVersion.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.isAdvancedFeaturesEnabled == null
+                                ? 43
+                                : this.isAdvancedFeaturesEnabled.hashCode());
         result = (result * PRIME) + (this.cdbName == null ? 43 : this.cdbName.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());

@@ -5,6 +5,7 @@
 package com.oracle.bmc.opsi.model;
 
 /**
+ * MySQL support within the OCI Ops Insights service has been deprecated as of January 29, 2026.
  * Connection details of an External MySQL database insight. <br>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model
  * distinguishes fields that are {@code null} because they are unset from fields that are explicitly

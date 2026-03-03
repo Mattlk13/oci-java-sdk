@@ -55,6 +55,7 @@ public final class LustreFileSystem
         "clusterPlacementGroupId",
         "timeBillingCycleEnd",
         "maintenanceWindow",
+        "maintenanceWindowMetadata",
         "rootSquashConfiguration"
     })
     public LustreFileSystem(
@@ -82,6 +83,7 @@ public final class LustreFileSystem
             String clusterPlacementGroupId,
             java.util.Date timeBillingCycleEnd,
             MaintenanceWindow maintenanceWindow,
+            MaintenanceWindowMetadataDetails maintenanceWindowMetadata,
             RootSquashConfiguration rootSquashConfiguration) {
         super();
         this.id = id;
@@ -108,6 +110,7 @@ public final class LustreFileSystem
         this.clusterPlacementGroupId = clusterPlacementGroupId;
         this.timeBillingCycleEnd = timeBillingCycleEnd;
         this.maintenanceWindow = maintenanceWindow;
+        this.maintenanceWindowMetadata = maintenanceWindowMetadata;
         this.rootSquashConfiguration = rootSquashConfiguration;
     }
 
@@ -599,6 +602,16 @@ public final class LustreFileSystem
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowMetadata")
+        private MaintenanceWindowMetadataDetails maintenanceWindowMetadata;
+
+        public Builder maintenanceWindowMetadata(
+                MaintenanceWindowMetadataDetails maintenanceWindowMetadata) {
+            this.maintenanceWindowMetadata = maintenanceWindowMetadata;
+            this.__explicitlySet__.add("maintenanceWindowMetadata");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonProperty("rootSquashConfiguration")
         private RootSquashConfiguration rootSquashConfiguration;
 
@@ -638,6 +651,7 @@ public final class LustreFileSystem
                             this.clusterPlacementGroupId,
                             this.timeBillingCycleEnd,
                             this.maintenanceWindow,
+                            this.maintenanceWindowMetadata,
                             this.rootSquashConfiguration);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
@@ -718,6 +732,9 @@ public final class LustreFileSystem
             }
             if (model.wasPropertyExplicitlySet("maintenanceWindow")) {
                 this.maintenanceWindow(model.getMaintenanceWindow());
+            }
+            if (model.wasPropertyExplicitlySet("maintenanceWindowMetadata")) {
+                this.maintenanceWindowMetadata(model.getMaintenanceWindowMetadata());
             }
             if (model.wasPropertyExplicitlySet("rootSquashConfiguration")) {
                 this.rootSquashConfiguration(model.getRootSquashConfiguration());
@@ -1269,6 +1286,13 @@ public final class LustreFileSystem
         return maintenanceWindow;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindowMetadata")
+    private final MaintenanceWindowMetadataDetails maintenanceWindowMetadata;
+
+    public MaintenanceWindowMetadataDetails getMaintenanceWindowMetadata() {
+        return maintenanceWindowMetadata;
+    }
+
     @com.fasterxml.jackson.annotation.JsonProperty("rootSquashConfiguration")
     private final RootSquashConfiguration rootSquashConfiguration;
 
@@ -1317,6 +1341,8 @@ public final class LustreFileSystem
                 .append(String.valueOf(this.clusterPlacementGroupId));
         sb.append(", timeBillingCycleEnd=").append(String.valueOf(this.timeBillingCycleEnd));
         sb.append(", maintenanceWindow=").append(String.valueOf(this.maintenanceWindow));
+        sb.append(", maintenanceWindowMetadata=")
+                .append(String.valueOf(this.maintenanceWindowMetadata));
         sb.append(", rootSquashConfiguration=")
                 .append(String.valueOf(this.rootSquashConfiguration));
         sb.append(")");
@@ -1359,6 +1385,8 @@ public final class LustreFileSystem
                         this.clusterPlacementGroupId, other.clusterPlacementGroupId)
                 && java.util.Objects.equals(this.timeBillingCycleEnd, other.timeBillingCycleEnd)
                 && java.util.Objects.equals(this.maintenanceWindow, other.maintenanceWindow)
+                && java.util.Objects.equals(
+                        this.maintenanceWindowMetadata, other.maintenanceWindowMetadata)
                 && java.util.Objects.equals(
                         this.rootSquashConfiguration, other.rootSquashConfiguration)
                 && super.equals(other);
@@ -1426,6 +1454,11 @@ public final class LustreFileSystem
         result =
                 (result * PRIME)
                         + (this.maintenanceWindow == null ? 43 : this.maintenanceWindow.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.maintenanceWindowMetadata == null
+                                ? 43
+                                : this.maintenanceWindowMetadata.hashCode());
         result =
                 (result * PRIME)
                         + (this.rootSquashConfiguration == null

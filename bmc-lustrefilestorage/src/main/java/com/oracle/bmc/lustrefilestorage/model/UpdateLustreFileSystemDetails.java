@@ -31,7 +31,8 @@ public final class UpdateLustreFileSystemDetails
         "nsgIds",
         "kmsKeyId",
         "capacityInGBs",
-        "rootSquashConfiguration"
+        "rootSquashConfiguration",
+        "maintenanceWindow"
     })
     public UpdateLustreFileSystemDetails(
             String displayName,
@@ -41,7 +42,8 @@ public final class UpdateLustreFileSystemDetails
             java.util.List<String> nsgIds,
             String kmsKeyId,
             Integer capacityInGBs,
-            RootSquashConfiguration rootSquashConfiguration) {
+            RootSquashConfiguration rootSquashConfiguration,
+            MaintenanceWindow maintenanceWindow) {
         super();
         this.displayName = displayName;
         this.fileSystemDescription = fileSystemDescription;
@@ -51,6 +53,7 @@ public final class UpdateLustreFileSystemDetails
         this.kmsKeyId = kmsKeyId;
         this.capacityInGBs = capacityInGBs;
         this.rootSquashConfiguration = rootSquashConfiguration;
+        this.maintenanceWindow = maintenanceWindow;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -219,6 +222,15 @@ public final class UpdateLustreFileSystemDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindow")
+        private MaintenanceWindow maintenanceWindow;
+
+        public Builder maintenanceWindow(MaintenanceWindow maintenanceWindow) {
+            this.maintenanceWindow = maintenanceWindow;
+            this.__explicitlySet__.add("maintenanceWindow");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -232,7 +244,8 @@ public final class UpdateLustreFileSystemDetails
                             this.nsgIds,
                             this.kmsKeyId,
                             this.capacityInGBs,
-                            this.rootSquashConfiguration);
+                            this.rootSquashConfiguration,
+                            this.maintenanceWindow);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -264,6 +277,9 @@ public final class UpdateLustreFileSystemDetails
             }
             if (model.wasPropertyExplicitlySet("rootSquashConfiguration")) {
                 this.rootSquashConfiguration(model.getRootSquashConfiguration());
+            }
+            if (model.wasPropertyExplicitlySet("maintenanceWindow")) {
+                this.maintenanceWindow(model.getMaintenanceWindow());
             }
             return this;
         }
@@ -424,6 +440,13 @@ public final class UpdateLustreFileSystemDetails
         return rootSquashConfiguration;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("maintenanceWindow")
+    private final MaintenanceWindow maintenanceWindow;
+
+    public MaintenanceWindow getMaintenanceWindow() {
+        return maintenanceWindow;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -448,6 +471,7 @@ public final class UpdateLustreFileSystemDetails
         sb.append(", capacityInGBs=").append(String.valueOf(this.capacityInGBs));
         sb.append(", rootSquashConfiguration=")
                 .append(String.valueOf(this.rootSquashConfiguration));
+        sb.append(", maintenanceWindow=").append(String.valueOf(this.maintenanceWindow));
         sb.append(")");
         return sb.toString();
     }
@@ -471,6 +495,7 @@ public final class UpdateLustreFileSystemDetails
                 && java.util.Objects.equals(this.capacityInGBs, other.capacityInGBs)
                 && java.util.Objects.equals(
                         this.rootSquashConfiguration, other.rootSquashConfiguration)
+                && java.util.Objects.equals(this.maintenanceWindow, other.maintenanceWindow)
                 && super.equals(other);
     }
 
@@ -496,6 +521,9 @@ public final class UpdateLustreFileSystemDetails
                         + (this.rootSquashConfiguration == null
                                 ? 43
                                 : this.rootSquashConfiguration.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.maintenanceWindow == null ? 43 : this.maintenanceWindow.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

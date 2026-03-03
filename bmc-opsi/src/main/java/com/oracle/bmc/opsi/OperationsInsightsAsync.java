@@ -119,6 +119,25 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Moves a Chargeback Plan insight resource from one compartment identifier to another. When
+     * provided, If-Match is checked against ETag values of the resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ChangeChargebackPlanCompartmentResponse>
+            changeChargebackPlanCompartment(
+                    ChangeChargebackPlanCompartmentRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ChangeChargebackPlanCompartmentRequest,
+                                    ChangeChargebackPlanCompartmentResponse>
+                            handler);
+
+    /**
      * Moves a DatabaseInsight resource from one compartment identifier to another. When provided,
      * If-Match is checked against ETag values of the resource.
      *
@@ -176,6 +195,7 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                             handler);
 
     /**
+     * MySQL support within the OCI Ops Insights service has been deprecated as of January 29, 2026.
      * Change the connection details of an External MySQL database insight. When provided, If-Match
      * is checked against ETag values of the resource.
      *
@@ -372,6 +392,38 @@ public interface OperationsInsightsAsync extends AutoCloseable {
             CreateAwrHubSourceRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             CreateAwrHubSourceRequest, CreateAwrHubSourceResponse>
+                    handler);
+
+    /**
+     * Create a chargeback plan resource for the resource in Ops Insights.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateChargebackPlanResponse> createChargebackPlan(
+            CreateChargebackPlanRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateChargebackPlanRequest, CreateChargebackPlanResponse>
+                    handler);
+
+    /**
+     * Creates a chargeback plan report for a resource in Ops Insights
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateChargebackPlanReportResponse> createChargebackPlanReport(
+            CreateChargebackPlanReportRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateChargebackPlanReportRequest, CreateChargebackPlanReportResponse>
                     handler);
 
     /**
@@ -580,6 +632,38 @@ public interface OperationsInsightsAsync extends AutoCloseable {
             DeleteAwrHubSourceRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             DeleteAwrHubSourceRequest, DeleteAwrHubSourceResponse>
+                    handler);
+
+    /**
+     * Deletes a chargeback plan if it's not assigned to any resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteChargebackPlanResponse> deleteChargebackPlan(
+            DeleteChargebackPlanRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteChargebackPlanRequest, DeleteChargebackPlanResponse>
+                    handler);
+
+    /**
+     * Deletes a chargeback plan report if it's not assigned to any resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteChargebackPlanReportResponse> deleteChargebackPlanReport(
+            DeleteChargebackPlanReportRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DeleteChargebackPlanReportRequest, DeleteChargebackPlanReportResponse>
                     handler);
 
     /**
@@ -824,6 +908,23 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Disables a chargeback plan on an Exadata system in Operations Insights. Metering-related
+     * metric collection and analysis will be stopped.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DisablePlanExadataInsightResponse> disablePlanExadataInsight(
+            DisablePlanExadataInsightRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            DisablePlanExadataInsightRequest, DisablePlanExadataInsightResponse>
+                    handler);
+
+    /**
      * Download the ADW wallet for Operations Insights Warehouse using which the Hub data is
      * exposed.
      *
@@ -929,6 +1030,23 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Enables a chargeback plan on an Exadata system in Operations Insights. Metering-related
+     * metric collection and analysis will be started.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<EnablePlanExadataInsightResponse> enablePlanExadataInsight(
+            EnablePlanExadataInsightRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            EnablePlanExadataInsightRequest, EnablePlanExadataInsightResponse>
+                    handler);
+
+    /**
      * Gets the AWR report for the specified database.
      *
      * @param request The request object containing the details to send
@@ -1021,6 +1139,56 @@ public interface OperationsInsightsAsync extends AutoCloseable {
             GetAwrReportRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetAwrReportRequest, GetAwrReportResponse>
                     handler);
+
+    /**
+     * Gets the details of the specified chargeback plan.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetChargebackPlanResponse> getChargebackPlan(
+            GetChargebackPlanRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetChargebackPlanRequest, GetChargebackPlanResponse>
+                    handler);
+
+    /**
+     * Gets the details of the specified chargeback plan plan report
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetChargebackPlanReportResponse> getChargebackPlanReport(
+            GetChargebackPlanReportRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetChargebackPlanReportRequest, GetChargebackPlanReportResponse>
+                    handler);
+
+    /**
+     * Generates the chargeback report in csv format for a specified time interval
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetChargebackPlanReportContentResponse>
+            getChargebackPlanReportContent(
+                    GetChargebackPlanReportContentRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetChargebackPlanReportContentRequest,
+                                    GetChargebackPlanReportContentResponse>
+                            handler);
 
     /**
      * Gets details of a database insight.
@@ -1587,6 +1755,38 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Gets a list of Ops Insights chargeback plan reports for a resource.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListChargebackPlanReportsResponse> listChargebackPlanReports(
+            ListChargebackPlanReportsRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListChargebackPlanReportsRequest, ListChargebackPlanReportsResponse>
+                    handler);
+
+    /**
+     * Gets a list of Ops Insights chargeback plans.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListChargebackPlansResponse> listChargebackPlans(
+            ListChargebackPlansRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            ListChargebackPlansRequest, ListChargebackPlansResponse>
+                    handler);
+
+    /**
      * Gets a list of database insight configurations based on the query parameters specified.
      * Either compartmentId or databaseInsightId query parameter must be specified. When both
      * compartmentId and compartmentIdInSubtree are specified, a list of database insight
@@ -1916,9 +2116,10 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Search SQL by SQL Identifier across databases in a compartment and in all sub-compartments if
-     * specified. And get the SQL Text and the details of the databases executing the SQL for a
-     * given time period.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Search SQL
+     * by SQL Identifier across databases in a compartment and in all sub-compartments if specified.
+     * And get the SQL Text and the details of the databases executing the SQL for a given time
+     * period.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3052,9 +3253,10 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Query SQL Warehouse to get the performance insights for SQLs taking greater than X% database
-     * time for a given time period across the given databases or database types in a compartment
-     * and in all sub-compartments if specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance insights for SQLs taking greater than X% database time for a
+     * given time period across the given databases or database types in a compartment and in all
+     * sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3070,8 +3272,9 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Query SQL Warehouse to get the performance insights on the execution plans for a given SQL
-     * for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance insights on the execution plans for a given SQL for a given
+     * time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3087,8 +3290,9 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Query SQL Warehouse to summarize the response time distribution of query executions for a
-     * given SQL for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to summarize the response time distribution of query executions for a given SQL for
+     * a given time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3106,9 +3310,10 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Query SQL Warehouse to get the performance statistics for SQLs taking greater than X%
-     * database time for a given time period across the given databases or database types in a
-     * compartment and in all sub-compartments if specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics for SQLs taking greater than X% database time for
+     * a given time period across the given databases or database types in a compartment and in all
+     * sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3124,9 +3329,9 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Query SQL Warehouse to get the performance statistics time series for a given SQL across
-     * given databases for a given time period in a compartment and in all sub-compartments if
-     * specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics time series for a given SQL across given
+     * databases for a given time period in a compartment and in all sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3144,8 +3349,9 @@ public interface OperationsInsightsAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Query SQL Warehouse to get the performance statistics time series for a given SQL by
-     * execution plans for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics time series for a given SQL by execution plans
+     * for a given time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3164,10 +3370,9 @@ public interface OperationsInsightsAsync extends AutoCloseable {
 
     /**
      * Synchronize infrastructure details that has been missing when autonomous database onboarded
-     * in Operations Insights. Onboarded Opsi ExadataInsight resource need to be provided with
-     * compartmentId for searching infrastruture details. The query parameters, DatabaseId and
-     * DatabaseInsightId, are mutually exclusive and provided for searching Opsi resources that have
-     * been onboarded.
+     * in Ops Insights. Parameters exadataInsightId, databaseId, or databaseInsightId (id) are
+     * mutually exclusive, and scope the Ops Insights resources which are scoped for the search to
+     * find ADB-D resources missing the Exadata infrastructure details.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -3249,6 +3454,38 @@ public interface OperationsInsightsAsync extends AutoCloseable {
             UpdateAwrHubSourceRequest request,
             com.oracle.bmc.responses.AsyncHandler<
                             UpdateAwrHubSourceRequest, UpdateAwrHubSourceResponse>
+                    handler);
+
+    /**
+     * Updates one or more attributes of the specified chargeback plan.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateChargebackPlanResponse> updateChargebackPlan(
+            UpdateChargebackPlanRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateChargebackPlanRequest, UpdateChargebackPlanResponse>
+                    handler);
+
+    /**
+     * Updates one or more attributes of the specified chargeback plan report.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<UpdateChargebackPlanReportResponse> updateChargebackPlanReport(
+            UpdateChargebackPlanReportRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            UpdateChargebackPlanReportRequest, UpdateChargebackPlanReportResponse>
                     handler);
 
     /**

@@ -37,7 +37,8 @@ public final class MaskDataDetails
         "isRedoLoggingEnabled",
         "isRefreshStatsEnabled",
         "parallelDegree",
-        "recompile"
+        "recompile",
+        "targetCredentials"
     })
     public MaskDataDetails(
             String targetId,
@@ -54,7 +55,8 @@ public final class MaskDataDetails
             Boolean isRedoLoggingEnabled,
             Boolean isRefreshStatsEnabled,
             String parallelDegree,
-            String recompile) {
+            String recompile,
+            Credentials targetCredentials) {
         super();
         this.targetId = targetId;
         this.isDecrypt = isDecrypt;
@@ -71,6 +73,7 @@ public final class MaskDataDetails
         this.isRefreshStatsEnabled = isRefreshStatsEnabled;
         this.parallelDegree = parallelDegree;
         this.recompile = recompile;
+        this.targetCredentials = targetCredentials;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -439,6 +442,15 @@ public final class MaskDataDetails
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("targetCredentials")
+        private Credentials targetCredentials;
+
+        public Builder targetCredentials(Credentials targetCredentials) {
+            this.targetCredentials = targetCredentials;
+            this.__explicitlySet__.add("targetCredentials");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -459,7 +471,8 @@ public final class MaskDataDetails
                             this.isRedoLoggingEnabled,
                             this.isRefreshStatsEnabled,
                             this.parallelDegree,
-                            this.recompile);
+                            this.recompile,
+                            this.targetCredentials);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -512,6 +525,9 @@ public final class MaskDataDetails
             }
             if (model.wasPropertyExplicitlySet("recompile")) {
                 this.recompile(model.getRecompile());
+            }
+            if (model.wasPropertyExplicitlySet("targetCredentials")) {
+                this.targetCredentials(model.getTargetCredentials());
             }
             return this;
         }
@@ -894,6 +910,13 @@ public final class MaskDataDetails
         return recompile;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("targetCredentials")
+    private final Credentials targetCredentials;
+
+    public Credentials getTargetCredentials() {
+        return targetCredentials;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -927,6 +950,7 @@ public final class MaskDataDetails
         sb.append(", isRefreshStatsEnabled=").append(String.valueOf(this.isRefreshStatsEnabled));
         sb.append(", parallelDegree=").append(String.valueOf(this.parallelDegree));
         sb.append(", recompile=").append(String.valueOf(this.recompile));
+        sb.append(", targetCredentials=").append(String.valueOf(this.targetCredentials));
         sb.append(")");
         return sb.toString();
     }
@@ -960,6 +984,7 @@ public final class MaskDataDetails
                 && java.util.Objects.equals(this.isRefreshStatsEnabled, other.isRefreshStatsEnabled)
                 && java.util.Objects.equals(this.parallelDegree, other.parallelDegree)
                 && java.util.Objects.equals(this.recompile, other.recompile)
+                && java.util.Objects.equals(this.targetCredentials, other.targetCredentials)
                 && super.equals(other);
     }
 
@@ -1014,6 +1039,9 @@ public final class MaskDataDetails
                 (result * PRIME)
                         + (this.parallelDegree == null ? 43 : this.parallelDegree.hashCode());
         result = (result * PRIME) + (this.recompile == null ? 43 : this.recompile.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.targetCredentials == null ? 43 : this.targetCredentials.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

@@ -16,6 +16,15 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         extends com.oracle.bmc.requests.BmcRequest<
                 com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails> {
 
+    /** The information to be updated. */
+    private com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails
+            synchronizeAutonomousDatabaseToExadataDetails;
+
+    /** The information to be updated. */
+    public com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails
+            getSynchronizeAutonomousDatabaseToExadataDetails() {
+        return synchronizeAutonomousDatabaseToExadataDetails;
+    }
     /**
      * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
      * compartment.
@@ -28,15 +37,6 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
      */
     public String getCompartmentId() {
         return compartmentId;
-    }
-    /** The information to be updated. */
-    private com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails
-            synchronizeAutonomousDatabaseToExadataDetails;
-
-    /** The information to be updated. */
-    public com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails
-            getSynchronizeAutonomousDatabaseToExadataDetails() {
-        return synchronizeAutonomousDatabaseToExadataDetails;
     }
     /**
      * Optional [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
@@ -145,24 +145,6 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         private com.oracle.bmc.http.client.RequestInterceptor invocationCallback = null;
         private com.oracle.bmc.retrier.RetryConfiguration retryConfiguration = null;
 
-        /**
-         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
-         * compartment.
-         */
-        private String compartmentId = null;
-
-        /**
-         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
-         * compartment.
-         *
-         * @param compartmentId the value to set
-         * @return this builder instance
-         */
-        public Builder compartmentId(String compartmentId) {
-            this.compartmentId = compartmentId;
-            return this;
-        }
-
         /** The information to be updated. */
         private com.oracle.bmc.opsi.model.SynchronizeAutonomousDatabaseToExadataDetails
                 synchronizeAutonomousDatabaseToExadataDetails = null;
@@ -178,6 +160,24 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
                         synchronizeAutonomousDatabaseToExadataDetails) {
             this.synchronizeAutonomousDatabaseToExadataDetails =
                     synchronizeAutonomousDatabaseToExadataDetails;
+            return this;
+        }
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * compartment.
+         */
+        private String compartmentId = null;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * compartment.
+         *
+         * @param compartmentId the value to set
+         * @return this builder instance
+         */
+        public Builder compartmentId(String compartmentId) {
+            this.compartmentId = compartmentId;
             return this;
         }
 
@@ -331,9 +331,9 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
          * @return this builder instance
          */
         public Builder copy(SynchronizeAutonomousDatabaseToExadataRequest o) {
-            compartmentId(o.getCompartmentId());
             synchronizeAutonomousDatabaseToExadataDetails(
                     o.getSynchronizeAutonomousDatabaseToExadataDetails());
+            compartmentId(o.getCompartmentId());
             databaseId(o.getDatabaseId());
             id(o.getId());
             exadataInsightId(o.getExadataInsightId());
@@ -391,9 +391,9 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         public SynchronizeAutonomousDatabaseToExadataRequest buildWithoutInvocationCallback() {
             SynchronizeAutonomousDatabaseToExadataRequest request =
                     new SynchronizeAutonomousDatabaseToExadataRequest();
-            request.compartmentId = compartmentId;
             request.synchronizeAutonomousDatabaseToExadataDetails =
                     synchronizeAutonomousDatabaseToExadataDetails;
+            request.compartmentId = compartmentId;
             request.databaseId = databaseId;
             request.id = id;
             request.exadataInsightId = exadataInsightId;
@@ -401,9 +401,8 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
             request.opcRequestId = opcRequestId;
             request.opcRetryToken = opcRetryToken;
             return request;
-            // new SynchronizeAutonomousDatabaseToExadataRequest(compartmentId,
-            // synchronizeAutonomousDatabaseToExadataDetails, databaseId, id, exadataInsightId,
-            // ifMatch, opcRequestId, opcRetryToken);
+            // new
+            // SynchronizeAutonomousDatabaseToExadataRequest(synchronizeAutonomousDatabaseToExadataDetails, compartmentId, databaseId, id, exadataInsightId, ifMatch, opcRequestId, opcRetryToken);
         }
     }
 
@@ -414,9 +413,9 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
      */
     public Builder toBuilder() {
         return new Builder()
-                .compartmentId(compartmentId)
                 .synchronizeAutonomousDatabaseToExadataDetails(
                         synchronizeAutonomousDatabaseToExadataDetails)
+                .compartmentId(compartmentId)
                 .databaseId(databaseId)
                 .id(id)
                 .exadataInsightId(exadataInsightId)
@@ -439,9 +438,9 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         java.lang.StringBuilder sb = new java.lang.StringBuilder();
         sb.append("(");
         sb.append("super=").append(super.toString());
-        sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(",synchronizeAutonomousDatabaseToExadataDetails=")
                 .append(String.valueOf(this.synchronizeAutonomousDatabaseToExadataDetails));
+        sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(",databaseId=").append(String.valueOf(this.databaseId));
         sb.append(",id=").append(String.valueOf(this.id));
         sb.append(",exadataInsightId=").append(String.valueOf(this.exadataInsightId));
@@ -464,10 +463,10 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         SynchronizeAutonomousDatabaseToExadataRequest other =
                 (SynchronizeAutonomousDatabaseToExadataRequest) o;
         return super.equals(o)
-                && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(
                         this.synchronizeAutonomousDatabaseToExadataDetails,
                         other.synchronizeAutonomousDatabaseToExadataDetails)
+                && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(this.databaseId, other.databaseId)
                 && java.util.Objects.equals(this.id, other.id)
                 && java.util.Objects.equals(this.exadataInsightId, other.exadataInsightId)
@@ -482,12 +481,12 @@ public class SynchronizeAutonomousDatabaseToExadataRequest
         int result = super.hashCode();
         result =
                 (result * PRIME)
-                        + (this.compartmentId == null ? 43 : this.compartmentId.hashCode());
-        result =
-                (result * PRIME)
                         + (this.synchronizeAutonomousDatabaseToExadataDetails == null
                                 ? 43
                                 : this.synchronizeAutonomousDatabaseToExadataDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.compartmentId == null ? 43 : this.compartmentId.hashCode());
         result = (result * PRIME) + (this.databaseId == null ? 43 : this.databaseId.hashCode());
         result = (result * PRIME) + (this.id == null ? 43 : this.id.hashCode());
         result =

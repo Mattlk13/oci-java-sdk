@@ -122,6 +122,24 @@ public interface OperationsInsights extends AutoCloseable {
             ChangeAwrHubSourceCompartmentRequest request);
 
     /**
+     * Moves a Chargeback Plan insight resource from one compartment identifier to another. When
+     * provided, If-Match is checked against ETag values of the resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/ChangeChargebackPlanCompartmentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ChangeChargebackPlanCompartment API.
+     */
+    ChangeChargebackPlanCompartmentResponse changeChargebackPlanCompartment(
+            ChangeChargebackPlanCompartmentRequest request);
+
+    /**
      * Moves a DatabaseInsight resource from one compartment identifier to another. When provided,
      * If-Match is checked against ETag values of the resource.
      *
@@ -176,6 +194,7 @@ public interface OperationsInsights extends AutoCloseable {
             ChangeExadataInsightCompartmentRequest request);
 
     /**
+     * MySQL support within the OCI Ops Insights service has been deprecated as of January 29, 2026.
      * Change the connection details of an External MySQL database insight. When provided, If-Match
      * is checked against ETag values of the resource.
      *
@@ -372,6 +391,39 @@ public interface OperationsInsights extends AutoCloseable {
      *     API.
      */
     CreateAwrHubSourceResponse createAwrHubSource(CreateAwrHubSourceRequest request);
+
+    /**
+     * Create a chargeback plan resource for the resource in Ops Insights.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/CreateChargebackPlanExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateChargebackPlan API.
+     */
+    CreateChargebackPlanResponse createChargebackPlan(CreateChargebackPlanRequest request);
+
+    /**
+     * Creates a chargeback plan report for a resource in Ops Insights
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/CreateChargebackPlanReportExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     CreateChargebackPlanReport API.
+     */
+    CreateChargebackPlanReportResponse createChargebackPlanReport(
+            CreateChargebackPlanReportRequest request);
 
     /**
      * Create a Database Insight resource for a database in Operations Insights. The database will
@@ -577,6 +629,39 @@ public interface OperationsInsights extends AutoCloseable {
      *     API.
      */
     DeleteAwrHubSourceResponse deleteAwrHubSource(DeleteAwrHubSourceRequest request);
+
+    /**
+     * Deletes a chargeback plan if it's not assigned to any resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/DeleteChargebackPlanExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteChargebackPlan API.
+     */
+    DeleteChargebackPlanResponse deleteChargebackPlan(DeleteChargebackPlanRequest request);
+
+    /**
+     * Deletes a chargeback plan report if it's not assigned to any resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/DeleteChargebackPlanReportExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DeleteChargebackPlanReport API.
+     */
+    DeleteChargebackPlanReportResponse deleteChargebackPlanReport(
+            DeleteChargebackPlanReportRequest request);
 
     /**
      * Deletes a database insight. The database insight will be deleted and cannot be enabled again.
@@ -817,6 +902,24 @@ public interface OperationsInsights extends AutoCloseable {
     DisableHostInsightResponse disableHostInsight(DisableHostInsightRequest request);
 
     /**
+     * Disables a chargeback plan on an Exadata system in Operations Insights. Metering-related
+     * metric collection and analysis will be stopped.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/DisablePlanExadataInsightExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     DisablePlanExadataInsight API.
+     */
+    DisablePlanExadataInsightResponse disablePlanExadataInsight(
+            DisablePlanExadataInsightRequest request);
+
+    /**
      * Download the ADW wallet for Operations Insights Warehouse using which the Hub data is
      * exposed.
      *
@@ -921,6 +1024,24 @@ public interface OperationsInsights extends AutoCloseable {
     EnableHostInsightResponse enableHostInsight(EnableHostInsightRequest request);
 
     /**
+     * Enables a chargeback plan on an Exadata system in Operations Insights. Metering-related
+     * metric collection and analysis will be started.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/EnablePlanExadataInsightExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     EnablePlanExadataInsight API.
+     */
+    EnablePlanExadataInsightResponse enablePlanExadataInsight(
+            EnablePlanExadataInsightRequest request);
+
+    /**
      * Gets the AWR report for the specified database.
      *
      * @param request The request object containing the details to send
@@ -1016,6 +1137,55 @@ public interface OperationsInsights extends AutoCloseable {
      *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetAwrReport API.
      */
     GetAwrReportResponse getAwrReport(GetAwrReportRequest request);
+
+    /**
+     * Gets the details of the specified chargeback plan.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/GetChargebackPlanExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use GetChargebackPlan
+     *     API.
+     */
+    GetChargebackPlanResponse getChargebackPlan(GetChargebackPlanRequest request);
+
+    /**
+     * Gets the details of the specified chargeback plan plan report
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/GetChargebackPlanReportExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetChargebackPlanReport API.
+     */
+    GetChargebackPlanReportResponse getChargebackPlanReport(GetChargebackPlanReportRequest request);
+
+    /**
+     * Generates the chargeback report in csv format for a specified time interval
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/GetChargebackPlanReportContentExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetChargebackPlanReportContent API.
+     */
+    GetChargebackPlanReportContentResponse getChargebackPlanReportContent(
+            GetChargebackPlanReportContentRequest request);
 
     /**
      * Gets details of a database insight.
@@ -1586,6 +1756,39 @@ public interface OperationsInsights extends AutoCloseable {
     ListAwrSnapshotsResponse listAwrSnapshots(ListAwrSnapshotsRequest request);
 
     /**
+     * Gets a list of Ops Insights chargeback plan reports for a resource.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/ListChargebackPlanReportsExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ListChargebackPlanReports API.
+     */
+    ListChargebackPlanReportsResponse listChargebackPlanReports(
+            ListChargebackPlanReportsRequest request);
+
+    /**
+     * Gets a list of Ops Insights chargeback plans.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/ListChargebackPlansExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use ListChargebackPlans
+     *     API.
+     */
+    ListChargebackPlansResponse listChargebackPlans(ListChargebackPlansRequest request);
+
+    /**
      * Gets a list of database insight configurations based on the query parameters specified.
      * Either compartmentId or databaseInsightId query parameter must be specified. When both
      * compartmentId and compartmentIdInSubtree are specified, a list of database insight
@@ -1915,9 +2118,10 @@ public interface OperationsInsights extends AutoCloseable {
     ListSqlPlansResponse listSqlPlans(ListSqlPlansRequest request);
 
     /**
-     * Search SQL by SQL Identifier across databases in a compartment and in all sub-compartments if
-     * specified. And get the SQL Text and the details of the databases executing the SQL for a
-     * given time period.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Search SQL
+     * by SQL Identifier across databases in a compartment and in all sub-compartments if specified.
+     * And get the SQL Text and the details of the databases executing the SQL for a given time
+     * period.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3061,9 +3265,10 @@ public interface OperationsInsights extends AutoCloseable {
                     SummarizeOperationsInsightsWarehouseResourceUsageRequest request);
 
     /**
-     * Query SQL Warehouse to get the performance insights for SQLs taking greater than X% database
-     * time for a given time period across the given databases or database types in a compartment
-     * and in all sub-compartments if specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance insights for SQLs taking greater than X% database time for a
+     * given time period across the given databases or database types in a compartment and in all
+     * sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3079,8 +3284,9 @@ public interface OperationsInsights extends AutoCloseable {
     SummarizeSqlInsightsResponse summarizeSqlInsights(SummarizeSqlInsightsRequest request);
 
     /**
-     * Query SQL Warehouse to get the performance insights on the execution plans for a given SQL
-     * for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance insights on the execution plans for a given SQL for a given
+     * time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3097,8 +3303,9 @@ public interface OperationsInsights extends AutoCloseable {
             SummarizeSqlPlanInsightsRequest request);
 
     /**
-     * Query SQL Warehouse to summarize the response time distribution of query executions for a
-     * given SQL for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to summarize the response time distribution of query executions for a given SQL for
+     * a given time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3115,9 +3322,10 @@ public interface OperationsInsights extends AutoCloseable {
             SummarizeSqlResponseTimeDistributionsRequest request);
 
     /**
-     * Query SQL Warehouse to get the performance statistics for SQLs taking greater than X%
-     * database time for a given time period across the given databases or database types in a
-     * compartment and in all sub-compartments if specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics for SQLs taking greater than X% database time for
+     * a given time period across the given databases or database types in a compartment and in all
+     * sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3133,9 +3341,9 @@ public interface OperationsInsights extends AutoCloseable {
     SummarizeSqlStatisticsResponse summarizeSqlStatistics(SummarizeSqlStatisticsRequest request);
 
     /**
-     * Query SQL Warehouse to get the performance statistics time series for a given SQL across
-     * given databases for a given time period in a compartment and in all sub-compartments if
-     * specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics time series for a given SQL across given
+     * databases for a given time period in a compartment and in all sub-compartments if specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3152,8 +3360,9 @@ public interface OperationsInsights extends AutoCloseable {
             SummarizeSqlStatisticsTimeSeriesRequest request);
 
     /**
-     * Query SQL Warehouse to get the performance statistics time series for a given SQL by
-     * execution plans for a given time period. Either databaseId or id must be specified.
+     * This API was deprecated May 2024 and is no longer functional as of May 31st, 2025. Query SQL
+     * Warehouse to get the performance statistics time series for a given SQL by execution plans
+     * for a given time period. Either databaseId or id must be specified.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3171,10 +3380,9 @@ public interface OperationsInsights extends AutoCloseable {
 
     /**
      * Synchronize infrastructure details that has been missing when autonomous database onboarded
-     * in Operations Insights. Onboarded Opsi ExadataInsight resource need to be provided with
-     * compartmentId for searching infrastruture details. The query parameters, DatabaseId and
-     * DatabaseInsightId, are mutually exclusive and provided for searching Opsi resources that have
-     * been onboarded.
+     * in Ops Insights. Parameters exadataInsightId, databaseId, or databaseInsightId (id) are
+     * mutually exclusive, and scope the Ops Insights resources which are scoped for the search to
+     * find ADB-D resources missing the Exadata infrastructure details.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -3256,6 +3464,39 @@ public interface OperationsInsights extends AutoCloseable {
      *     API.
      */
     UpdateAwrHubSourceResponse updateAwrHubSource(UpdateAwrHubSourceRequest request);
+
+    /**
+     * Updates one or more attributes of the specified chargeback plan.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/UpdateChargebackPlanExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateChargebackPlan API.
+     */
+    UpdateChargebackPlanResponse updateChargebackPlan(UpdateChargebackPlanRequest request);
+
+    /**
+     * Updates one or more attributes of the specified chargeback plan report.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/opsi/UpdateChargebackPlanReportExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     UpdateChargebackPlanReport API.
+     */
+    UpdateChargebackPlanReportResponse updateChargebackPlanReport(
+            UpdateChargebackPlanReportRequest request);
 
     /**
      * Updates configuration of a database insight.

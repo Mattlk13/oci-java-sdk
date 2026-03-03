@@ -43,6 +43,294 @@ public class LustreFileStoragePaginators {
 
     /**
      * Creates a new iterable which will iterate over the responses received from the
+     * listAvailableMaintenanceScheduleStartTimes operation. This iterable will fetch more data from
+     * the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListAvailableMaintenanceScheduleStartTimesResponse>
+            listAvailableMaintenanceScheduleStartTimesResponseIterator(
+                    final ListAvailableMaintenanceScheduleStartTimesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAvailableMaintenanceScheduleStartTimesRequest.Builder,
+                ListAvailableMaintenanceScheduleStartTimesRequest,
+                ListAvailableMaintenanceScheduleStartTimesResponse>(
+                new java.util.function.Supplier<
+                        ListAvailableMaintenanceScheduleStartTimesRequest.Builder>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesRequest.Builder get() {
+                        return ListAvailableMaintenanceScheduleStartTimesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableMaintenanceScheduleStartTimesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAvailableMaintenanceScheduleStartTimesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAvailableMaintenanceScheduleStartTimesRequest.Builder>,
+                        ListAvailableMaintenanceScheduleStartTimesRequest>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAvailableMaintenanceScheduleStartTimesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableMaintenanceScheduleStartTimesRequest,
+                        ListAvailableMaintenanceScheduleStartTimesResponse>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesResponse apply(
+                            ListAvailableMaintenanceScheduleStartTimesRequest request) {
+                        return client.listAvailableMaintenanceScheduleStartTimes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.lustrefilestorage.model.AvailableMaintenanceScheduleStartTimeSummary} objects
+     * contained in responses from the listAvailableMaintenanceScheduleStartTimes operation. This
+     * iterable will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.lustrefilestorage.model.AvailableMaintenanceScheduleStartTimeSummary}
+     *     objects contained in responses received from the service.
+     */
+    public Iterable<
+                    com.oracle.bmc.lustrefilestorage.model
+                            .AvailableMaintenanceScheduleStartTimeSummary>
+            listAvailableMaintenanceScheduleStartTimesRecordIterator(
+                    final ListAvailableMaintenanceScheduleStartTimesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAvailableMaintenanceScheduleStartTimesRequest.Builder,
+                ListAvailableMaintenanceScheduleStartTimesRequest,
+                ListAvailableMaintenanceScheduleStartTimesResponse,
+                com.oracle.bmc.lustrefilestorage.model
+                        .AvailableMaintenanceScheduleStartTimeSummary>(
+                new java.util.function.Supplier<
+                        ListAvailableMaintenanceScheduleStartTimesRequest.Builder>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesRequest.Builder get() {
+                        return ListAvailableMaintenanceScheduleStartTimesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableMaintenanceScheduleStartTimesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAvailableMaintenanceScheduleStartTimesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAvailableMaintenanceScheduleStartTimesRequest.Builder>,
+                        ListAvailableMaintenanceScheduleStartTimesRequest>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAvailableMaintenanceScheduleStartTimesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableMaintenanceScheduleStartTimesRequest,
+                        ListAvailableMaintenanceScheduleStartTimesResponse>() {
+                    @Override
+                    public ListAvailableMaintenanceScheduleStartTimesResponse apply(
+                            ListAvailableMaintenanceScheduleStartTimesRequest request) {
+                        return client.listAvailableMaintenanceScheduleStartTimes(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableMaintenanceScheduleStartTimesResponse,
+                        java.util.List<
+                                com.oracle.bmc.lustrefilestorage.model
+                                        .AvailableMaintenanceScheduleStartTimeSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.lustrefilestorage.model
+                                            .AvailableMaintenanceScheduleStartTimeSummary>
+                            apply(ListAvailableMaintenanceScheduleStartTimesResponse response) {
+                        return response.getAvailableMaintenanceScheduleStartTimeCollection()
+                                .getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
+     * listAvailableOverrideMaintenanceStartTimes operation. This iterable will fetch more data from
+     * the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the responses
+     *     received from the service.
+     */
+    public Iterable<ListAvailableOverrideMaintenanceStartTimesResponse>
+            listAvailableOverrideMaintenanceStartTimesResponseIterator(
+                    final ListAvailableOverrideMaintenanceStartTimesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseIterable<
+                ListAvailableOverrideMaintenanceStartTimesRequest.Builder,
+                ListAvailableOverrideMaintenanceStartTimesRequest,
+                ListAvailableOverrideMaintenanceStartTimesResponse>(
+                new java.util.function.Supplier<
+                        ListAvailableOverrideMaintenanceStartTimesRequest.Builder>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesRequest.Builder get() {
+                        return ListAvailableOverrideMaintenanceStartTimesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableOverrideMaintenanceStartTimesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAvailableOverrideMaintenanceStartTimesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAvailableOverrideMaintenanceStartTimesRequest.Builder>,
+                        ListAvailableOverrideMaintenanceStartTimesRequest>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAvailableOverrideMaintenanceStartTimesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableOverrideMaintenanceStartTimesRequest,
+                        ListAvailableOverrideMaintenanceStartTimesResponse>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesResponse apply(
+                            ListAvailableOverrideMaintenanceStartTimesRequest request) {
+                        return client.listAvailableOverrideMaintenanceStartTimes(request);
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the {@link
+     * com.oracle.bmc.lustrefilestorage.model.AvailableOverrideMaintenanceStartTimeSummary} objects
+     * contained in responses from the listAvailableOverrideMaintenanceStartTimes operation. This
+     * iterable will fetch more data from the server as needed.
+     *
+     * @param request a request which can be sent to the service operation
+     * @return an {@link java.lang.Iterable} which can be used to iterate over the {@link
+     *     com.oracle.bmc.lustrefilestorage.model.AvailableOverrideMaintenanceStartTimeSummary}
+     *     objects contained in responses received from the service.
+     */
+    public Iterable<
+                    com.oracle.bmc.lustrefilestorage.model
+                            .AvailableOverrideMaintenanceStartTimeSummary>
+            listAvailableOverrideMaintenanceStartTimesRecordIterator(
+                    final ListAvailableOverrideMaintenanceStartTimesRequest request) {
+        return new com.oracle.bmc.paginator.internal.ResponseRecordIterable<
+                ListAvailableOverrideMaintenanceStartTimesRequest.Builder,
+                ListAvailableOverrideMaintenanceStartTimesRequest,
+                ListAvailableOverrideMaintenanceStartTimesResponse,
+                com.oracle.bmc.lustrefilestorage.model
+                        .AvailableOverrideMaintenanceStartTimeSummary>(
+                new java.util.function.Supplier<
+                        ListAvailableOverrideMaintenanceStartTimesRequest.Builder>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesRequest.Builder get() {
+                        return ListAvailableOverrideMaintenanceStartTimesRequest.builder()
+                                .copy(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableOverrideMaintenanceStartTimesResponse, String>() {
+                    @Override
+                    public String apply(
+                            ListAvailableOverrideMaintenanceStartTimesResponse response) {
+                        return response.getOpcNextPage();
+                    }
+                },
+                new java.util.function.Function<
+                        com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                ListAvailableOverrideMaintenanceStartTimesRequest.Builder>,
+                        ListAvailableOverrideMaintenanceStartTimesRequest>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesRequest apply(
+                            com.oracle.bmc.paginator.internal.RequestBuilderAndToken<
+                                            ListAvailableOverrideMaintenanceStartTimesRequest
+                                                    .Builder>
+                                    input) {
+                        if (input.getNextPageToken() == null) {
+                            return input.getRequestBuilder().build();
+                        } else {
+                            return input.getRequestBuilder()
+                                    .page(input.getNextPageToken().orElse(null))
+                                    .build();
+                        }
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableOverrideMaintenanceStartTimesRequest,
+                        ListAvailableOverrideMaintenanceStartTimesResponse>() {
+                    @Override
+                    public ListAvailableOverrideMaintenanceStartTimesResponse apply(
+                            ListAvailableOverrideMaintenanceStartTimesRequest request) {
+                        return client.listAvailableOverrideMaintenanceStartTimes(request);
+                    }
+                },
+                new java.util.function.Function<
+                        ListAvailableOverrideMaintenanceStartTimesResponse,
+                        java.util.List<
+                                com.oracle.bmc.lustrefilestorage.model
+                                        .AvailableOverrideMaintenanceStartTimeSummary>>() {
+                    @Override
+                    public java.util.List<
+                                    com.oracle.bmc.lustrefilestorage.model
+                                            .AvailableOverrideMaintenanceStartTimeSummary>
+                            apply(ListAvailableOverrideMaintenanceStartTimesResponse response) {
+                        return response.getAvailableOverrideMaintenanceStartTimeCollection()
+                                .getItems();
+                    }
+                });
+    }
+
+    /**
+     * Creates a new iterable which will iterate over the responses received from the
      * listLustreFileSystems operation. This iterable will fetch more data from the server as
      * needed.
      *

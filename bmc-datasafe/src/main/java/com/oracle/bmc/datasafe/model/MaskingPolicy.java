@@ -42,6 +42,7 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
         "preMaskingScript",
         "postMaskingScript",
         "columnSource",
+        "areTargetCredentialsRequired",
         "freeformTags",
         "definedTags"
     })
@@ -61,6 +62,7 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
             String preMaskingScript,
             String postMaskingScript,
             ColumnSourceDetails columnSource,
+            Boolean areTargetCredentialsRequired,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
@@ -79,6 +81,7 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
         this.preMaskingScript = preMaskingScript;
         this.postMaskingScript = postMaskingScript;
         this.columnSource = columnSource;
+        this.areTargetCredentialsRequired = areTargetCredentialsRequired;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -377,6 +380,25 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
             return this;
         }
         /**
+         * Specifies whether target database credentials are required to perform masking with this
+         * policy
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("areTargetCredentialsRequired")
+        private Boolean areTargetCredentialsRequired;
+
+        /**
+         * Specifies whether target database credentials are required to perform masking with this
+         * policy
+         *
+         * @param areTargetCredentialsRequired the value to set
+         * @return this builder
+         */
+        public Builder areTargetCredentialsRequired(Boolean areTargetCredentialsRequired) {
+            this.areTargetCredentialsRequired = areTargetCredentialsRequired;
+            this.__explicitlySet__.add("areTargetCredentialsRequired");
+            return this;
+        }
+        /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
          * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
@@ -447,6 +469,7 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
                             this.preMaskingScript,
                             this.postMaskingScript,
                             this.columnSource,
+                            this.areTargetCredentialsRequired,
                             this.freeformTags,
                             this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -501,6 +524,9 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
             }
             if (model.wasPropertyExplicitlySet("columnSource")) {
                 this.columnSource(model.getColumnSource());
+            }
+            if (model.wasPropertyExplicitlySet("areTargetCredentialsRequired")) {
+                this.areTargetCredentialsRequired(model.getAreTargetCredentialsRequired());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -833,6 +859,23 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
     }
 
     /**
+     * Specifies whether target database credentials are required to perform masking with this
+     * policy
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("areTargetCredentialsRequired")
+    private final Boolean areTargetCredentialsRequired;
+
+    /**
+     * Specifies whether target database credentials are required to perform masking with this
+     * policy
+     *
+     * @return the value
+     */
+    public Boolean getAreTargetCredentialsRequired() {
+        return areTargetCredentialsRequired;
+    }
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
      * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
@@ -907,6 +950,8 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
         sb.append(", preMaskingScript=").append(String.valueOf(this.preMaskingScript));
         sb.append(", postMaskingScript=").append(String.valueOf(this.postMaskingScript));
         sb.append(", columnSource=").append(String.valueOf(this.columnSource));
+        sb.append(", areTargetCredentialsRequired=")
+                .append(String.valueOf(this.areTargetCredentialsRequired));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -939,6 +984,8 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
                 && java.util.Objects.equals(this.preMaskingScript, other.preMaskingScript)
                 && java.util.Objects.equals(this.postMaskingScript, other.postMaskingScript)
                 && java.util.Objects.equals(this.columnSource, other.columnSource)
+                && java.util.Objects.equals(
+                        this.areTargetCredentialsRequired, other.areTargetCredentialsRequired)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -985,6 +1032,11 @@ public final class MaskingPolicy extends com.oracle.bmc.http.client.internal.Exp
                 (result * PRIME)
                         + (this.postMaskingScript == null ? 43 : this.postMaskingScript.hashCode());
         result = (result * PRIME) + (this.columnSource == null ? 43 : this.columnSource.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.areTargetCredentialsRequired == null
+                                ? 43
+                                : this.areTargetCredentialsRequired.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

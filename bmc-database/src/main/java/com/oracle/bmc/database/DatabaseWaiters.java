@@ -9754,6 +9754,69 @@ public class DatabaseWaiters {
      * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
      */
     public com.oracle.bmc.waiter.Waiter<
+                    ExecuteDbSystemOsPatchRequest, ExecuteDbSystemOsPatchResponse>
+            forExecuteDbSystemOsPatch(ExecuteDbSystemOsPatchRequest request) {
+        return forExecuteDbSystemOsPatch(
+                request,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_TERMINATION_STRATEGY,
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_DELAY_STRATEGY);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    ExecuteDbSystemOsPatchRequest, ExecuteDbSystemOsPatchResponse>
+            forExecuteDbSystemOsPatch(
+                    ExecuteDbSystemOsPatchRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        if (workRequestClient == null) {
+            throw new IllegalStateException(
+                    "A WorkRequestClient must be supplied to this waiter for this operation");
+        }
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                new java.util.concurrent.Callable<ExecuteDbSystemOsPatchResponse>() {
+                    @Override
+                    public ExecuteDbSystemOsPatchResponse call() throws Exception {
+                        final ExecuteDbSystemOsPatchResponse response =
+                                client.executeDbSystemOsPatch(request);
+
+                        if (response.getOpcWorkRequestId() != null) {
+                            final com.oracle.bmc.workrequests.requests.GetWorkRequestRequest
+                                    getWorkRequestRequest =
+                                            com.oracle.bmc.workrequests.requests
+                                                    .GetWorkRequestRequest.builder()
+                                                    .workRequestId(response.getOpcWorkRequestId())
+                                                    .build();
+                            workRequestClient
+                                    .getWaiters()
+                                    .forWorkRequest(
+                                            getWorkRequestRequest,
+                                            terminationStrategy,
+                                            delayStrategy)
+                                    .execute();
+                        }
+                        return response;
+                    }
+                },
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @return a new {@link com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
                     FailOverAutonomousDatabaseRequest, FailOverAutonomousDatabaseResponse>
             forFailOverAutonomousDatabase(FailOverAutonomousDatabaseRequest request) {
         return forFailOverAutonomousDatabase(
@@ -13311,6 +13374,122 @@ public class DatabaseWaiters {
                         },
                         targetStatesSet.contains(
                                 com.oracle.bmc.database.model.DbSystem.LifecycleState.Terminated)),
+                request);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the default configuration.
+     *
+     * @param request the request to send
+     * @param targetStates the desired states to wait for. If multiple states are provided then the
+     *     waiter will return once the resource reaches any of the provided states
+     * @return a new {@code Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetDbSystemOsPatchHistoryEntryRequest, GetDbSystemOsPatchHistoryEntryResponse>
+            forDbSystemOsPatchHistoryEntry(
+                    GetDbSystemOsPatchHistoryEntryRequest request,
+                    com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.LifecycleState...
+                            targetStates) {
+        com.oracle.bmc.util.internal.Validate.notEmpty(
+                targetStates, "At least one targetState must be provided");
+        com.oracle.bmc.util.internal.Validate.noNullElements(
+                targetStates, "Null targetState values are not permitted");
+
+        return forDbSystemOsPatchHistoryEntry(
+                com.oracle.bmc.waiter.Waiters.DEFAULT_POLLING_WAITER, request, targetStates);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param targetState the desired state to wait for
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetDbSystemOsPatchHistoryEntryRequest, GetDbSystemOsPatchHistoryEntryResponse>
+            forDbSystemOsPatchHistoryEntry(
+                    GetDbSystemOsPatchHistoryEntryRequest request,
+                    com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.LifecycleState
+                            targetState,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy) {
+        com.oracle.bmc.util.internal.Validate.notNull(
+                targetState, "The targetState cannot be null");
+
+        return forDbSystemOsPatchHistoryEntry(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetState);
+    }
+
+    /**
+     * Creates a new {@link com.oracle.bmc.waiter.Waiter} using the provided configuration.
+     *
+     * @param request the request to send
+     * @param terminationStrategy the {@link com.oracle.bmc.waiter.TerminationStrategy} to use
+     * @param delayStrategy the {@link com.oracle.bmc.waiter.DelayStrategy} to use
+     * @param targetStates the desired states to wait for. The waiter will return once the resource
+     *     reaches any of the provided states
+     * @return a new {@code com.oracle.bmc.waiter.Waiter} instance
+     */
+    public com.oracle.bmc.waiter.Waiter<
+                    GetDbSystemOsPatchHistoryEntryRequest, GetDbSystemOsPatchHistoryEntryResponse>
+            forDbSystemOsPatchHistoryEntry(
+                    GetDbSystemOsPatchHistoryEntryRequest request,
+                    com.oracle.bmc.waiter.TerminationStrategy terminationStrategy,
+                    com.oracle.bmc.waiter.DelayStrategy delayStrategy,
+                    com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.LifecycleState...
+                            targetStates) {
+        com.oracle.bmc.util.internal.Validate.notEmpty(
+                targetStates, "At least one target state must be provided");
+        com.oracle.bmc.util.internal.Validate.noNullElements(
+                targetStates, "Null target states are not permitted");
+
+        return forDbSystemOsPatchHistoryEntry(
+                com.oracle.bmc.waiter.Waiters.newWaiter(terminationStrategy, delayStrategy),
+                request,
+                targetStates);
+    }
+
+    // Helper method to create a new Waiter for DbSystemOsPatchHistoryEntry.
+    private com.oracle.bmc.waiter.Waiter<
+                    GetDbSystemOsPatchHistoryEntryRequest, GetDbSystemOsPatchHistoryEntryResponse>
+            forDbSystemOsPatchHistoryEntry(
+                    com.oracle.bmc.waiter.BmcGenericWaiter waiter,
+                    final GetDbSystemOsPatchHistoryEntryRequest request,
+                    final com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.LifecycleState
+                                    ...
+                            targetStates) {
+        final java.util.Set<
+                        com.oracle.bmc.database.model.DbSystemOsPatchHistoryEntry.LifecycleState>
+                targetStatesSet = new java.util.HashSet<>(java.util.Arrays.asList(targetStates));
+
+        return new com.oracle.bmc.waiter.internal.SimpleWaiterImpl<>(
+                executorService,
+                waiter.toCallable(
+                        () -> request,
+                        new java.util.function.Function<
+                                GetDbSystemOsPatchHistoryEntryRequest,
+                                GetDbSystemOsPatchHistoryEntryResponse>() {
+                            @Override
+                            public GetDbSystemOsPatchHistoryEntryResponse apply(
+                                    GetDbSystemOsPatchHistoryEntryRequest request) {
+                                return client.getDbSystemOsPatchHistoryEntry(request);
+                            }
+                        },
+                        new java.util.function.Predicate<GetDbSystemOsPatchHistoryEntryResponse>() {
+                            @Override
+                            public boolean test(GetDbSystemOsPatchHistoryEntryResponse response) {
+                                return targetStatesSet.contains(
+                                        response.getDbSystemOsPatchHistoryEntry()
+                                                .getLifecycleState());
+                            }
+                        },
+                        false),
                 request);
     }
 

@@ -23,22 +23,11 @@ package com.oracle.bmc.fusionapps.model;
 public final class CreateFusionEnvironmentAdminUserDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({
-        "username",
-        "password",
-        "emailAddress",
-        "firstName",
-        "lastName"
-    })
+    @java.beans.ConstructorProperties({"username", "emailAddress", "firstName", "lastName"})
     public CreateFusionEnvironmentAdminUserDetails(
-            String username,
-            String password,
-            String emailAddress,
-            String firstName,
-            String lastName) {
+            String username, String emailAddress, String firstName, String lastName) {
         super();
         this.username = username;
-        this.password = password;
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,21 +48,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
         public Builder username(String username) {
             this.username = username;
             this.__explicitlySet__.add("username");
-            return this;
-        }
-        /** The password for the administrator. */
-        @com.fasterxml.jackson.annotation.JsonProperty("password")
-        private String password;
-
-        /**
-         * The password for the administrator.
-         *
-         * @param password the value to set
-         * @return this builder
-         */
-        public Builder password(String password) {
-            this.password = password;
-            this.__explicitlySet__.add("password");
             return this;
         }
         /** The email address for the administrator. */
@@ -128,11 +102,7 @@ public final class CreateFusionEnvironmentAdminUserDetails
         public CreateFusionEnvironmentAdminUserDetails build() {
             CreateFusionEnvironmentAdminUserDetails model =
                     new CreateFusionEnvironmentAdminUserDetails(
-                            this.username,
-                            this.password,
-                            this.emailAddress,
-                            this.firstName,
-                            this.lastName);
+                            this.username, this.emailAddress, this.firstName, this.lastName);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -143,9 +113,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
         public Builder copy(CreateFusionEnvironmentAdminUserDetails model) {
             if (model.wasPropertyExplicitlySet("username")) {
                 this.username(model.getUsername());
-            }
-            if (model.wasPropertyExplicitlySet("password")) {
-                this.password(model.getPassword());
             }
             if (model.wasPropertyExplicitlySet("emailAddress")) {
                 this.emailAddress(model.getEmailAddress());
@@ -180,19 +147,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
      */
     public String getUsername() {
         return username;
-    }
-
-    /** The password for the administrator. */
-    @com.fasterxml.jackson.annotation.JsonProperty("password")
-    private final String password;
-
-    /**
-     * The password for the administrator.
-     *
-     * @return the value
-     */
-    public String getPassword() {
-        return password;
     }
 
     /** The email address for the administrator. */
@@ -250,7 +204,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
         sb.append("CreateFusionEnvironmentAdminUserDetails(");
         sb.append("super=").append(super.toString());
         sb.append("username=").append(String.valueOf(this.username));
-        sb.append(", password=").append("<redacted>");
         sb.append(", emailAddress=").append(String.valueOf(this.emailAddress));
         sb.append(", firstName=").append(String.valueOf(this.firstName));
         sb.append(", lastName=").append(String.valueOf(this.lastName));
@@ -269,7 +222,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
 
         CreateFusionEnvironmentAdminUserDetails other = (CreateFusionEnvironmentAdminUserDetails) o;
         return java.util.Objects.equals(this.username, other.username)
-                && java.util.Objects.equals(this.password, other.password)
                 && java.util.Objects.equals(this.emailAddress, other.emailAddress)
                 && java.util.Objects.equals(this.firstName, other.firstName)
                 && java.util.Objects.equals(this.lastName, other.lastName)
@@ -281,7 +233,6 @@ public final class CreateFusionEnvironmentAdminUserDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.username == null ? 43 : this.username.hashCode());
-        result = (result * PRIME) + (this.password == null ? 43 : this.password.hashCode());
         result = (result * PRIME) + (this.emailAddress == null ? 43 : this.emailAddress.hashCode());
         result = (result * PRIME) + (this.firstName == null ? 43 : this.firstName.hashCode());
         result = (result * PRIME) + (this.lastName == null ? 43 : this.lastName.hashCode());

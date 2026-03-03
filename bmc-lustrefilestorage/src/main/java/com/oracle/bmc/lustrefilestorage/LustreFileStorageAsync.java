@@ -246,6 +246,43 @@ public interface LustreFileStorageAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Gets the list of available maintenance schedule start times for both Create and Update
+     * operation
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAvailableMaintenanceScheduleStartTimesResponse>
+            listAvailableMaintenanceScheduleStartTimes(
+                    ListAvailableMaintenanceScheduleStartTimesRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListAvailableMaintenanceScheduleStartTimesRequest,
+                                    ListAvailableMaintenanceScheduleStartTimesResponse>
+                            handler);
+
+    /**
+     * Gets the list of available maintenance start times for Override operation
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListAvailableOverrideMaintenanceStartTimesResponse>
+            listAvailableOverrideMaintenanceStartTimes(
+                    ListAvailableOverrideMaintenanceStartTimesRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListAvailableOverrideMaintenanceStartTimesRequest,
+                                    ListAvailableOverrideMaintenanceStartTimesResponse>
+                            handler);
+
+    /**
      * Gets a list of Lustre file systems.
      *
      * @param request The request object containing the details to send
@@ -338,6 +375,22 @@ public interface LustreFileStorageAsync extends AutoCloseable {
     java.util.concurrent.Future<ListWorkRequestsResponse> listWorkRequests(
             ListWorkRequestsRequest request,
             com.oracle.bmc.responses.AsyncHandler<ListWorkRequestsRequest, ListWorkRequestsResponse>
+                    handler);
+
+    /**
+     * Overrides the upcoming maintenance to the value provided by user
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<OverrideMaintenanceResponse> overrideMaintenance(
+            OverrideMaintenanceRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            OverrideMaintenanceRequest, OverrideMaintenanceResponse>
                     handler);
 
     /**

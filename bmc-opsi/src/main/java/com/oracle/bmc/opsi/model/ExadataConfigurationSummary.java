@@ -46,7 +46,9 @@ public class ExadataConfigurationSummary
         "exadataRackType",
         "definedTags",
         "freeformTags",
-        "vmclusterDetails"
+        "vmclusterDetails",
+        "exadataShape",
+        "chargebackPlanDetails"
     })
     protected ExadataConfigurationSummary(
             String exadataInsightId,
@@ -57,7 +59,9 @@ public class ExadataConfigurationSummary
             ExadataRackType exadataRackType,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, String> freeformTags,
-            java.util.List<VmClusterSummary> vmclusterDetails) {
+            java.util.List<VmClusterSummary> vmclusterDetails,
+            String exadataShape,
+            ChargebackPlanDetails chargebackPlanDetails) {
         super();
         this.exadataInsightId = exadataInsightId;
         this.compartmentId = compartmentId;
@@ -68,6 +72,8 @@ public class ExadataConfigurationSummary
         this.definedTags = definedTags;
         this.freeformTags = freeformTags;
         this.vmclusterDetails = vmclusterDetails;
+        this.exadataShape = exadataShape;
+        this.chargebackPlanDetails = chargebackPlanDetails;
     }
 
     /**
@@ -207,6 +213,26 @@ public class ExadataConfigurationSummary
         return vmclusterDetails;
     }
 
+    /** The shape of the Exadata Infrastructure. */
+    @com.fasterxml.jackson.annotation.JsonProperty("exadataShape")
+    private final String exadataShape;
+
+    /**
+     * The shape of the Exadata Infrastructure.
+     *
+     * @return the value
+     */
+    public String getExadataShape() {
+        return exadataShape;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonProperty("chargebackPlanDetails")
+    private final ChargebackPlanDetails chargebackPlanDetails;
+
+    public ChargebackPlanDetails getChargebackPlanDetails() {
+        return chargebackPlanDetails;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -231,6 +257,8 @@ public class ExadataConfigurationSummary
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", vmclusterDetails=").append(String.valueOf(this.vmclusterDetails));
+        sb.append(", exadataShape=").append(String.valueOf(this.exadataShape));
+        sb.append(", chargebackPlanDetails=").append(String.valueOf(this.chargebackPlanDetails));
         sb.append(")");
         return sb.toString();
     }
@@ -254,6 +282,8 @@ public class ExadataConfigurationSummary
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.vmclusterDetails, other.vmclusterDetails)
+                && java.util.Objects.equals(this.exadataShape, other.exadataShape)
+                && java.util.Objects.equals(this.chargebackPlanDetails, other.chargebackPlanDetails)
                 && super.equals(other);
     }
 
@@ -282,6 +312,12 @@ public class ExadataConfigurationSummary
         result =
                 (result * PRIME)
                         + (this.vmclusterDetails == null ? 43 : this.vmclusterDetails.hashCode());
+        result = (result * PRIME) + (this.exadataShape == null ? 43 : this.exadataShape.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.chargebackPlanDetails == null
+                                ? 43
+                                : this.chargebackPlanDetails.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }
