@@ -49,6 +49,9 @@ public final class EsxiHostSummary
         "isBillingContinuationInProgress",
         "isBillingSwappingInProgress",
         "datastoreClusterIds",
+        "primaryVnicMacAddress",
+        "vcfByolAllocationId",
+        "isVsanByolEnabled",
         "freeformTags",
         "definedTags",
         "systemTags"
@@ -80,6 +83,9 @@ public final class EsxiHostSummary
             Boolean isBillingContinuationInProgress,
             Boolean isBillingSwappingInProgress,
             java.util.List<String> datastoreClusterIds,
+            String primaryVnicMacAddress,
+            String vcfByolAllocationId,
+            Boolean isVsanByolEnabled,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, java.util.Map<String, Object>> systemTags) {
@@ -110,6 +116,9 @@ public final class EsxiHostSummary
         this.isBillingContinuationInProgress = isBillingContinuationInProgress;
         this.isBillingSwappingInProgress = isBillingSwappingInProgress;
         this.datastoreClusterIds = datastoreClusterIds;
+        this.primaryVnicMacAddress = primaryVnicMacAddress;
+        this.vcfByolAllocationId = vcfByolAllocationId;
+        this.isVsanByolEnabled = isVsanByolEnabled;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.systemTags = systemTags;
@@ -603,6 +612,55 @@ public final class EsxiHostSummary
             this.__explicitlySet__.add("datastoreClusterIds");
             return this;
         }
+        /** MAC address of ESXi host's compute instance primary VNIC. */
+        @com.fasterxml.jackson.annotation.JsonProperty("primaryVnicMacAddress")
+        private String primaryVnicMacAddress;
+
+        /**
+         * MAC address of ESXi host's compute instance primary VNIC.
+         *
+         * @param primaryVnicMacAddress the value to set
+         * @return this builder
+         */
+        public Builder primaryVnicMacAddress(String primaryVnicMacAddress) {
+            this.primaryVnicMacAddress = primaryVnicMacAddress;
+            this.__explicitlySet__.add("primaryVnicMacAddress");
+            return this;
+        }
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * Byol Allocation for VCF (VMware Cloud Foundation) deployment.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("vcfByolAllocationId")
+        private String vcfByolAllocationId;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * Byol Allocation for VCF (VMware Cloud Foundation) deployment.
+         *
+         * @param vcfByolAllocationId the value to set
+         * @return this builder
+         */
+        public Builder vcfByolAllocationId(String vcfByolAllocationId) {
+            this.vcfByolAllocationId = vcfByolAllocationId;
+            this.__explicitlySet__.add("vcfByolAllocationId");
+            return this;
+        }
+        /** Indicates whether this host embedded VMware vSAN with BYOL Allocation. */
+        @com.fasterxml.jackson.annotation.JsonProperty("isVsanByolEnabled")
+        private Boolean isVsanByolEnabled;
+
+        /**
+         * Indicates whether this host embedded VMware vSAN with BYOL Allocation.
+         *
+         * @param isVsanByolEnabled the value to set
+         * @return this builder
+         */
+        public Builder isVsanByolEnabled(Boolean isVsanByolEnabled) {
+            this.isVsanByolEnabled = isVsanByolEnabled;
+            this.__explicitlySet__.add("isVsanByolEnabled");
+            return this;
+        }
         /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
@@ -706,6 +764,9 @@ public final class EsxiHostSummary
                             this.isBillingContinuationInProgress,
                             this.isBillingSwappingInProgress,
                             this.datastoreClusterIds,
+                            this.primaryVnicMacAddress,
+                            this.vcfByolAllocationId,
+                            this.isVsanByolEnabled,
                             this.freeformTags,
                             this.definedTags,
                             this.systemTags);
@@ -794,6 +855,15 @@ public final class EsxiHostSummary
             }
             if (model.wasPropertyExplicitlySet("datastoreClusterIds")) {
                 this.datastoreClusterIds(model.getDatastoreClusterIds());
+            }
+            if (model.wasPropertyExplicitlySet("primaryVnicMacAddress")) {
+                this.primaryVnicMacAddress(model.getPrimaryVnicMacAddress());
+            }
+            if (model.wasPropertyExplicitlySet("vcfByolAllocationId")) {
+                this.vcfByolAllocationId(model.getVcfByolAllocationId());
+            }
+            if (model.wasPropertyExplicitlySet("isVsanByolEnabled")) {
+                this.isVsanByolEnabled(model.getIsVsanByolEnabled());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -1249,6 +1319,49 @@ public final class EsxiHostSummary
         return datastoreClusterIds;
     }
 
+    /** MAC address of ESXi host's compute instance primary VNIC. */
+    @com.fasterxml.jackson.annotation.JsonProperty("primaryVnicMacAddress")
+    private final String primaryVnicMacAddress;
+
+    /**
+     * MAC address of ESXi host's compute instance primary VNIC.
+     *
+     * @return the value
+     */
+    public String getPrimaryVnicMacAddress() {
+        return primaryVnicMacAddress;
+    }
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Byol
+     * Allocation for VCF (VMware Cloud Foundation) deployment.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("vcfByolAllocationId")
+    private final String vcfByolAllocationId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Byol
+     * Allocation for VCF (VMware Cloud Foundation) deployment.
+     *
+     * @return the value
+     */
+    public String getVcfByolAllocationId() {
+        return vcfByolAllocationId;
+    }
+
+    /** Indicates whether this host embedded VMware vSAN with BYOL Allocation. */
+    @com.fasterxml.jackson.annotation.JsonProperty("isVsanByolEnabled")
+    private final Boolean isVsanByolEnabled;
+
+    /**
+     * Indicates whether this host embedded VMware vSAN with BYOL Allocation.
+     *
+     * @return the value
+     */
+    public Boolean getIsVsanByolEnabled() {
+        return isVsanByolEnabled;
+    }
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
@@ -1357,6 +1470,9 @@ public final class EsxiHostSummary
         sb.append(", isBillingSwappingInProgress=")
                 .append(String.valueOf(this.isBillingSwappingInProgress));
         sb.append(", datastoreClusterIds=").append(String.valueOf(this.datastoreClusterIds));
+        sb.append(", primaryVnicMacAddress=").append(String.valueOf(this.primaryVnicMacAddress));
+        sb.append(", vcfByolAllocationId=").append(String.valueOf(this.vcfByolAllocationId));
+        sb.append(", isVsanByolEnabled=").append(String.valueOf(this.isVsanByolEnabled));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", systemTags=").append(String.valueOf(this.systemTags));
@@ -1405,6 +1521,9 @@ public final class EsxiHostSummary
                 && java.util.Objects.equals(
                         this.isBillingSwappingInProgress, other.isBillingSwappingInProgress)
                 && java.util.Objects.equals(this.datastoreClusterIds, other.datastoreClusterIds)
+                && java.util.Objects.equals(this.primaryVnicMacAddress, other.primaryVnicMacAddress)
+                && java.util.Objects.equals(this.vcfByolAllocationId, other.vcfByolAllocationId)
+                && java.util.Objects.equals(this.isVsanByolEnabled, other.isVsanByolEnabled)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.systemTags, other.systemTags)
@@ -1503,6 +1622,19 @@ public final class EsxiHostSummary
                         + (this.datastoreClusterIds == null
                                 ? 43
                                 : this.datastoreClusterIds.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.primaryVnicMacAddress == null
+                                ? 43
+                                : this.primaryVnicMacAddress.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.vcfByolAllocationId == null
+                                ? 43
+                                : this.vcfByolAllocationId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.isVsanByolEnabled == null ? 43 : this.isVsanByolEnabled.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.systemTags == null ? 43 : this.systemTags.hashCode());

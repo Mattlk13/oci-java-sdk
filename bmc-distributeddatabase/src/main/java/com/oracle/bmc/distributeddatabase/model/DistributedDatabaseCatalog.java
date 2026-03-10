@@ -24,7 +24,10 @@ package com.oracle.bmc.distributeddatabase.model;
 @com.fasterxml.jackson.annotation.JsonSubTypes({
     @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
             value = DistributedDatabaseCatalogWithExadbXs.class,
-            name = "EXADB_XS")
+            name = "EXADB_XS"),
+    @com.fasterxml.jackson.annotation.JsonSubTypes.Type(
+            value = DistributedDatabaseCatalogWithExadbXsNewVaultAndCluster.class,
+            name = "NEW_VAULT_AND_CLUSTER")
 })
 @com.fasterxml.jackson.annotation.JsonFilter(
         com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel.EXPLICITLY_SET_FILTER_NAME)
@@ -129,11 +132,16 @@ public class DistributedDatabaseCatalog
     }
 
     /**
-     * The source of Globally distributed database type: Use EXADB_XS for the Globally distributed
-     * database with Exascale based distributed database.
+     * Type of Globally distributed database Shard or Catalog. Use NEW_VAULT_AND_CLUSTER for a
+     * Globally distributed database on Exascale with new vaults and clusters created from scratch.
+     * Use EXISTING_CLUSTER for a Globally distributed database on Exascale based on pre-existing
+     * clusters. EXADB_XS is currently the same as EXISTING_CLUSTER and will be deprecated after the
+     * deprecation cycle.
      */
     public enum Source implements com.oracle.bmc.http.internal.BmcEnum {
         ExadbXs("EXADB_XS"),
+        NewVaultAndCluster("NEW_VAULT_AND_CLUSTER"),
+        ExistingCluster("EXISTING_CLUSTER"),
 
         /**
          * This value is used if a service returns a value for this enum that is not recognized by

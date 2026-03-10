@@ -61,6 +61,62 @@ public class ListWorkRequestErrorsRequest
     public Integer getLimit() {
         return limit;
     }
+    /**
+     * The field to sort by. Only one sort order may be provided. Default order for timestamp is
+     * descending.
+     */
+    private SortBy sortBy;
+
+    /**
+     * The field to sort by. Only one sort order may be provided. Default order for timestamp is
+     * descending.
+     */
+    public enum SortBy implements com.oracle.bmc.http.internal.BmcEnum {
+        Timestamp("timestamp"),
+        ;
+
+        private final String value;
+        private static java.util.Map<String, SortBy> map;
+
+        static {
+            map = new java.util.HashMap<>();
+            for (SortBy v : SortBy.values()) {
+                map.put(v.getValue(), v);
+            }
+        }
+
+        SortBy(String value) {
+            this.value = value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @com.fasterxml.jackson.annotation.JsonCreator
+        public static SortBy create(String key) {
+            if (map.containsKey(key)) {
+                return map.get(key);
+            }
+            throw new IllegalArgumentException("Invalid SortBy: " + key);
+        }
+    };
+
+    /**
+     * The field to sort by. Only one sort order may be provided. Default order for timestamp is
+     * descending.
+     */
+    public SortBy getSortBy() {
+        return sortBy;
+    }
+    /** The sort order to use, either ascending or descending order. */
+    private com.oracle.bmc.email.model.SortOrder sortOrder;
+
+    /** The sort order to use, either ascending or descending order. */
+    public com.oracle.bmc.email.model.SortOrder getSortOrder() {
+        return sortOrder;
+    }
 
     public static class Builder
             implements com.oracle.bmc.requests.BmcRequest.Builder<
@@ -139,6 +195,38 @@ public class ListWorkRequestErrorsRequest
         }
 
         /**
+         * The field to sort by. Only one sort order may be provided. Default order for timestamp is
+         * descending.
+         */
+        private SortBy sortBy = null;
+
+        /**
+         * The field to sort by. Only one sort order may be provided. Default order for timestamp is
+         * descending.
+         *
+         * @param sortBy the value to set
+         * @return this builder instance
+         */
+        public Builder sortBy(SortBy sortBy) {
+            this.sortBy = sortBy;
+            return this;
+        }
+
+        /** The sort order to use, either ascending or descending order. */
+        private com.oracle.bmc.email.model.SortOrder sortOrder = null;
+
+        /**
+         * The sort order to use, either ascending or descending order.
+         *
+         * @param sortOrder the value to set
+         * @return this builder instance
+         */
+        public Builder sortOrder(com.oracle.bmc.email.model.SortOrder sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+
+        /**
          * Set the invocation callback for the request to be built.
          *
          * @param invocationCallback the invocation callback to be set for the request
@@ -172,6 +260,8 @@ public class ListWorkRequestErrorsRequest
             opcRequestId(o.getOpcRequestId());
             page(o.getPage());
             limit(o.getLimit());
+            sortBy(o.getSortBy());
+            sortOrder(o.getSortOrder());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;
@@ -210,8 +300,11 @@ public class ListWorkRequestErrorsRequest
             request.opcRequestId = opcRequestId;
             request.page = page;
             request.limit = limit;
+            request.sortBy = sortBy;
+            request.sortOrder = sortOrder;
             return request;
-            // new ListWorkRequestErrorsRequest(workRequestId, opcRequestId, page, limit);
+            // new ListWorkRequestErrorsRequest(workRequestId, opcRequestId, page, limit, sortBy,
+            // sortOrder);
         }
     }
 
@@ -225,7 +318,9 @@ public class ListWorkRequestErrorsRequest
                 .workRequestId(workRequestId)
                 .opcRequestId(opcRequestId)
                 .page(page)
-                .limit(limit);
+                .limit(limit)
+                .sortBy(sortBy)
+                .sortOrder(sortOrder);
     }
 
     /**
@@ -246,6 +341,8 @@ public class ListWorkRequestErrorsRequest
         sb.append(",opcRequestId=").append(String.valueOf(this.opcRequestId));
         sb.append(",page=").append(String.valueOf(this.page));
         sb.append(",limit=").append(String.valueOf(this.limit));
+        sb.append(",sortBy=").append(String.valueOf(this.sortBy));
+        sb.append(",sortOrder=").append(String.valueOf(this.sortOrder));
         sb.append(")");
         return sb.toString();
     }
@@ -264,7 +361,9 @@ public class ListWorkRequestErrorsRequest
                 && java.util.Objects.equals(this.workRequestId, other.workRequestId)
                 && java.util.Objects.equals(this.opcRequestId, other.opcRequestId)
                 && java.util.Objects.equals(this.page, other.page)
-                && java.util.Objects.equals(this.limit, other.limit);
+                && java.util.Objects.equals(this.limit, other.limit)
+                && java.util.Objects.equals(this.sortBy, other.sortBy)
+                && java.util.Objects.equals(this.sortOrder, other.sortOrder);
     }
 
     @Override
@@ -277,6 +376,8 @@ public class ListWorkRequestErrorsRequest
         result = (result * PRIME) + (this.opcRequestId == null ? 43 : this.opcRequestId.hashCode());
         result = (result * PRIME) + (this.page == null ? 43 : this.page.hashCode());
         result = (result * PRIME) + (this.limit == null ? 43 : this.limit.hashCode());
+        result = (result * PRIME) + (this.sortBy == null ? 43 : this.sortBy.hashCode());
+        result = (result * PRIME) + (this.sortOrder == null ? 43 : this.sortOrder.hashCode());
         return result;
     }
 }

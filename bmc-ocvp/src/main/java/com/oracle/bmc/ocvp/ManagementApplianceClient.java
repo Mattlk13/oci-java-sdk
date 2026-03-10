@@ -230,6 +230,7 @@ public class ManagementApplianceClient extends com.oracle.bmc.http.internal.Base
                 .basePath("/20230701")
                 .appendPathParam("managementAppliances")
                 .appendQueryParam("managementApplianceId", request.getManagementApplianceId())
+                .appendQueryParam("sddcId", request.getSddcId())
                 .appendQueryParam("compartmentId", request.getCompartmentId())
                 .appendQueryParam("displayName", request.getDisplayName())
                 .appendEnumQueryParam("lifecycleState", request.getLifecycleState())

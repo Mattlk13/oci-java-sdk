@@ -41,6 +41,19 @@ public class ListManagementAppliancesRequest
     public String getManagementApplianceId() {
         return managementApplianceId;
     }
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * SDDC.
+     */
+    private String sddcId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * SDDC.
+     */
+    public String getSddcId() {
+        return sddcId;
+    }
     /** A filter to return only resources that match the given display name exactly. */
     private String displayName;
 
@@ -222,6 +235,24 @@ public class ListManagementAppliancesRequest
             return this;
         }
 
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * SDDC.
+         */
+        private String sddcId = null;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * SDDC.
+         *
+         * @param sddcId the value to set
+         * @return this builder instance
+         */
+        public Builder sddcId(String sddcId) {
+            this.sddcId = sddcId;
+            return this;
+        }
+
         /** A filter to return only resources that match the given display name exactly. */
         private String displayName = null;
 
@@ -391,6 +422,7 @@ public class ListManagementAppliancesRequest
         public Builder copy(ListManagementAppliancesRequest o) {
             compartmentId(o.getCompartmentId());
             managementApplianceId(o.getManagementApplianceId());
+            sddcId(o.getSddcId());
             displayName(o.getDisplayName());
             lifecycleState(o.getLifecycleState());
             limit(o.getLimit());
@@ -434,6 +466,7 @@ public class ListManagementAppliancesRequest
             ListManagementAppliancesRequest request = new ListManagementAppliancesRequest();
             request.compartmentId = compartmentId;
             request.managementApplianceId = managementApplianceId;
+            request.sddcId = sddcId;
             request.displayName = displayName;
             request.lifecycleState = lifecycleState;
             request.limit = limit;
@@ -442,7 +475,7 @@ public class ListManagementAppliancesRequest
             request.sortBy = sortBy;
             request.opcRequestId = opcRequestId;
             return request;
-            // new ListManagementAppliancesRequest(compartmentId, managementApplianceId,
+            // new ListManagementAppliancesRequest(compartmentId, managementApplianceId, sddcId,
             // displayName, lifecycleState, limit, page, sortOrder, sortBy, opcRequestId);
         }
     }
@@ -456,6 +489,7 @@ public class ListManagementAppliancesRequest
         return new Builder()
                 .compartmentId(compartmentId)
                 .managementApplianceId(managementApplianceId)
+                .sddcId(sddcId)
                 .displayName(displayName)
                 .lifecycleState(lifecycleState)
                 .limit(limit)
@@ -481,6 +515,7 @@ public class ListManagementAppliancesRequest
         sb.append("super=").append(super.toString());
         sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(",managementApplianceId=").append(String.valueOf(this.managementApplianceId));
+        sb.append(",sddcId=").append(String.valueOf(this.sddcId));
         sb.append(",displayName=").append(String.valueOf(this.displayName));
         sb.append(",lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(",limit=").append(String.valueOf(this.limit));
@@ -505,6 +540,7 @@ public class ListManagementAppliancesRequest
         return super.equals(o)
                 && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(this.managementApplianceId, other.managementApplianceId)
+                && java.util.Objects.equals(this.sddcId, other.sddcId)
                 && java.util.Objects.equals(this.displayName, other.displayName)
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.limit, other.limit)
@@ -526,6 +562,7 @@ public class ListManagementAppliancesRequest
                         + (this.managementApplianceId == null
                                 ? 43
                                 : this.managementApplianceId.hashCode());
+        result = (result * PRIME) + (this.sddcId == null ? 43 : this.sddcId.hashCode());
         result = (result * PRIME) + (this.displayName == null ? 43 : this.displayName.hashCode());
         result =
                 (result * PRIME)

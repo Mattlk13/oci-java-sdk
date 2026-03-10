@@ -173,7 +173,9 @@ public interface DistributedDbService extends AutoCloseable {
             CreateDistributedDatabaseRequest request);
 
     /**
-     * Terminate the given Globally distributed databases.
+     * Terminate the given Globally distributed databases. For an EXADB_XS based distributed
+     * database, if the parameter mustDeleteInfra is set to true, then the VmCluster and
+     * DbStorageVault associated with each shard and catalog will also be deleted.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -265,6 +267,24 @@ public interface DistributedDbService extends AutoCloseable {
     GetDistributedDatabaseResponse getDistributedDatabase(GetDistributedDatabaseRequest request);
 
     /**
+     * Operation to retrieve RAFT metrics for the Globally distributed database. If the Globally
+     * distributed database is not RAFT based then empty response is returned from the API.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/GetDistributedDatabaseRaftMetricExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetDistributedDatabaseRaftMetric API.
+     */
+    GetDistributedDatabaseRaftMetricResponse getDistributedDatabaseRaftMetric(
+            GetDistributedDatabaseRaftMetricRequest request);
+
+    /**
      * List of Globally distributed databases.
      *
      * @param request The request object containing the details to send
@@ -282,9 +302,29 @@ public interface DistributedDbService extends AutoCloseable {
             ListDistributedDatabasesRequest request);
 
     /**
+     * Move the replication units for RAFT based globally distributed database from source shard to
+     * destination shard.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/MoveDistributedDatabaseReplicationUnitExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     MoveDistributedDatabaseReplicationUnit API.
+     */
+    MoveDistributedDatabaseReplicationUnitResponse moveDistributedDatabaseReplicationUnit(
+            MoveDistributedDatabaseReplicationUnitRequest request);
+
+    /**
      * Patch operation to add, remove or update shards to the Globally distributed database
      * topology. In single patch operation, multiple shards can be either added, or removed or
-     * updated. Combination of inserts, update and remove in single operation is not allowed.
+     * updated. Combination of inserts, update and remove in single operation is not allowed. For an
+     * EXADB_XS based distributed database, removing a shard with the parameter mustDeleteInfra set
+     * to true will also delete the associated VmCluster and DbStorageVault.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -299,6 +339,23 @@ public interface DistributedDbService extends AutoCloseable {
      */
     PatchDistributedDatabaseResponse patchDistributedDatabase(
             PatchDistributedDatabaseRequest request);
+
+    /**
+     * Recreate the failed resource for the Globally Distributed Database.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/RecreateFailedDistributedDatabaseResourceExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     RecreateFailedDistributedDatabaseResource API.
+     */
+    RecreateFailedDistributedDatabaseResourceResponse recreateFailedDistributedDatabaseResource(
+            RecreateFailedDistributedDatabaseResourceRequest request);
 
     /**
      * Rotate the gsmuser and gsmcatuser passwords for shards and catalog of the Globally

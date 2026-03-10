@@ -176,7 +176,9 @@ public interface DistributedDbServiceAsync extends AutoCloseable {
                     handler);
 
     /**
-     * Terminate the given Globally distributed databases.
+     * Terminate the given Globally distributed databases. For an EXADB_XS based distributed
+     * database, if the parameter mustDeleteInfra is set to true, then the VmCluster and
+     * DbStorageVault associated with each shard and catalog will also be deleted.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -268,6 +270,25 @@ public interface DistributedDbServiceAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Operation to retrieve RAFT metrics for the Globally distributed database. If the Globally
+     * distributed database is not RAFT based then empty response is returned from the API.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetDistributedDatabaseRaftMetricResponse>
+            getDistributedDatabaseRaftMetric(
+                    GetDistributedDatabaseRaftMetricRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetDistributedDatabaseRaftMetricRequest,
+                                    GetDistributedDatabaseRaftMetricResponse>
+                            handler);
+
+    /**
      * List of Globally distributed databases.
      *
      * @param request The request object containing the details to send
@@ -284,9 +305,30 @@ public interface DistributedDbServiceAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Move the replication units for RAFT based globally distributed database from source shard to
+     * destination shard.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<MoveDistributedDatabaseReplicationUnitResponse>
+            moveDistributedDatabaseReplicationUnit(
+                    MoveDistributedDatabaseReplicationUnitRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    MoveDistributedDatabaseReplicationUnitRequest,
+                                    MoveDistributedDatabaseReplicationUnitResponse>
+                            handler);
+
+    /**
      * Patch operation to add, remove or update shards to the Globally distributed database
      * topology. In single patch operation, multiple shards can be either added, or removed or
-     * updated. Combination of inserts, update and remove in single operation is not allowed.
+     * updated. Combination of inserts, update and remove in single operation is not allowed. For an
+     * EXADB_XS based distributed database, removing a shard with the parameter mustDeleteInfra set
+     * to true will also delete the associated VmCluster and DbStorageVault.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -300,6 +342,24 @@ public interface DistributedDbServiceAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<
                             PatchDistributedDatabaseRequest, PatchDistributedDatabaseResponse>
                     handler);
+
+    /**
+     * Recreate the failed resource for the Globally Distributed Database.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<RecreateFailedDistributedDatabaseResourceResponse>
+            recreateFailedDistributedDatabaseResource(
+                    RecreateFailedDistributedDatabaseResourceRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    RecreateFailedDistributedDatabaseResourceRequest,
+                                    RecreateFailedDistributedDatabaseResourceResponse>
+                            handler);
 
     /**
      * Rotate the gsmuser and gsmcatuser passwords for shards and catalog of the Globally

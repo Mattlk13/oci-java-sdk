@@ -27,18 +27,21 @@ public final class EmailOutboundIpSummary
         "outboundIp",
         "lifecycleState",
         "lifecycleDetails",
-        "assignmentState"
+        "assignmentState",
+        "timeUnassigned"
     })
     public EmailOutboundIpSummary(
             String outboundIp,
             LifecycleState lifecycleState,
             String lifecycleDetails,
-            AssignmentState assignmentState) {
+            AssignmentState assignmentState,
+            java.util.Date timeUnassigned) {
         super();
         this.outboundIp = outboundIp;
         this.lifecycleState = lifecycleState;
         this.lifecycleDetails = lifecycleDetails;
         this.assignmentState = assignmentState;
+        this.timeUnassigned = timeUnassigned;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -107,6 +110,27 @@ public final class EmailOutboundIpSummary
             this.__explicitlySet__.add("assignmentState");
             return this;
         }
+        /**
+         * The time IP was removed from IP Pool. Times are expressed in [RFC
+         * 3339](https://tools.ietf.org/html/rfc3339) timestamp format, "YYYY-MM-ddThh:mmZ".
+         * Example: {@code 2021-02-12T22:47:12.613Z}
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("timeUnassigned")
+        private java.util.Date timeUnassigned;
+
+        /**
+         * The time IP was removed from IP Pool. Times are expressed in [RFC
+         * 3339](https://tools.ietf.org/html/rfc3339) timestamp format, "YYYY-MM-ddThh:mmZ".
+         * Example: {@code 2021-02-12T22:47:12.613Z}
+         *
+         * @param timeUnassigned the value to set
+         * @return this builder
+         */
+        public Builder timeUnassigned(java.util.Date timeUnassigned) {
+            this.timeUnassigned = timeUnassigned;
+            this.__explicitlySet__.add("timeUnassigned");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -117,7 +141,8 @@ public final class EmailOutboundIpSummary
                             this.outboundIp,
                             this.lifecycleState,
                             this.lifecycleDetails,
-                            this.assignmentState);
+                            this.assignmentState,
+                            this.timeUnassigned);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -137,6 +162,9 @@ public final class EmailOutboundIpSummary
             }
             if (model.wasPropertyExplicitlySet("assignmentState")) {
                 this.assignmentState(model.getAssignmentState());
+            }
+            if (model.wasPropertyExplicitlySet("timeUnassigned")) {
+                this.timeUnassigned(model.getTimeUnassigned());
             }
             return this;
         }
@@ -301,6 +329,25 @@ public final class EmailOutboundIpSummary
         return assignmentState;
     }
 
+    /**
+     * The time IP was removed from IP Pool. Times are expressed in [RFC
+     * 3339](https://tools.ietf.org/html/rfc3339) timestamp format, "YYYY-MM-ddThh:mmZ". Example:
+     * {@code 2021-02-12T22:47:12.613Z}
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("timeUnassigned")
+    private final java.util.Date timeUnassigned;
+
+    /**
+     * The time IP was removed from IP Pool. Times are expressed in [RFC
+     * 3339](https://tools.ietf.org/html/rfc3339) timestamp format, "YYYY-MM-ddThh:mmZ". Example:
+     * {@code 2021-02-12T22:47:12.613Z}
+     *
+     * @return the value
+     */
+    public java.util.Date getTimeUnassigned() {
+        return timeUnassigned;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -320,6 +367,7 @@ public final class EmailOutboundIpSummary
         sb.append(", lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(", lifecycleDetails=").append(String.valueOf(this.lifecycleDetails));
         sb.append(", assignmentState=").append(String.valueOf(this.assignmentState));
+        sb.append(", timeUnassigned=").append(String.valueOf(this.timeUnassigned));
         sb.append(")");
         return sb.toString();
     }
@@ -338,6 +386,7 @@ public final class EmailOutboundIpSummary
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.lifecycleDetails, other.lifecycleDetails)
                 && java.util.Objects.equals(this.assignmentState, other.assignmentState)
+                && java.util.Objects.equals(this.timeUnassigned, other.timeUnassigned)
                 && super.equals(other);
     }
 
@@ -355,6 +404,9 @@ public final class EmailOutboundIpSummary
         result =
                 (result * PRIME)
                         + (this.assignmentState == null ? 43 : this.assignmentState.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.timeUnassigned == null ? 43 : this.timeUnassigned.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

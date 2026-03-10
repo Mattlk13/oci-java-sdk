@@ -29,6 +29,7 @@ public final class CreateEmailIpPoolDetails
         "compartmentId",
         "description",
         "outboundIps",
+        "lastIpDrainPeriodInHours",
         "freeformTags",
         "definedTags"
     })
@@ -37,6 +38,7 @@ public final class CreateEmailIpPoolDetails
             String compartmentId,
             String description,
             java.util.List<String> outboundIps,
+            Integer lastIpDrainPeriodInHours,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
@@ -44,6 +46,7 @@ public final class CreateEmailIpPoolDetails
         this.compartmentId = compartmentId;
         this.description = description;
         this.outboundIps = outboundIps;
+        this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -129,6 +132,25 @@ public final class CreateEmailIpPoolDetails
             return this;
         }
         /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+        private Integer lastIpDrainPeriodInHours;
+
+        /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         *
+         * @param lastIpDrainPeriodInHours the value to set
+         * @return this builder
+         */
+        public Builder lastIpDrainPeriodInHours(Integer lastIpDrainPeriodInHours) {
+            this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
+            this.__explicitlySet__.add("lastIpDrainPeriodInHours");
+            return this;
+        }
+        /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
          * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -190,6 +212,7 @@ public final class CreateEmailIpPoolDetails
                             this.compartmentId,
                             this.description,
                             this.outboundIps,
+                            this.lastIpDrainPeriodInHours,
                             this.freeformTags,
                             this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -211,6 +234,9 @@ public final class CreateEmailIpPoolDetails
             }
             if (model.wasPropertyExplicitlySet("outboundIps")) {
                 this.outboundIps(model.getOutboundIps());
+            }
+            if (model.wasPropertyExplicitlySet("lastIpDrainPeriodInHours")) {
+                this.lastIpDrainPeriodInHours(model.getLastIpDrainPeriodInHours());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -300,6 +326,23 @@ public final class CreateEmailIpPoolDetails
     }
 
     /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+    private final Integer lastIpDrainPeriodInHours;
+
+    /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     *
+     * @return the value
+     */
+    public Integer getLastIpDrainPeriodInHours() {
+        return lastIpDrainPeriodInHours;
+    }
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
      * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -364,6 +407,8 @@ public final class CreateEmailIpPoolDetails
         sb.append(", compartmentId=").append(String.valueOf(this.compartmentId));
         sb.append(", description=").append(String.valueOf(this.description));
         sb.append(", outboundIps=").append(String.valueOf(this.outboundIps));
+        sb.append(", lastIpDrainPeriodInHours=")
+                .append(String.valueOf(this.lastIpDrainPeriodInHours));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -384,6 +429,8 @@ public final class CreateEmailIpPoolDetails
                 && java.util.Objects.equals(this.compartmentId, other.compartmentId)
                 && java.util.Objects.equals(this.description, other.description)
                 && java.util.Objects.equals(this.outboundIps, other.outboundIps)
+                && java.util.Objects.equals(
+                        this.lastIpDrainPeriodInHours, other.lastIpDrainPeriodInHours)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -399,6 +446,11 @@ public final class CreateEmailIpPoolDetails
                         + (this.compartmentId == null ? 43 : this.compartmentId.hashCode());
         result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
         result = (result * PRIME) + (this.outboundIps == null ? 43 : this.outboundIps.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.lastIpDrainPeriodInHours == null
+                                ? 43
+                                : this.lastIpDrainPeriodInHours.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

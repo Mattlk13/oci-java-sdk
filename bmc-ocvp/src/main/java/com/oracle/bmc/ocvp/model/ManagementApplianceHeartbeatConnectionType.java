@@ -12,6 +12,7 @@ public enum ManagementApplianceHeartbeatConnectionType
     AdminVcenter("ADMIN_VCENTER"),
     UiPluginRegistration("UI_PLUGIN_REGISTRATION"),
     Nsx("NSX"),
+    ExportMetrics("EXPORT_METRICS"),
 
     /**
      * This value is used if a service returns a value for this enum that is not recognized by this

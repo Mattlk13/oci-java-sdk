@@ -210,6 +210,7 @@ public class ManagementApplianceAsyncClient extends com.oracle.bmc.http.internal
                 .basePath("/20230701")
                 .appendPathParam("managementAppliances")
                 .appendQueryParam("managementApplianceId", request.getManagementApplianceId())
+                .appendQueryParam("sddcId", request.getSddcId())
                 .appendQueryParam("compartmentId", request.getCompartmentId())
                 .appendQueryParam("displayName", request.getDisplayName())
                 .appendEnumQueryParam("lifecycleState", request.getLifecycleState())

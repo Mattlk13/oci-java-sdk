@@ -36,10 +36,10 @@ public class ValidateDistributedAutonomousDatabaseNetworkRequest
     public String getResourceName() {
         return resourceName;
     }
-    /** The shardGroup name example ShardGroupA, ShardGroupB. */
+    /** The shardGroup name example Shardgroupa, Shardgroupb. */
     private String shardGroup;
 
-    /** The shardGroup name example ShardGroupA, ShardGroupB. */
+    /** The shardGroup name example Shardgroupa, Shardgroupb. */
     public String getShardGroup() {
         return shardGroup;
     }
@@ -135,11 +135,11 @@ public class ValidateDistributedAutonomousDatabaseNetworkRequest
             return this;
         }
 
-        /** The shardGroup name example ShardGroupA, ShardGroupB. */
+        /** The shardGroup name example Shardgroupa, Shardgroupb. */
         private String shardGroup = null;
 
         /**
-         * The shardGroup name example ShardGroupA, ShardGroupB.
+         * The shardGroup name example Shardgroupa, Shardgroupb.
          *
          * @param shardGroup the value to set
          * @return this builder instance

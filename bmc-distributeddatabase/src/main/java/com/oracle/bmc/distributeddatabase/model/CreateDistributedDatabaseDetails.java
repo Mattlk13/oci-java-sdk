@@ -37,6 +37,7 @@ public final class CreateDistributedDatabaseDetails
         "listenerPortTls",
         "onsPortLocal",
         "onsPortRemote",
+        "scanListenerPort",
         "replicationMethod",
         "replicationFactor",
         "replicationUnit",
@@ -62,6 +63,7 @@ public final class CreateDistributedDatabaseDetails
             Integer listenerPortTls,
             Integer onsPortLocal,
             Integer onsPortRemote,
+            Integer scanListenerPort,
             ReplicationMethod replicationMethod,
             Integer replicationFactor,
             Integer replicationUnit,
@@ -86,6 +88,7 @@ public final class CreateDistributedDatabaseDetails
         this.listenerPortTls = listenerPortTls;
         this.onsPortLocal = onsPortLocal;
         this.onsPortRemote = onsPortRemote;
+        this.scanListenerPort = scanListenerPort;
         this.replicationMethod = replicationMethod;
         this.replicationFactor = replicationFactor;
         this.replicationUnit = replicationUnit;
@@ -350,6 +353,31 @@ public final class CreateDistributedDatabaseDetails
             return this;
         }
         /**
+         * The TCP Single Client Access Name (SCAN) port for clusters created for Globally
+         * distributed database. The scanListenerPort number should only be provided if shard and
+         * catalog have source type NEW_VAULT_AND_CLUSTER. If shard and catalog have source type
+         * NEW_VAULT_AND_CLUSTER and scanListenerPort is not provided then the scanListenerPort will
+         * default to value 1521.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("scanListenerPort")
+        private Integer scanListenerPort;
+
+        /**
+         * The TCP Single Client Access Name (SCAN) port for clusters created for Globally
+         * distributed database. The scanListenerPort number should only be provided if shard and
+         * catalog have source type NEW_VAULT_AND_CLUSTER. If shard and catalog have source type
+         * NEW_VAULT_AND_CLUSTER and scanListenerPort is not provided then the scanListenerPort will
+         * default to value 1521.
+         *
+         * @param scanListenerPort the value to set
+         * @return this builder
+         */
+        public Builder scanListenerPort(Integer scanListenerPort) {
+            this.scanListenerPort = scanListenerPort;
+            this.__explicitlySet__.add("scanListenerPort");
+            return this;
+        }
+        /**
          * The Replication method for Globally distributed database. Use RAFT for Raft based
          * replication. With RAFT replication, shards cannot have peers details set on them. In case
          * shards need to have peers, please do not set RAFT replicationMethod. For all non RAFT
@@ -544,6 +572,7 @@ public final class CreateDistributedDatabaseDetails
                             this.listenerPortTls,
                             this.onsPortLocal,
                             this.onsPortRemote,
+                            this.scanListenerPort,
                             this.replicationMethod,
                             this.replicationFactor,
                             this.replicationUnit,
@@ -600,6 +629,9 @@ public final class CreateDistributedDatabaseDetails
             }
             if (model.wasPropertyExplicitlySet("onsPortRemote")) {
                 this.onsPortRemote(model.getOnsPortRemote());
+            }
+            if (model.wasPropertyExplicitlySet("scanListenerPort")) {
+                this.scanListenerPort(model.getScanListenerPort());
             }
             if (model.wasPropertyExplicitlySet("replicationMethod")) {
                 this.replicationMethod(model.getReplicationMethod());
@@ -897,6 +929,29 @@ public final class CreateDistributedDatabaseDetails
     }
 
     /**
+     * The TCP Single Client Access Name (SCAN) port for clusters created for Globally distributed
+     * database. The scanListenerPort number should only be provided if shard and catalog have
+     * source type NEW_VAULT_AND_CLUSTER. If shard and catalog have source type
+     * NEW_VAULT_AND_CLUSTER and scanListenerPort is not provided then the scanListenerPort will
+     * default to value 1521.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("scanListenerPort")
+    private final Integer scanListenerPort;
+
+    /**
+     * The TCP Single Client Access Name (SCAN) port for clusters created for Globally distributed
+     * database. The scanListenerPort number should only be provided if shard and catalog have
+     * source type NEW_VAULT_AND_CLUSTER. If shard and catalog have source type
+     * NEW_VAULT_AND_CLUSTER and scanListenerPort is not provided then the scanListenerPort will
+     * default to value 1521.
+     *
+     * @return the value
+     */
+    public Integer getScanListenerPort() {
+        return scanListenerPort;
+    }
+
+    /**
      * The Replication method for Globally distributed database. Use RAFT for Raft based
      * replication. With RAFT replication, shards cannot have peers details set on them. In case
      * shards need to have peers, please do not set RAFT replicationMethod. For all non RAFT
@@ -1145,6 +1200,7 @@ public final class CreateDistributedDatabaseDetails
         sb.append(", listenerPortTls=").append(String.valueOf(this.listenerPortTls));
         sb.append(", onsPortLocal=").append(String.valueOf(this.onsPortLocal));
         sb.append(", onsPortRemote=").append(String.valueOf(this.onsPortRemote));
+        sb.append(", scanListenerPort=").append(String.valueOf(this.scanListenerPort));
         sb.append(", replicationMethod=").append(String.valueOf(this.replicationMethod));
         sb.append(", replicationFactor=").append(String.valueOf(this.replicationFactor));
         sb.append(", replicationUnit=").append(String.valueOf(this.replicationUnit));
@@ -1182,6 +1238,7 @@ public final class CreateDistributedDatabaseDetails
                 && java.util.Objects.equals(this.listenerPortTls, other.listenerPortTls)
                 && java.util.Objects.equals(this.onsPortLocal, other.onsPortLocal)
                 && java.util.Objects.equals(this.onsPortRemote, other.onsPortRemote)
+                && java.util.Objects.equals(this.scanListenerPort, other.scanListenerPort)
                 && java.util.Objects.equals(this.replicationMethod, other.replicationMethod)
                 && java.util.Objects.equals(this.replicationFactor, other.replicationFactor)
                 && java.util.Objects.equals(this.replicationUnit, other.replicationUnit)
@@ -1228,6 +1285,9 @@ public final class CreateDistributedDatabaseDetails
         result =
                 (result * PRIME)
                         + (this.onsPortRemote == null ? 43 : this.onsPortRemote.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.scanListenerPort == null ? 43 : this.scanListenerPort.hashCode());
         result =
                 (result * PRIME)
                         + (this.replicationMethod == null ? 43 : this.replicationMethod.hashCode());

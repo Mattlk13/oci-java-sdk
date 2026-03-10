@@ -34,6 +34,7 @@ public final class UpdateClusterDetails
         "networkConfiguration",
         "vmwareSoftwareVersion",
         "esxiSoftwareVersion",
+        "clusterByolAllocationDetails",
         "freeformTags",
         "definedTags"
     })
@@ -42,6 +43,7 @@ public final class UpdateClusterDetails
             NetworkConfiguration networkConfiguration,
             String vmwareSoftwareVersion,
             String esxiSoftwareVersion,
+            ClusterByolAllocationDetails clusterByolAllocationDetails,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
@@ -49,6 +51,7 @@ public final class UpdateClusterDetails
         this.networkConfiguration = networkConfiguration;
         this.vmwareSoftwareVersion = vmwareSoftwareVersion;
         this.esxiSoftwareVersion = esxiSoftwareVersion;
+        this.clusterByolAllocationDetails = clusterByolAllocationDetails;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -137,6 +140,16 @@ public final class UpdateClusterDetails
             this.__explicitlySet__.add("esxiSoftwareVersion");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+        private ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+        public Builder clusterByolAllocationDetails(
+                ClusterByolAllocationDetails clusterByolAllocationDetails) {
+            this.clusterByolAllocationDetails = clusterByolAllocationDetails;
+            this.__explicitlySet__.add("clusterByolAllocationDetails");
+            return this;
+        }
         /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
@@ -199,6 +212,7 @@ public final class UpdateClusterDetails
                             this.networkConfiguration,
                             this.vmwareSoftwareVersion,
                             this.esxiSoftwareVersion,
+                            this.clusterByolAllocationDetails,
                             this.freeformTags,
                             this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -220,6 +234,9 @@ public final class UpdateClusterDetails
             }
             if (model.wasPropertyExplicitlySet("esxiSoftwareVersion")) {
                 this.esxiSoftwareVersion(model.getEsxiSoftwareVersion());
+            }
+            if (model.wasPropertyExplicitlySet("clusterByolAllocationDetails")) {
+                this.clusterByolAllocationDetails(model.getClusterByolAllocationDetails());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -314,6 +331,13 @@ public final class UpdateClusterDetails
         return esxiSoftwareVersion;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+    private final ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+    public ClusterByolAllocationDetails getClusterByolAllocationDetails() {
+        return clusterByolAllocationDetails;
+    }
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
@@ -379,6 +403,8 @@ public final class UpdateClusterDetails
         sb.append(", networkConfiguration=").append(String.valueOf(this.networkConfiguration));
         sb.append(", vmwareSoftwareVersion=").append(String.valueOf(this.vmwareSoftwareVersion));
         sb.append(", esxiSoftwareVersion=").append(String.valueOf(this.esxiSoftwareVersion));
+        sb.append(", clusterByolAllocationDetails=")
+                .append(String.valueOf(this.clusterByolAllocationDetails));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -399,6 +425,8 @@ public final class UpdateClusterDetails
                 && java.util.Objects.equals(this.networkConfiguration, other.networkConfiguration)
                 && java.util.Objects.equals(this.vmwareSoftwareVersion, other.vmwareSoftwareVersion)
                 && java.util.Objects.equals(this.esxiSoftwareVersion, other.esxiSoftwareVersion)
+                && java.util.Objects.equals(
+                        this.clusterByolAllocationDetails, other.clusterByolAllocationDetails)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -424,6 +452,11 @@ public final class UpdateClusterDetails
                         + (this.esxiSoftwareVersion == null
                                 ? 43
                                 : this.esxiSoftwareVersion.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.clusterByolAllocationDetails == null
+                                ? 43
+                                : this.clusterByolAllocationDetails.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

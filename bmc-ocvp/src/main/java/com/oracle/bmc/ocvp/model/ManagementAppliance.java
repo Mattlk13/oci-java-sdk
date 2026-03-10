@@ -39,6 +39,7 @@ public final class ManagementAppliance
         "timeConfigurationUpdated",
         "timeLastHeartbeat",
         "heartbeatConnectionStates",
+        "pluginVersion",
         "freeformTags",
         "definedTags",
         "systemTags"
@@ -59,6 +60,7 @@ public final class ManagementAppliance
             java.util.Date timeConfigurationUpdated,
             java.util.Date timeLastHeartbeat,
             java.util.List<ManagementApplianceConnectionStatus> heartbeatConnectionStates,
+            String pluginVersion,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, java.util.Map<String, Object>> systemTags) {
@@ -78,6 +80,7 @@ public final class ManagementAppliance
         this.timeConfigurationUpdated = timeConfigurationUpdated;
         this.timeLastHeartbeat = timeLastHeartbeat;
         this.heartbeatConnectionStates = heartbeatConnectionStates;
+        this.pluginVersion = pluginVersion;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.systemTags = systemTags;
@@ -352,6 +355,31 @@ public final class ManagementAppliance
             return this;
         }
         /**
+         * Current version of OCVS management plugin installed by Management Agent. As soon as OCVS
+         * service team publishes a new version OCVS management plugin
+         * (ocvs-ma-plugin-<version>.zip) to Management Agent service, the service distributes it to
+         * Management Appliances owned by customers. This field shows which version of the OCVS
+         * management plugin is currently installed and running for this customer.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("pluginVersion")
+        private String pluginVersion;
+
+        /**
+         * Current version of OCVS management plugin installed by Management Agent. As soon as OCVS
+         * service team publishes a new version OCVS management plugin
+         * (ocvs-ma-plugin-<version>.zip) to Management Agent service, the service distributes it to
+         * Management Appliances owned by customers. This field shows which version of the OCVS
+         * management plugin is currently installed and running for this customer.
+         *
+         * @param pluginVersion the value to set
+         * @return this builder
+         */
+        public Builder pluginVersion(String pluginVersion) {
+            this.pluginVersion = pluginVersion;
+            this.__explicitlySet__.add("pluginVersion");
+            return this;
+        }
+        /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
          * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -443,6 +471,7 @@ public final class ManagementAppliance
                             this.timeConfigurationUpdated,
                             this.timeLastHeartbeat,
                             this.heartbeatConnectionStates,
+                            this.pluginVersion,
                             this.freeformTags,
                             this.definedTags,
                             this.systemTags);
@@ -498,6 +527,9 @@ public final class ManagementAppliance
             }
             if (model.wasPropertyExplicitlySet("heartbeatConnectionStates")) {
                 this.heartbeatConnectionStates(model.getHeartbeatConnectionStates());
+            }
+            if (model.wasPropertyExplicitlySet("pluginVersion")) {
+                this.pluginVersion(model.getPluginVersion());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -757,6 +789,29 @@ public final class ManagementAppliance
     }
 
     /**
+     * Current version of OCVS management plugin installed by Management Agent. As soon as OCVS
+     * service team publishes a new version OCVS management plugin (ocvs-ma-plugin-<version>.zip) to
+     * Management Agent service, the service distributes it to Management Appliances owned by
+     * customers. This field shows which version of the OCVS management plugin is currently
+     * installed and running for this customer.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("pluginVersion")
+    private final String pluginVersion;
+
+    /**
+     * Current version of OCVS management plugin installed by Management Agent. As soon as OCVS
+     * service team publishes a new version OCVS management plugin (ocvs-ma-plugin-<version>.zip) to
+     * Management Agent service, the service distributes it to Management Appliances owned by
+     * customers. This field shows which version of the OCVS management plugin is currently
+     * installed and running for this customer.
+     *
+     * @return the value
+     */
+    public String getPluginVersion() {
+        return pluginVersion;
+    }
+
+    /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
      * Tags](https://docs.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -851,6 +906,7 @@ public final class ManagementAppliance
         sb.append(", timeLastHeartbeat=").append(String.valueOf(this.timeLastHeartbeat));
         sb.append(", heartbeatConnectionStates=")
                 .append(String.valueOf(this.heartbeatConnectionStates));
+        sb.append(", pluginVersion=").append(String.valueOf(this.pluginVersion));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", systemTags=").append(String.valueOf(this.systemTags));
@@ -885,6 +941,7 @@ public final class ManagementAppliance
                 && java.util.Objects.equals(this.timeLastHeartbeat, other.timeLastHeartbeat)
                 && java.util.Objects.equals(
                         this.heartbeatConnectionStates, other.heartbeatConnectionStates)
+                && java.util.Objects.equals(this.pluginVersion, other.pluginVersion)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.systemTags, other.systemTags)
@@ -932,6 +989,9 @@ public final class ManagementAppliance
                         + (this.heartbeatConnectionStates == null
                                 ? 43
                                 : this.heartbeatConnectionStates.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.pluginVersion == null ? 43 : this.pluginVersion.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.systemTags == null ? 43 : this.systemTags.hashCode());

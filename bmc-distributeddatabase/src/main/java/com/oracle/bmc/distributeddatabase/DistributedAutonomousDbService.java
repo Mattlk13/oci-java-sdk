@@ -119,6 +119,25 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
             ChangeDistributedAutonomousDbBackupConfigRequest request);
 
     /**
+     * Configure wallets on Global Service Manager(GSM) instances for a Globally distributed
+     * autonomous database.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/ConfigureDistributedAutonomousDatabaseGsmWalletExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ConfigureDistributedAutonomousDatabaseGsmWallet API.
+     */
+    ConfigureDistributedAutonomousDatabaseGsmWalletResponse
+            configureDistributedAutonomousDatabaseGsmWallet(
+                    ConfigureDistributedAutonomousDatabaseGsmWalletRequest request);
+
+    /**
      * Configure new Global Service Manager(GSM aka shard manager) instances for the Globally
      * distributed autonomous database.
      *
@@ -137,13 +156,12 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
             ConfigureDistributedAutonomousDatabaseGsmsRequest request);
 
     /**
-     * Once all components of Globally distributed autonomous database are provisioned, and signed
-     * GSM certificates are successfully uploaded, this api shall be invoked to configure sharding
-     * on the Globally distributed autonomous database. Note that this 'ConfigureSharding' API also
-     * needs to be invoked after successfully adding a new shard to the Globally distributed
-     * autonomous database using PATCH api. If this API is not invoked after successfully adding a
-     * new shard, then that new shard will not be a participant in sharding topology of the Globally
-     * distributed autonomous database.
+     * Once all components of Globally distributed autonomous database are provisioned, this api
+     * shall be invoked to configure sharding on the Globally distributed autonomous database. Note
+     * that this 'ConfigureSharding' API also needs to be invoked after successfully adding a new
+     * shard to the Globally distributed autonomous database using PATCH api. If this API is not
+     * invoked after successfully adding a new shard, then that new shard will not be a participant
+     * in sharding topology of the Globally distributed autonomous database.
      *
      * @param request The request object containing the details to send
      * @return A response object containing details about the completed operation
@@ -274,6 +292,25 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
             GetDistributedAutonomousDatabaseRequest request);
 
     /**
+     * Operation to retrieve RAFT metrics for the Globally distributed autonomous database. If the
+     * Globally distributed autonomous database is not RAFT based then empty response is returned
+     * from the API.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/GetDistributedAutonomousDatabaseRaftMetricExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     GetDistributedAutonomousDatabaseRaftMetric API.
+     */
+    GetDistributedAutonomousDatabaseRaftMetricResponse getDistributedAutonomousDatabaseRaftMetric(
+            GetDistributedAutonomousDatabaseRaftMetricRequest request);
+
+    /**
      * List of Globally distributed autonomous databases.
      *
      * @param request The request object containing the details to send
@@ -289,6 +326,25 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
      */
     ListDistributedAutonomousDatabasesResponse listDistributedAutonomousDatabases(
             ListDistributedAutonomousDatabasesRequest request);
+
+    /**
+     * Move the replication units for RAFT based globally distributed autonomous database from
+     * source shard to destination shard.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/MoveDistributedAutonomousDatabaseReplicationUnitExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     MoveDistributedAutonomousDatabaseReplicationUnit API.
+     */
+    MoveDistributedAutonomousDatabaseReplicationUnitResponse
+            moveDistributedAutonomousDatabaseReplicationUnit(
+                    MoveDistributedAutonomousDatabaseReplicationUnitRequest request);
 
     /**
      * Patch operation to add, remove or update shards to the Globally distributed autonomous
@@ -308,6 +364,24 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
      */
     PatchDistributedAutonomousDatabaseResponse patchDistributedAutonomousDatabase(
             PatchDistributedAutonomousDatabaseRequest request);
+
+    /**
+     * Recreate the failed resource for the Globally Distributed Autonomous Database.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/RecreateFailedDistributedAutonomousDatabaseResourceExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     RecreateFailedDistributedAutonomousDatabaseResource API.
+     */
+    RecreateFailedDistributedAutonomousDatabaseResourceResponse
+            recreateFailedDistributedAutonomousDatabaseResource(
+                    RecreateFailedDistributedAutonomousDatabaseResourceRequest request);
 
     /**
      * Rotate the gsmuser and gsmcatuser passwords for shards and catalog of the Globally
@@ -399,6 +473,24 @@ public interface DistributedAutonomousDbService extends AutoCloseable {
             uploadDistributedAutonomousDatabaseSignedCertificateAndGenerateWallet(
                     UploadDistributedAutonomousDatabaseSignedCertificateAndGenerateWalletRequest
                             request);
+
+    /**
+     * Validate the CA Bundles consistency of the globally distributed autonomous database.
+     *
+     * @param request The request object containing the details to send
+     * @return A response object containing details about the completed operation
+     * @throws BmcException when an error occurs. This operation uses
+     *     RetryConfiguration.SDK_DEFAULT_RETRY_CONFIGURATION as default if no retry strategy is
+     *     provided. The specifics of the default retry strategy are described here
+     *     https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/javasdkconcepts.htm#javasdkconcepts_topic_Retries
+     *     <p><b>Example: </b>Click <a
+     *     href="https://docs.oracle.com/en-us/iaas/tools/java-sdk-examples/latest/distributeddatabase/ValidateDistributedAutonomousDatabaseCaBundleExample.java.html"
+     *     target="_blank" rel="noopener noreferrer" >here</a> to see how to use
+     *     ValidateDistributedAutonomousDatabaseCaBundle API.
+     */
+    ValidateDistributedAutonomousDatabaseCaBundleResponse
+            validateDistributedAutonomousDatabaseCaBundle(
+                    ValidateDistributedAutonomousDatabaseCaBundleRequest request);
 
     /**
      * Validate the network connectivity between components of the globally distributed autonomous

@@ -5,7 +5,8 @@
 package com.oracle.bmc.distributeddatabase.model;
 
 /**
- * The details of distributed autonomous database associated with the private endpoint. <br>
+ * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027 00:00:00
+ * GMT. <br>
  * Note: Objects should always be created or deserialized using the {@link Builder}. This model
  * distinguishes fields that are {@code null} because they are unset from fields that are explicitly
  * set to {@code null}. This is done in the setter methods of the {@link Builder}, which maintain a

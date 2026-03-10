@@ -598,6 +598,77 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public CreateIdentityProofingProviderResponse createIdentityProofingProvider(
+            CreateIdentityProofingProviderRequest request) {
+
+        return clientCall(request, CreateIdentityProofingProviderResponse::builder)
+                .logger(LOG, "createIdentityProofingProvider")
+                .serviceDetails("IdentityDomains", "CreateIdentityProofingProvider", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        CreateIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateIdentityProofingProviderResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public CreateIdentityProofingProviderTemplateResponse createIdentityProofingProviderTemplate(
+            CreateIdentityProofingProviderTemplateRequest request) {
+
+        return clientCall(request, CreateIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "createIdentityProofingProviderTemplate")
+                .serviceDetails("IdentityDomains", "CreateIdentityProofingProviderTemplate", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        CreateIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
     public CreateIdentityPropagationTrustResponse createIdentityPropagationTrust(
             CreateIdentityPropagationTrustRequest request) {
 
@@ -1467,6 +1538,34 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public CreateVerificationClaimResponse createVerificationClaim(
+            CreateVerificationClaimRequest request) {
+
+        return clientCall(request, CreateVerificationClaimResponse::builder)
+                .logger(LOG, "createVerificationClaim")
+                .serviceDetails("IdentityDomains", "CreateVerificationClaim", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateVerificationClaimRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("VerificationClaims")
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.VerificationClaim.class,
+                        CreateVerificationClaimResponse.Builder::verificationClaim)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateVerificationClaimResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", CreateVerificationClaimResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
     public DeleteApiKeyResponse deleteApiKey(DeleteApiKeyRequest request) {
 
         Validate.notBlank(request.getApiKeyId(), "apiKeyId must not be blank");
@@ -1926,6 +2025,74 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
                 .appendHeader("opc-retry-token", request.getOpcRetryToken())
                 .handleResponseHeaderString(
                         "opc-request-id", DeleteGroupResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public DeleteIdentityProofingProviderResponse deleteIdentityProofingProvider(
+            DeleteIdentityProofingProviderRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, DeleteIdentityProofingProviderResponse::builder)
+                .logger(LOG, "deleteIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "DeleteIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/DeleteIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("forceDelete", request.getForceDelete())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteIdentityProofingProviderResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public DeleteIdentityProofingProviderTemplateResponse deleteIdentityProofingProviderTemplate(
+            DeleteIdentityProofingProviderTemplateRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, DeleteIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "deleteIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "DeleteIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/DeleteIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("forceDelete", request.getForceDelete())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -3384,6 +3551,86 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
                         GetGroupResponse.Builder::group)
                 .handleResponseHeaderString(
                         "opc-request-id", GetGroupResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetIdentityProofingProviderResponse getIdentityProofingProvider(
+            GetIdentityProofingProviderRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, GetIdentityProofingProviderResponse::builder)
+                .logger(LOG, "getIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "GetIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/GetIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        GetIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetIdentityProofingProviderResponse.Builder::opcRequestId)
+                .callSync();
+    }
+
+    @Override
+    public GetIdentityProofingProviderTemplateResponse getIdentityProofingProviderTemplate(
+            GetIdentityProofingProviderTemplateRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, GetIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "getIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "GetIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/GetIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        GetIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
                 .callSync();
     }
 
@@ -5482,6 +5729,97 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
                         "opc-request-id", ListGroupsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListGroupsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListIdentityProofingProviderTemplatesResponse listIdentityProofingProviderTemplates(
+            ListIdentityProofingProviderTemplatesRequest request) {
+
+        return clientCall(request, ListIdentityProofingProviderTemplatesResponse::builder)
+                .logger(LOG, "listIdentityProofingProviderTemplates")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "ListIdentityProofingProviderTemplates",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/ListIdentityProofingProviderTemplates")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListIdentityProofingProviderTemplatesRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendQueryParam("filter", request.getFilter())
+                .appendQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("startIndex", request.getStartIndex())
+                .appendQueryParam("count", request.getCount())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplates
+                                .class,
+                        ListIdentityProofingProviderTemplatesResponse.Builder
+                                ::identityProofingProviderTemplates)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListIdentityProofingProviderTemplatesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListIdentityProofingProviderTemplatesResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public ListIdentityProofingProvidersResponse listIdentityProofingProviders(
+            ListIdentityProofingProvidersRequest request) {
+
+        return clientCall(request, ListIdentityProofingProvidersResponse::builder)
+                .logger(LOG, "listIdentityProofingProviders")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "ListIdentityProofingProviders",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/ListIdentityProofingProviders")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListIdentityProofingProvidersRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendQueryParam("filter", request.getFilter())
+                .appendQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("startIndex", request.getStartIndex())
+                .appendQueryParam("count", request.getCount())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviders.class,
+                        ListIdentityProofingProvidersResponse.Builder::identityProofingProviders)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListIdentityProofingProvidersResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListIdentityProofingProvidersResponse.Builder::opcNextPage)
                 .callSync();
     }
 
@@ -7690,6 +8028,95 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public PatchIdentityProofingProviderResponse patchIdentityProofingProvider(
+            PatchIdentityProofingProviderRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, PatchIdentityProofingProviderResponse::builder)
+                .logger(LOG, "patchIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PatchIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/PatchIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.PATCH)
+                .requestBuilder(PatchIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        PatchIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PatchIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PatchIdentityProofingProviderResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public PatchIdentityProofingProviderTemplateResponse patchIdentityProofingProviderTemplate(
+            PatchIdentityProofingProviderTemplateRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, PatchIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "patchIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PatchIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/PatchIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.PATCH)
+                .requestBuilder(PatchIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        PatchIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PatchIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PatchIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
     public PatchIdentityPropagationTrustResponse patchIdentityPropagationTrust(
             PatchIdentityPropagationTrustRequest request) {
 
@@ -9213,6 +9640,94 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
     }
 
     @Override
+    public PutIdentityProofingProviderResponse putIdentityProofingProvider(
+            PutIdentityProofingProviderRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, PutIdentityProofingProviderResponse::builder)
+                .logger(LOG, "putIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PutIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/PutIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(PutIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        PutIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id", PutIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PutIdentityProofingProviderResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
+    public PutIdentityProofingProviderTemplateResponse putIdentityProofingProviderTemplate(
+            PutIdentityProofingProviderTemplateRequest request) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, PutIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "putIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PutIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/PutIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(PutIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        PutIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PutIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PutIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callSync();
+    }
+
+    @Override
     public PutIdentityPropagationTrustResponse putIdentityPropagationTrust(
             PutIdentityPropagationTrustRequest request) {
 
@@ -10538,6 +11053,43 @@ public class IdentityDomainsClient extends com.oracle.bmc.http.internal.BaseSync
                         "opc-request-id", SearchGroupsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", SearchGroupsResponse.Builder::opcNextPage)
+                .callSync();
+    }
+
+    @Override
+    public SearchIdentityProofingProvidersResponse searchIdentityProofingProviders(
+            SearchIdentityProofingProvidersRequest request) {
+
+        return clientCall(request, SearchIdentityProofingProvidersResponse::builder)
+                .logger(LOG, "searchIdentityProofingProviders")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "SearchIdentityProofingProviders",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/SearchIdentityProofingProviders")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(SearchIdentityProofingProvidersRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(".search")
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviders.class,
+                        SearchIdentityProofingProvidersResponse.Builder::identityProofingProviders)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        SearchIdentityProofingProvidersResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        SearchIdentityProofingProvidersResponse.Builder::opcNextPage)
                 .callSync();
     }
 

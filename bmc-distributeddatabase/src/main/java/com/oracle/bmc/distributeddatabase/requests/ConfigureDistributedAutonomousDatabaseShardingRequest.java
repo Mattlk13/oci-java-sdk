@@ -35,6 +35,20 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
     public Boolean getIsRebalanceRequired() {
         return isRebalanceRequired;
     }
+    /** The ID of the cluster certificate. */
+    private String certificateId;
+
+    /** The ID of the cluster certificate. */
+    public String getCertificateId() {
+        return certificateId;
+    }
+    /** The ID of the Ca Bundle. */
+    private String caBundleId;
+
+    /** The ID of the Ca Bundle. */
+    public String getCaBundleId() {
+        return caBundleId;
+    }
     /**
      * A token that uniquely identifies a request so it can be retried in case of a timeout or
      * server error without risk of executing that same action again. Retry tokens expire after 24
@@ -114,6 +128,34 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
          */
         public Builder isRebalanceRequired(Boolean isRebalanceRequired) {
             this.isRebalanceRequired = isRebalanceRequired;
+            return this;
+        }
+
+        /** The ID of the cluster certificate. */
+        private String certificateId = null;
+
+        /**
+         * The ID of the cluster certificate.
+         *
+         * @param certificateId the value to set
+         * @return this builder instance
+         */
+        public Builder certificateId(String certificateId) {
+            this.certificateId = certificateId;
+            return this;
+        }
+
+        /** The ID of the Ca Bundle. */
+        private String caBundleId = null;
+
+        /**
+         * The ID of the Ca Bundle.
+         *
+         * @param caBundleId the value to set
+         * @return this builder instance
+         */
+        public Builder caBundleId(String caBundleId) {
+            this.caBundleId = caBundleId;
             return this;
         }
 
@@ -209,6 +251,8 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
         public Builder copy(ConfigureDistributedAutonomousDatabaseShardingRequest o) {
             distributedAutonomousDatabaseId(o.getDistributedAutonomousDatabaseId());
             isRebalanceRequired(o.getIsRebalanceRequired());
+            certificateId(o.getCertificateId());
+            caBundleId(o.getCaBundleId());
             opcRetryToken(o.getOpcRetryToken());
             opcRequestId(o.getOpcRequestId());
             ifMatch(o.getIfMatch());
@@ -253,12 +297,14 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
                     new ConfigureDistributedAutonomousDatabaseShardingRequest();
             request.distributedAutonomousDatabaseId = distributedAutonomousDatabaseId;
             request.isRebalanceRequired = isRebalanceRequired;
+            request.certificateId = certificateId;
+            request.caBundleId = caBundleId;
             request.opcRetryToken = opcRetryToken;
             request.opcRequestId = opcRequestId;
             request.ifMatch = ifMatch;
             return request;
             // new
-            // ConfigureDistributedAutonomousDatabaseShardingRequest(distributedAutonomousDatabaseId, isRebalanceRequired, opcRetryToken, opcRequestId, ifMatch);
+            // ConfigureDistributedAutonomousDatabaseShardingRequest(distributedAutonomousDatabaseId, isRebalanceRequired, certificateId, caBundleId, opcRetryToken, opcRequestId, ifMatch);
         }
     }
 
@@ -271,6 +317,8 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
         return new Builder()
                 .distributedAutonomousDatabaseId(distributedAutonomousDatabaseId)
                 .isRebalanceRequired(isRebalanceRequired)
+                .certificateId(certificateId)
+                .caBundleId(caBundleId)
                 .opcRetryToken(opcRetryToken)
                 .opcRequestId(opcRequestId)
                 .ifMatch(ifMatch);
@@ -293,6 +341,8 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
         sb.append(",distributedAutonomousDatabaseId=")
                 .append(String.valueOf(this.distributedAutonomousDatabaseId));
         sb.append(",isRebalanceRequired=").append(String.valueOf(this.isRebalanceRequired));
+        sb.append(",certificateId=").append(String.valueOf(this.certificateId));
+        sb.append(",caBundleId=").append(String.valueOf(this.caBundleId));
         sb.append(",opcRetryToken=").append(String.valueOf(this.opcRetryToken));
         sb.append(",opcRequestId=").append(String.valueOf(this.opcRequestId));
         sb.append(",ifMatch=").append(String.valueOf(this.ifMatch));
@@ -315,6 +365,8 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
                 && java.util.Objects.equals(
                         this.distributedAutonomousDatabaseId, other.distributedAutonomousDatabaseId)
                 && java.util.Objects.equals(this.isRebalanceRequired, other.isRebalanceRequired)
+                && java.util.Objects.equals(this.certificateId, other.certificateId)
+                && java.util.Objects.equals(this.caBundleId, other.caBundleId)
                 && java.util.Objects.equals(this.opcRetryToken, other.opcRetryToken)
                 && java.util.Objects.equals(this.opcRequestId, other.opcRequestId)
                 && java.util.Objects.equals(this.ifMatch, other.ifMatch);
@@ -334,6 +386,10 @@ public class ConfigureDistributedAutonomousDatabaseShardingRequest
                         + (this.isRebalanceRequired == null
                                 ? 43
                                 : this.isRebalanceRequired.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.certificateId == null ? 43 : this.certificateId.hashCode());
+        result = (result * PRIME) + (this.caBundleId == null ? 43 : this.caBundleId.hashCode());
         result =
                 (result * PRIME)
                         + (this.opcRetryToken == null ? 43 : this.opcRetryToken.hashCode());

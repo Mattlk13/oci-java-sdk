@@ -667,6 +667,87 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
     }
 
     @Override
+    public java.util.concurrent.Future<CreateIdentityProofingProviderResponse>
+            createIdentityProofingProvider(
+                    CreateIdentityProofingProviderRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    CreateIdentityProofingProviderRequest,
+                                    CreateIdentityProofingProviderResponse>
+                            handler) {
+
+        return clientCall(request, CreateIdentityProofingProviderResponse::builder)
+                .logger(LOG, "createIdentityProofingProvider")
+                .serviceDetails("IdentityDomains", "CreateIdentityProofingProvider", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        CreateIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateIdentityProofingProviderResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateIdentityProofingProviderTemplateResponse>
+            createIdentityProofingProviderTemplate(
+                    CreateIdentityProofingProviderTemplateRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    CreateIdentityProofingProviderTemplateRequest,
+                                    CreateIdentityProofingProviderTemplateResponse>
+                            handler) {
+
+        return clientCall(request, CreateIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "createIdentityProofingProviderTemplate")
+                .serviceDetails("IdentityDomains", "CreateIdentityProofingProviderTemplate", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        CreateIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        CreateIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", CreateIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateIdentityPropagationTrustResponse>
             createIdentityPropagationTrust(
                     CreateIdentityPropagationTrustRequest request,
@@ -1647,6 +1728,37 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
     }
 
     @Override
+    public java.util.concurrent.Future<CreateVerificationClaimResponse> createVerificationClaim(
+            CreateVerificationClaimRequest request,
+            final com.oracle.bmc.responses.AsyncHandler<
+                            CreateVerificationClaimRequest, CreateVerificationClaimResponse>
+                    handler) {
+
+        return clientCall(request, CreateVerificationClaimResponse::builder)
+                .logger(LOG, "createVerificationClaim")
+                .serviceDetails("IdentityDomains", "CreateVerificationClaim", "")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(CreateVerificationClaimRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("VerificationClaims")
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.VerificationClaim.class,
+                        CreateVerificationClaimResponse.Builder::verificationClaim)
+                .handleResponseHeaderString(
+                        "opc-request-id", CreateVerificationClaimResponse.Builder::opcRequestId)
+                .handleResponseHeaderString("etag", CreateVerificationClaimResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteApiKeyResponse> deleteApiKey(
             DeleteApiKeyRequest request,
             final com.oracle.bmc.responses.AsyncHandler<DeleteApiKeyRequest, DeleteApiKeyResponse>
@@ -2160,6 +2272,84 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
                 .appendHeader("opc-retry-token", request.getOpcRetryToken())
                 .handleResponseHeaderString(
                         "opc-request-id", DeleteGroupResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteIdentityProofingProviderResponse>
+            deleteIdentityProofingProvider(
+                    DeleteIdentityProofingProviderRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteIdentityProofingProviderRequest,
+                                    DeleteIdentityProofingProviderResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, DeleteIdentityProofingProviderResponse::builder)
+                .logger(LOG, "deleteIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "DeleteIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/DeleteIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("forceDelete", request.getForceDelete())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteIdentityProofingProviderResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteIdentityProofingProviderTemplateResponse>
+            deleteIdentityProofingProviderTemplate(
+                    DeleteIdentityProofingProviderTemplateRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteIdentityProofingProviderTemplateRequest,
+                                    DeleteIdentityProofingProviderTemplateResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, DeleteIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "deleteIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "DeleteIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/DeleteIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.DELETE)
+                .requestBuilder(DeleteIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("forceDelete", request.getForceDelete())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        DeleteIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -3775,6 +3965,96 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
                         GetGroupResponse.Builder::group)
                 .handleResponseHeaderString(
                         "opc-request-id", GetGroupResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetIdentityProofingProviderResponse>
+            getIdentityProofingProvider(
+                    GetIdentityProofingProviderRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    GetIdentityProofingProviderRequest,
+                                    GetIdentityProofingProviderResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, GetIdentityProofingProviderResponse::builder)
+                .logger(LOG, "getIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "GetIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/GetIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        GetIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id", GetIdentityProofingProviderResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetIdentityProofingProviderTemplateResponse>
+            getIdentityProofingProviderTemplate(
+                    GetIdentityProofingProviderTemplateRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    GetIdentityProofingProviderTemplateRequest,
+                                    GetIdentityProofingProviderTemplateResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, GetIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "getIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "GetIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/GetIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        GetIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -6075,6 +6355,107 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
                         "opc-request-id", ListGroupsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListGroupsResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListIdentityProofingProviderTemplatesResponse>
+            listIdentityProofingProviderTemplates(
+                    ListIdentityProofingProviderTemplatesRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ListIdentityProofingProviderTemplatesRequest,
+                                    ListIdentityProofingProviderTemplatesResponse>
+                            handler) {
+
+        return clientCall(request, ListIdentityProofingProviderTemplatesResponse::builder)
+                .logger(LOG, "listIdentityProofingProviderTemplates")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "ListIdentityProofingProviderTemplates",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/ListIdentityProofingProviderTemplates")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListIdentityProofingProviderTemplatesRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendQueryParam("filter", request.getFilter())
+                .appendQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("startIndex", request.getStartIndex())
+                .appendQueryParam("count", request.getCount())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplates
+                                .class,
+                        ListIdentityProofingProviderTemplatesResponse.Builder
+                                ::identityProofingProviderTemplates)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListIdentityProofingProviderTemplatesResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        ListIdentityProofingProviderTemplatesResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListIdentityProofingProvidersResponse>
+            listIdentityProofingProviders(
+                    ListIdentityProofingProvidersRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ListIdentityProofingProvidersRequest,
+                                    ListIdentityProofingProvidersResponse>
+                            handler) {
+
+        return clientCall(request, ListIdentityProofingProvidersResponse::builder)
+                .logger(LOG, "listIdentityProofingProviders")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "ListIdentityProofingProviders",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/ListIdentityProofingProviders")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(ListIdentityProofingProvidersRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendQueryParam("filter", request.getFilter())
+                .appendQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendQueryParam("startIndex", request.getStartIndex())
+                .appendQueryParam("count", request.getCount())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviders.class,
+                        ListIdentityProofingProvidersResponse.Builder::identityProofingProviders)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ListIdentityProofingProvidersResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page", ListIdentityProofingProvidersResponse.Builder::opcNextPage)
                 .callAsync(handler);
     }
 
@@ -8483,6 +8864,105 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
     }
 
     @Override
+    public java.util.concurrent.Future<PatchIdentityProofingProviderResponse>
+            patchIdentityProofingProvider(
+                    PatchIdentityProofingProviderRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    PatchIdentityProofingProviderRequest,
+                                    PatchIdentityProofingProviderResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, PatchIdentityProofingProviderResponse::builder)
+                .logger(LOG, "patchIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PatchIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/PatchIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.PATCH)
+                .requestBuilder(PatchIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        PatchIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PatchIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PatchIdentityProofingProviderResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PatchIdentityProofingProviderTemplateResponse>
+            patchIdentityProofingProviderTemplate(
+                    PatchIdentityProofingProviderTemplateRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    PatchIdentityProofingProviderTemplateRequest,
+                                    PatchIdentityProofingProviderTemplateResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, PatchIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "patchIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PatchIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/PatchIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.PATCH)
+                .requestBuilder(PatchIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        PatchIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PatchIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PatchIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<PatchIdentityPropagationTrustResponse>
             patchIdentityPropagationTrust(
                     PatchIdentityPropagationTrustRequest request,
@@ -10148,6 +10628,104 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
     }
 
     @Override
+    public java.util.concurrent.Future<PutIdentityProofingProviderResponse>
+            putIdentityProofingProvider(
+                    PutIdentityProofingProviderRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    PutIdentityProofingProviderRequest,
+                                    PutIdentityProofingProviderResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderId(),
+                "identityProofingProviderId must not be blank");
+
+        return clientCall(request, PutIdentityProofingProviderResponse::builder)
+                .logger(LOG, "putIdentityProofingProvider")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PutIdentityProofingProvider",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/PutIdentityProofingProvider")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(PutIdentityProofingProviderRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(request.getIdentityProofingProviderId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProvider.class,
+                        PutIdentityProofingProviderResponse.Builder::identityProofingProvider)
+                .handleResponseHeaderString(
+                        "opc-request-id", PutIdentityProofingProviderResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PutIdentityProofingProviderResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutIdentityProofingProviderTemplateResponse>
+            putIdentityProofingProviderTemplate(
+                    PutIdentityProofingProviderTemplateRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    PutIdentityProofingProviderTemplateRequest,
+                                    PutIdentityProofingProviderTemplateResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getIdentityProofingProviderTemplateId(),
+                "identityProofingProviderTemplateId must not be blank");
+
+        return clientCall(request, PutIdentityProofingProviderTemplateResponse::builder)
+                .logger(LOG, "putIdentityProofingProviderTemplate")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "PutIdentityProofingProviderTemplate",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProviderTemplate/PutIdentityProofingProviderTemplate")
+                .method(com.oracle.bmc.http.client.Method.PUT)
+                .requestBuilder(PutIdentityProofingProviderTemplateRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviderTemplates")
+                .appendPathParam(request.getIdentityProofingProviderTemplateId())
+                .appendQueryParam("attributes", request.getAttributes())
+                .appendListQueryParam(
+                        "attributeSets",
+                        request.getAttributeSets(),
+                        com.oracle.bmc.util.internal.CollectionFormatType.Multi)
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviderTemplate.class,
+                        PutIdentityProofingProviderTemplateResponse.Builder
+                                ::identityProofingProviderTemplate)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        PutIdentityProofingProviderTemplateResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "etag", PutIdentityProofingProviderTemplateResponse.Builder::etag)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<PutIdentityPropagationTrustResponse>
             putIdentityPropagationTrust(
                     PutIdentityPropagationTrustRequest request,
@@ -11602,6 +12180,48 @@ public class IdentityDomainsAsyncClient extends com.oracle.bmc.http.internal.Bas
                         "opc-request-id", SearchGroupsResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", SearchGroupsResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchIdentityProofingProvidersResponse>
+            searchIdentityProofingProviders(
+                    SearchIdentityProofingProvidersRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    SearchIdentityProofingProvidersRequest,
+                                    SearchIdentityProofingProvidersResponse>
+                            handler) {
+
+        return clientCall(request, SearchIdentityProofingProvidersResponse::builder)
+                .logger(LOG, "searchIdentityProofingProviders")
+                .serviceDetails(
+                        "IdentityDomains",
+                        "SearchIdentityProofingProviders",
+                        "https://docs.oracle.com/iaas/api/#/en/identity-domains/v1/IdentityProofingProvider/SearchIdentityProofingProviders")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(SearchIdentityProofingProvidersRequest::builder)
+                .basePath("")
+                .appendPathParam("admin")
+                .appendPathParam("v1")
+                .appendPathParam("IdentityProofingProviders")
+                .appendPathParam(".search")
+                .appendQueryParam("page", request.getPage())
+                .appendQueryParam("limit", request.getLimit())
+                .accept("application/json, application/scim+json")
+                .appendHeader("authorization", request.getAuthorization())
+                .appendHeader(
+                        "resource_type_schema_version", request.getResourceTypeSchemaVersion())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .hasBody()
+                .handleBody(
+                        com.oracle.bmc.identitydomains.model.IdentityProofingProviders.class,
+                        SearchIdentityProofingProvidersResponse.Builder::identityProofingProviders)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        SearchIdentityProofingProvidersResponse.Builder::opcRequestId)
+                .handleResponseHeaderString(
+                        "opc-next-page",
+                        SearchIdentityProofingProvidersResponse.Builder::opcNextPage)
                 .callAsync(handler);
     }
 
