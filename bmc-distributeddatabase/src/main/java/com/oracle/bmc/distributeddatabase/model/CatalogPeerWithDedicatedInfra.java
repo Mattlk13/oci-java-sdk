@@ -212,15 +212,15 @@ public final class CatalogPeerWithDedicatedInfra
             return this;
         }
         /**
-         * Indicates whether Automatic Failover is enabled for Autonomous Container Database
-         * Dataguard Association
+         * This field is deprecated. Support for this field will be removed after one year of
+         * deprecation cycle.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("isAutomaticFailoverEnabled")
         private Boolean isAutomaticFailoverEnabled;
 
         /**
-         * Indicates whether Automatic Failover is enabled for Autonomous Container Database
-         * Dataguard Association
+         * This field is deprecated. Support for this field will be removed after one year of
+         * deprecation cycle.
          *
          * @param isAutomaticFailoverEnabled the value to set
          * @return this builder
@@ -518,15 +518,15 @@ public final class CatalogPeerWithDedicatedInfra
     }
 
     /**
-     * Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard
-     * Association
+     * This field is deprecated. Support for this field will be removed after one year of
+     * deprecation cycle.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("isAutomaticFailoverEnabled")
     private final Boolean isAutomaticFailoverEnabled;
 
     /**
-     * Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard
-     * Association
+     * This field is deprecated. Support for this field will be removed after one year of
+     * deprecation cycle.
      *
      * @return the value
      */

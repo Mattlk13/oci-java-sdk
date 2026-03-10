@@ -258,6 +258,51 @@ public class DistributedAutonomousDbServiceAsyncClient
     }
 
     @Override
+    public java.util.concurrent.Future<ConfigureDistributedAutonomousDatabaseGsmWalletResponse>
+            configureDistributedAutonomousDatabaseGsmWallet(
+                    ConfigureDistributedAutonomousDatabaseGsmWalletRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ConfigureDistributedAutonomousDatabaseGsmWalletRequest,
+                                    ConfigureDistributedAutonomousDatabaseGsmWalletResponse>
+                            handler) {
+        Objects.requireNonNull(
+                request.getConfigureDistributedAutonomousDatabaseGsmWalletDetails(),
+                "configureDistributedAutonomousDatabaseGsmWalletDetails is required");
+
+        Validate.notBlank(
+                request.getDistributedAutonomousDatabaseId(),
+                "distributedAutonomousDatabaseId must not be blank");
+
+        return clientCall(request, ConfigureDistributedAutonomousDatabaseGsmWalletResponse::builder)
+                .logger(LOG, "configureDistributedAutonomousDatabaseGsmWallet")
+                .serviceDetails(
+                        "DistributedAutonomousDbService",
+                        "ConfigureDistributedAutonomousDatabaseGsmWallet",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedAutonomousDatabase/ConfigureDistributedAutonomousDatabaseGsmWallet")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ConfigureDistributedAutonomousDatabaseGsmWalletRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedAutonomousDatabases")
+                .appendPathParam(request.getDistributedAutonomousDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("configureGsmWallet")
+                .accept("application/json")
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        ConfigureDistributedAutonomousDatabaseGsmWalletResponse.Builder
+                                ::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ConfigureDistributedAutonomousDatabaseGsmWalletResponse.Builder
+                                ::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<ConfigureDistributedAutonomousDatabaseGsmsResponse>
             configureDistributedAutonomousDatabaseGsms(
                     ConfigureDistributedAutonomousDatabaseGsmsRequest request,
@@ -328,6 +373,8 @@ public class DistributedAutonomousDbServiceAsyncClient
                 .appendPathParam("actions")
                 .appendPathParam("configureSharding")
                 .appendQueryParam("isRebalanceRequired", request.getIsRebalanceRequired())
+                .appendQueryParam("certificateId", request.getCertificateId())
+                .appendQueryParam("caBundleId", request.getCaBundleId())
                 .accept("application/json")
                 .appendHeader("opc-retry-token", request.getOpcRetryToken())
                 .appendHeader("opc-request-id", request.getOpcRequestId())
@@ -499,7 +546,6 @@ public class DistributedAutonomousDbServiceAsyncClient
         Validate.notBlank(
                 request.getDistributedAutonomousDatabaseId(),
                 "distributedAutonomousDatabaseId must not be blank");
-        Objects.requireNonNull(request.getCaBundleId(), "caBundleId is required");
 
         return clientCall(
                         request,
@@ -630,6 +676,44 @@ public class DistributedAutonomousDbServiceAsyncClient
     }
 
     @Override
+    public java.util.concurrent.Future<GetDistributedAutonomousDatabaseRaftMetricResponse>
+            getDistributedAutonomousDatabaseRaftMetric(
+                    GetDistributedAutonomousDatabaseRaftMetricRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    GetDistributedAutonomousDatabaseRaftMetricRequest,
+                                    GetDistributedAutonomousDatabaseRaftMetricResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedAutonomousDatabaseId(),
+                "distributedAutonomousDatabaseId must not be blank");
+
+        return clientCall(request, GetDistributedAutonomousDatabaseRaftMetricResponse::builder)
+                .logger(LOG, "getDistributedAutonomousDatabaseRaftMetric")
+                .serviceDetails(
+                        "DistributedAutonomousDbService",
+                        "GetDistributedAutonomousDatabaseRaftMetric",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedDatabase/GetDistributedAutonomousDatabaseRaftMetric")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetDistributedAutonomousDatabaseRaftMetricRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedAutonomousDatabases")
+                .appendPathParam(request.getDistributedAutonomousDatabaseId())
+                .appendPathParam("raftMetrics")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.distributeddatabase.model
+                                .DistributedAutonomousDatabaseRaftMetric.class,
+                        GetDistributedAutonomousDatabaseRaftMetricResponse.Builder
+                                ::distributedAutonomousDatabaseRaftMetric)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetDistributedAutonomousDatabaseRaftMetricResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDistributedAutonomousDatabasesResponse>
             listDistributedAutonomousDatabases(
                     ListDistributedAutonomousDatabasesRequest request,
@@ -650,6 +734,7 @@ public class DistributedAutonomousDbServiceAsyncClient
                 .basePath("/20250101")
                 .appendPathParam("distributedAutonomousDatabases")
                 .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("privateEndpointId", request.getPrivateEndpointId())
                 .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
                 .appendQueryParam("limit", request.getLimit())
                 .appendQueryParam("page", request.getPage())
@@ -671,6 +756,52 @@ public class DistributedAutonomousDbServiceAsyncClient
                 .handleResponseHeaderString(
                         "opc-next-page",
                         ListDistributedAutonomousDatabasesResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<MoveDistributedAutonomousDatabaseReplicationUnitResponse>
+            moveDistributedAutonomousDatabaseReplicationUnit(
+                    MoveDistributedAutonomousDatabaseReplicationUnitRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    MoveDistributedAutonomousDatabaseReplicationUnitRequest,
+                                    MoveDistributedAutonomousDatabaseReplicationUnitResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedAutonomousDatabaseId(),
+                "distributedAutonomousDatabaseId must not be blank");
+        Objects.requireNonNull(
+                request.getMoveDistributedAutonomousDatabaseReplicationUnitDetails(),
+                "moveDistributedAutonomousDatabaseReplicationUnitDetails is required");
+
+        return clientCall(
+                        request, MoveDistributedAutonomousDatabaseReplicationUnitResponse::builder)
+                .logger(LOG, "moveDistributedAutonomousDatabaseReplicationUnit")
+                .serviceDetails(
+                        "DistributedAutonomousDbService",
+                        "MoveDistributedAutonomousDatabaseReplicationUnit",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedAutonomousDatabase/MoveDistributedAutonomousDatabaseReplicationUnit")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(MoveDistributedAutonomousDatabaseReplicationUnitRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedAutonomousDatabases")
+                .appendPathParam(request.getDistributedAutonomousDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("moveReplicationUnit")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        MoveDistributedAutonomousDatabaseReplicationUnitResponse.Builder
+                                ::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        MoveDistributedAutonomousDatabaseReplicationUnitResponse.Builder
+                                ::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -712,6 +843,52 @@ public class DistributedAutonomousDbServiceAsyncClient
                 .handleResponseHeaderString(
                         "opc-request-id",
                         PatchDistributedAutonomousDatabaseResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RecreateFailedDistributedAutonomousDatabaseResourceResponse>
+            recreateFailedDistributedAutonomousDatabaseResource(
+                    RecreateFailedDistributedAutonomousDatabaseResourceRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    RecreateFailedDistributedAutonomousDatabaseResourceRequest,
+                                    RecreateFailedDistributedAutonomousDatabaseResourceResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedAutonomousDatabaseId(),
+                "distributedAutonomousDatabaseId must not be blank");
+        Objects.requireNonNull(request.getResourceName(), "resourceName is required");
+
+        return clientCall(
+                        request,
+                        RecreateFailedDistributedAutonomousDatabaseResourceResponse::builder)
+                .logger(LOG, "recreateFailedDistributedAutonomousDatabaseResource")
+                .serviceDetails(
+                        "DistributedAutonomousDbService",
+                        "RecreateFailedDistributedAutonomousDatabaseResource",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedAutonomousDatabase/RecreateFailedDistributedAutonomousDatabaseResource")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(RecreateFailedDistributedAutonomousDatabaseResourceRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedAutonomousDatabases")
+                .appendPathParam(request.getDistributedAutonomousDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("recreateFailedResource")
+                .appendQueryParam("resourceName", request.getResourceName())
+                .appendQueryParam("shardGroup", request.getShardGroup())
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        RecreateFailedDistributedAutonomousDatabaseResourceResponse.Builder
+                                ::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        RecreateFailedDistributedAutonomousDatabaseResourceResponse.Builder
+                                ::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -931,6 +1108,46 @@ public class DistributedAutonomousDbServiceAsyncClient
                         UploadDistributedAutonomousDatabaseSignedCertificateAndGenerateWalletResponse
                                         .Builder
                                 ::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ValidateDistributedAutonomousDatabaseCaBundleResponse>
+            validateDistributedAutonomousDatabaseCaBundle(
+                    ValidateDistributedAutonomousDatabaseCaBundleRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    ValidateDistributedAutonomousDatabaseCaBundleRequest,
+                                    ValidateDistributedAutonomousDatabaseCaBundleResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedAutonomousDatabaseId(),
+                "distributedAutonomousDatabaseId must not be blank");
+
+        return clientCall(request, ValidateDistributedAutonomousDatabaseCaBundleResponse::builder)
+                .logger(LOG, "validateDistributedAutonomousDatabaseCaBundle")
+                .serviceDetails(
+                        "DistributedAutonomousDbService",
+                        "ValidateDistributedAutonomousDatabaseCaBundle",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedAutonomousDatabase/ValidateDistributedAutonomousDatabaseCaBundle")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(ValidateDistributedAutonomousDatabaseCaBundleRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedAutonomousDatabases")
+                .appendPathParam(request.getDistributedAutonomousDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("validateCaBundle")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        ValidateDistributedAutonomousDatabaseCaBundleResponse.Builder
+                                ::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        ValidateDistributedAutonomousDatabaseCaBundleResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

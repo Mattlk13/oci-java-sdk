@@ -35,6 +35,7 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
         "timeUpdated",
         "lifecycleState",
         "isSingleHostSddc",
+        "sddcByolAllocationDetails",
         "freeformTags",
         "definedTags",
         "systemTags"
@@ -53,6 +54,7 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
             java.util.Date timeUpdated,
             LifecycleStates lifecycleState,
             Boolean isSingleHostSddc,
+            SddcByolAllocationDetails sddcByolAllocationDetails,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags,
             java.util.Map<String, java.util.Map<String, Object>> systemTags) {
@@ -70,6 +72,7 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
         this.timeUpdated = timeUpdated;
         this.lifecycleState = lifecycleState;
         this.isSingleHostSddc = isSingleHostSddc;
+        this.sddcByolAllocationDetails = sddcByolAllocationDetails;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
         this.systemTags = systemTags;
@@ -340,6 +343,16 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
             this.__explicitlySet__.add("isSingleHostSddc");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("sddcByolAllocationDetails")
+        private SddcByolAllocationDetails sddcByolAllocationDetails;
+
+        public Builder sddcByolAllocationDetails(
+                SddcByolAllocationDetails sddcByolAllocationDetails) {
+            this.sddcByolAllocationDetails = sddcByolAllocationDetails;
+            this.__explicitlySet__.add("sddcByolAllocationDetails");
+            return this;
+        }
         /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
@@ -430,6 +443,7 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
                             this.timeUpdated,
                             this.lifecycleState,
                             this.isSingleHostSddc,
+                            this.sddcByolAllocationDetails,
                             this.freeformTags,
                             this.definedTags,
                             this.systemTags);
@@ -479,6 +493,9 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("isSingleHostSddc")) {
                 this.isSingleHostSddc(model.getIsSingleHostSddc());
+            }
+            if (model.wasPropertyExplicitlySet("sddcByolAllocationDetails")) {
+                this.sddcByolAllocationDetails(model.getSddcByolAllocationDetails());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -737,6 +754,13 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
         return isSingleHostSddc;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("sddcByolAllocationDetails")
+    private final SddcByolAllocationDetails sddcByolAllocationDetails;
+
+    public SddcByolAllocationDetails getSddcByolAllocationDetails() {
+        return sddcByolAllocationDetails;
+    }
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
@@ -828,6 +852,8 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", timeUpdated=").append(String.valueOf(this.timeUpdated));
         sb.append(", lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(", isSingleHostSddc=").append(String.valueOf(this.isSingleHostSddc));
+        sb.append(", sddcByolAllocationDetails=")
+                .append(String.valueOf(this.sddcByolAllocationDetails));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(", systemTags=").append(String.valueOf(this.systemTags));
@@ -858,6 +884,8 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.timeUpdated, other.timeUpdated)
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.isSingleHostSddc, other.isSingleHostSddc)
+                && java.util.Objects.equals(
+                        this.sddcByolAllocationDetails, other.sddcByolAllocationDetails)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && java.util.Objects.equals(this.systemTags, other.systemTags)
@@ -895,6 +923,11 @@ public final class SddcSummary extends com.oracle.bmc.http.client.internal.Expli
         result =
                 (result * PRIME)
                         + (this.isSingleHostSddc == null ? 43 : this.isSingleHostSddc.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.sddcByolAllocationDetails == null
+                                ? 43
+                                : this.sddcByolAllocationDetails.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + (this.systemTags == null ? 43 : this.systemTags.hashCode());

@@ -29,6 +29,7 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
         "lifecycleState",
         "lifecycleDetails",
         "outboundIps",
+        "lastIpDrainPeriodInHours",
         "timeCreated",
         "timeUpdated",
         "freeformTags",
@@ -44,6 +45,7 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
             LifecycleState lifecycleState,
             String lifecycleDetails,
             java.util.List<EmailOutboundIpSummary> outboundIps,
+            Integer lastIpDrainPeriodInHours,
             java.util.Date timeCreated,
             java.util.Date timeUpdated,
             java.util.Map<String, String> freeformTags,
@@ -58,6 +60,7 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
         this.lifecycleState = lifecycleState;
         this.lifecycleDetails = lifecycleDetails;
         this.outboundIps = outboundIps;
+        this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
         this.timeCreated = timeCreated;
         this.timeUpdated = timeUpdated;
         this.freeformTags = freeformTags;
@@ -193,6 +196,25 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
         public Builder outboundIps(java.util.List<EmailOutboundIpSummary> outboundIps) {
             this.outboundIps = outboundIps;
             this.__explicitlySet__.add("outboundIps");
+            return this;
+        }
+        /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+        private Integer lastIpDrainPeriodInHours;
+
+        /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         *
+         * @param lastIpDrainPeriodInHours the value to set
+         * @return this builder
+         */
+        public Builder lastIpDrainPeriodInHours(Integer lastIpDrainPeriodInHours) {
+            this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
+            this.__explicitlySet__.add("lastIpDrainPeriodInHours");
             return this;
         }
         /**
@@ -338,6 +360,7 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
                             this.lifecycleState,
                             this.lifecycleDetails,
                             this.outboundIps,
+                            this.lastIpDrainPeriodInHours,
                             this.timeCreated,
                             this.timeUpdated,
                             this.freeformTags,
@@ -372,6 +395,9 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
             }
             if (model.wasPropertyExplicitlySet("outboundIps")) {
                 this.outboundIps(model.getOutboundIps());
+            }
+            if (model.wasPropertyExplicitlySet("lastIpDrainPeriodInHours")) {
+                this.lastIpDrainPeriodInHours(model.getLastIpDrainPeriodInHours());
             }
             if (model.wasPropertyExplicitlySet("timeCreated")) {
                 this.timeCreated(model.getTimeCreated());
@@ -567,6 +593,23 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
     }
 
     /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+    private final Integer lastIpDrainPeriodInHours;
+
+    /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     *
+     * @return the value
+     */
+    public Integer getLastIpDrainPeriodInHours() {
+        return lastIpDrainPeriodInHours;
+    }
+
+    /**
      * The time the IpPool was created. Times are expressed in [RFC
      * 3339](https://tools.ietf.org/html/rfc3339) timestamp format, "YYYY-MM-ddThh:mmZ".
      *
@@ -704,6 +747,8 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
         sb.append(", lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(", lifecycleDetails=").append(String.valueOf(this.lifecycleDetails));
         sb.append(", outboundIps=").append(String.valueOf(this.outboundIps));
+        sb.append(", lastIpDrainPeriodInHours=")
+                .append(String.valueOf(this.lastIpDrainPeriodInHours));
         sb.append(", timeCreated=").append(String.valueOf(this.timeCreated));
         sb.append(", timeUpdated=").append(String.valueOf(this.timeUpdated));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
@@ -731,6 +776,8 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.lifecycleDetails, other.lifecycleDetails)
                 && java.util.Objects.equals(this.outboundIps, other.outboundIps)
+                && java.util.Objects.equals(
+                        this.lastIpDrainPeriodInHours, other.lastIpDrainPeriodInHours)
                 && java.util.Objects.equals(this.timeCreated, other.timeCreated)
                 && java.util.Objects.equals(this.timeUpdated, other.timeUpdated)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
@@ -757,6 +804,11 @@ public final class EmailIpPool extends com.oracle.bmc.http.client.internal.Expli
                 (result * PRIME)
                         + (this.lifecycleDetails == null ? 43 : this.lifecycleDetails.hashCode());
         result = (result * PRIME) + (this.outboundIps == null ? 43 : this.outboundIps.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.lastIpDrainPeriodInHours == null
+                                ? 43
+                                : this.lastIpDrainPeriodInHours.hashCode());
         result = (result * PRIME) + (this.timeCreated == null ? 43 : this.timeCreated.hashCode());
         result = (result * PRIME) + (this.timeUpdated == null ? 43 : this.timeUpdated.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());

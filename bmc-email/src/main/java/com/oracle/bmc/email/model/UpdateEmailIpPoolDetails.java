@@ -23,13 +23,20 @@ package com.oracle.bmc.email.model;
 public final class UpdateEmailIpPoolDetails
         extends com.oracle.bmc.http.client.internal.ExplicitlySetBmcModel {
     @Deprecated
-    @java.beans.ConstructorProperties({"description", "freeformTags", "definedTags"})
+    @java.beans.ConstructorProperties({
+        "description",
+        "lastIpDrainPeriodInHours",
+        "freeformTags",
+        "definedTags"
+    })
     public UpdateEmailIpPoolDetails(
             String description,
+            Integer lastIpDrainPeriodInHours,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
         this.description = description;
+        this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -49,6 +56,25 @@ public final class UpdateEmailIpPoolDetails
         public Builder description(String description) {
             this.description = description;
             this.__explicitlySet__.add("description");
+            return this;
+        }
+        /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+        private Integer lastIpDrainPeriodInHours;
+
+        /**
+         * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified
+         * by this parameter. Default is 24 hours.
+         *
+         * @param lastIpDrainPeriodInHours the value to set
+         * @return this builder
+         */
+        public Builder lastIpDrainPeriodInHours(Integer lastIpDrainPeriodInHours) {
+            this.lastIpDrainPeriodInHours = lastIpDrainPeriodInHours;
+            this.__explicitlySet__.add("lastIpDrainPeriodInHours");
             return this;
         }
         /**
@@ -109,7 +135,10 @@ public final class UpdateEmailIpPoolDetails
         public UpdateEmailIpPoolDetails build() {
             UpdateEmailIpPoolDetails model =
                     new UpdateEmailIpPoolDetails(
-                            this.description, this.freeformTags, this.definedTags);
+                            this.description,
+                            this.lastIpDrainPeriodInHours,
+                            this.freeformTags,
+                            this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -120,6 +149,9 @@ public final class UpdateEmailIpPoolDetails
         public Builder copy(UpdateEmailIpPoolDetails model) {
             if (model.wasPropertyExplicitlySet("description")) {
                 this.description(model.getDescription());
+            }
+            if (model.wasPropertyExplicitlySet("lastIpDrainPeriodInHours")) {
+                this.lastIpDrainPeriodInHours(model.getLastIpDrainPeriodInHours());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -151,6 +183,23 @@ public final class UpdateEmailIpPoolDetails
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("lastIpDrainPeriodInHours")
+    private final Integer lastIpDrainPeriodInHours;
+
+    /**
+     * Last IP will be unassigned from the IP Pool after the period of time (in hours) specified by
+     * this parameter. Default is 24 hours.
+     *
+     * @return the value
+     */
+    public Integer getLastIpDrainPeriodInHours() {
+        return lastIpDrainPeriodInHours;
     }
 
     /**
@@ -215,6 +264,8 @@ public final class UpdateEmailIpPoolDetails
         sb.append("UpdateEmailIpPoolDetails(");
         sb.append("super=").append(super.toString());
         sb.append("description=").append(String.valueOf(this.description));
+        sb.append(", lastIpDrainPeriodInHours=")
+                .append(String.valueOf(this.lastIpDrainPeriodInHours));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -232,6 +283,8 @@ public final class UpdateEmailIpPoolDetails
 
         UpdateEmailIpPoolDetails other = (UpdateEmailIpPoolDetails) o;
         return java.util.Objects.equals(this.description, other.description)
+                && java.util.Objects.equals(
+                        this.lastIpDrainPeriodInHours, other.lastIpDrainPeriodInHours)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -242,6 +295,11 @@ public final class UpdateEmailIpPoolDetails
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.description == null ? 43 : this.description.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.lastIpDrainPeriodInHours == null
+                                ? 43
+                                : this.lastIpDrainPeriodInHours.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

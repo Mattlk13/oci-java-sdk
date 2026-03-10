@@ -208,16 +208,16 @@ public final class DistributedDatabasePrivateEndpoint
             return this;
         }
         /**
-         * The details of the non-deleted Globally distributed databases that consumes the given
-         * private endpoint.
+         * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+         * 00:00:00 GMT.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("globallyDistributedDatabases")
         private java.util.List<DistributedDatabaseAssociatedWithPrivateEndpoint>
                 globallyDistributedDatabases;
 
         /**
-         * The details of the non-deleted Globally distributed databases that consumes the given
-         * private endpoint.
+         * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+         * 00:00:00 GMT.
          *
          * @param globallyDistributedDatabases the value to set
          * @return this builder
@@ -230,16 +230,16 @@ public final class DistributedDatabasePrivateEndpoint
             return this;
         }
         /**
-         * The details of the non-deleted Globally distributed autonomous databases that consumes
-         * the given private endpoint.
+         * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+         * 00:00:00 GMT.
          */
         @com.fasterxml.jackson.annotation.JsonProperty("globallyDistributedAutonomousDatabases")
         private java.util.List<DistributedAutonomousDatabaseAssociatedWithPrivateEndpoint>
                 globallyDistributedAutonomousDatabases;
 
         /**
-         * The details of the non-deleted Globally distributed autonomous databases that consumes
-         * the given private endpoint.
+         * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+         * 00:00:00 GMT.
          *
          * @param globallyDistributedAutonomousDatabases the value to set
          * @return this builder
@@ -594,16 +594,16 @@ public final class DistributedDatabasePrivateEndpoint
     }
 
     /**
-     * The details of the non-deleted Globally distributed databases that consumes the given private
-     * endpoint.
+     * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+     * 00:00:00 GMT.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("globallyDistributedDatabases")
     private final java.util.List<DistributedDatabaseAssociatedWithPrivateEndpoint>
             globallyDistributedDatabases;
 
     /**
-     * The details of the non-deleted Globally distributed databases that consumes the given private
-     * endpoint.
+     * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+     * 00:00:00 GMT.
      *
      * @return the value
      */
@@ -613,16 +613,16 @@ public final class DistributedDatabasePrivateEndpoint
     }
 
     /**
-     * The details of the non-deleted Globally distributed autonomous databases that consumes the
-     * given private endpoint.
+     * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+     * 00:00:00 GMT.
      */
     @com.fasterxml.jackson.annotation.JsonProperty("globallyDistributedAutonomousDatabases")
     private final java.util.List<DistributedAutonomousDatabaseAssociatedWithPrivateEndpoint>
             globallyDistributedAutonomousDatabases;
 
     /**
-     * The details of the non-deleted Globally distributed autonomous databases that consumes the
-     * given private endpoint.
+     * This field is deprecated. Support for this field will be removed after Mon, 1 Mar 2027
+     * 00:00:00 GMT.
      *
      * @return the value
      */

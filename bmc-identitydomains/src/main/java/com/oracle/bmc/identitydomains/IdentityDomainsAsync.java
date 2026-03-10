@@ -284,6 +284,42 @@ public interface IdentityDomainsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<CreateGroupRequest, CreateGroupResponse> handler);
 
     /**
+     * Create an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateIdentityProofingProviderResponse>
+            createIdentityProofingProvider(
+                    CreateIdentityProofingProviderRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    CreateIdentityProofingProviderRequest,
+                                    CreateIdentityProofingProviderResponse>
+                            handler);
+
+    /**
+     * Create an Identity Proofing Provider Configuration template.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateIdentityProofingProviderTemplateResponse>
+            createIdentityProofingProviderTemplate(
+                    CreateIdentityProofingProviderTemplateRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    CreateIdentityProofingProviderTemplateRequest,
+                                    CreateIdentityProofingProviderTemplateResponse>
+                            handler);
+
+    /**
      * Register a new Identity Propagation Trust configuration.
      *
      * @param request The request object containing the details to send
@@ -742,6 +778,22 @@ public interface IdentityDomainsAsync extends AutoCloseable {
                     handler);
 
     /**
+     * Create Verification Claims of IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<CreateVerificationClaimResponse> createVerificationClaim(
+            CreateVerificationClaimRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            CreateVerificationClaimRequest, CreateVerificationClaimResponse>
+                    handler);
+
+    /**
      * Delete a user's API key.
      *
      * @param request The request object containing the details to send
@@ -971,6 +1023,42 @@ public interface IdentityDomainsAsync extends AutoCloseable {
     java.util.concurrent.Future<DeleteGroupResponse> deleteGroup(
             DeleteGroupRequest request,
             com.oracle.bmc.responses.AsyncHandler<DeleteGroupRequest, DeleteGroupResponse> handler);
+
+    /**
+     * Delete an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteIdentityProofingProviderResponse>
+            deleteIdentityProofingProvider(
+                    DeleteIdentityProofingProviderRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteIdentityProofingProviderRequest,
+                                    DeleteIdentityProofingProviderResponse>
+                            handler);
+
+    /**
+     * Delete an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<DeleteIdentityProofingProviderTemplateResponse>
+            deleteIdentityProofingProviderTemplate(
+                    DeleteIdentityProofingProviderTemplateRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    DeleteIdentityProofingProviderTemplateRequest,
+                                    DeleteIdentityProofingProviderTemplateResponse>
+                            handler);
 
     /**
      * Delete an existing Identity Propagation Trust configuration.
@@ -1656,6 +1744,40 @@ public interface IdentityDomainsAsync extends AutoCloseable {
     java.util.concurrent.Future<GetGroupResponse> getGroup(
             GetGroupRequest request,
             com.oracle.bmc.responses.AsyncHandler<GetGroupRequest, GetGroupResponse> handler);
+
+    /**
+     * Get an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetIdentityProofingProviderResponse> getIdentityProofingProvider(
+            GetIdentityProofingProviderRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            GetIdentityProofingProviderRequest, GetIdentityProofingProviderResponse>
+                    handler);
+
+    /**
+     * Get Identity Proofing Provider Configuration template.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetIdentityProofingProviderTemplateResponse>
+            getIdentityProofingProviderTemplate(
+                    GetIdentityProofingProviderTemplateRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetIdentityProofingProviderTemplateRequest,
+                                    GetIdentityProofingProviderTemplateResponse>
+                            handler);
 
     /**
      * Get an existing Identity Propagation Trust configuration.
@@ -2531,6 +2653,42 @@ public interface IdentityDomainsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<ListGroupsRequest, ListGroupsResponse> handler);
 
     /**
+     * Search Identity Proofing Provider Configuration templates..
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListIdentityProofingProviderTemplatesResponse>
+            listIdentityProofingProviderTemplates(
+                    ListIdentityProofingProviderTemplatesRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListIdentityProofingProviderTemplatesRequest,
+                                    ListIdentityProofingProviderTemplatesResponse>
+                            handler);
+
+    /**
+     * Search IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ListIdentityProofingProvidersResponse>
+            listIdentityProofingProviders(
+                    ListIdentityProofingProvidersRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ListIdentityProofingProvidersRequest,
+                                    ListIdentityProofingProvidersResponse>
+                            handler);
+
+    /**
      * List the Identity Propagation Trust configurations.
      *
      * @param request The request object containing the details to send
@@ -3394,6 +3552,42 @@ public interface IdentityDomainsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<PatchGroupRequest, PatchGroupResponse> handler);
 
     /**
+     * Update an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PatchIdentityProofingProviderResponse>
+            patchIdentityProofingProvider(
+                    PatchIdentityProofingProviderRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    PatchIdentityProofingProviderRequest,
+                                    PatchIdentityProofingProviderResponse>
+                            handler);
+
+    /**
+     * Update an Identity Proofing Provider Configuration template.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PatchIdentityProofingProviderTemplateResponse>
+            patchIdentityProofingProviderTemplate(
+                    PatchIdentityProofingProviderTemplateRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    PatchIdentityProofingProviderTemplateRequest,
+                                    PatchIdentityProofingProviderTemplateResponse>
+                            handler);
+
+    /**
      * Update an existing Identity Propagation Trust configuration.
      *
      * @param request The request object containing the details to send
@@ -4004,6 +4198,40 @@ public interface IdentityDomainsAsync extends AutoCloseable {
             com.oracle.bmc.responses.AsyncHandler<PutGroupRequest, PutGroupResponse> handler);
 
     /**
+     * Replace an IdentityProofingProvider.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PutIdentityProofingProviderResponse> putIdentityProofingProvider(
+            PutIdentityProofingProviderRequest request,
+            com.oracle.bmc.responses.AsyncHandler<
+                            PutIdentityProofingProviderRequest, PutIdentityProofingProviderResponse>
+                    handler);
+
+    /**
+     * Replace an Identity Proofing Provider Configuration template.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<PutIdentityProofingProviderTemplateResponse>
+            putIdentityProofingProviderTemplate(
+                    PutIdentityProofingProviderTemplateRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    PutIdentityProofingProviderTemplateRequest,
+                                    PutIdentityProofingProviderTemplateResponse>
+                            handler);
+
+    /**
      * Replace an existing Identity Propagation Trust configuration.
      *
      * @param request The request object containing the details to send
@@ -4558,6 +4786,24 @@ public interface IdentityDomainsAsync extends AutoCloseable {
             SearchGroupsRequest request,
             com.oracle.bmc.responses.AsyncHandler<SearchGroupsRequest, SearchGroupsResponse>
                     handler);
+
+    /**
+     * Search IdentityProofingProvider Using POST.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<SearchIdentityProofingProvidersResponse>
+            searchIdentityProofingProviders(
+                    SearchIdentityProofingProvidersRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    SearchIdentityProofingProvidersRequest,
+                                    SearchIdentityProofingProvidersResponse>
+                            handler);
 
     /**
      * Search Identity Providers Using POST

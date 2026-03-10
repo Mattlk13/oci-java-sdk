@@ -295,6 +295,40 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
             this.__explicitlySet__.add("peerDetails");
             return this;
         }
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * key store used to create the shard.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("okvKeyStoreId")
+        private String okvKeyStoreId;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * key store used to create the shard.
+         *
+         * @param okvKeyStoreId the value to set
+         * @return this builder
+         */
+        public Builder okvKeyStoreId(String okvKeyStoreId) {
+            this.okvKeyStoreId = okvKeyStoreId;
+            this.__explicitlySet__.add("okvKeyStoreId");
+            return this;
+        }
+        /** The OKV endpoint name. */
+        @com.fasterxml.jackson.annotation.JsonProperty("okvEndPointGroup")
+        private String okvEndPointGroup;
+
+        /**
+         * The OKV endpoint name.
+         *
+         * @param okvEndPointGroup the value to set
+         * @return this builder
+         */
+        public Builder okvEndPointGroup(String okvEndPointGroup) {
+            this.okvEndPointGroup = okvEndPointGroup;
+            this.__explicitlySet__.add("okvEndPointGroup");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonProperty("metadata")
         private DistributedAutonomousDbMetadata metadata;
@@ -328,6 +362,8 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
                             this.supportingResourceId,
                             this.containerDatabaseId,
                             this.peerDetails,
+                            this.okvKeyStoreId,
+                            this.okvEndPointGroup,
                             this.metadata);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
@@ -388,6 +424,12 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
             if (model.wasPropertyExplicitlySet("peerDetails")) {
                 this.peerDetails(model.getPeerDetails());
             }
+            if (model.wasPropertyExplicitlySet("okvKeyStoreId")) {
+                this.okvKeyStoreId(model.getOkvKeyStoreId());
+            }
+            if (model.wasPropertyExplicitlySet("okvEndPointGroup")) {
+                this.okvEndPointGroup(model.getOkvEndPointGroup());
+            }
             if (model.wasPropertyExplicitlySet("metadata")) {
                 this.metadata(model.getMetadata());
             }
@@ -423,6 +465,8 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
             String supportingResourceId,
             String containerDatabaseId,
             java.util.List<ShardPeerWithDedicatedInfra> peerDetails,
+            String okvKeyStoreId,
+            String okvEndPointGroup,
             DistributedAutonomousDbMetadata metadata) {
         super(name, timeCreated, timeUpdated);
         this.computeCount = computeCount;
@@ -439,6 +483,8 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
         this.supportingResourceId = supportingResourceId;
         this.containerDatabaseId = containerDatabaseId;
         this.peerDetails = peerDetails;
+        this.okvKeyStoreId = okvKeyStoreId;
+        this.okvEndPointGroup = okvEndPointGroup;
         this.metadata = metadata;
     }
 
@@ -709,6 +755,36 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
         return peerDetails;
     }
 
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the key
+     * store used to create the shard.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("okvKeyStoreId")
+    private final String okvKeyStoreId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the key
+     * store used to create the shard.
+     *
+     * @return the value
+     */
+    public String getOkvKeyStoreId() {
+        return okvKeyStoreId;
+    }
+
+    /** The OKV endpoint name. */
+    @com.fasterxml.jackson.annotation.JsonProperty("okvEndPointGroup")
+    private final String okvEndPointGroup;
+
+    /**
+     * The OKV endpoint name.
+     *
+     * @return the value
+     */
+    public String getOkvEndPointGroup() {
+        return okvEndPointGroup;
+    }
+
     @com.fasterxml.jackson.annotation.JsonProperty("metadata")
     private final DistributedAutonomousDbMetadata metadata;
 
@@ -747,6 +823,8 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
         sb.append(", supportingResourceId=").append(String.valueOf(this.supportingResourceId));
         sb.append(", containerDatabaseId=").append(String.valueOf(this.containerDatabaseId));
         sb.append(", peerDetails=").append(String.valueOf(this.peerDetails));
+        sb.append(", okvKeyStoreId=").append(String.valueOf(this.okvKeyStoreId));
+        sb.append(", okvEndPointGroup=").append(String.valueOf(this.okvEndPointGroup));
         sb.append(", metadata=").append(String.valueOf(this.metadata));
         sb.append(")");
         return sb.toString();
@@ -779,6 +857,8 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
                 && java.util.Objects.equals(this.supportingResourceId, other.supportingResourceId)
                 && java.util.Objects.equals(this.containerDatabaseId, other.containerDatabaseId)
                 && java.util.Objects.equals(this.peerDetails, other.peerDetails)
+                && java.util.Objects.equals(this.okvKeyStoreId, other.okvKeyStoreId)
+                && java.util.Objects.equals(this.okvEndPointGroup, other.okvEndPointGroup)
                 && java.util.Objects.equals(this.metadata, other.metadata)
                 && super.equals(other);
     }
@@ -827,6 +907,12 @@ public final class DistributedAutonomousDatabaseShardWithDedicatedInfra
                                 ? 43
                                 : this.containerDatabaseId.hashCode());
         result = (result * PRIME) + (this.peerDetails == null ? 43 : this.peerDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.okvKeyStoreId == null ? 43 : this.okvKeyStoreId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.okvEndPointGroup == null ? 43 : this.okvEndPointGroup.hashCode());
         result = (result * PRIME) + (this.metadata == null ? 43 : this.metadata.hashCode());
         return result;
     }

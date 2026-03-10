@@ -384,6 +384,7 @@ public class DistributedDbServiceAsyncClient extends com.oracle.bmc.http.interna
                 .basePath("/20250101")
                 .appendPathParam("distributedDatabases")
                 .appendPathParam(request.getDistributedDatabaseId())
+                .appendQueryParam("mustDeleteInfra", request.getMustDeleteInfra())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
                 .appendHeader("opc-retry-token", request.getOpcRetryToken())
@@ -583,6 +584,43 @@ public class DistributedDbServiceAsyncClient extends com.oracle.bmc.http.interna
     }
 
     @Override
+    public java.util.concurrent.Future<GetDistributedDatabaseRaftMetricResponse>
+            getDistributedDatabaseRaftMetric(
+                    GetDistributedDatabaseRaftMetricRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    GetDistributedDatabaseRaftMetricRequest,
+                                    GetDistributedDatabaseRaftMetricResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedDatabaseId(), "distributedDatabaseId must not be blank");
+
+        return clientCall(request, GetDistributedDatabaseRaftMetricResponse::builder)
+                .logger(LOG, "getDistributedDatabaseRaftMetric")
+                .serviceDetails(
+                        "DistributedDbService",
+                        "GetDistributedDatabaseRaftMetric",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedDatabase/GetDistributedDatabaseRaftMetric")
+                .method(com.oracle.bmc.http.client.Method.GET)
+                .requestBuilder(GetDistributedDatabaseRaftMetricRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedDatabases")
+                .appendPathParam(request.getDistributedDatabaseId())
+                .appendPathParam("raftMetrics")
+                .accept("application/json")
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleBody(
+                        com.oracle.bmc.distributeddatabase.model.DistributedDatabaseRaftMetric
+                                .class,
+                        GetDistributedDatabaseRaftMetricResponse.Builder
+                                ::distributedDatabaseRaftMetric)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        GetDistributedDatabaseRaftMetricResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDistributedDatabasesResponse> listDistributedDatabases(
             ListDistributedDatabasesRequest request,
             final com.oracle.bmc.responses.AsyncHandler<
@@ -601,6 +639,7 @@ public class DistributedDbServiceAsyncClient extends com.oracle.bmc.http.interna
                 .basePath("/20250101")
                 .appendPathParam("distributedDatabases")
                 .appendQueryParam("compartmentId", request.getCompartmentId())
+                .appendQueryParam("privateEndpointId", request.getPrivateEndpointId())
                 .appendEnumQueryParam("lifecycleState", request.getLifecycleState())
                 .appendQueryParam("limit", request.getLimit())
                 .appendQueryParam("page", request.getPage())
@@ -619,6 +658,48 @@ public class DistributedDbServiceAsyncClient extends com.oracle.bmc.http.interna
                         "opc-request-id", ListDistributedDatabasesResponse.Builder::opcRequestId)
                 .handleResponseHeaderString(
                         "opc-next-page", ListDistributedDatabasesResponse.Builder::opcNextPage)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<MoveDistributedDatabaseReplicationUnitResponse>
+            moveDistributedDatabaseReplicationUnit(
+                    MoveDistributedDatabaseReplicationUnitRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    MoveDistributedDatabaseReplicationUnitRequest,
+                                    MoveDistributedDatabaseReplicationUnitResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedDatabaseId(), "distributedDatabaseId must not be blank");
+        Objects.requireNonNull(
+                request.getMoveDistributedDatabaseReplicationUnitDetails(),
+                "moveDistributedDatabaseReplicationUnitDetails is required");
+
+        return clientCall(request, MoveDistributedDatabaseReplicationUnitResponse::builder)
+                .logger(LOG, "moveDistributedDatabaseReplicationUnit")
+                .serviceDetails(
+                        "DistributedDbService",
+                        "MoveDistributedDatabaseReplicationUnit",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedDatabase/MoveDistributedDatabaseReplicationUnit")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(MoveDistributedDatabaseReplicationUnitRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedDatabases")
+                .appendPathParam(request.getDistributedDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("moveReplicationUnit")
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .hasBody()
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        MoveDistributedDatabaseReplicationUnitResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        MoveDistributedDatabaseReplicationUnitResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 
@@ -656,6 +737,47 @@ public class DistributedDbServiceAsyncClient extends com.oracle.bmc.http.interna
                         PatchDistributedDatabaseResponse.Builder::opcWorkRequestId)
                 .handleResponseHeaderString(
                         "opc-request-id", PatchDistributedDatabaseResponse.Builder::opcRequestId)
+                .callAsync(handler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RecreateFailedDistributedDatabaseResourceResponse>
+            recreateFailedDistributedDatabaseResource(
+                    RecreateFailedDistributedDatabaseResourceRequest request,
+                    final com.oracle.bmc.responses.AsyncHandler<
+                                    RecreateFailedDistributedDatabaseResourceRequest,
+                                    RecreateFailedDistributedDatabaseResourceResponse>
+                            handler) {
+
+        Validate.notBlank(
+                request.getDistributedDatabaseId(), "distributedDatabaseId must not be blank");
+        Objects.requireNonNull(request.getResourceName(), "resourceName is required");
+
+        return clientCall(request, RecreateFailedDistributedDatabaseResourceResponse::builder)
+                .logger(LOG, "recreateFailedDistributedDatabaseResource")
+                .serviceDetails(
+                        "DistributedDbService",
+                        "RecreateFailedDistributedDatabaseResource",
+                        "https://docs.oracle.com/iaas/api/#/en/globally-distributed-database/20250101/DistributedDatabase/RecreateFailedDistributedDatabaseResource")
+                .method(com.oracle.bmc.http.client.Method.POST)
+                .requestBuilder(RecreateFailedDistributedDatabaseResourceRequest::builder)
+                .basePath("/20250101")
+                .appendPathParam("distributedDatabases")
+                .appendPathParam(request.getDistributedDatabaseId())
+                .appendPathParam("actions")
+                .appendPathParam("recreateFailedResource")
+                .appendQueryParam("resourceName", request.getResourceName())
+                .appendQueryParam("shardGroup", request.getShardGroup())
+                .accept("application/json")
+                .appendHeader("if-match", request.getIfMatch())
+                .appendHeader("opc-retry-token", request.getOpcRetryToken())
+                .appendHeader("opc-request-id", request.getOpcRequestId())
+                .handleResponseHeaderString(
+                        "opc-work-request-id",
+                        RecreateFailedDistributedDatabaseResourceResponse.Builder::opcWorkRequestId)
+                .handleResponseHeaderString(
+                        "opc-request-id",
+                        RecreateFailedDistributedDatabaseResourceResponse.Builder::opcRequestId)
                 .callAsync(handler);
     }
 

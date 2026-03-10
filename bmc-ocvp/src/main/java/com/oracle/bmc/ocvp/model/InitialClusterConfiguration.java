@@ -37,7 +37,9 @@ public final class InitialClusterConfiguration
         "isShieldedInstanceEnabled",
         "capacityReservationId",
         "datastores",
-        "datastoreClusterIds"
+        "datastoreClusterIds",
+        "clusterByolAllocationDetails",
+        "initialVcfByolAllocationId"
     })
     public InitialClusterConfiguration(
             VsphereTypes vsphereType,
@@ -53,7 +55,9 @@ public final class InitialClusterConfiguration
             Boolean isShieldedInstanceEnabled,
             String capacityReservationId,
             java.util.List<DatastoreInfo> datastores,
-            java.util.List<String> datastoreClusterIds) {
+            java.util.List<String> datastoreClusterIds,
+            ClusterByolAllocationDetails clusterByolAllocationDetails,
+            String initialVcfByolAllocationId) {
         super();
         this.vsphereType = vsphereType;
         this.computeAvailabilityDomain = computeAvailabilityDomain;
@@ -69,6 +73,8 @@ public final class InitialClusterConfiguration
         this.capacityReservationId = capacityReservationId;
         this.datastores = datastores;
         this.datastoreClusterIds = datastoreClusterIds;
+        this.clusterByolAllocationDetails = clusterByolAllocationDetails;
+        this.initialVcfByolAllocationId = initialVcfByolAllocationId;
     }
 
     @com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder(withPrefix = "")
@@ -332,6 +338,35 @@ public final class InitialClusterConfiguration
             return this;
         }
 
+        @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+        private ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+        public Builder clusterByolAllocationDetails(
+                ClusterByolAllocationDetails clusterByolAllocationDetails) {
+            this.clusterByolAllocationDetails = clusterByolAllocationDetails;
+            this.__explicitlySet__.add("clusterByolAllocationDetails");
+            return this;
+        }
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("initialVcfByolAllocationId")
+        private String initialVcfByolAllocationId;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+         *
+         * @param initialVcfByolAllocationId the value to set
+         * @return this builder
+         */
+        public Builder initialVcfByolAllocationId(String initialVcfByolAllocationId) {
+            this.initialVcfByolAllocationId = initialVcfByolAllocationId;
+            this.__explicitlySet__.add("initialVcfByolAllocationId");
+            return this;
+        }
+
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
 
@@ -351,7 +386,9 @@ public final class InitialClusterConfiguration
                             this.isShieldedInstanceEnabled,
                             this.capacityReservationId,
                             this.datastores,
-                            this.datastoreClusterIds);
+                            this.datastoreClusterIds,
+                            this.clusterByolAllocationDetails,
+                            this.initialVcfByolAllocationId);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -401,6 +438,12 @@ public final class InitialClusterConfiguration
             }
             if (model.wasPropertyExplicitlySet("datastoreClusterIds")) {
                 this.datastoreClusterIds(model.getDatastoreClusterIds());
+            }
+            if (model.wasPropertyExplicitlySet("clusterByolAllocationDetails")) {
+                this.clusterByolAllocationDetails(model.getClusterByolAllocationDetails());
+            }
+            if (model.wasPropertyExplicitlySet("initialVcfByolAllocationId")) {
+                this.initialVcfByolAllocationId(model.getInitialVcfByolAllocationId());
             }
             return this;
         }
@@ -645,6 +688,30 @@ public final class InitialClusterConfiguration
         return datastoreClusterIds;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+    private final ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+    public ClusterByolAllocationDetails getClusterByolAllocationDetails() {
+        return clusterByolAllocationDetails;
+    }
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("initialVcfByolAllocationId")
+    private final String initialVcfByolAllocationId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+     *
+     * @return the value
+     */
+    public String getInitialVcfByolAllocationId() {
+        return initialVcfByolAllocationId;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -677,6 +744,10 @@ public final class InitialClusterConfiguration
         sb.append(", capacityReservationId=").append(String.valueOf(this.capacityReservationId));
         sb.append(", datastores=").append(String.valueOf(this.datastores));
         sb.append(", datastoreClusterIds=").append(String.valueOf(this.datastoreClusterIds));
+        sb.append(", clusterByolAllocationDetails=")
+                .append(String.valueOf(this.clusterByolAllocationDetails));
+        sb.append(", initialVcfByolAllocationId=")
+                .append(String.valueOf(this.initialVcfByolAllocationId));
         sb.append(")");
         return sb.toString();
     }
@@ -708,6 +779,10 @@ public final class InitialClusterConfiguration
                 && java.util.Objects.equals(this.capacityReservationId, other.capacityReservationId)
                 && java.util.Objects.equals(this.datastores, other.datastores)
                 && java.util.Objects.equals(this.datastoreClusterIds, other.datastoreClusterIds)
+                && java.util.Objects.equals(
+                        this.clusterByolAllocationDetails, other.clusterByolAllocationDetails)
+                && java.util.Objects.equals(
+                        this.initialVcfByolAllocationId, other.initialVcfByolAllocationId)
                 && super.equals(other);
     }
 
@@ -769,6 +844,16 @@ public final class InitialClusterConfiguration
                         + (this.datastoreClusterIds == null
                                 ? 43
                                 : this.datastoreClusterIds.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.clusterByolAllocationDetails == null
+                                ? 43
+                                : this.clusterByolAllocationDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.initialVcfByolAllocationId == null
+                                ? 43
+                                : this.initialVcfByolAllocationId.hashCode());
         result = (result * PRIME) + super.hashCode();
         return result;
     }

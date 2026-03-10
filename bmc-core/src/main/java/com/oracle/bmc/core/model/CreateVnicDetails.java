@@ -39,6 +39,7 @@ public final class CreateVnicDetails
         "subnetCidr",
         "nsgIds",
         "privateIp",
+        "privateIpId",
         "skipSourceDestCheck",
         "subnetId",
         "vlanId"
@@ -57,6 +58,7 @@ public final class CreateVnicDetails
             String subnetCidr,
             java.util.List<String> nsgIds,
             String privateIp,
+            String privateIpId,
             Boolean skipSourceDestCheck,
             String subnetId,
             String vlanId) {
@@ -73,6 +75,7 @@ public final class CreateVnicDetails
         this.subnetCidr = subnetCidr;
         this.nsgIds = nsgIds;
         this.privateIp = privateIp;
+        this.privateIpId = privateIpId;
         this.skipSourceDestCheck = skipSourceDestCheck;
         this.subnetId = subnetId;
         this.vlanId = vlanId;
@@ -437,6 +440,8 @@ public final class CreateVnicDetails
          * <p>If you specify a {@code vlanId}, the {@code privateIp} cannot be specified. See {@link
          * Vlan}.
          *
+         * <p>If you specify a 'privateIpId', the 'privateIp' cannot be specified.
+         *
          * <p>Example: {@code 10.0.3.3}
          */
         @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
@@ -453,6 +458,8 @@ public final class CreateVnicDetails
          * <p>If you specify a {@code vlanId}, the {@code privateIp} cannot be specified. See {@link
          * Vlan}.
          *
+         * <p>If you specify a 'privateIpId', the 'privateIp' cannot be specified.
+         *
          * <p>Example: {@code 10.0.3.3}
          *
          * @param privateIp the value to set
@@ -461,6 +468,25 @@ public final class CreateVnicDetails
         public Builder privateIp(String privateIp) {
             this.privateIp = privateIp;
             this.__explicitlySet__.add("privateIp");
+            return this;
+        }
+        /**
+         * An [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that
+         * specifies a previously-reserved IP address to use for this VNIC.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("privateIpId")
+        private String privateIpId;
+
+        /**
+         * An [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that
+         * specifies a previously-reserved IP address to use for this VNIC.
+         *
+         * @param privateIpId the value to set
+         * @return this builder
+         */
+        public Builder privateIpId(String privateIpId) {
+            this.privateIpId = privateIpId;
+            this.__explicitlySet__.add("privateIpId");
             return this;
         }
         /**
@@ -579,6 +605,7 @@ public final class CreateVnicDetails
                             this.subnetCidr,
                             this.nsgIds,
                             this.privateIp,
+                            this.privateIpId,
                             this.skipSourceDestCheck,
                             this.subnetId,
                             this.vlanId);
@@ -626,6 +653,9 @@ public final class CreateVnicDetails
             }
             if (model.wasPropertyExplicitlySet("privateIp")) {
                 this.privateIp(model.getPrivateIp());
+            }
+            if (model.wasPropertyExplicitlySet("privateIpId")) {
+                this.privateIpId(model.getPrivateIpId());
             }
             if (model.wasPropertyExplicitlySet("skipSourceDestCheck")) {
                 this.skipSourceDestCheck(model.getSkipSourceDestCheck());
@@ -975,6 +1005,8 @@ public final class CreateVnicDetails
      * <p>If you specify a {@code vlanId}, the {@code privateIp} cannot be specified. See {@link
      * Vlan}.
      *
+     * <p>If you specify a 'privateIpId', the 'privateIp' cannot be specified.
+     *
      * <p>Example: {@code 10.0.3.3}
      */
     @com.fasterxml.jackson.annotation.JsonProperty("privateIp")
@@ -991,12 +1023,31 @@ public final class CreateVnicDetails
      * <p>If you specify a {@code vlanId}, the {@code privateIp} cannot be specified. See {@link
      * Vlan}.
      *
+     * <p>If you specify a 'privateIpId', the 'privateIp' cannot be specified.
+     *
      * <p>Example: {@code 10.0.3.3}
      *
      * @return the value
      */
     public String getPrivateIp() {
         return privateIp;
+    }
+
+    /**
+     * An [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that
+     * specifies a previously-reserved IP address to use for this VNIC.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("privateIpId")
+    private final String privateIpId;
+
+    /**
+     * An [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that
+     * specifies a previously-reserved IP address to use for this VNIC.
+     *
+     * @return the value
+     */
+    public String getPrivateIpId() {
+        return privateIpId;
     }
 
     /**
@@ -1118,6 +1169,7 @@ public final class CreateVnicDetails
         sb.append(", subnetCidr=").append(String.valueOf(this.subnetCidr));
         sb.append(", nsgIds=").append(String.valueOf(this.nsgIds));
         sb.append(", privateIp=").append(String.valueOf(this.privateIp));
+        sb.append(", privateIpId=").append(String.valueOf(this.privateIpId));
         sb.append(", skipSourceDestCheck=").append(String.valueOf(this.skipSourceDestCheck));
         sb.append(", subnetId=").append(String.valueOf(this.subnetId));
         sb.append(", vlanId=").append(String.valueOf(this.vlanId));
@@ -1150,6 +1202,7 @@ public final class CreateVnicDetails
                 && java.util.Objects.equals(this.subnetCidr, other.subnetCidr)
                 && java.util.Objects.equals(this.nsgIds, other.nsgIds)
                 && java.util.Objects.equals(this.privateIp, other.privateIp)
+                && java.util.Objects.equals(this.privateIpId, other.privateIpId)
                 && java.util.Objects.equals(this.skipSourceDestCheck, other.skipSourceDestCheck)
                 && java.util.Objects.equals(this.subnetId, other.subnetId)
                 && java.util.Objects.equals(this.vlanId, other.vlanId)
@@ -1188,6 +1241,7 @@ public final class CreateVnicDetails
         result = (result * PRIME) + (this.subnetCidr == null ? 43 : this.subnetCidr.hashCode());
         result = (result * PRIME) + (this.nsgIds == null ? 43 : this.nsgIds.hashCode());
         result = (result * PRIME) + (this.privateIp == null ? 43 : this.privateIp.hashCode());
+        result = (result * PRIME) + (this.privateIpId == null ? 43 : this.privateIpId.hashCode());
         result =
                 (result * PRIME)
                         + (this.skipSourceDestCheck == null

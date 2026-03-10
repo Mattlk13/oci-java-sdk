@@ -42,6 +42,10 @@ public enum OperationType implements com.oracle.bmc.http.internal.BmcEnum {
     ChangeDistributedDbBackupConfig("CHANGE_DISTRIBUTED_DB_BACKUP_CONFIG"),
     AddDistributedDbDg("ADD_DISTRIBUTED_DB_DG"),
     RemoveDistributedDbDg("REMOVE_DISTRIBUTED_DB_DG"),
+    ConfigureDistributedDbGsmsWallet("CONFIGURE_DISTRIBUTED_DB_GSMS_WALLET"),
+    ValidateCaBundle("VALIDATE_CA_BUNDLE"),
+    RecreateFailedResource("RECREATE_FAILED_RESOURCE"),
+    MoveReplicationUnits("MOVE_REPLICATION_UNITS"),
 
     /**
      * This value is used if a service returns a value for this enum that is not recognized by this

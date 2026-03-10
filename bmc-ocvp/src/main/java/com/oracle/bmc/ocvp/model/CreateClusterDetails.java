@@ -40,6 +40,8 @@ public final class CreateClusterDetails
         "datastoreClusterIds",
         "vmwareSoftwareVersion",
         "esxiSoftwareVersion",
+        "clusterByolAllocationDetails",
+        "initialVcfByolAllocationId",
         "freeformTags",
         "definedTags"
     })
@@ -60,6 +62,8 @@ public final class CreateClusterDetails
             java.util.List<String> datastoreClusterIds,
             String vmwareSoftwareVersion,
             String esxiSoftwareVersion,
+            ClusterByolAllocationDetails clusterByolAllocationDetails,
+            String initialVcfByolAllocationId,
             java.util.Map<String, String> freeformTags,
             java.util.Map<String, java.util.Map<String, Object>> definedTags) {
         super();
@@ -79,6 +83,8 @@ public final class CreateClusterDetails
         this.datastoreClusterIds = datastoreClusterIds;
         this.vmwareSoftwareVersion = vmwareSoftwareVersion;
         this.esxiSoftwareVersion = esxiSoftwareVersion;
+        this.clusterByolAllocationDetails = clusterByolAllocationDetails;
+        this.initialVcfByolAllocationId = initialVcfByolAllocationId;
         this.freeformTags = freeformTags;
         this.definedTags = definedTags;
     }
@@ -395,6 +401,35 @@ public final class CreateClusterDetails
             this.__explicitlySet__.add("esxiSoftwareVersion");
             return this;
         }
+
+        @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+        private ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+        public Builder clusterByolAllocationDetails(
+                ClusterByolAllocationDetails clusterByolAllocationDetails) {
+            this.clusterByolAllocationDetails = clusterByolAllocationDetails;
+            this.__explicitlySet__.add("clusterByolAllocationDetails");
+            return this;
+        }
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("initialVcfByolAllocationId")
+        private String initialVcfByolAllocationId;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+         *
+         * @param initialVcfByolAllocationId the value to set
+         * @return this builder
+         */
+        public Builder initialVcfByolAllocationId(String initialVcfByolAllocationId) {
+            this.initialVcfByolAllocationId = initialVcfByolAllocationId;
+            this.__explicitlySet__.add("initialVcfByolAllocationId");
+            return this;
+        }
         /**
          * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
          * name, type, or namespace. For more information, see [Resource
@@ -469,6 +504,8 @@ public final class CreateClusterDetails
                             this.datastoreClusterIds,
                             this.vmwareSoftwareVersion,
                             this.esxiSoftwareVersion,
+                            this.clusterByolAllocationDetails,
+                            this.initialVcfByolAllocationId,
                             this.freeformTags,
                             this.definedTags);
             for (String explicitlySetProperty : this.__explicitlySet__) {
@@ -526,6 +563,12 @@ public final class CreateClusterDetails
             }
             if (model.wasPropertyExplicitlySet("esxiSoftwareVersion")) {
                 this.esxiSoftwareVersion(model.getEsxiSoftwareVersion());
+            }
+            if (model.wasPropertyExplicitlySet("clusterByolAllocationDetails")) {
+                this.clusterByolAllocationDetails(model.getClusterByolAllocationDetails());
+            }
+            if (model.wasPropertyExplicitlySet("initialVcfByolAllocationId")) {
+                this.initialVcfByolAllocationId(model.getInitialVcfByolAllocationId());
             }
             if (model.wasPropertyExplicitlySet("freeformTags")) {
                 this.freeformTags(model.getFreeformTags());
@@ -824,6 +867,30 @@ public final class CreateClusterDetails
         return esxiSoftwareVersion;
     }
 
+    @com.fasterxml.jackson.annotation.JsonProperty("clusterByolAllocationDetails")
+    private final ClusterByolAllocationDetails clusterByolAllocationDetails;
+
+    public ClusterByolAllocationDetails getClusterByolAllocationDetails() {
+        return clusterByolAllocationDetails;
+    }
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("initialVcfByolAllocationId")
+    private final String initialVcfByolAllocationId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+     * initial VMware BYOL Allocation used to deploy VMware Cloud Foundation.
+     *
+     * @return the value
+     */
+    public String getInitialVcfByolAllocationId() {
+        return initialVcfByolAllocationId;
+    }
+
     /**
      * Free-form tags for this resource. Each tag is a simple key-value pair with no predefined
      * name, type, or namespace. For more information, see [Resource
@@ -904,6 +971,10 @@ public final class CreateClusterDetails
         sb.append(", datastoreClusterIds=").append(String.valueOf(this.datastoreClusterIds));
         sb.append(", vmwareSoftwareVersion=").append(String.valueOf(this.vmwareSoftwareVersion));
         sb.append(", esxiSoftwareVersion=").append(String.valueOf(this.esxiSoftwareVersion));
+        sb.append(", clusterByolAllocationDetails=")
+                .append(String.valueOf(this.clusterByolAllocationDetails));
+        sb.append(", initialVcfByolAllocationId=")
+                .append(String.valueOf(this.initialVcfByolAllocationId));
         sb.append(", freeformTags=").append(String.valueOf(this.freeformTags));
         sb.append(", definedTags=").append(String.valueOf(this.definedTags));
         sb.append(")");
@@ -939,6 +1010,10 @@ public final class CreateClusterDetails
                 && java.util.Objects.equals(this.datastoreClusterIds, other.datastoreClusterIds)
                 && java.util.Objects.equals(this.vmwareSoftwareVersion, other.vmwareSoftwareVersion)
                 && java.util.Objects.equals(this.esxiSoftwareVersion, other.esxiSoftwareVersion)
+                && java.util.Objects.equals(
+                        this.clusterByolAllocationDetails, other.clusterByolAllocationDetails)
+                && java.util.Objects.equals(
+                        this.initialVcfByolAllocationId, other.initialVcfByolAllocationId)
                 && java.util.Objects.equals(this.freeformTags, other.freeformTags)
                 && java.util.Objects.equals(this.definedTags, other.definedTags)
                 && super.equals(other);
@@ -1012,6 +1087,16 @@ public final class CreateClusterDetails
                         + (this.esxiSoftwareVersion == null
                                 ? 43
                                 : this.esxiSoftwareVersion.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.clusterByolAllocationDetails == null
+                                ? 43
+                                : this.clusterByolAllocationDetails.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.initialVcfByolAllocationId == null
+                                ? 43
+                                : this.initialVcfByolAllocationId.hashCode());
         result = (result * PRIME) + (this.freeformTags == null ? 43 : this.freeformTags.hashCode());
         result = (result * PRIME) + (this.definedTags == null ? 43 : this.definedTags.hashCode());
         result = (result * PRIME) + super.hashCode();

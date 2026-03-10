@@ -1310,6 +1310,8 @@ public class EmailAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncClie
                 .appendPathParam("errors")
                 .appendQueryParam("page", request.getPage())
                 .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
                 .handleBody(
@@ -1345,6 +1347,8 @@ public class EmailAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncClie
                 .appendPathParam("logs")
                 .appendQueryParam("page", request.getPage())
                 .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
                 .handleBody(
@@ -1379,6 +1383,10 @@ public class EmailAsyncClient extends com.oracle.bmc.http.internal.BaseAsyncClie
                 .appendQueryParam("workRequestId", request.getWorkRequestId())
                 .appendQueryParam("page", request.getPage())
                 .appendQueryParam("limit", request.getLimit())
+                .appendEnumQueryParam("status", request.getStatus())
+                .appendEnumQueryParam("sortBy", request.getSortBy())
+                .appendEnumQueryParam("sortOrder", request.getSortOrder())
+                .appendEnumQueryParam("operationType", request.getOperationType())
                 .accept("application/json")
                 .appendHeader("opc-request-id", request.getOpcRequestId())
                 .handleBody(

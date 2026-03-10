@@ -22,6 +22,13 @@ public class ListDistributedAutonomousDatabasesRequest
     public String getCompartmentId() {
         return compartmentId;
     }
+    /** A filter to return only resources that are associated with the given privateEndpointId. */
+    private String privateEndpointId;
+
+    /** A filter to return only resources that are associated with the given privateEndpointId. */
+    public String getPrivateEndpointId() {
+        return privateEndpointId;
+    }
     /** A filter to return only resources their lifecycleState matches the given lifecycleState. */
     private com.oracle.bmc.distributeddatabase.model.DistributedAutonomousDatabase.LifecycleState
             lifecycleState;
@@ -166,6 +173,22 @@ public class ListDistributedAutonomousDatabasesRequest
          */
         public Builder compartmentId(String compartmentId) {
             this.compartmentId = compartmentId;
+            return this;
+        }
+
+        /**
+         * A filter to return only resources that are associated with the given privateEndpointId.
+         */
+        private String privateEndpointId = null;
+
+        /**
+         * A filter to return only resources that are associated with the given privateEndpointId.
+         *
+         * @param privateEndpointId the value to set
+         * @return this builder instance
+         */
+        public Builder privateEndpointId(String privateEndpointId) {
+            this.privateEndpointId = privateEndpointId;
             return this;
         }
 
@@ -356,6 +379,7 @@ public class ListDistributedAutonomousDatabasesRequest
          */
         public Builder copy(ListDistributedAutonomousDatabasesRequest o) {
             compartmentId(o.getCompartmentId());
+            privateEndpointId(o.getPrivateEndpointId());
             lifecycleState(o.getLifecycleState());
             limit(o.getLimit());
             page(o.getPage());
@@ -403,6 +427,7 @@ public class ListDistributedAutonomousDatabasesRequest
             ListDistributedAutonomousDatabasesRequest request =
                     new ListDistributedAutonomousDatabasesRequest();
             request.compartmentId = compartmentId;
+            request.privateEndpointId = privateEndpointId;
             request.lifecycleState = lifecycleState;
             request.limit = limit;
             request.page = page;
@@ -413,8 +438,9 @@ public class ListDistributedAutonomousDatabasesRequest
             request.dbDeploymentType = dbDeploymentType;
             request.metadata = metadata;
             return request;
-            // new ListDistributedAutonomousDatabasesRequest(compartmentId, lifecycleState, limit,
-            // page, sortOrder, sortBy, opcRequestId, displayName, dbDeploymentType, metadata);
+            // new ListDistributedAutonomousDatabasesRequest(compartmentId, privateEndpointId,
+            // lifecycleState, limit, page, sortOrder, sortBy, opcRequestId, displayName,
+            // dbDeploymentType, metadata);
         }
     }
 
@@ -426,6 +452,7 @@ public class ListDistributedAutonomousDatabasesRequest
     public Builder toBuilder() {
         return new Builder()
                 .compartmentId(compartmentId)
+                .privateEndpointId(privateEndpointId)
                 .lifecycleState(lifecycleState)
                 .limit(limit)
                 .page(page)
@@ -452,6 +479,7 @@ public class ListDistributedAutonomousDatabasesRequest
         sb.append("(");
         sb.append("super=").append(super.toString());
         sb.append(",compartmentId=").append(String.valueOf(this.compartmentId));
+        sb.append(",privateEndpointId=").append(String.valueOf(this.privateEndpointId));
         sb.append(",lifecycleState=").append(String.valueOf(this.lifecycleState));
         sb.append(",limit=").append(String.valueOf(this.limit));
         sb.append(",page=").append(String.valueOf(this.page));
@@ -478,6 +506,7 @@ public class ListDistributedAutonomousDatabasesRequest
                 (ListDistributedAutonomousDatabasesRequest) o;
         return super.equals(o)
                 && java.util.Objects.equals(this.compartmentId, other.compartmentId)
+                && java.util.Objects.equals(this.privateEndpointId, other.privateEndpointId)
                 && java.util.Objects.equals(this.lifecycleState, other.lifecycleState)
                 && java.util.Objects.equals(this.limit, other.limit)
                 && java.util.Objects.equals(this.page, other.page)
@@ -496,6 +525,9 @@ public class ListDistributedAutonomousDatabasesRequest
         result =
                 (result * PRIME)
                         + (this.compartmentId == null ? 43 : this.compartmentId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.privateEndpointId == null ? 43 : this.privateEndpointId.hashCode());
         result =
                 (result * PRIME)
                         + (this.lifecycleState == null ? 43 : this.lifecycleState.hashCode());

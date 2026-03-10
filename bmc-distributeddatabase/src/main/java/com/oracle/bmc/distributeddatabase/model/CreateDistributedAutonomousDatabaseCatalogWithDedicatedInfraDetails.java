@@ -210,6 +210,40 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
             this.__explicitlySet__.add("kmsKeyVersionId");
             return this;
         }
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * key store used to create the catalog.
+         */
+        @com.fasterxml.jackson.annotation.JsonProperty("okvKeyStoreId")
+        private String okvKeyStoreId;
+
+        /**
+         * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
+         * key store used to create the catalog.
+         *
+         * @param okvKeyStoreId the value to set
+         * @return this builder
+         */
+        public Builder okvKeyStoreId(String okvKeyStoreId) {
+            this.okvKeyStoreId = okvKeyStoreId;
+            this.__explicitlySet__.add("okvKeyStoreId");
+            return this;
+        }
+        /** The OKV endpoint name. */
+        @com.fasterxml.jackson.annotation.JsonProperty("okvEndPointGroup")
+        private String okvEndPointGroup;
+
+        /**
+         * The OKV endpoint name.
+         *
+         * @param okvEndPointGroup the value to set
+         * @return this builder
+         */
+        public Builder okvEndPointGroup(String okvEndPointGroup) {
+            this.okvEndPointGroup = okvEndPointGroup;
+            this.__explicitlySet__.add("okvEndPointGroup");
+            return this;
+        }
 
         @com.fasterxml.jackson.annotation.JsonIgnore
         private final java.util.Set<String> __explicitlySet__ = new java.util.HashSet<String>();
@@ -226,7 +260,9 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
                             this.peerDetails,
                             this.vaultId,
                             this.kmsKeyId,
-                            this.kmsKeyVersionId);
+                            this.kmsKeyVersionId,
+                            this.okvKeyStoreId,
+                            this.okvEndPointGroup);
             for (String explicitlySetProperty : this.__explicitlySet__) {
                 model.markPropertyAsExplicitlySet(explicitlySetProperty);
             }
@@ -266,6 +302,12 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
             if (model.wasPropertyExplicitlySet("kmsKeyVersionId")) {
                 this.kmsKeyVersionId(model.getKmsKeyVersionId());
             }
+            if (model.wasPropertyExplicitlySet("okvKeyStoreId")) {
+                this.okvKeyStoreId(model.getOkvKeyStoreId());
+            }
+            if (model.wasPropertyExplicitlySet("okvEndPointGroup")) {
+                this.okvEndPointGroup(model.getOkvEndPointGroup());
+            }
             return this;
         }
     }
@@ -290,7 +332,9 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
             java.util.List<CreateCatalogPeerWithDedicatedInfraDetails> peerDetails,
             String vaultId,
             String kmsKeyId,
-            String kmsKeyVersionId) {
+            String kmsKeyVersionId,
+            String okvKeyStoreId,
+            String okvEndPointGroup) {
         super();
         this.adminPassword = adminPassword;
         this.computeCount = computeCount;
@@ -302,6 +346,8 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
         this.vaultId = vaultId;
         this.kmsKeyId = kmsKeyId;
         this.kmsKeyVersionId = kmsKeyVersionId;
+        this.okvKeyStoreId = okvKeyStoreId;
+        this.okvEndPointGroup = okvEndPointGroup;
     }
 
     /** Admin password for catalog database. */
@@ -464,6 +510,36 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
         return kmsKeyVersionId;
     }
 
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the key
+     * store used to create the catalog.
+     */
+    @com.fasterxml.jackson.annotation.JsonProperty("okvKeyStoreId")
+    private final String okvKeyStoreId;
+
+    /**
+     * The [OCID](https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the key
+     * store used to create the catalog.
+     *
+     * @return the value
+     */
+    public String getOkvKeyStoreId() {
+        return okvKeyStoreId;
+    }
+
+    /** The OKV endpoint name. */
+    @com.fasterxml.jackson.annotation.JsonProperty("okvEndPointGroup")
+    private final String okvEndPointGroup;
+
+    /**
+     * The OKV endpoint name.
+     *
+     * @return the value
+     */
+    public String getOkvEndPointGroup() {
+        return okvEndPointGroup;
+    }
+
     @Override
     public String toString() {
         return this.toString(true);
@@ -491,6 +567,8 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
         sb.append(", vaultId=").append(String.valueOf(this.vaultId));
         sb.append(", kmsKeyId=").append(String.valueOf(this.kmsKeyId));
         sb.append(", kmsKeyVersionId=").append(String.valueOf(this.kmsKeyVersionId));
+        sb.append(", okvKeyStoreId=").append(String.valueOf(this.okvKeyStoreId));
+        sb.append(", okvEndPointGroup=").append(String.valueOf(this.okvEndPointGroup));
         sb.append(")");
         return sb.toString();
     }
@@ -518,6 +596,8 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
                 && java.util.Objects.equals(this.vaultId, other.vaultId)
                 && java.util.Objects.equals(this.kmsKeyId, other.kmsKeyId)
                 && java.util.Objects.equals(this.kmsKeyVersionId, other.kmsKeyVersionId)
+                && java.util.Objects.equals(this.okvKeyStoreId, other.okvKeyStoreId)
+                && java.util.Objects.equals(this.okvEndPointGroup, other.okvEndPointGroup)
                 && super.equals(other);
     }
 
@@ -555,6 +635,12 @@ public final class CreateDistributedAutonomousDatabaseCatalogWithDedicatedInfraD
         result =
                 (result * PRIME)
                         + (this.kmsKeyVersionId == null ? 43 : this.kmsKeyVersionId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.okvKeyStoreId == null ? 43 : this.okvKeyStoreId.hashCode());
+        result =
+                (result * PRIME)
+                        + (this.okvEndPointGroup == null ? 43 : this.okvEndPointGroup.hashCode());
         return result;
     }
 }

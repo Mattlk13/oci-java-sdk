@@ -119,6 +119,25 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Configure wallets on Global Service Manager(GSM) instances for a Globally distributed
+     * autonomous database.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ConfigureDistributedAutonomousDatabaseGsmWalletResponse>
+            configureDistributedAutonomousDatabaseGsmWallet(
+                    ConfigureDistributedAutonomousDatabaseGsmWalletRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ConfigureDistributedAutonomousDatabaseGsmWalletRequest,
+                                    ConfigureDistributedAutonomousDatabaseGsmWalletResponse>
+                            handler);
+
+    /**
      * Configure new Global Service Manager(GSM aka shard manager) instances for the Globally
      * distributed autonomous database.
      *
@@ -138,13 +157,12 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                             handler);
 
     /**
-     * Once all components of Globally distributed autonomous database are provisioned, and signed
-     * GSM certificates are successfully uploaded, this api shall be invoked to configure sharding
-     * on the Globally distributed autonomous database. Note that this 'ConfigureSharding' API also
-     * needs to be invoked after successfully adding a new shard to the Globally distributed
-     * autonomous database using PATCH api. If this API is not invoked after successfully adding a
-     * new shard, then that new shard will not be a participant in sharding topology of the Globally
-     * distributed autonomous database.
+     * Once all components of Globally distributed autonomous database are provisioned, this api
+     * shall be invoked to configure sharding on the Globally distributed autonomous database. Note
+     * that this 'ConfigureSharding' API also needs to be invoked after successfully adding a new
+     * shard to the Globally distributed autonomous database using PATCH api. If this API is not
+     * invoked after successfully adding a new shard, then that new shard will not be a participant
+     * in sharding topology of the Globally distributed autonomous database.
      *
      * @param request The request object containing the details to send
      * @param handler The request handler to invoke upon completion, may be null.
@@ -281,6 +299,26 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                             handler);
 
     /**
+     * Operation to retrieve RAFT metrics for the Globally distributed autonomous database. If the
+     * Globally distributed autonomous database is not RAFT based then empty response is returned
+     * from the API.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<GetDistributedAutonomousDatabaseRaftMetricResponse>
+            getDistributedAutonomousDatabaseRaftMetric(
+                    GetDistributedAutonomousDatabaseRaftMetricRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    GetDistributedAutonomousDatabaseRaftMetricRequest,
+                                    GetDistributedAutonomousDatabaseRaftMetricResponse>
+                            handler);
+
+    /**
      * List of Globally distributed autonomous databases.
      *
      * @param request The request object containing the details to send
@@ -296,6 +334,25 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                     com.oracle.bmc.responses.AsyncHandler<
                                     ListDistributedAutonomousDatabasesRequest,
                                     ListDistributedAutonomousDatabasesResponse>
+                            handler);
+
+    /**
+     * Move the replication units for RAFT based globally distributed autonomous database from
+     * source shard to destination shard.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<MoveDistributedAutonomousDatabaseReplicationUnitResponse>
+            moveDistributedAutonomousDatabaseReplicationUnit(
+                    MoveDistributedAutonomousDatabaseReplicationUnitRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    MoveDistributedAutonomousDatabaseReplicationUnitRequest,
+                                    MoveDistributedAutonomousDatabaseReplicationUnitResponse>
                             handler);
 
     /**
@@ -316,6 +373,24 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                     com.oracle.bmc.responses.AsyncHandler<
                                     PatchDistributedAutonomousDatabaseRequest,
                                     PatchDistributedAutonomousDatabaseResponse>
+                            handler);
+
+    /**
+     * Recreate the failed resource for the Globally Distributed Autonomous Database.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<RecreateFailedDistributedAutonomousDatabaseResourceResponse>
+            recreateFailedDistributedAutonomousDatabaseResource(
+                    RecreateFailedDistributedAutonomousDatabaseResourceRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    RecreateFailedDistributedAutonomousDatabaseResourceRequest,
+                                    RecreateFailedDistributedAutonomousDatabaseResourceResponse>
                             handler);
 
     /**
@@ -411,6 +486,24 @@ public interface DistributedAutonomousDbServiceAsync extends AutoCloseable {
                     com.oracle.bmc.responses.AsyncHandler<
                                     UploadDistributedAutonomousDatabaseSignedCertificateAndGenerateWalletRequest,
                                     UploadDistributedAutonomousDatabaseSignedCertificateAndGenerateWalletResponse>
+                            handler);
+
+    /**
+     * Validate the CA Bundles consistency of the globally distributed autonomous database.
+     *
+     * @param request The request object containing the details to send
+     * @param handler The request handler to invoke upon completion, may be null.
+     * @return A Future that can be used to get the response if no AsyncHandler was provided. Note,
+     *     if you provide an AsyncHandler and use the Future, some types of responses (like
+     *     java.io.InputStream) may not be able to be read in both places as the underlying stream
+     *     may only be consumed once.
+     */
+    java.util.concurrent.Future<ValidateDistributedAutonomousDatabaseCaBundleResponse>
+            validateDistributedAutonomousDatabaseCaBundle(
+                    ValidateDistributedAutonomousDatabaseCaBundleRequest request,
+                    com.oracle.bmc.responses.AsyncHandler<
+                                    ValidateDistributedAutonomousDatabaseCaBundleRequest,
+                                    ValidateDistributedAutonomousDatabaseCaBundleResponse>
                             handler);
 
     /**

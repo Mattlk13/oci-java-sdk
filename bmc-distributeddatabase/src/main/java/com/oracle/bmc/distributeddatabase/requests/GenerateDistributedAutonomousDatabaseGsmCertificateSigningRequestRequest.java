@@ -22,13 +22,6 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
     public String getDistributedAutonomousDatabaseId() {
         return distributedAutonomousDatabaseId;
     }
-    /** The ID of the Ca Bundle. */
-    private String caBundleId;
-
-    /** The ID of the Ca Bundle. */
-    public String getCaBundleId() {
-        return caBundleId;
-    }
     /** The client request ID for tracing. */
     private String opcRequestId;
 
@@ -72,6 +65,13 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
     public String getOpcRetryToken() {
         return opcRetryToken;
     }
+    /** The ID of the Ca Bundle. */
+    private String caBundleId;
+
+    /** The ID of the Ca Bundle. */
+    public String getCaBundleId() {
+        return caBundleId;
+    }
 
     public static class Builder
             implements com.oracle.bmc.requests.BmcRequest.Builder<
@@ -91,20 +91,6 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
          */
         public Builder distributedAutonomousDatabaseId(String distributedAutonomousDatabaseId) {
             this.distributedAutonomousDatabaseId = distributedAutonomousDatabaseId;
-            return this;
-        }
-
-        /** The ID of the Ca Bundle. */
-        private String caBundleId = null;
-
-        /**
-         * The ID of the Ca Bundle.
-         *
-         * @param caBundleId the value to set
-         * @return this builder instance
-         */
-        public Builder caBundleId(String caBundleId) {
-            this.caBundleId = caBundleId;
             return this;
         }
 
@@ -168,6 +154,20 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
             return this;
         }
 
+        /** The ID of the Ca Bundle. */
+        private String caBundleId = null;
+
+        /**
+         * The ID of the Ca Bundle.
+         *
+         * @param caBundleId the value to set
+         * @return this builder instance
+         */
+        public Builder caBundleId(String caBundleId) {
+            this.caBundleId = caBundleId;
+            return this;
+        }
+
         /**
          * Set the invocation callback for the request to be built.
          *
@@ -200,10 +200,10 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
         public Builder copy(
                 GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRequest o) {
             distributedAutonomousDatabaseId(o.getDistributedAutonomousDatabaseId());
-            caBundleId(o.getCaBundleId());
             opcRequestId(o.getOpcRequestId());
             ifMatch(o.getIfMatch());
             opcRetryToken(o.getOpcRetryToken());
+            caBundleId(o.getCaBundleId());
             invocationCallback(o.getInvocationCallback());
             retryConfiguration(o.getRetryConfiguration());
             return this;
@@ -248,13 +248,13 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
             GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRequest request =
                     new GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRequest();
             request.distributedAutonomousDatabaseId = distributedAutonomousDatabaseId;
-            request.caBundleId = caBundleId;
             request.opcRequestId = opcRequestId;
             request.ifMatch = ifMatch;
             request.opcRetryToken = opcRetryToken;
+            request.caBundleId = caBundleId;
             return request;
             // new
-            // GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRequest(distributedAutonomousDatabaseId, caBundleId, opcRequestId, ifMatch, opcRetryToken);
+            // GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRequest(distributedAutonomousDatabaseId, opcRequestId, ifMatch, opcRetryToken, caBundleId);
         }
     }
 
@@ -266,10 +266,10 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
     public Builder toBuilder() {
         return new Builder()
                 .distributedAutonomousDatabaseId(distributedAutonomousDatabaseId)
-                .caBundleId(caBundleId)
                 .opcRequestId(opcRequestId)
                 .ifMatch(ifMatch)
-                .opcRetryToken(opcRetryToken);
+                .opcRetryToken(opcRetryToken)
+                .caBundleId(caBundleId);
     }
 
     /**
@@ -288,10 +288,10 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
         sb.append("super=").append(super.toString());
         sb.append(",distributedAutonomousDatabaseId=")
                 .append(String.valueOf(this.distributedAutonomousDatabaseId));
-        sb.append(",caBundleId=").append(String.valueOf(this.caBundleId));
         sb.append(",opcRequestId=").append(String.valueOf(this.opcRequestId));
         sb.append(",ifMatch=").append(String.valueOf(this.ifMatch));
         sb.append(",opcRetryToken=").append(String.valueOf(this.opcRetryToken));
+        sb.append(",caBundleId=").append(String.valueOf(this.caBundleId));
         sb.append(")");
         return sb.toString();
     }
@@ -312,10 +312,10 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
         return super.equals(o)
                 && java.util.Objects.equals(
                         this.distributedAutonomousDatabaseId, other.distributedAutonomousDatabaseId)
-                && java.util.Objects.equals(this.caBundleId, other.caBundleId)
                 && java.util.Objects.equals(this.opcRequestId, other.opcRequestId)
                 && java.util.Objects.equals(this.ifMatch, other.ifMatch)
-                && java.util.Objects.equals(this.opcRetryToken, other.opcRetryToken);
+                && java.util.Objects.equals(this.opcRetryToken, other.opcRetryToken)
+                && java.util.Objects.equals(this.caBundleId, other.caBundleId);
     }
 
     @Override
@@ -327,12 +327,12 @@ public class GenerateDistributedAutonomousDatabaseGsmCertificateSigningRequestRe
                         + (this.distributedAutonomousDatabaseId == null
                                 ? 43
                                 : this.distributedAutonomousDatabaseId.hashCode());
-        result = (result * PRIME) + (this.caBundleId == null ? 43 : this.caBundleId.hashCode());
         result = (result * PRIME) + (this.opcRequestId == null ? 43 : this.opcRequestId.hashCode());
         result = (result * PRIME) + (this.ifMatch == null ? 43 : this.ifMatch.hashCode());
         result =
                 (result * PRIME)
                         + (this.opcRetryToken == null ? 43 : this.opcRetryToken.hashCode());
+        result = (result * PRIME) + (this.caBundleId == null ? 43 : this.caBundleId.hashCode());
         return result;
     }
 }
